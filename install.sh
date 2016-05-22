@@ -22,14 +22,21 @@ if [ "$(uname)" == "Darwin" ]; then
     mv /usr/local/etc/nginx/nginx.conf /usr/local/etc/nginx/nginx.original
     ln -s ~/.dotfiles/nginx/nginx.conf /usr/local/etc/nginx/nginx.conf
     # symlink the code.dev from dotfiles
-    ln -s ~/.dotfiles/nginx/code.dev /usr/local/etc/nginx/sites-enabled/code.dev
+    if [ ! -d /usr/local/etc/nginx/sites-enabled ]; then
+      mkdir /usr/local/etc/nginx/sites-enabled
+    fi
+    ln -s ~/.dotfiles/nginx/sites-availible/code.dev /usr/local/etc/nginx/sites-enabled/code.dev
 fi
 
 echo "creating vim directories"
 mkdir -p ~/.vim-tmp
 
+printf "💡 ${YELLOW}Remember to install the vim pligins!${NORMAL} vim +PlugInstall!\n"
 
 echo "Configuring zsh as default shell"
 chsh -s $(which zsh)
+
+YELLOW="$(tput setaf 3)"
+NORMAL="$(tput sgr0)"
 
 echo "Done."

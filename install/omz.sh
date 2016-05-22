@@ -34,7 +34,7 @@ main() {
   CHECK_ZSH_INSTALLED=$(grep /zsh$ /etc/shells | wc -l)
   if [ ! $CHECK_ZSH_INSTALLED -ge 1 ]; then
     printf "${YELLOW}Zsh is not installed!${NORMAL} Please install zsh first!\n"
-    exit
+    return 0
   fi
   unset CHECK_ZSH_INSTALLED
 
@@ -45,7 +45,7 @@ main() {
   if [ -d "$ZSH" ]; then
     printf "${YELLOW}You already have Oh My Zsh installed.${NORMAL}\n"
     printf "You'll need to remove $ZSH if you want to re-install.\n"
-    exit
+    return 0
   fi
 
   # Prevent the cloned repository from having insecure permissions. Failing to do
@@ -58,11 +58,11 @@ main() {
   printf "${BLUE}Cloning Oh My Zsh...${NORMAL}\n"
   hash git >/dev/null 2>&1 || {
     printf "Error: git is not installed"
-    exit 1
+    return 0
   }
   env git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git $ZSH || {
     printf "Error: git clone of oh-my-zsh repo failed\n"
-    exit 1
+    return 0
   }
   
   printf "${BLUE}Download honukai theme.${NORMAL}\n"
@@ -73,29 +73,9 @@ main() {
     if git --version | grep msysgit > /dev/null; then
       printf "Error: Windows/MSYS Git is not supported on Cygwin"
       printf "Error: Make sure the Cygwin git package is installed and is first on the path"
-      exit 1
+      return 0
     fi
   fi
-
-  # printf "${BLUE}Looking for an existing zsh config...${NORMAL}\n"
-  # if [ -f ~/.zshrc ] || [ -h ~/.zshrc ]; then
-  #   printf "${YELLOW}Found ~/.zshrc.${NORMAL} ${GREEN}Backing up to ~/.zshrc.pre-oh-my-zsh${NORMAL}\n";
-  #   mv ~/.zshrc ~/.zshrc.pre-oh-my-zsh;
-  # fi
-
-  # printf "${BLUE}Using the Oh My Zsh template file and adding it to ~/.zshrc${NORMAL}\n"
-  # cp $ZSH/templates/zshrc.zsh-template ~/.zshrc
-  # sed "/^export ZSH=/ c\\
-  # export ZSH=$ZSH
-  # " ~/.zshrc > ~/.zshrc-omztemp
-  # mv -f ~/.zshrc-omztemp ~/.zshrc
-
-  # printf "${BLUE}Copying your current PATH and adding it to the end of ~/.zshrc for you.${NORMAL}\n"
-  # sed "/export PATH=/ c\\
-  # export PATH=\"$PATH\"
-  # " ~/.zshrc > ~/.zshrc-omztemp
-  # mv -f ~/.zshrc-omztemp ~/.zshrc
-
 
 
   # If this user's login shell is not already "zsh", attempt to switch.

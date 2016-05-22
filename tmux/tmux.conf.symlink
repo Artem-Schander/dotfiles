@@ -1,4 +1,4 @@
-set -g default-command "login-shell"
+# set -g default-command "login-shell"
 
 set -g status-utf8 on
 
