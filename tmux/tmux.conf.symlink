@@ -1,6 +1,5 @@
 set -g default-command "login-shell"
-# tmux display things in 256 colors
-set -g default-terminal "tmux-256color-italic"
+
 set -g status-utf8 on
 
 set -g history-limit 20000
@@ -115,3 +114,9 @@ bind C-v run "tmux set-buffer $(reattach-to-user-namespace pbpaste); tmux paste-
 ##############################
 
 source ~/.dotfiles/tmux/theme.sh
+
+
+
+# Smart pane switching with awareness of vim splits that acts like VIM's C-w
+bind -n C-w source-file ~/.tmuxnavigate_mode
+bind C-w send-keys C-w # pass C-w to the program

@@ -216,10 +216,13 @@ set tm=500
 syntax on
 
 set encoding=utf8
+
 let base16colorspace=256  " Access colors present in 256 colorspace"
 set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
-execute "set background=".$BACKGROUND
-execute "colorscheme ".$THEME
+
+" execute "set background=".$BACKGROUND
+" execute "colorscheme ".$THEME
+
 highlight Comment cterm=italic
 highlight htmlArg cterm=italic
 

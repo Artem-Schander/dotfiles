@@ -1,5 +1,5 @@
 # reload zsh config
-alias reload!='source ~/.zshrc'
+alias reload='source ~/.zshrc'
 
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
@@ -76,3 +76,9 @@ alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v exten
 
 alias chrome="/Applications/Google\\ \\Chrome.app/Contents/MacOS/Google\\ \\Chrome"
 alias canary="/Applications/Google\\ Chrome\\ Canary.app/Contents/MacOS/Google\\ Chrome\\ Canary"
+
+
+
+alias homestead=~/.composer/vendor/bin/homestead
+alias sublime=subl
+alias artisan='php artisan'

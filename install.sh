@@ -2,8 +2,8 @@
 
 echo "Installing dotfiles"
 
-echo "Initializing submodule(s)"
-git submodule update --init --recursive
+# echo "Initializing submodule(s)"
+# git submodule update --init --recursive
 
 source install/link.sh
 
@@ -15,6 +15,8 @@ if [ "$(uname)" == "Darwin" ]; then
     source install/osx.sh
 
     source install/nvm.sh
+
+    source install/omz.sh
 
     # create a backup of the original nginx.conf
     mv /usr/local/etc/nginx/nginx.conf /usr/local/etc/nginx/nginx.original

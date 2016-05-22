@@ -1,5 +1,80 @@
 export DOTFILES=$HOME/.dotfiles
-export ZSH=$DOTFILES/zsh
+export ZSH=$DOTFILES/zsh/.oh-my-zsh
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+ZSH_THEME="honukai"
+
+
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git sublime)
+
+
+source $ZSH/oh-my-zsh.sh
+
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+# Aliases
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+
+
+
+
 
 # display how long all tasks over 10 seconds take
 export REPORTTIME=10
@@ -8,87 +83,81 @@ export REPORTTIME=10
 
 # define the code directory
 # This is where my code exists and where I want the `c` autocomplete to work from exclusively
-if [[ -d ~/code ]]; then
-    export CODE_DIR=~/code
+if [[ -d ~/Code ]]; then
+    export CODE_DIR=~/Code
 fi
 
 # source all .zsh files inside of the zsh/ directory
-for config ($ZSH/**/*.zsh) source $config
+for config ($DOTFILES/zsh/settings/**/*.zsh) source $config
 
-if [[ -a ~/.localrc ]]; then
-    source ~/.localrc
-fi
-
-
-# initialize autocomplete
-autoload -U compinit add-zsh-hook
-compinit
-
-for config ($ZSH/**/*completion.sh) source $config
-
-export EDITOR='nvim'
-
-export PATH=/usr/local/bin:$PATH
-
-# add /usr/local/sbin
-if [[ -d /usr/local/sbin ]]; then
-    export PATH=/usr/local/sbin:$PATH
-fi
-
-# adding path directory for custom scripts
-export PATH=$DOTFILES/bin:$PATH
-
-# check for custom bin directory and add to path
-if [[ -d ~/bin ]]; then
-    export PATH=~/bin:$PATH
-fi
-
-[ -z "$TMUX" ] && export TERM=xterm-256color-italic
-
-# install rbenv
-if hash rbenv 2>/dev/null; then
-    eval "$(rbenv init -)"
-fi
-
-if [[ -d ~/.rvm ]]; then
-    PATH=$HOME/.rvm/bin:$PATH # Add RVM to PATH for scripting
-    source ~/.rvm/scripts/rvm
-fi
-
-# alias git to hub
-if hash hub 2>/dev/null; then
-    eval "$(hub alias -s)"
-fi
-
-# source nvm
-export NVM_DIR=~/.nvm
-
-load-nvmrc() {
-    if [[ -f .nvmrc && -r .nvmrc ]]; then
-        nvm use
-    fi
-}
-add-zsh-hook chpwd load-nvmrc
-
-if hash brew 2>/dev/null; then
-    source $(brew --prefix nvm)/nvm.sh
-    source `brew --prefix`/etc/profile.d/z.sh
-    # when sourcing, check and ensure that the correct Node version is set
-    load-nvmrc
-
-fi
-
-# Base16 Shell
-# if [ -z "$THEME" ]; then
-    export THEME="base16-atelierlakeside"
+# if [[ -a ~/.localrc ]]; then
+#     source ~/.localrc
 # fi
-if [ -z "$BACKGROUND" ]; then
-    export BACKGROUND="dark"
-fi
 
-BASE16_SHELL="$DOTFILES/.config/base16-shell/$THEME.$BACKGROUND.sh"
-# [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-source $BASE16_SHELL
+# export EDITOR='nvim'
+
+# export PATH=/usr/local/bin:$PATH
+
+# # add /usr/local/sbin
+# if [[ -d /usr/local/sbin ]]; then
+#     export PATH=/usr/local/sbin:$PATH
+# fi
+
+# # adding path directory for custom scripts
+# export PATH=$DOTFILES/bin:$PATH
+
+# # check for custom bin directory and add to path
+# if [[ -d ~/bin ]]; then
+#     export PATH=~/bin:$PATH
+# fi
+
+# # [ -z "$TMUX" ] && export TERM=xterm-256color-italic
+
+# # install rbenv
+# if hash rbenv 2>/dev/null; then
+#     eval "$(rbenv init -)"
+# fi
+
+# if [[ -d ~/.rvm ]]; then
+#     PATH=$HOME/.rvm/bin:$PATH # Add RVM to PATH for scripting
+#     source ~/.rvm/scripts/rvm
+# fi
+
+# # alias git to hub
+# if hash hub 2>/dev/null; then
+#     eval "$(hub alias -s)"
+# fi
+
+# # source nvm
+# export NVM_DIR=~/.nvm
+
+# load-nvmrc() {
+#     if [[ -f .nvmrc && -r .nvmrc ]]; then
+#         nvm use
+#     fi
+# }
+# add-zsh-hook chpwd load-nvmrc
+
+# if hash brew 2>/dev/null; then
+#     source $(brew --prefix nvm)/nvm.sh
+#     source `brew --prefix`/etc/profile.d/z.sh
+#     # when sourcing, check and ensure that the correct Node version is set
+#     load-nvmrc
+
+# fi
 
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# # # Base16 Shell
+# # # if [ -z "$THEME" ]; then
+# #     export THEME="base16-atelierlakeside"
+# # # fi
+# # if [ -z "$BACKGROUND" ]; then
+# #     export BACKGROUND="dark"
+# # fi
+
+# # BASE16_SHELL="$DOTFILES/.config/base16-shell/$THEME.$BACKGROUND.sh"
+# # # [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
+# # source $BASE16_SHELL
+
+
+# # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
