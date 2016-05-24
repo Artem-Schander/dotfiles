@@ -16,7 +16,7 @@ else
   total_charge=$(echo $battery_info | grep -o '"MaxCapacity" = [0-9]\+' | awk '{print $3}')
 fi
 
-charged_slots=$(echo "((($current_charge/$total_charge)*1000)/$SUB)" | bc -l | cut -d '.' -f 1)
+charged_slots=$(echo "((($current_charge/$total_charge)*1000)/$SUB)+1" | bc -l | cut -d '.' -f 1)
 if [[ $charged_slots -gt $SECTIONS ]]; then
   charged_slots=$SECTIONS
 fi

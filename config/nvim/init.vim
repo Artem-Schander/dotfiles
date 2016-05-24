@@ -4,6 +4,7 @@ call plug#begin('~/.config/nvim/plugged')
 " colorschemes
 Plug 'chriskempson/base16-vim'
 Plug 'vim-scripts/Solarized'
+Plug 'rickharris/vim-monokai'
 
 
 " utilities
@@ -542,7 +543,8 @@ if (has("gui_running"))
     " let g:airline_theme='solarized'
 else
     " colorscheme base16-railscasts
-    colorscheme solarized
+    " colorscheme solarized
+    colorscheme monokai
 endif
 
 call ApplyLocalSettings(expand('.'))
