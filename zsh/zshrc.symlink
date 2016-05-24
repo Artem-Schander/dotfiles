@@ -76,10 +76,6 @@ source $ZSH/oh-my-zsh.sh
 
 
 
-set -g default-command "login-shell"
-# tmux display things in 256 colors
-set -g default-terminal "tmux-256color-italic"
-set -g status-utf8 on
 
 # display how long all tasks over 10 seconds take
 export REPORTTIME=10

@@ -6,6 +6,7 @@ tm_color_active=colour118
 tm_color_inactive=colour241
 tm_color_feature=colour4
 tm_color_music=colour203
+tm_color_black=colour234
 
 # separators
 tm_left_separator=''
@@ -21,7 +22,7 @@ set -g status-interval 5
 # default statusbar colors
 # set-option -g status-bg colour0
 set-option -g status-fg $tm_color_active
-set-option -g status-bg default
+set-option -g status-bg $tm_color_black
 set-option -g status-attr default
 
 # default window title colors
