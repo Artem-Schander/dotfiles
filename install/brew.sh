@@ -5,8 +5,15 @@ if test ! $(which brew); then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
+echo -e "\n\nUpdateing homebrew..."
+echo "=============================="
+
+brew update
+
 echo -e "\n\nInstalling homebrew packages..."
 echo "=============================="
+
+brew install bash
 
 # cli tools
 brew install ack

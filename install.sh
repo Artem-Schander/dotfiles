@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
-echo "Installing dotfiles"
+BASEDIR=$(pwd "$0")
+
+echo "Moving $BASEDIR to ~/.dotfiles"
+
+mv $BASEDIR ~/.dotfiles
+
+echo "\n\nInstalling dotfiles"
 
 # echo "Initializing submodule(s)"
 # git submodule update --init --recursive
