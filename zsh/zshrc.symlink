@@ -76,6 +76,11 @@ source $ZSH/oh-my-zsh.sh
 
 
 
+set -g default-command "login-shell"
+# tmux display things in 256 colors
+set -g default-terminal "tmux-256color-italic"
+set -g status-utf8 on
+
 # display how long all tasks over 10 seconds take
 export REPORTTIME=10
 
@@ -90,74 +95,58 @@ fi
 # source all .zsh files inside of the zsh/ directory
 for config ($DOTFILES/zsh/settings/**/*.zsh) source $config
 
-# if [[ -a ~/.localrc ]]; then
-#     source ~/.localrc
-# fi
+if [[ -a ~/.localrc ]]; then
+    source ~/.localrc
+fi
 
-# export EDITOR='nvim'
+export EDITOR='nvim'
 
-# export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/bin:$PATH
 
-# # add /usr/local/sbin
-# if [[ -d /usr/local/sbin ]]; then
-#     export PATH=/usr/local/sbin:$PATH
-# fi
+# add /usr/local/sbin
+if [[ -d /usr/local/sbin ]]; then
+    export PATH=/usr/local/sbin:$PATH
+fi
 
-# # adding path directory for custom scripts
-# export PATH=$DOTFILES/bin:$PATH
+# adding path directory for custom scripts
+export PATH=$DOTFILES/bin:$PATH
 
-# # check for custom bin directory and add to path
-# if [[ -d ~/bin ]]; then
-#     export PATH=~/bin:$PATH
-# fi
+# check for custom bin directory and add to path
+if [[ -d ~/bin ]]; then
+    export PATH=~/bin:$PATH
+fi
 
-# # [ -z "$TMUX" ] && export TERM=xterm-256color-italic
+# [ -z "$TMUX" ] && export TERM=xterm-256color-italic
 
-# # install rbenv
-# if hash rbenv 2>/dev/null; then
-#     eval "$(rbenv init -)"
-# fi
+# install rbenv
+if hash rbenv 2>/dev/null; then
+    eval "$(rbenv init -)"
+fi
 
-# if [[ -d ~/.rvm ]]; then
-#     PATH=$HOME/.rvm/bin:$PATH # Add RVM to PATH for scripting
-#     source ~/.rvm/scripts/rvm
-# fi
+if [[ -d ~/.rvm ]]; then
+    PATH=$HOME/.rvm/bin:$PATH # Add RVM to PATH for scripting
+    source ~/.rvm/scripts/rvm
+fi
 
-# # alias git to hub
-# if hash hub 2>/dev/null; then
-#     eval "$(hub alias -s)"
-# fi
+# alias git to hub
+if hash hub 2>/dev/null; then
+    eval "$(hub alias -s)"
+fi
 
-# # source nvm
-# export NVM_DIR=~/.nvm
+# source nvm
+export NVM_DIR=~/.nvm
 
-# load-nvmrc() {
-#     if [[ -f .nvmrc && -r .nvmrc ]]; then
-#         nvm use
-#     fi
-# }
-# add-zsh-hook chpwd load-nvmrc
+load-nvmrc() {
+    if [[ -f .nvmrc && -r .nvmrc ]]; then
+        nvm use
+    fi
+}
+load-nvmrc
 
-# if hash brew 2>/dev/null; then
-#     source $(brew --prefix nvm)/nvm.sh
-#     source `brew --prefix`/etc/profile.d/z.sh
-#     # when sourcing, check and ensure that the correct Node version is set
-#     load-nvmrc
+if hash brew 2>/dev/null; then
+    source $(brew --prefix nvm)/nvm.sh
+    source `brew --prefix`/etc/profile.d/z.sh
+    # when sourcing, check and ensure that the correct Node version is set
+    load-nvmrc
 
-# fi
-
-
-# # # Base16 Shell
-# # # if [ -z "$THEME" ]; then
-# #     export THEME="base16-atelierlakeside"
-# # # fi
-# # if [ -z "$BACKGROUND" ]; then
-# #     export BACKGROUND="dark"
-# # fi
-
-# # BASE16_SHELL="$DOTFILES/.config/base16-shell/$THEME.$BACKGROUND.sh"
-# # # [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-# # source $BASE16_SHELL
-
-
-# # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+fi

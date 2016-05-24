@@ -43,6 +43,7 @@ setw -g pane-base-index 1
 set-option -g set-titles on
 set-option -g set-titles-string "#T - #W"
 # set-window-option -g automatic-rename on
+# set-window-option -g utf8 on
 
 ######################
 #### Key Bindings ####
@@ -113,10 +114,7 @@ bind C-v run "tmux set-buffer $(reattach-to-user-namespace pbpaste); tmux paste-
 ### Color & Style Settings ###
 ##############################
 
+
+# set -g default-terminal "screen-256color"
+
 source ~/.dotfiles/tmux/theme.sh
-
-
-
-# Smart pane switching with awareness of vim splits that acts like VIM's C-w
-bind -n C-w source-file ~/.tmuxnavigate_mode
-bind C-w send-keys C-w # pass C-w to the program

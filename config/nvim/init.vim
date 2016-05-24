@@ -3,6 +3,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " colorschemes
 Plug 'chriskempson/base16-vim'
+Plug 'vim-scripts/Solarized'
 
 
 " utilities
@@ -220,14 +221,12 @@ set encoding=utf8
 let base16colorspace=256  " Access colors present in 256 colorspace"
 set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
 
-" execute "set background=".$BACKGROUND
-" execute "colorscheme ".$THEME
 
 highlight Comment cterm=italic
 highlight htmlArg cterm=italic
 
 set number " show line numbers
-" set relativenumber " show relative line numbers
+set relativenumber " show relative line numbers
 
 set wrap "turn on line wrapping
 set wrapmargin=8 " wrap lines when coming within n characters from side
@@ -519,15 +518,19 @@ let g:ctrlp_working_path_mode = 2
 
 " airline options
 let g:airline_powerline_fonts=1
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline_theme='base16'
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+" let g:airline_theme='bubblegum'
+let g:airline_theme='molokai'
 
 " don't hide quotes in json files
 let g:vim_json_syntax_conceal = 0
 
 
 let g:SuperTabCrMapping = 0
+
+set background=dark
+let g:solarized_termcolors=16
 
 if (has("gui_running"))
     set guioptions=egmrt
@@ -536,7 +539,10 @@ if (has("gui_running"))
     let g:airline_left_sep=''
     let g:airline_right_sep=''
     let g:airline_powerline_fonts=0
-    let g:airline_theme='solarized'
+    " let g:airline_theme='solarized'
+else
+    " colorscheme base16-railscasts
+    colorscheme solarized
 endif
 
 call ApplyLocalSettings(expand('.'))
