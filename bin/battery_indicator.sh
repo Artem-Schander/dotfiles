@@ -5,7 +5,6 @@ SYMBOL_FULL='|'
 SYMBOL_EMPTY='|'
 
 SECTIONS=10 # max 1000
-SUB=$((1000/SECTIONS))
 
 if [[ `uname` == 'Linux' ]]; then
   current_charge=$(cat /proc/acpi/battery/BAT1/state | grep 'remaining capacity' | awk '{print $3}')
@@ -16,7 +15,7 @@ else
   total_charge=$(echo $battery_info | grep -o '"MaxCapacity" = [0-9]\+' | awk '{print $3}')
 fi
 
-charged_slots=$(echo "((($current_charge/$total_charge)*1000)/$SUB)+1" | bc -l | cut -d '.' -f 1)
+charged_slots=$(echo "($current_charge/$total_charge*$SECTIONS)+0.5" | bc -l | cut -d '.' -f 1)
 if [[ $charged_slots -gt $SECTIONS ]]; then
   charged_slots=$SECTIONS
 fi
