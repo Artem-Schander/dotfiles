@@ -243,7 +243,7 @@ set smartindent
 " Section Mappings {{{
 
 " remap esc
-inoremap jk <esc>
+inoremap jj <esc>
 
 " markdown to html
 nmap <leader>md :%!markdown --html4tags <cr>
@@ -315,6 +315,16 @@ nnoremap <silent> j gj
 nnoremap <silent> k gk
 nnoremap <silent> ^ g^
 nnoremap <silent> $ g$
+
+nnoremap <Left> :echo "won't happen! Use the h key"<cr>
+nnoremap <Right> :echo "won't happen! Use the l key"<cr>
+nnoremap <Up> :echo "won't happen! Use the k key"<cr>
+nnoremap <Down> :echo "won't happen! Use the j key"<cr>
+
+inoremap <Left> <nop>
+inoremap <Right> <nop>
+inoremap <Up> <nop>
+inoremap <Down> <nop>
 
 " search for word under the cursor
 nnoremap <leader>/ "fyiw :/<c-r>f<cr>
@@ -468,6 +478,19 @@ let NERDTreeIgnore = ['\.js.map$']
 nmap <silent> <leader>k :NERDTreeToggle<cr>
 " expand to the path of the file in the current buffer
 nmap <silent> <leader>y :NERDTreeFind<cr>
+
+" go through tabs
+map <silent> öä :tabn<cr>
+map <silent> äö :tabp<cr>
+map <silent> <C-n> :tabnew<cr>
+
+" moving lines
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " map fuzzyfinder (CtrlP) plugin
 " nmap <silent> <leader>p :CtrlP<cr>
