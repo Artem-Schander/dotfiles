@@ -1,5 +1,8 @@
 " Section Plugins {{{
 call plug#begin('~/.config/nvim/plugged')
+" TODO check these plugins
+" garbas/vim-snipmate
+" honza/vim-snippets
 
 " colorschemes
 Plug 'chriskempson/base16-vim'
@@ -14,7 +17,7 @@ Plug 'mileszs/ack.vim' " search inside files using ack. Same as command line ack
 Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'tpope/vim-commentary' " comment stuff out
 Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
-Plug 'tpope/vim-endwise' " automatically add end in ruby
+" Plug 'tpope/vim-endwise' " automatically add end in ruby
 Plug 'tpope/vim-ragtag' " endings for html, xml, etc. - ehances surround
 Plug 'tpope/vim-surround' " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
 Plug 'benmills/vimux' " tmux integration for vim
@@ -40,7 +43,7 @@ Plug 'vim-scripts/matchit.zip' " extended % matching
 Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
 Plug 'sickill/vim-pasta' " context-aware pasting
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } " distraction-free writing
-Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " focus tool. Good for presentating with vim
+" Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " focus tool. Good for presentating with vim
 
 " language-specific plugins
 Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
@@ -128,6 +131,10 @@ set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 set laststatus=2 " show the satus line all the time
+
+
+let delimitMate_expand_cr = 1
+let delimitMate_expand_space = 1
 
 " }}}
 
@@ -510,6 +517,33 @@ nmap <leader>mq :MarkedQuit<cr>
 
 " toggle Limelight
 nmap <leader>f :Limelight!!<cr>
+
+" remap <CR> to indent html
+inoremap <leader><CR> <CR><C-o>==<C-o>O
+function! Expander()
+  let line   = getline(".")
+  let col    = col(".")
+  let first  = line[col-2]
+  let second = line[col-1]
+  let third  = line[col]
+
+  if first ==# ">"
+    if second ==# "<" && third ==# "/"
+      return "\<CR>\<C-o>==\<C-o>O"
+
+    else
+      return "\<CR>"
+
+    endif
+
+  else
+    return "\<CR>"
+
+  endif
+
+endfunction
+
+inoremap <expr> <CR> Expander()
 
 let g:neomake_javascript_jshint_maker = {
     \ 'args': ['--verbose'],
