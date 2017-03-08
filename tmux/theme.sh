@@ -1,6 +1,6 @@
 #!/bin/bash
 
-tm_icon=" 💎 "
+tm_icon=""
 tm_color_background=colour234
 tm_color_active=colour118
 tm_color_inactive=colour241
@@ -28,7 +28,7 @@ set-option -g status-attr default
 # default window title colors
 set-window-option -g window-status-fg $tm_color_inactive
 set-window-option -g window-status-bg default
-set -g window-status-format "#I #W"
+set -g window-status-format " #I #W"
 
 # active window title colors
 set-window-option -g  window-status-current-format "#[fg=$tm_color_background,bg=$tm_color_active]$tm_left_separator_black #[fg=colour0,bg=$tm_color_active,bold]#I #W #[bg=$tm_color_background,fg=$tm_color_active]$tm_left_separator_black "
@@ -52,5 +52,3 @@ tm_date="#[bg=colour255,fg=$tm_color_inactive]$tm_right_separator_black#[bg=$tm_
 tm_host="#[bg=$tm_color_inactive,fg=$tm_color_feature]$tm_right_separator_black#[bg=$tm_color_feature,fg=$tm_color_background,bold] #h "
 tm_session_name="#[bg=$tm_color_feature,fg=$tm_color_background,bold]$tm_icon #S #[fg=$tm_color_feature,bg=default,nobold]$tm_left_separator_black"
 
-set -g status-left $tm_session_name
-set -g status-right $tm_itunes' '$tm_battery' '$tm_date' '$tm_host
