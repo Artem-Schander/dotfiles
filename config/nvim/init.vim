@@ -19,7 +19,8 @@ Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 
 " Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
 " Plug 'tpope/vim-endwise' " automatically add end in ruby
 " Plug 'tpope/vim-ragtag' " endings for html, xml, etc. - ehances surround
-" Plug 'tpope/vim-surround' " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
+Plug 'tpope/vim-surround' " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
+Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair.
 " Plug 'benmills/vimux' " tmux integration for vim
 Plug 'vim-airline/vim-airline' " fancy statusline
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
@@ -27,7 +28,7 @@ Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
 " Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter
-" Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
+Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
 " Plug 'garbas/vim-snipmate' " snippet manager
 " Plug 'editorconfig/editorconfig-vim' " .editorconfig support
 " Plug 'MarcWeber/vim-addon-mw-utils' " interpret a file by function and cache file automatically
@@ -46,17 +47,17 @@ Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab
 " Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " focus tool. Good for presentating with vim
 "
 " " language-specific plugins
-" Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
+Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
 " Plug 'gregsexton/MatchTag', { 'for': 'html' } " match tags in html, similar to paren support
 " Plug 'othree/html5.vim', { 'for': 'html' } " html5 support
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' } " JavaScript support
-Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' } " JavaScript indent support
-Plug 'moll/vim-node', { 'for': 'javascript' } " node support
-Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' } " JavaScript syntax plugin
-Plug 'othree/yajs.vim', { 'for': 'javascript' } " JavaScript syntax plugin
+" Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' } " JavaScript indent support
+" Plug 'moll/vim-node', { 'for': 'javascript' } " node support
+" Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' } " JavaScript syntax plugin
+" Plug 'othree/yajs.vim', { 'for': 'javascript' } " JavaScript syntax plugin
 " Plug 'mxw/vim-jsx', { 'for': 'jsx' } " JSX support
 " Plug 'elzr/vim-json', { 'for': 'json' } " JSON support
-Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' } " ES6 and beyond syntax
+" Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' } " ES6 and beyond syntax
 " " Plug 'Quramy/tsuquyomi', { 'for': 'typescript', 'do': 'npm install' } " extended typescript support - works as a client for TSServer
 " Plug 'Shougo/vimproc.vim', { 'do': 'make' } " interactive command execution in vim
 " Plug 'leafgarland/typescript-vim', { 'for': 'typescript' } " typescript support
@@ -174,6 +175,8 @@ augroup configgroup
     " autocmd! BufEnter * call ApplyLocalSettings(expand('<afile>:p:h'))
 
     autocmd BufNewFile,BufRead,BufWrite *.md syntax match Comment /\%^---\_.\{-}---$/
+
+	" autocmd CursorHold,CursorHoldI * call NERDTreeFocus() | call g:NERDTree.ForCurrentTab().getRoot().refresh() | call g:NERDTree.ForCurrentTab().render() | wincmd w
 
     " autocmd! BufWritePost * Neomake
 augroup END
@@ -483,6 +486,13 @@ nmap <silent> <leader>k :NERDTreeToggle<cr>
 " expand to the path of the file in the current buffer
 nmap <silent> <leader>y :NERDTreeFind<cr>
 
+" enable line numbers
+let NERDTreeShowLineNumbers=1
+" make sure relative line numbers are used
+autocmd FileType nerdtree setlocal relativenumber
+" refresh NERDtree and jump back to previous window
+" nmap <leader>nr :NERDTree<cr> \| R \| <c-w><c-p>
+
 " go through tabs
 map <silent> öä :tabn<cr>
 map <silent> äö :tabp<cr>
@@ -591,8 +601,3 @@ nnoremap <esc> :noh<return><esc>
 
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types:h11
 
-
-" enable line numbers
-let NERDTreeShowLineNumbers=1
-" make sure relative line numbers are used
-autocmd FileType nerdtree setlocal relativenumber
