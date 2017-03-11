@@ -65,8 +65,8 @@ main() {
     return 0
   }
   
-#  printf "${BLUE}Download honukai theme.${NORMAL}\n"
-#  curl -o $DOTFILES/zsh/.oh-my-zsh/themes/honukai.zsh-theme https://raw.githubusercontent.com/oskarkrawczyk/honukai-iterm-zsh/master/honukai.zsh-theme
+  printf "${BLUE}Download honukai theme.${NORMAL}\n"
+  curl -o $DOTFILES/zsh/.oh-my-zsh/themes/honukai.zsh-theme https://raw.githubusercontent.com/oskarkrawczyk/honukai-iterm-zsh/master/honukai.zsh-theme
 
   # The Windows (MSYS) Git is not compatible with normal use on cygwin
   if [ "$OSTYPE" = cygwin ]; then

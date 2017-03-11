@@ -11,6 +11,7 @@ Plug 'rickharris/vim-monokai'
 
 
 " utilities
+Plug 'tpope/vim-obsession' " obsession.vim: continuously updated session files
 Plug 'ctrlpvim/ctrlp.vim' " fuzzy file finder, mapped to <leader>p
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons' " file drawer
 " Plug 'mileszs/ack.vim' " search inside files using ack. Same as command line ack utility, but use :Ack
@@ -181,6 +182,11 @@ augroup configgroup
     " autocmd! BufWritePost * Neomake
 augroup END
 
+augroup myvimrchooks
+    au!
+    autocmd bufwritepost .vimrc source ~/.vimrc
+augroup END
+
 " }}}
 
 " Section User Interface {{{
@@ -224,8 +230,12 @@ set tm=500
 
 " switch syntax highlighting on
 syntax on
-
-set encoding=utf8
+if !exists('g:encoding_set') || !has('nvim')
+    set encoding=utf-8
+    let g:encoding_set = 1
+endif
+scriptencoding utf-8
+setglobal fileencoding=utf-8
 
 let base16colorspace=256  " Access colors present in 256 colorspace"
 set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
@@ -297,7 +307,7 @@ vmap <leader>] >gv
 nmap <leader>[ <<
 nmap <leader>] >>
 
-" switch between current and last buffer
+" switch between current and ast buffer
 nmap <leader>. <c-^>
 
 " enable . command in visual mode
@@ -480,18 +490,29 @@ let g:NERDTreeQuitOnOpen=0
 " show hidden files in NERDTree
 let NERDTreeShowHidden=1
 " remove some files by extension
-let NERDTreeIgnore = ['\.js.map$']
+let NERDTreeIgnore = ['\.js.map$','\.DS_Store']
 " Toggle NERDTree
 nmap <silent> <leader>k :NERDTreeToggle<cr>
 " expand to the path of the file in the current buffer
 nmap <silent> <leader>y :NERDTreeFind<cr>
-
 " enable line numbers
 let NERDTreeShowLineNumbers=1
 " make sure relative line numbers are used
 autocmd FileType nerdtree setlocal relativenumber
 " refresh NERDtree and jump back to previous window
 " nmap <leader>nr :NERDTree<cr> \| R \| <c-w><c-p>
+
+
+" adjust the space between icon and filename
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
+" whether or not to show the nerdtree brackets around flags 
+let g:webdevicons_conceal_nerdtree_brackets = 1
+" Force extra padding in NERDTree so that the filetype icons line up vertically 
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
+" enable folder/directory glyph flag (disabled by default with 0)
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+" enable open and close folder/directory glyph flags
+let g:DevIconsEnableFoldersOpenClose = 0
 
 " go through tabs
 map <silent> öä :tabn<cr>
@@ -512,6 +533,7 @@ nmap <silent> <leader>r :CtrlPBuffer<cr>
 let g:ctrlp_map='<leader>p'
 let g:ctrlp_dotfiles=1
 let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_max_files=0
 
 " Fugitive Shortcuts
 nmap <silent> <leader>gs :Gstatus<cr>
@@ -559,8 +581,9 @@ let g:ctrlp_working_path_mode = 2
 let g:airline_powerline_fonts=1
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-" let g:airline_theme='bubblegum'
-let g:airline_theme='molokai'
+let g:airline_theme='badwolf'
+" let g:airline_theme='wombat'
+" let g:airline_theme='molokai'
 
 " don't hide quotes in json files
 let g:vim_json_syntax_conceal = 0
@@ -600,4 +623,5 @@ set shortmess+=A
 nnoremap <esc> :noh<return><esc>
 
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types:h11
+
 

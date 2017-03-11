@@ -17,6 +17,8 @@ if [ "$(uname)" == "Darwin" ]; then
     source install/nvm.sh
 
     source install/omz.sh
+    
+	source install/tmux.sh
 
     # create a backup of the original nginx.conf
     mv /usr/local/etc/nginx/nginx.conf /usr/local/etc/nginx/nginx.original
@@ -31,7 +33,8 @@ fi
 echo "creating vim directories"
 mkdir -p ~/.vim-tmp
 
-printf "💡 ${YELLOW}Remember to install the vim pligins!${NORMAL} vim +PlugInstall!\n"
+# printf "💡 ${YELLOW}Remember to install the vim pligins!${NORMAL} vim +PlugInstall!\n"
+toilet -f future -F border ' Remember to install the vim pligins ! ' -t && toilet -f smmono9 '   ~/$ vim +PlugInstall' -t
 
 echo "Configuring zsh as default shell"
 chsh -s $(which zsh)
