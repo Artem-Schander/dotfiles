@@ -261,3 +261,5 @@ bind -n M-Down select-pane -D
 # Shift arrow to switch windows
 bind -n S-Left  previous-window
 bind -n S-Right next-window
+
+set-option -g allow-rename off
