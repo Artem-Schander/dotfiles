@@ -262,4 +262,5 @@ bind -n M-Down select-pane -D
 bind -n S-Left  previous-window
 bind -n S-Right next-window
 
+# shold windows be renamed by tmux like the last executed command ?
 set-option -g allow-rename off
