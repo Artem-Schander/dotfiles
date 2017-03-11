@@ -8,7 +8,7 @@
 
 The original [repo](https://github.com/nicknisi/dotfiles) is really cool and I like most of the config. So I changed just a few things. 
 1. I like the [oh-my-zh](https://github.com/robbyrussell/oh-my-zsh), so I go with that.
-2. And I changed the Tmux config to an adapted version of [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
+2. I changed the Tmux config to an adapted version of [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
 
 ## Contents
 
