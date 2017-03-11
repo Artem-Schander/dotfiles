@@ -67,7 +67,7 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' } " JavaScript support
 " Plug 'mustache/vim-mustache-handlebars' " mustach support
 " Plug 'digitaltoad/vim-jade', { 'for': ['jade', 'pug'] } " jade support
 " Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " sass scss syntax support
-" Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] } " markdown support
+Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] } " markdown support
 " Plug 'groenewege/vim-less', { 'for': 'less' } " less support
 " Plug 'ap/vim-css-color', { 'for': ['css','stylus','scss'] } " set the background of hex color values to the color
 " Plug 'hail2u/vim-css3-syntax', { 'for': 'css' } " CSS3 syntax support
@@ -514,6 +514,13 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 " enable open and close folder/directory glyph flags
 let g:DevIconsEnableFoldersOpenClose = 0
 
+
+" Toggle the cursor line for different modes
+" let $NVIM_TUI_ENABLE_CURSOR_SHRRE=1
+autocmd InsertEnter * set cul
+autocmd InsertLeave * set nocul
+
+
 " go through tabs
 map <silent> öä :tabn<cr>
 map <silent> äö :tabp<cr>
@@ -585,6 +592,12 @@ let g:airline_theme='badwolf'
 " let g:airline_theme='wombat'
 " let g:airline_theme='molokai'
 
+" Enable the list of buffers
+" let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+" let g:airline#extensions#tabline#fnamemod = ':t'
+
 " don't hide quotes in json files
 let g:vim_json_syntax_conceal = 0
 
@@ -623,5 +636,4 @@ set shortmess+=A
 nnoremap <esc> :noh<return><esc>
 
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types:h11
-
 
