@@ -15,8 +15,13 @@ function colours() {
 }
 
 # Create a new directory and enter it
-function md() {
-    mkdir -p "$@" && cd "$@"
+function md () {
+  case "$1" in
+    /*) mkdir -p "$1" && cd "$1";;
+    */../*) (cd "./${1%/../*}/.." && mkdir -p "./${1##*/../}") && cd "$1";;
+    ../*) (cd .. && mkdir -p "${1#.}") && cd "$1";;
+    *) mkdir -p "./$1" && cd "./$1";;
+  esac
 }
 
 function hist() {

@@ -82,3 +82,6 @@ alias canary="/Applications/Google\\ Chrome\\ Canary.app/Contents/MacOS/Google\\
 # alias homestead=~/.composer/vendor/bin/homestead
 alias sublime=sbl
 alias artisan='php artisan'
+
+# git status
+alias gs='git status'
