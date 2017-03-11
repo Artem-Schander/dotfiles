@@ -63,27 +63,15 @@ ZSH is configured in the `zshrc.symlink` file, which will be symlinked to the ho
 
 ### Prompt
 
-The prompt is meant to be simple while still providing a lot of information to the user, particularly about the status of the git project, if the PWD is a git project. This prompt sets `precmd`, `PROMPT` and `RPROMPT`.
+The prompt is meant to be simple while still providing information to the user, particularly about the status of the git project, if the PWD is a git project.
 
-![](https://cloud.githubusercontent.com/assets/1243826/23823104/713b8ab0-065b-11e7-8bae-0412618a8db9.png)
-
-The `precmd` shows the current working directory in it and the `RPROMPT` shows the git and suspended jobs info.
+The `precmd` shows the current working directory in it and the `PROMPT` shows the git.
 
 #### Prompt Git Info
 
-The git info shown on the `RPROMPT` displays the current branch name, and whether it is clean or dirty.
+The git info shown on the `PROMPT` displays the current branch name, and whether it is dirty or clean.
 
-![](http://nicknisi.com/share/git-branch-state.png)
-
-Additionally, there are ⇣ and ⇡ arrows that indicate whether a commit has happened and needs to be pushed (⇡), and whether commits have happened on the remote branch that need to be pulled (⇣).
-
-![](http://nicknisi.com/share/git-arrows.png)
-
-#### Suspended Jobs
-
-The prompt will also display a ✱ character in the `RPROMPT` indicating that there is a suspended job that exists in the background. This is helpful in keeping track of putting vim in the background by pressing CTRL-Z.
-
-![](http://nicknisi.com/share/suspended-jobs.png)
+![](https://cloud.githubusercontent.com/assets/1243826/23823231/63a51468-065e-11e7-9423-5461394ca484.png)
 
 ## Vim and Neovim Setup
 
@@ -110,12 +98,16 @@ vim and neovim should just work once the correct plugins are installed. To insta
 
 ## Fonts
 
-I am currently using [Operator Mono](http://www.typography.com/fonts/operator/styles/operatormonoscreensmart) as my default font which is a paid font ($199 US) and does not include Powerline support. In addition to this, I do have [nerd-fonts](https://github.com/ryanoasis/nerd-fonts) installed and configured to be used for non-ascii characters. If you would prefer not to do this, then simply remove the `Plug 'ryanoasis/vim-devicons'` plugin from vim/nvim. Then, I configure the fonts in this way in iTerm2:
+I am currently useng [Fira Code](https://github.com/tonsky/FiraCode) as my default font which does not include Powerline support but has pretty nice ligatures (which at the time being are supported by iTerm2 nightly build and will be supported from v3.1). 
 
-![](http://nicknisi.com/share/iterm-fonts-config.png)
+![](https://cloud.githubusercontent.com/assets/1243826/23823422/8c35c5fe-0662-11e7-9c1f-6998f101901a.png)
+
+In addition to this, I do have [nerd-fonts](https://github.com/ryanoasis/nerd-fonts) installed and configured to be used for non-ascii characters. If you would prefer not to do this, then simply remove the `Plug 'ryanoasis/vim-devicons'` plugin from vim/nvim. Then, I configure the fonts in this way in iTerm2:
+
+![](https://cloud.githubusercontent.com/assets/1243826/23823425/a435ba4c-0662-11e7-89e4-9567be59b721.png)
 
 ## Tmux Configuration
 
-Tmux is a terminal multiplexor which lets you create windows and splits in the terminal that you can attach and detach from. I use it to keep multiple projects open in separate windows and to create an IDE-like environment to work in where I can have my code open in vim/neovim and a shell open to run tests/scripts. Tmux is configured in [~/.tmux.conf](tmux/tmux.conf.symlink), and in [tmux/theme.sh](tmux/theme.sh), which defines the colors used, the layout of the tmux bar, and what what will be displayed, including the time and date, open windows, tmux session name, computer name, and current iTunes song playing. If not running on macOS, this configuration should be removed.
+Tmux is a terminal multiplexor which lets you create windows and splits in the terminal that you can attach and detach from. I use it to keep multiple projects open in separate windows and to create an IDE-like environment to work in where I can have my code open in vim/neovim and a shell open to run tests/scripts. Tmux is configured in [~/.tmux.conf.local](tmux/tmux.conf.local.symlink). This file defines the key bindings, the colors used, the layout of the tmux bar, and what what will be displayed, including the time and date, open windows, tmux session name, computer name, etc.
 
 When tmux starts up, [login-shell](bin/login-shell) will be run and if it determines you are running this on macOS, it will call reattach-to-user-namespace, to fix the system clipboard for use inside of tmux.

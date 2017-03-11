@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-echo "Installing dotfiles"
+
+"->> ligatures support <<-"
+" => != === ~~> >= <= ... "
+
 
 # echo "Initializing submodule(s)"
 # git submodule update --init --recursive
