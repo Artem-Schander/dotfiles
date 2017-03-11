@@ -8,7 +8,7 @@
 
 The original [repo](https://github.com/nicknisi/dotfiles) is really cool and I like most of the config. So I changed just a few things. 
 1. I like the [oh-my-zh](https://github.com/robbyrussell/oh-my-zsh), so I go with that.
-2. And I changed the Tmux config to an adapted version of [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
+2. I changed the Tmux config to an adapted version of [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
 
 ## Contents
 
@@ -98,7 +98,7 @@ vim and neovim should just work once the correct plugins are installed. To insta
 
 ## Fonts
 
-I am currently useng [Fira Code](https://github.com/tonsky/FiraCode) as my default font which does not include Powerline support but has pretty nice ligatures (which at the time being are supported by iTerm2 nightly build and will be supported from v3.1). 
+I am currently useng [Fira Code](https://github.com/tonsky/FiraCode) as my default font which does not include Powerline support but has pretty nice ligatures (at the time being only supported by iTerm2 nightly build but will be supported from v3.1). 
 
 ![](https://cloud.githubusercontent.com/assets/1243826/23823422/8c35c5fe-0662-11e7-9c1f-6998f101901a.png)
 
