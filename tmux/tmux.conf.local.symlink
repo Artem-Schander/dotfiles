@@ -264,3 +264,12 @@ bind -n S-Right next-window
 
 # shold windows be renamed by tmux like the last executed command ?
 set-option -g allow-rename off
+
+# enable mouse support for switching panes/windows
+setw -g mouse on
+# set-option -g -q mouse on
+
+bind -T root WheelUpPane if-shell -F -t = "#{alternate_on}" "select-pane -t =; send-keys -M" "select-pane -t =; copy-mode -e; send-keys -M"
+bind -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "select-pane -t =; send-keys -M" "select-pane -t =; send-keys -M"
+bind-key -t vi-copy WheelUpPane halfpage-up
+bind-key -t vi-copy WheelDownPane halfpage-down
