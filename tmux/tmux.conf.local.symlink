@@ -262,6 +262,10 @@ bind -n M-Down select-pane -D
 bind -n S-Left  previous-window
 bind -n S-Right next-window
 
+# Move the current window
+bind-key -n C-S-Left swap-window -t -1
+bind-key -n C-S-Right swap-window -t +1
+
 # shold windows be renamed by tmux like the last executed command ?
 set-option -g allow-rename off
 
