@@ -29,7 +29,8 @@ brew install git
 brew install hub
 brew install macvim --override-system-vim
 brew install reattach-to-user-namespace
-brew install tmux
+# brew install tmux
+brew install toilet
 brew install zsh
 brew install highlight
 brew install nvm
