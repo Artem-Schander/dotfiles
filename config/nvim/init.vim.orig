@@ -17,12 +17,21 @@ Plug 'rickharris/vim-monokai'
 Plug 'tpope/vim-obsession' " obsession.vim: continuously updated session files
 Plug 'ctrlpvim/ctrlp.vim' " fuzzy file finder, mapped to <leader>p
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons' " file drawer
+<<<<<<< HEAD
+Plug 'mileszs/ack.vim' " search inside files using ack. Same as command line ack utility, but use :Ack
+Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
+Plug 'tpope/vim-commentary' " comment stuff out
+Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
+" Plug 'tpope/vim-endwise' " automatically add end in ruby
+Plug 'tpope/vim-ragtag' " endings for html, xml, etc. - ehances surround
+=======
 " Plug 'mileszs/ack.vim' " search inside files using ack. Same as command line ack utility, but use :Ack
 " Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
 " Plug 'tpope/vim-commentary' " comment stuff out
 " Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
 " Plug 'tpope/vim-endwise' " automatically add end in ruby
 " Plug 'tpope/vim-ragtag' " endings for html, xml, etc. - ehances surround
+>>>>>>> 264d0cc29601c89b94c31dd360477b1aa17134c8
 Plug 'tpope/vim-surround' " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
 Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair.
 " Plug 'benmills/vimux' " tmux integration for vim
@@ -39,6 +48,20 @@ Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . c
 " Plug 'tomtom/tlib_vim' " utility functions for vim
 " Plug 'sotte/presenting.vim', { 'for': 'markdown' } " a simple tool for presenting slides in vim based on text files
 Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab
+<<<<<<< HEAD
+Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
+" Plug 'mtth/scratch.vim'
+" Plug 'tpope/vim-vinegar'
+" Plug 'tpope/vim-abolish'
+Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
+Plug 'vim-scripts/matchit.zip' " extended % matching
+Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
+Plug 'sickill/vim-pasta' " context-aware pasting
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } " distraction-free writing
+" Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " focus tool. Good for presentating with vim
+
+" language-specific plugins
+=======
 " Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
 " " Plug 'mtth/scratch.vim'
 " " Plug 'tpope/vim-vinegar'
@@ -51,6 +74,7 @@ Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab
 " Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " focus tool. Good for presentating with vim
 "
 " " language-specific plugins
+>>>>>>> 264d0cc29601c89b94c31dd360477b1aa17134c8
 Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
 " Plug 'gregsexton/MatchTag', { 'for': 'html' } " match tags in html, similar to paren support
 " Plug 'othree/html5.vim', { 'for': 'html' } " html5 support
@@ -112,9 +136,9 @@ set textwidth=120
 " Tab control
 set noexpandtab " insert tabs rather than spaces for <Tab>
 set smarttab " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
-set tabstop=2 " the visible width of tabs
-set softtabstop=2 " edit as if the tabs are 4 characters wide
-set shiftwidth=2 " number of spaces to use for indent and unindent
+set tabstop=4 " the visible width of tabs
+set softtabstop=4 " edit as if the tabs are 4 characters wide
+set shiftwidth=4 " number of spaces to use for indent and unindent
 set shiftround " round indent to a multiple of 'shiftwidth'
 set completeopt+=longest
 
