@@ -4,8 +4,6 @@
 " Section Plugins {{{
 call plug#begin('~/.config/nvim/plugged')
 " TODO check these plugins
-" garbas/vim-snipmate
-" honza/vim-snippets
 
 " colorschemes
 Plug 'chriskempson/base16-vim'
@@ -33,7 +31,8 @@ Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
-" Plug 'garbas/vim-snipmate' " snippet manager
+Plug 'SirVer/ultisnips' " snippet engine
+Plug 'honza/vim-snippets' " snippet manager
 " Plug 'editorconfig/editorconfig-vim' " .editorconfig support
 " Plug 'MarcWeber/vim-addon-mw-utils' " interpret a file by function and cache file automatically
 " Plug 'tomtom/tlib_vim' " utility functions for vim
@@ -57,7 +56,7 @@ Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily creat
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' } " JavaScript support
 " Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' } " JavaScript indent support
 " Plug 'moll/vim-node', { 'for': 'javascript' } " node support
-" Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' } " JavaScript syntax plugin
+Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' } " JavaScript syntax plugin
 " Plug 'othree/yajs.vim', { 'for': 'javascript' } " JavaScript syntax plugin
 " Plug 'mxw/vim-jsx', { 'for': 'jsx' } " JSX support
 " Plug 'elzr/vim-json', { 'for': 'json' } " JSON support
@@ -682,3 +681,10 @@ nnoremap <esc> :noh<return><esc>
 
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types:h11
 
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
