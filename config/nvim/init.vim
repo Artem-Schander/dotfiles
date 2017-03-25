@@ -1,3 +1,4 @@
+"
 " run:
 " nvim +PlugInstall
 
@@ -7,7 +8,7 @@ call plug#begin('~/.config/nvim/plugged')
 
 " colorschemes
 Plug 'chriskempson/base16-vim'
-Plug 'vim-scripts/Solarized'
+Plug 'altercation/vim-colors-solarized'
 Plug 'rickharris/vim-monokai'
 
 
@@ -17,7 +18,7 @@ Plug 'ctrlpvim/ctrlp.vim' " fuzzy file finder, mapped to <leader>p
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons' " file drawer
 Plug 'mileszs/ack.vim' " search inside files using ack. Same as command line ack utility, but use :Ack
 " Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
-" Plug 'tpope/vim-commentary' " comment stuff out
+Plug 'scrooloose/nerdcommenter' " comment stuff out
 " Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
 " Plug 'tpope/vim-endwise' " automatically add end in ruby
 " Plug 'tpope/vim-ragtag' " endings for html, xml, etc. - ehances surround
@@ -26,7 +27,7 @@ Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair.
 " Plug 'benmills/vimux' " tmux integration for vim
 Plug 'vim-airline/vim-airline' " fancy statusline
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
-" Plug 'scrooloose/syntastic' " syntax checking for vim
+Plug 'vim-syntastic/syntastic' " syntax checking for vim
 " Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter
@@ -78,6 +79,8 @@ Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] } " markdown support
 " Plug 'fatih/vim-go', { 'for': 'go' } " go support
 " Plug 'timcharper/textile.vim', { 'for': 'textile' } " textile support
 " Plug 'tclem/vim-arduino' " arduino support - compile wihtout needing to open the arduino IDE
+Plug 'easymotion/vim-easymotion' " Vim motion on speed
+Plug 'terryma/vim-multiple-cursors' " True Sublime Text style multiple selections for Vim
 
 call plug#end()
 
@@ -157,6 +160,7 @@ augroup configgroup
     autocmd FileType markdown,textile setlocal textwidth=0 wrapmargin=0 wrap spell
     autocmd FileType .xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
     autocmd FileType crontab setlocal nobackup nowritebackup
+    " autocmd FileType js UltiSnipsAddFiletypes javascript-es6
 
     " automatically resize panes on resize
     autocmd VimResized * exe 'normal! \<c-w>='
@@ -687,4 +691,24 @@ let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
-" let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit="vertical"
+
+" Syntastic syntax check - result in statusline
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_javascript_checkers = ['eslint']
+
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" This allows one to a) search for the keyword using * b) turn search results into cursors with Alt-j
+nnoremap <silent> <c-g> :MultipleCursorsFind <C-R>/<CR>
+vnoremap <silent> <c-g> :MultipleCursorsFind <C-R>/<CR>
