@@ -4,12 +4,12 @@
 
 " Section Plugins {{{
 call plug#begin('~/.config/nvim/plugged')
-" TODO check these plugins
 
 " colorschemes
 Plug 'chriskempson/base16-vim'
-Plug 'altercation/vim-colors-solarized'
-Plug 'rickharris/vim-monokai'
+Plug 'altercation/vim-colors-solarized' " solorized colors must be active in terminal settings
+" https://github.com/mbadolato/iTerm2-Color-Schemes
+Plug 'rickharris/vim-monokai' " monokai has to be downloaded and installed for the terminal
 
 
 " utilities
@@ -271,10 +271,10 @@ set smartindent
 " Section Mappings {{{
 
 " Easier split navigations
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
+" nnoremap <C-J> <C-W><C-J>
+" nnoremap <C-K> <C-W><C-K>
+" nnoremap <C-L> <C-W><C-L>
+" nnoremap <C-H> <C-W><C-H>
 
 " More natural split opening
 set splitbelow
@@ -328,17 +328,19 @@ vmap <leader>] >gv
 nmap <leader>[ <<
 nmap <leader>] >>
 
-" switch between current and ast buffer
+" switch between current and last buffer
 nmap <leader>. <c-^>
 
 " enable . command in visual mode
 vnoremap . :normal .<cr>
 
+" create split with current buffer in it
 map <silent> <C-h> :call WinMove('h')<cr>
 map <silent> <C-j> :call WinMove('j')<cr>
 map <silent> <C-k> :call WinMove('k')<cr>
 map <silent> <C-l> :call WinMove('l')<cr>
 
+" quit current buffer
 map <leader>wc :wincmd q<cr>
 
 " toggle cursor line
@@ -632,6 +634,34 @@ let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclu
 let g:ctrlp_working_path_mode = 2
 
 
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
+" Syntastic syntax check - result in statusline
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+let g:syntastic_javascript_checkers = ['eslint']
+
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" This allows one to a) search for the keyword using * b) turn search results into cursors with Alt-j
+nnoremap <silent> <c-g> :MultipleCursorsFind <C-R>/<CR>
+vnoremap <silent> <c-g> :MultipleCursorsFind <C-R>/<CR>
+
 " airline options
 let g:airline_powerline_fonts=1
 let g:airline_left_sep=''
@@ -684,31 +714,3 @@ set shortmess+=A
 nnoremap <esc> :noh<return><esc>
 
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types:h11
-
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
-
-" Syntastic syntax check - result in statusline
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:syntastic_javascript_checkers = ['eslint']
-
-
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-
-" This allows one to a) search for the keyword using * b) turn search results into cursors with Alt-j
-nnoremap <silent> <c-g> :MultipleCursorsFind <C-R>/<CR>
-vnoremap <silent> <c-g> :MultipleCursorsFind <C-R>/<CR>
