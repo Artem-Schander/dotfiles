@@ -293,7 +293,7 @@ nmap <leader><space> :%s/\s\+$<cr>
 nmap <silent> <leader>b :bw<cr>
 
 " shortcut to save
-nmap <leader>, :w<cr>
+nmap <leader>s :w<cr>
 
 " disable Ex mode
 noremap Q <NOP>
