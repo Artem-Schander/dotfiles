@@ -21,7 +21,7 @@ Plug 'mileszs/ack.vim' " search inside files using ack. Same as command line ack
 Plug 'scrooloose/nerdcommenter' " comment stuff out
 " Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
 " Plug 'tpope/vim-endwise' " automatically add end in ruby
-" Plug 'tpope/vim-ragtag' " endings for html, xml, etc. - ehances surround
+Plug 'tpope/vim-ragtag' " endings for html, xml, etc. - ehances surround
 Plug 'tpope/vim-surround' " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
 Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair.
 " Plug 'benmills/vimux' " tmux integration for vim
@@ -44,11 +44,14 @@ Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab
 " " Plug 'tpope/vim-vinegar'
 " " Plug 'tpope/vim-abolish'
 " Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
-" Plug 'vim-scripts/matchit.zip' " extended % matching
-" Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
+Plug 'vim-scripts/matchit.zip' " extended % matching
+Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
+Plug 'nathanaelkane/vim-indent-guides' " visually displaying indent levels in code
 " Plug 'sickill/vim-pasta' " context-aware pasting
 " Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } " distraction-free writing
 " Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " focus tool. Good for presentating with vim
+Plug 'easymotion/vim-easymotion' " Vim motion on speed
+Plug 'terryma/vim-multiple-cursors' " True Sublime Text style multiple selections for Vim
 "
 " " language-specific plugins
 Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
@@ -79,8 +82,6 @@ Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] } " markdown support
 " Plug 'fatih/vim-go', { 'for': 'go' } " go support
 " Plug 'timcharper/textile.vim', { 'for': 'textile' } " textile support
 " Plug 'tclem/vim-arduino' " arduino support - compile wihtout needing to open the arduino IDE
-Plug 'easymotion/vim-easymotion' " Vim motion on speed
-Plug 'terryma/vim-multiple-cursors' " True Sublime Text style multiple selections for Vim
 
 call plug#end()
 
@@ -188,7 +189,7 @@ augroup configgroup
 
     autocmd BufNewFile,BufRead,BufWrite *.md syntax match Comment /\%^---\_.\{-}---$/
 
-	" autocmd CursorHold,CursorHoldI * call NERDTreeFocus() | call g:NERDTree.ForCurrentTab().getRoot().refresh() | call g:NERDTree.ForCurrentTab().render() | wincmd w
+    " autocmd CursorHold,CursorHoldI * call NERDTreeFocus() | call g:NERDTree.ForCurrentTab().getRoot().refresh() | call g:NERDTree.ForCurrentTab().render() | wincmd w
 
     " autocmd! BufWritePost * Neomake
 augroup END
@@ -317,7 +318,7 @@ nmap ;s :set invspell spelllang=en<cr>
 
 " toggle invisible characters
 set invlist
-set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+set listchars=tab:>-,space:·,eol:¬,trail:~,extends:❯,precedes:❮
 highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
 set showbreak=↪
 nmap <leader>l :set list!<cr>
@@ -528,9 +529,9 @@ autocmd FileType nerdtree setlocal relativenumber
 
 " adjust the space between icon and filename
 let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
-" whether or not to show the nerdtree brackets around flags 
+" whether or not to show the nerdtree brackets around flags
 let g:webdevicons_conceal_nerdtree_brackets = 1
-" Force extra padding in NERDTree so that the filetype icons line up vertically 
+" Force extra padding in NERDTree so that the filetype icons line up vertically
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
 " enable folder/directory glyph flag (disabled by default with 0)
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
@@ -700,6 +701,16 @@ else
 endif
 
 call ApplyLocalSettings(expand('.'))
+
+" define the indent guides
+let g:indent_guides_auto_colors = 0
+hi IndentGuidesOdd  guibg=black ctermbg=237
+hi IndentGuidesEven guibg=black ctermbg=236
+
+let g:indent_guides_start_level=2
+let g:indent_guides_guide_size=1
+let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_color_name_guibg_pattern = "guibg='?\zs[0-9A-Za-z]+\ze'?"
 
 " }}}
 
