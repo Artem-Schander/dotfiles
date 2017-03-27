@@ -39,6 +39,10 @@ brew install markdown
 brew install diff-so-fancy
 
 # install neovim
-brew reinstall neovim --HEAD
+brew install python
+brew install python3
+pip2 install neovim --upgrade
+pip3 install neovim --upgrade
+brew install neovim
 
 # exit 0
