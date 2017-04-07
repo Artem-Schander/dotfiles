@@ -1,4 +1,31 @@
+" " ┏┓╻┏━┓╺┳╸┏━╸┏━┓   ┏━┓┏┓╻╺┳┓   ╺┳╸╻┏━┓┏━┓ " "
+" " ┃┗┫┃ ┃ ┃ ┣╸ ┗━┓   ┣━┫┃┗┫ ┃┃    ┃ ┃┣━┛┗━┓ " "
+" " ╹ ╹┗━┛ ╹ ┗━╸┗━┛   ╹ ╹╹ ╹╺┻┛    ╹ ╹╹  ┗━┛ " "
 "
+"   SEARCH AND MOVEMENTS
+"
+" " <leader><leader>f " find any letter, get them highlighted and move to the desired location
+"   easymotion/vim-easymotion
+" " <C-f>f " search in multiple files (entire project). Results can be changed
+" " zz " center the line where the cursor is located
+"
+"
+"   EDIT / COPY & PASTE
+"
+" " yy " copy the whole line
+" " p " (lowercase) paste below
+" " P " (capital) paste above
+"
+"
+"
+"   HINTS
+"
+"   map capslock to <C> [cmd]
+"   in your OS settings
+" 
+" " ┏━╸┏━┓┏┓╻┏━╸╻┏━╸ " "
+" " ┃  ┃ ┃┃┗┫┣╸ ┃┃╺┓ " "
+" " ┗━╸┗━┛╹ ╹╹  ╹┗━┛ " "
 " run:
 " nvim +PlugInstall
 
@@ -6,6 +33,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
 " colorschemes
+Plug 'joshdick/onedark.vim'
 Plug 'chriskempson/base16-vim'
 Plug 'altercation/vim-colors-solarized' " solorized colors must be active in terminal settings
 " https://github.com/mbadolato/iTerm2-Color-Schemes
@@ -29,7 +57,7 @@ Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair.
 Plug 'vim-airline/vim-airline' " fancy statusline
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
 Plug 'vim-syntastic/syntastic' " syntax checking for vim
-" Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
+Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
@@ -173,6 +201,8 @@ augroup configgroup
 
     " automatically resize panes on resize
     autocmd VimResized * exe 'normal! \<c-w>='
+    " automatically reload vim config on save
+    autocmd BufWritePost init.vim source %
     autocmd BufWritePost .vimrc source %
     autocmd BufWritePost .vimrc.local source %
     " save all files on focus lost, ignoring warnings about untitled buffers
@@ -200,12 +230,15 @@ augroup configgroup
 
     " autocmd CursorHold,CursorHoldI * call NERDTreeFocus() | call g:NERDTree.ForCurrentTab().getRoot().refresh() | call g:NERDTree.ForCurrentTab().render() | wincmd w
 
-    " autocmd! BufWritePost * Neomake
-augroup END
+    autocmd! BufWritePost * Neomake
 
-augroup myvimrchooks
-    au!
-    autocmd bufwritepost .vimrc source ~/.vimrc
+    autocmd FileType nerdtree setlocal relativenumber
+
+    " Toggle the cursor line for different modes
+    " let $NVIM_TUI_ENABLE_CURSOR_SHRRE=1
+    autocmd InsertEnter * set cul
+    autocmd InsertLeave * set nocul
+
 augroup END
 
 " }}}
@@ -248,6 +281,7 @@ set noerrorbells
 set visualbell
 set t_vb=
 set tm=500
+
 
 " switch syntax highlighting on
 syntax on
@@ -532,7 +566,6 @@ nmap <silent> <leader>y :NERDTreeFind<cr>
 " enable line numbers
 let NERDTreeShowLineNumbers=1
 " make sure relative line numbers are used
-autocmd FileType nerdtree setlocal relativenumber
 " refresh NERDtree and jump back to previous window
 " nmap <leader>nr :NERDTree<cr> \| R \| <c-w><c-p>
 
@@ -547,13 +580,6 @@ let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 " enable open and close folder/directory glyph flags
 let g:DevIconsEnableFoldersOpenClose = 0
-
-
-" Toggle the cursor line for different modes
-" let $NVIM_TUI_ENABLE_CURSOR_SHRRE=1
-autocmd InsertEnter * set cul
-autocmd InsertLeave * set nocul
-
 
 " go through tabs
 map <silent> öä :tabn<cr>
@@ -587,6 +613,9 @@ nmap <leader>mq :MarkedQuit<cr>
 
 " toggle Limelight
 " nmap <leader>f :Limelight!!<cr>
+
+" search in ctags
+nmap <leader>f :tag<space>
 
 " search and replace in multiple files
 nmap     <C-F>f <Plug>CtrlSFPrompt
@@ -687,7 +716,8 @@ vnoremap <silent> <c-g> :MultipleCursorsFind <C-R>/<CR>
 let g:airline_powerline_fonts=1
 let g:airline_left_sep=''
 let g:airline_right_sep=''
-let g:airline_theme='badwolf'
+let g:airline_theme='onedark'
+" let g:airline_theme='badwolf'
 " let g:airline_theme='wombat'
 " let g:airline_theme='molokai'
 
@@ -705,11 +735,18 @@ let g:SuperTabCrMapping = 0
 
 set background=dark
 let g:solarized_termcolors=16
+let g:onedark_termcolors=16
+let g:onedark_terminal_italics=1
 
 if (has("gui_running"))
+    syntax on
+    set hlsearch
+    set ai
+    set ruler
+    set bs=2
     set guioptions=egmrt
-    set background=light
-    colorscheme solarized
+    set background=dark
+    colorscheme macvim
     let g:airline_left_sep=''
     let g:airline_right_sep=''
     let g:airline_powerline_fonts=0
@@ -717,7 +754,8 @@ if (has("gui_running"))
 else
     " colorscheme base16-railscasts
     " colorscheme solarized
-    colorscheme monokai
+    " colorscheme monokai
+    colorscheme onedark
 endif
 
 call ApplyLocalSettings(expand('.'))
@@ -744,3 +782,4 @@ set shortmess+=A
 nnoremap <esc> :noh<return><esc>
 
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types:h11
+

@@ -37,10 +37,19 @@ tmux_conf_new_session_prompt=false
 
 # -- display -------------------------------------------------------------------
 
+onedark_black="#282c34"
+onedark_blue="#61afef"
+onedark_yellow="#e5c07b"
+onedark_red="#e06c75"
+onedark_white="#aab2bf"
+onedark_green="#98c379"
+onedark_visual_grey="#3e4452"
+onedark_comment_grey="#5c6370"
+
 # RGB 24-bit colour support (since tmux 2.2), possible values are:
 #  - true
 #  - false (default)
-tmux_conf_theme_24b_colour=false
+tmux_conf_theme_24b_colour=true
 
 # window style
 tmux_conf_theme_window_fg='default'
