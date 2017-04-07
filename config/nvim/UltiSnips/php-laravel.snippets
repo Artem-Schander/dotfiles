@@ -1,0 +1,10 @@
+snippet l_mfk "Laravel migration foreign key" b
+$table->integer('$1_id')->${2:required}()->unsigned();
+$table->foreign('$1_id')->references('$1s')->on('id');
+endsnippet
+
+snippet l_mdrop "Laravel migration drop table and ignore foreign keys" b
+DB::statement('SET FOREIGN_KEY_CHECKS 0');
+Schema::dropIfExists('$1');
+DB::statement('SET FOREIGN_KEY_CHECKS 1');
+endsnippet

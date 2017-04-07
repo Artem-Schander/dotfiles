@@ -168,6 +168,7 @@ augroup configgroup
     autocmd FileType crontab setlocal nobackup nowritebackup
     " autocmd FileType js UltiSnipsAddFiletypes javascript-es6
     autocmd FileType php UltiSnipsAddFiletypes php-laravel
+    autocmd FileType blade UltiSnipsAddFiletypes html
 
     " automatically resize panes on resize
     autocmd VimResized * exe 'normal! \<c-w>='
