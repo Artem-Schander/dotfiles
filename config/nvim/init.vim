@@ -54,16 +54,18 @@ Plug 'easymotion/vim-easymotion' " Vim motion on speed
 Plug 'terryma/vim-multiple-cursors' " True Sublime Text style multiple selections for Vim
 "
 " " language-specific plugins
-Plug 'StanAngeloff/php.vim' " Up-to-date PHP syntax file
-Plug '2072/PHP-Indenting-for-VIm', { 'for': 'php' }
-Plug 'stephpy/vim-php-cs-fixer' " psr-2 formating
+Plug 'sheerun/vim-polyglot', " A solid language pack for Vim
+" Plug 'StanAngeloff/php.vim', { 'for': 'php' } " Up-to-date PHP syntax file
+" Plug '2072/PHP-Indenting-for-VIm', { 'for': 'php' }
+Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' } " psr-2 formating
+" Plug 'jwalton512/vim-blade', { 'for': 'html' } " syntax highlighting for Blade templates.
 Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
 " Plug 'gregsexton/MatchTag', { 'for': 'html' } " match tags in html, similar to paren support
 " Plug 'othree/html5.vim', { 'for': 'html' } " html5 support
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' } " JavaScript support
+" Plug 'pangloss/vim-javascript', { 'for': 'javascript' } " JavaScript support
 " Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' } " JavaScript indent support
 " Plug 'moll/vim-node', { 'for': 'javascript' } " node support
-Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' } " JavaScript syntax plugin
+" Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' } " JavaScript syntax plugin
 " Plug 'othree/yajs.vim', { 'for': 'javascript' } " JavaScript syntax plugin
 " Plug 'mxw/vim-jsx', { 'for': 'jsx' } " JSX support
 " Plug 'elzr/vim-json', { 'for': 'json' } " JSON support
@@ -75,11 +77,11 @@ Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' } " JavaScript syntax
 " " Plug 'juvenn/mustache.vim', { 'for': 'mustache' } " mustache support
 " Plug 'mustache/vim-mustache-handlebars' " mustach support
 " Plug 'digitaltoad/vim-jade', { 'for': ['jade', 'pug'] } " jade support
-" Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " sass scss syntax support
+Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " sass scss syntax support
 Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] } " markdown support
-" Plug 'groenewege/vim-less', { 'for': 'less' } " less support
-" Plug 'ap/vim-css-color', { 'for': ['css','stylus','scss'] } " set the background of hex color values to the color
-" Plug 'hail2u/vim-css3-syntax', { 'for': 'css' } " CSS3 syntax support
+Plug 'groenewege/vim-less', { 'for': 'less' } " less support
+Plug 'ap/vim-css-color', { 'for': ['css','stylus','scss'] } " set the background of hex color values to the color
+Plug 'hail2u/vim-css3-syntax', { 'for': 'css' } " CSS3 syntax support
 " Plug 'itspriddle/vim-marked', { 'for': 'markdown', 'on': 'MarkedOpen' } " Open markdown files in Marked.app - mapped to <leader>m
 " Plug 'tpope/vim-markdown', { 'for': 'markdown' } " markdown support
 " Plug 'fatih/vim-go', { 'for': 'go' } " go support
@@ -165,6 +167,7 @@ augroup configgroup
     autocmd FileType .xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
     autocmd FileType crontab setlocal nobackup nowritebackup
     " autocmd FileType js UltiSnipsAddFiletypes javascript-es6
+    autocmd FileType php UltiSnipsAddFiletypes php-laravel
 
     " automatically resize panes on resize
     autocmd VimResized * exe 'normal! \<c-w>='
@@ -174,6 +177,7 @@ augroup configgroup
     autocmd FocusLost * silent! wa
 
     autocmd BufNewFile,BufRead *.ejs set filetype=html
+    " autocmd BufNewFile,BufRead *.blade.php set filetype=html
     autocmd BufNewFile,BufRead *.ino set filetype=c
     autocmd BufNewFile,BufRead *.svg set filetype=xml
     autocmd BufNewFile,BufRead .babelrc set filetype=json
@@ -340,10 +344,10 @@ nmap <leader>. <c-^>
 vnoremap . :normal .<cr>
 
 " create split with current buffer in it
-map <silent> <C-h> :call WinMove('h')<cr>
-map <silent> <C-j> :call WinMove('j')<cr>
-map <silent> <C-k> :call WinMove('k')<cr>
-map <silent> <C-l> :call WinMove('l')<cr>
+" map <silent> <C-h> :call WinMove('h')<cr>
+" map <silent> <C-j> :call WinMove('j')<cr>
+" map <silent> <C-k> :call WinMove('k')<cr>
+" map <silent> <C-l> :call WinMove('l')<cr>
 
 " quit current buffer
 map <leader>wc :wincmd q<cr>
@@ -641,8 +645,8 @@ let g:ctrlp_working_path_mode = 2
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
