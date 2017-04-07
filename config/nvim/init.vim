@@ -1,3 +1,4 @@
+"
 " " ┏┓╻┏━┓╺┳╸┏━╸┏━┓   ┏━┓┏┓╻╺┳┓   ╺┳╸╻┏━┓┏━┓ " "
 " " ┃┗┫┃ ┃ ┃ ┣╸ ┗━┓   ┣━┫┃┗┫ ┃┃    ┃ ┃┣━┛┗━┓ " "
 " " ╹ ╹┗━┛ ╹ ┗━╸┗━┛   ╹ ╹╹ ╹╺┻┛    ╹ ╹╹  ┗━┛ " "
@@ -17,8 +18,13 @@
 " " P " (capital) paste above
 "
 "
+"   VISUALS
 "
-"   HINTS
+"   " <leader>l " toggles the invisible chars
+"   " <leader>ig " toggles the indent guides
+"
+"
+"   RECOMMENDATIONS
 "
 "   map capslock to <C> [cmd]
 "   in your OS settings
@@ -26,6 +32,7 @@
 " " ┏━╸┏━┓┏┓╻┏━╸╻┏━╸ " "
 " " ┃  ┃ ┃┃┗┫┣╸ ┃┃╺┓ " "
 " " ┗━╸┗━┛╹ ╹╹  ╹┗━┛ " "
+"
 " run:
 " nvim +PlugInstall
 
@@ -768,6 +775,7 @@ hi IndentGuidesEven guibg=black ctermbg=236
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 let g:indent_guides_enable_on_vim_startup=1
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 
 " }}}
 
