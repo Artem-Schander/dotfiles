@@ -19,6 +19,7 @@ brew install bash
 brew install ack
 brew install tree
 brew install wget
+brew install ctags
 brew install php-cs-fixer
 brew install python
 brew install python3

@@ -13,6 +13,7 @@ Plug 'rickharris/vim-monokai' " monokai has to be downloaded and installed for t
 
 
 " utilities
+Plug 'dyng/ctrlsf.vim' " mimics Ctrl-Shift-F on Sublime Text 2
 Plug 'tpope/vim-obsession' " obsession.vim: continuously updated session files
 Plug 'ctrlpvim/ctrlp.vim' " fuzzy file finder, mapped to <leader>p
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons' " file drawer
@@ -585,7 +586,17 @@ nmap <leader>m :MarkedOpen!<cr>
 nmap <leader>mq :MarkedQuit<cr>
 
 " toggle Limelight
-nmap <leader>f :Limelight!!<cr>
+" nmap <leader>f :Limelight!!<cr>
+
+" search and replace in multiple files
+nmap     <C-F>f <Plug>CtrlSFPrompt
+vmap     <C-F>f <Plug>CtrlSFVwordPath
+vmap     <C-F>F <Plug>CtrlSFVwordExec
+nmap     <C-F>n <Plug>CtrlSFCwordPath
+nmap     <C-F>p <Plug>CtrlSFPwordPath
+nnoremap <C-F>o :CtrlSFOpen<CR>
+nnoremap <C-F>t :CtrlSFToggle<CR>
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
 " remap <CR> to indent html
 inoremap <leader><CR> <CR><C-o>==<C-o>O
