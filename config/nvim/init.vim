@@ -54,6 +54,9 @@ Plug 'easymotion/vim-easymotion' " Vim motion on speed
 Plug 'terryma/vim-multiple-cursors' " True Sublime Text style multiple selections for Vim
 "
 " " language-specific plugins
+Plug 'StanAngeloff/php.vim' " Up-to-date PHP syntax file
+Plug '2072/PHP-Indenting-for-VIm', { 'for': 'php' }
+Plug 'stephpy/vim-php-cs-fixer' " psr-2 formating
 Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
 " Plug 'gregsexton/MatchTag', { 'for': 'html' } " match tags in html, similar to paren support
 " Plug 'othree/html5.vim', { 'for': 'html' } " html5 support
@@ -317,8 +320,9 @@ noremap <space> :set hlsearch! hlsearch?<cr>
 nmap ;s :set invspell spelllang=en<cr>
 
 " toggle invisible characters
-set invlist
-set listchars=tab:>-,space:·,eol:¬,trail:~,extends:❯,precedes:❮
+" set invlist
+set nolist
+set listchars=tab:>-,space:·,eol:¬,trail:·,extends:❯,precedes:❮
 highlight SpecialKey ctermbg=none " make the highlighting of tabs less annoying
 set showbreak=↪
 nmap <leader>l :set list!<cr>
@@ -548,7 +552,7 @@ autocmd InsertLeave * set nocul
 " go through tabs
 map <silent> öä :tabn<cr>
 map <silent> äö :tabp<cr>
-map <silent> <C-n> :tabnew<cr>
+map <silent> <leader>n :tabnew<cr>
 
 " moving lines
 nnoremap <A-j> :m .+1<CR>==
@@ -710,7 +714,6 @@ hi IndentGuidesEven guibg=black ctermbg=236
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_color_name_guibg_pattern = "guibg='?\zs[0-9A-Za-z]+\ze'?"
 
 " }}}
 
