@@ -5,30 +5,37 @@
 "
 "   SEARCH AND MOVEMENTS
 "
-" " <leader><leader>f " find any letter, get them highlighted and move to the desired location
-"   easymotion/vim-easymotion
-" " <C-f>f " search in multiple files (entire project). Results can be changed
+" " <leader><leader>f " find any letter, get them highlighted and move to the desired location --> easymotion/vim-easymotion
+" " <C-f>f " search in multiple files (entire project). Results can be changed --> dyng/ctrlsf.vim
 " " zz " center the line where the cursor is located
+" " <leader>n " open and go to new tab
+" " öä or äö " navigate through tabs
+" " <leader>. " switch to the last used buffer
 "
 "
 "   EDIT / COPY & PASTE
 "
+" " <leader>ev " edit ~/.vimrc file instantly
 " " yy " copy the whole line
 " " p " (lowercase) paste below
 " " P " (capital) paste above
+" " C " (capital) change rest of line
+" " <leader>cl " comment line or block out --> scrooloose/nerdcommenter
+" " <leader>c<space> " toggle comment --> scrooloose/nerdcommenter
 "
 "
 "   VISUALS
 "
 "   " <leader>l " toggles the invisible chars
-"   " <leader>ig " toggles the indent guides
+"   " <leader>ig " toggles the indent guides --> nathanaelkane/vim-indent-guides
 "
 "
 "   RECOMMENDATIONS
 "
-"   map capslock to <C> [cmd]
+" " map capslock to <C> [cmd] "
 "   in your OS settings
-" 
+"
+"
 " " ┏━╸┏━┓┏┓╻┏━╸╻┏━╸ " "
 " " ┃  ┃ ┃┃┗┫┣╸ ┃┃╺┓ " "
 " " ┗━╸┗━┛╹ ╹╹  ╹┗━┛ " "
@@ -52,7 +59,8 @@ Plug 'dyng/ctrlsf.vim' " mimics Ctrl-Shift-F on Sublime Text 2
 Plug 'tpope/vim-obsession' " obsession.vim: continuously updated session files
 Plug 'ctrlpvim/ctrlp.vim' " fuzzy file finder, mapped to <leader>p
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons' " file drawer
-Plug 'mileszs/ack.vim' " search inside files using ack. Same as command line ack utility, but use :Ack
+" Plug 'mileszs/ack.vim' " search inside files using ack. Same as command line ack utility, but use :Ack
+Plug 'rking/ag.vim' " a replacement for the Perl module / CLI script 'ack' (the_silver_searcher)
 " Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'scrooloose/nerdcommenter' " comment stuff out
 " Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
@@ -127,8 +135,12 @@ Plug 'hail2u/vim-css3-syntax', { 'for': 'css' } " CSS3 syntax support
 call plug#end()
 
 " }}}
-"
-"
+
+
+
+
+
+
 " Section General {{{
 
 " load plugins from vundle
@@ -187,7 +199,15 @@ set laststatus=2 " show the satus line all the time
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
 
+set fillchars+=vert:\┃ 
+
 " }}}
+
+
+
+
+
+
 
 " Section AutoGroups {{{
 " file type specific settings
@@ -249,6 +269,12 @@ augroup configgroup
 augroup END
 
 " }}}
+
+
+
+
+
+
 
 " Section User Interface {{{
 
@@ -318,6 +344,12 @@ set autoindent " automatically set indent of new line
 set smartindent
 
 " }}}
+
+
+
+
+
+
 
 " Section Mappings {{{
 
@@ -434,6 +466,12 @@ nmap \s :set ts=4 sts=4 sw=4 et<cr>
 nmap <leader>w :setf textile<cr> :Goyo<cr>
 
 " }}}
+
+
+
+
+
+
 
 " Section Functions {{{
 
@@ -558,6 +596,12 @@ nnoremap <silent> <leader>u :call HtmlUnEscape()<cr>
 
 " }}}
 
+
+
+
+
+
+
 " Section Plugins {{{
 
 " close NERDTree after a file is opened
@@ -588,6 +632,11 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 " enable open and close folder/directory glyph flags
 let g:DevIconsEnableFoldersOpenClose = 0
 
+" after a re-source, fix syntax matching issues (concealing brackets):
+if exists('g:loaded_webdevicons')
+    call webdevicons#refresh()
+endif
+
 " go through tabs
 map <silent> öä :tabn<cr>
 map <silent> äö :tabp<cr>
@@ -603,7 +652,10 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " map fuzzyfinder (CtrlP) plugin
 " nmap <silent> <leader>p :CtrlP<cr>
-nmap <silent> <leader>r :CtrlPBuffer<cr>
+" unmaps the default binding for :bw<CR>
+nmap <silent> <leader>b :CtrlPBuffer<cr>
+nmap <silent> <leader>r :CtrlPBufTag<cr>
+nmap <silent> <leader>ö :CtrlPMRUFiles<cr>
 let g:ctrlp_map='<leader>p'
 let g:ctrlp_dotfiles=1
 let g:ctrlp_working_path_mode = 'ra'
@@ -633,6 +685,8 @@ nmap     <C-F>p <Plug>CtrlSFPwordPath
 nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+
+" let g:ctrlsf_ackprg = '/usr/local/bin/ag'
 
 " remap <CR> to indent html
 inoremap <leader><CR> <CR><C-o>==<C-o>O
@@ -689,6 +743,7 @@ let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclu
 
 " search the nearest ancestor that contains .git, .hg, .svn
 let g:ctrlp_working_path_mode = 2
+let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:30'
 
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
@@ -778,6 +833,13 @@ let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 
 " }}}
+
+
+
+
+
+
+
 
 
 " A: don't give the "ATTENTION" message when an existing swap file set

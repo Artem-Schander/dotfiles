@@ -16,7 +16,8 @@ echo "=============================="
 brew install bash
 
 # cli tools
-brew install ack
+# brew install ack
+brew install the_silver_searcher
 brew install tree
 brew install wget
 brew install ctags
