@@ -26,8 +26,8 @@
 "
 "   VISUALS
 "
-"   " <leader>l " toggles the invisible chars
-"   " <leader>ig " toggles the indent guides --> nathanaelkane/vim-indent-guides
+" " <leader>l " toggles the invisible chars
+" " <leader>ig " toggles the indent guides --> nathanaelkane/vim-indent-guides
 "
 "
 "   RECOMMENDATIONS
