@@ -686,7 +686,7 @@ nnoremap <C-F>o :CtrlSFOpen<CR>
 nnoremap <C-F>t :CtrlSFToggle<CR>
 inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
-" let g:ctrlsf_ackprg = '/usr/local/bin/ag'
+let g:ctrlsf_ackprg = '/usr/local/bin/ag'
 
 " remap <CR> to indent html
 inoremap <leader><CR> <CR><C-o>==<C-o>O
