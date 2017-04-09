@@ -8,9 +8,13 @@
 " " <leader><leader>f " find any letter, get them highlighted and move to the desired location --> easymotion/vim-easymotion
 " " <C-f>f " search in multiple files (entire project). Results can be changed --> dyng/ctrlsf.vim
 " " zz " center the line where the cursor is located
-" " <leader>n " open and go to new tab
+" " <leader>t " open and go to new tab
 " " öä or äö " navigate through tabs
 " " <leader>. " switch to the last used buffer
+" " <C-o> or <C-i> " navigate between edit points
+"
+" " :!ctags -R --exclude=node_modules --exclude=dist " create a tags index --> ctags
+" " <C-]> " (ctrl+alt+6) go to declaration of whatever is under the cursor --> ctags
 "
 "
 "   EDIT / COPY & PASTE
@@ -22,6 +26,11 @@
 " " C " (capital) change rest of line
 " " <leader>cl " comment line or block out --> scrooloose/nerdcommenter
 " " <leader>c<space> " toggle comment --> scrooloose/nerdcommenter
+" " dst " delete surrounding tag --> tpope/vim-surround
+" " cst " change surrounding tag --> tpope/vim-surround
+" " <leader><f " format php file (psr-2) --> stephpy/vim-php-cs-fixer
+" " cit " change in tag
+" " cat " like ciw but takes the tag also
 "
 "
 "   VISUALS
@@ -99,7 +108,8 @@ Plug 'terryma/vim-multiple-cursors' " True Sublime Text style multiple selection
 "
 " " language-specific plugins
 Plug 'sheerun/vim-polyglot', " A solid language pack for Vim
-" Plug 'StanAngeloff/php.vim', { 'for': 'php' } " Up-to-date PHP syntax file
+Plug 'StanAngeloff/php.vim', { 'for': 'php' } " Up-to-date PHP syntax file
+Plug 'arnaud-lb/vim-php-namespace' " plugin for inserting 'use' statements automatically
 " Plug '2072/PHP-Indenting-for-VIm', { 'for': 'php' }
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' } " psr-2 formating
 " Plug 'jwalton512/vim-blade', { 'for': 'html' } " syntax highlighting for Blade templates.
@@ -389,6 +399,8 @@ map <leader>v :set paste!<cr>
 
 " edit ~/.config/nvim/init.vim
 map <leader>ev :e! ~/.config/nvim/init.vim<cr>
+" edit ~/.config/nvim/snippets
+map <leader>es :e ~/.config/nvim/snippets<cr>
 " edit gitconfig
 map <leader>eg :e! ~/.gitconfig<cr>
 
@@ -640,7 +652,7 @@ endif
 " go through tabs
 map <silent> öä :tabn<cr>
 map <silent> äö :tabp<cr>
-map <silent> <leader>n :tabnew<cr>
+map <silent> <leader>t :tabnew<cr>
 
 " moving lines
 nnoremap <A-j> :m .+1<CR>==
@@ -652,7 +664,6 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 
 " map fuzzyfinder (CtrlP) plugin
 " nmap <silent> <leader>p :CtrlP<cr>
-" unmaps the default binding for :bw<CR>
 nmap <silent> <leader>b :CtrlPBuffer<cr>
 nmap <silent> <leader>r :CtrlPBufTag<cr>
 nmap <silent> <leader>ö :CtrlPMRUFiles<cr>
@@ -831,6 +842,28 @@ let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+
+" arnaud-lb/vim-php-namespace
+" Automatically adds the corresponding use statement for the name under the cursor.
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
+autocmd FileType php inoremap <Leader>n <Esc>:call IPhpInsertUse()<CR>
+autocmd FileType php noremap <Leader>n :call PhpInsertUse()<CR>
+
+function! IPhpExpandClass()
+    call PhpExpandClass()
+    call feedkeys('a', 'n')
+endfunction
+autocmd FileType php inoremap <Leader>nf <Esc>:call IPhpExpandClass()<CR>
+autocmd FileType php noremap <Leader>nf :call PhpExpandClass()<CR>
+
+" stephpy/vim-php-cs-fixer
+autocmd FileType php nnoremap <silent><leader><f :call PhpCsFixerFixFile()<CR>
+nnoremap <silent><leader><d :call PhpCsFixerFixDirectory()<CR>
+" unmap <Leader>pcd
+" unmap <Leader>pcf
 
 " }}}
 
