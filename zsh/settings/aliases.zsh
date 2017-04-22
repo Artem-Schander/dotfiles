@@ -80,7 +80,7 @@ alias canary="/Applications/Google\\ Chrome\\ Canary.app/Contents/MacOS/Google\\
 # dont use the ctags from xcode
 alias ctags="`brew --prefix`/bin/ctags"
 
-alias homestead=~/.composer/vendor/bin/homestead
+# alias homestead=~/.composer/vendor/bin/homestead
 alias sublime=sbl
 alias artisan='php artisan'
 

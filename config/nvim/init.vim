@@ -11,7 +11,8 @@
 " " <leader>t " open and go to new tab
 " " öä or äö " navigate through tabs
 " " <leader>. " switch to the last used buffer
-" " <C-o> or <C-i> " navigate between edit points
+" " <leader>p " search file by name --> kien/ctrlp.vim
+" " <leader>r " search tag in current buffer --> kien/ctrlp.vim
 "
 " " :!ctags -R --exclude=node_modules --exclude=dist " create a tags index --> ctags
 " " <C-]> " (ctrl+alt+6) go to declaration of whatever is under the cursor --> ctags
@@ -32,6 +33,12 @@
 " " cit " change in tag
 " " cat " like ciw but takes the tag also
 "
+"
+"   AUTOCOMPLETE / SNIPPETS
+"
+" " <C-y><leader> " (ctrl+y ,) render emmet-string to html--> mattn/emmet-vim
+" " <C-y>n " (ctrl+y n) go to next edit point --> mattn/emmet-vim
+" " <C-o> or <C-i> " snippet - navigate between edit points
 "
 "   VISUALS
 "
@@ -81,7 +88,7 @@ Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair.
 Plug 'vim-airline/vim-airline' " fancy statusline
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
 Plug 'vim-syntastic/syntastic' " syntax checking for vim
-Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
+" Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
@@ -115,7 +122,7 @@ Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' } " psr-2 formating
 " Plug 'jwalton512/vim-blade', { 'for': 'html' } " syntax highlighting for Blade templates.
 Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
 " Plug 'gregsexton/MatchTag', { 'for': 'html' } " match tags in html, similar to paren support
-" Plug 'othree/html5.vim', { 'for': 'html' } " html5 support
+Plug 'othree/html5.vim', { 'for': 'html' } " html5 support
 " Plug 'pangloss/vim-javascript', { 'for': 'javascript' } " JavaScript support
 " Plug 'gavocanov/vim-js-indent', { 'for': 'javascript' } " JavaScript indent support
 " Plug 'moll/vim-node', { 'for': 'javascript' } " node support
@@ -124,6 +131,7 @@ Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily creat
 " Plug 'mxw/vim-jsx', { 'for': 'jsx' } " JSX support
 " Plug 'elzr/vim-json', { 'for': 'json' } " JSON support
 " Plug 'othree/es.next.syntax.vim', { 'for': 'javascript' } " ES6 and beyond syntax
+Plug 'posva/vim-vue', { 'for': 'javascript' } " Syntax Highlight for Vue.js components
 " " Plug 'Quramy/tsuquyomi', { 'for': 'typescript', 'do': 'npm install' } " extended typescript support - works as a client for TSServer
 " Plug 'Shougo/vimproc.vim', { 'do': 'make' } " interactive command execution in vim
 " Plug 'leafgarland/typescript-vim', { 'for': 'typescript' } " typescript support
@@ -235,6 +243,7 @@ augroup configgroup
     " autocmd FileType js UltiSnipsAddFiletypes javascript-es6
     autocmd FileType php UltiSnipsAddFiletypes php-laravel
     autocmd FileType blade UltiSnipsAddFiletypes html
+    " autocmd FileType blade,vue EmmetInstall
 
     " automatically resize panes on resize
     autocmd VimResized * exe 'normal! \<c-w>='
@@ -267,7 +276,7 @@ augroup configgroup
 
     " autocmd CursorHold,CursorHoldI * call NERDTreeFocus() | call g:NERDTree.ForCurrentTab().getRoot().refresh() | call g:NERDTree.ForCurrentTab().render() | wincmd w
 
-    autocmd! BufWritePost * Neomake
+    " autocmd! BufWritePost * Neomake
 
     autocmd FileType nerdtree setlocal relativenumber
 

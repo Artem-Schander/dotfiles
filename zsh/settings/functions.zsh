@@ -140,6 +140,6 @@ function dark() {
     export BACKGROUND="dark" && reload!
 }
 
-# function homestead() {
-#     ( cd ~/Homestead && vagrant $* )
-# }
+function homestead() {
+    ( cd ~/Homestead && vagrant $* )
+}
