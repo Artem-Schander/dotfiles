@@ -5,6 +5,8 @@
 "
 "   SEARCH AND MOVEMENTS
 "
+" " :344 " go to line number 344
+" " ]} or [{ " go to the start and end of a code block
 " " <leader><leader>f " find any letter, get them highlighted and move to the desired location --> easymotion/vim-easymotion
 " " <C-f>f " search in multiple files (entire project). Results can be changed --> dyng/ctrlsf.vim
 " " zz " center the line where the cursor is located
