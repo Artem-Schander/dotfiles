@@ -152,3 +152,11 @@ if hash brew 2>/dev/null; then
 
 fi
 
+
+export PATH="$HOME/.yarn/bin:$PATH"
+
+if [[ -d $(brew --prefix homebrew/php/php71)/bin ]]; then
+    export PATH="$(brew --prefix homebrew/php/php71)/bin:$PATH"
+elif [[ -d $(brew --prefix homebrew/php/php70)/bin ]]; then
+    export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"
+fi
