@@ -86,3 +86,6 @@ alias artisan='php artisan'
 
 # git status
 alias gs='git status'
+
+# quick opening files or folders with vim
+alias v='a -e nvim'
