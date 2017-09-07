@@ -91,3 +91,7 @@ alias gs='git status'
 # quick opening recently used files or folders
 alias v='a -e nvim' # with vim
 # alias fos='a -e "$_sublime_path"' # with sublime
+
+# codeception
+alias codecept='vendor/bin/codecept'
+alias codeception='vendor/bin/codecept'
