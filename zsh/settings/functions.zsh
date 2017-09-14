@@ -143,3 +143,13 @@ function dark() {
 function homestead() {
     ( cd ~/Homestead && vagrant $* )
 }
+
+# source ~/.zshrc by running .
+function _accept-line() {
+    if [[ $BUFFER == "." ]]; then
+        BUFFER="source ~/.zshrc"
+    fi
+    zle .accept-line
+} 
+
+zle -N accept-line _accept-line
