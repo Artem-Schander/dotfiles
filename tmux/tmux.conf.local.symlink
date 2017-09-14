@@ -248,7 +248,7 @@ tmux_conf_theme_clock_style='24'
 #set -g mode-keys vi
 
 # move status line to top
-set -g status-position bottom
+#set -g status-position top
 
 
 # quickly open a new window
@@ -284,5 +284,3 @@ setw -g mouse on
 
 bind -T root WheelUpPane if-shell -F -t = "#{alternate_on}" "select-pane -t =; send-keys -M" "select-pane -t =; copy-mode -e; send-keys -M"
 bind -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "select-pane -t =; send-keys -M" "select-pane -t =; send-keys -M"
-bind-key -t vi-copy WheelUpPane halfpage-up
-bind-key -t vi-copy WheelDownPane halfpage-down

@@ -28,7 +28,7 @@ alias df='df -h' # disk free, in Gigabytes, not bytes
 alias du='du -h -c' # calculate disk usage for a folder
 
 # Applications
-alias ios='open -a /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/Applications/iPhone\ Simulator.app'
+alias ios='open -a /Applications/Xcode.app/Contents/Developer/Applications/Simulator.app'
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -86,3 +86,12 @@ alias artisan='php artisan'
 
 # git status
 alias gs='git status'
+
+# fasd
+# quick opening recently used files or folders
+alias v='a -e nvim' # with vim
+# alias fos='a -e "$_sublime_path"' # with sublime
+
+# codeception
+alias codecept='vendor/bin/codecept'
+alias codeception='vendor/bin/codecept'

@@ -19,6 +19,7 @@ brew install bash
 # brew install ack
 brew install the_silver_searcher
 brew install tree
+brew install fasd
 brew install wget
 brew install ctags
 brew install php-cs-fixer
