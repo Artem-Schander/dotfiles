@@ -28,6 +28,7 @@ brew install python3
 
 # development server setup
 brew install nginx
+brew install mariadb
 brew install dnsmasq
 
 # development tools
