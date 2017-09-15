@@ -112,13 +112,15 @@ Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab
 " " Plug 'tpope/vim-abolish'
 " Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
 Plug 'vim-scripts/matchit.zip' " extended % matching
-Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
+" Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
+Plug 'ciaranm/detectindent' " automatically detecting indent settings
 Plug 'nathanaelkane/vim-indent-guides' " visually displaying indent levels in code
 " Plug 'sickill/vim-pasta' " context-aware pasting
 " Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } " distraction-free writing
 " Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " focus tool. Good for presentating with vim
 Plug 'easymotion/vim-easymotion' " Vim motion on speed
 Plug 'terryma/vim-multiple-cursors' " True Sublime Text style multiple selections for Vim
+Plug 'Chiel92/vim-autoformat' " Format code with one button press. <F3>
 "
 " " language-specific plugins
 Plug 'sheerun/vim-polyglot', " A solid language pack for Vim
@@ -194,9 +196,9 @@ set textwidth=120
 " set noexpandtab " insert tabs rather than spaces for <Tab>
 set expandtab " Expand TABs to spaces
 set smarttab " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
-set tabstop=2 " the visible width of tabs
-set softtabstop=2 " edit as if the tabs are 4 characters wide
-set shiftwidth=2 " number of spaces to use for indent and unindent
+set tabstop=4 " the visible width of tabs
+set softtabstop=4 " edit as if the tabs are 4 characters wide
+set shiftwidth=4 " number of spaces to use for indent and unindent
 set shiftround " round indent to a multiple of 'shiftwidth'
 set completeopt+=longest
 
@@ -378,6 +380,9 @@ set smartindent
 
 
 " Section Mappings {{{
+
+" Format code
+noremap <F3> :set tabstop=4 shiftwidth=4 expandtab<CR> :Autoformat<CR>
 
 " Easier split navigations
 " nnoremap <C-J> <C-W><C-J>
