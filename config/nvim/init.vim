@@ -383,6 +383,7 @@ set smartindent
 " Section Mappings {{{
 
 " Format code
+noremap <F2> :set tabstop=4 shiftwidth=4 expandtab<CR> :retab<CR>
 noremap <F3> :set tabstop=4 shiftwidth=4 expandtab<CR> :Autoformat<CR>
 
 " Easier split navigations
