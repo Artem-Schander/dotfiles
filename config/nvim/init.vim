@@ -31,6 +31,7 @@
 " " C " (capital) change rest of line
 " " <leader>cl " comment line or block out --> scrooloose/nerdcommenter
 " " <leader>c<space> " toggle comment --> scrooloose/nerdcommenter
+" " ysiw " add surroundings --> tpope/vim-surround
 " " dst " delete surrounding tag --> tpope/vim-surround
 " " cst " change surrounding tag --> tpope/vim-surround
 " " <leader><f " format php file (psr-2) --> stephpy/vim-php-cs-fixer
