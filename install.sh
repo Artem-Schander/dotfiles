@@ -12,13 +12,13 @@ if [ "$(uname)" == "Darwin" ]; then
 
     source install/brew.sh
 
+    source install/tmux.sh
+
     source install/osx.sh
 
     source install/nvm.sh
 
     source install/omz.sh
-    
-	source install/tmux.sh
 
     # create a backup of the original nginx.conf
     mv /usr/local/etc/nginx/nginx.conf /usr/local/etc/nginx/nginx.original
@@ -28,7 +28,6 @@ if [ "$(uname)" == "Darwin" ]; then
       mkdir /usr/local/etc/nginx/sites-enabled
     fi
     ln -s ~/.dotfiles/nginx/sites-availible/code.dev /usr/local/etc/nginx/sites-enabled/code.dev
-
 fi
 
 echo "creating vim directories"
@@ -42,9 +41,9 @@ NORMAL="$(tput sgr0)"
 
 
 if [ "$(uname)" == "Darwin" ]; then
-	toilet -f future -F border ' Remember to install the vim pligins ! ' -t && toilet -f smmono9 '   ~/$ vim +PlugInstall' -t
+    toilet -f future -F border ' Remember to install the vim pligins ! ' -t && toilet -f smmono9 '   ~/$ vim +PlugInstall' -t
 else
-	printf "💡 ${YELLOW}Remember to install the vim pligins!${NORMAL} vim +PlugInstall!\n"
+    printf "💡 ${YELLOW}Remember to install the vim pligins!${NORMAL} vim +PlugInstall!\n"
 fi
 
 echo "Done."

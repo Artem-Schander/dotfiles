@@ -284,3 +284,23 @@ setw -g mouse on
 
 bind -T root WheelUpPane if-shell -F -t = "#{alternate_on}" "select-pane -t =; send-keys -M" "select-pane -t =; copy-mode -e; send-keys -M"
 bind -T root WheelDownPane if-shell -F -t = "#{alternate_on}" "select-pane -t =; send-keys -M" "select-pane -t =; send-keys -M"
+
+# Restoring pane content
+set -g @resurrect-capture-pane-contents 'on'
+
+# Restoring vim and neovim sessions
+set -g @resurrect-strategy-vim 'session'
+set -g @resurrect-strategy-nvim 'session'
+
+# Restoring shell history
+set -g @resurrect-save-shell-history 'on'
+
+# restore all programs that are running inside tmux
+set -g @resurrect-processes ':all:'
+
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run '~/.tmux/plugins/tpm/tpm'
