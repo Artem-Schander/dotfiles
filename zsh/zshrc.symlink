@@ -1,6 +1,10 @@
 export DOTFILES=$HOME/.dotfiles
 export ZSH=$DOTFILES/zsh/.oh-my-zsh
 
+command_exists() {
+    type "$1" > /dev/null 2>&1
+}
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -51,7 +55,7 @@ ZSH_THEME="cloud"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-flow sublime osx common-aliases fasd httpie history sudo tmux)
+plugins=(git git-flow sublime osx common-aliases fasd httpie history sudo tmux add-zsh-hook fzf base16-vim)
 
 
 source $ZSH/oh-my-zsh.sh
@@ -95,7 +99,14 @@ if [[ -a ~/.localrc ]]; then
     source ~/.localrc
 fi
 
+# initialize autocomplete
+autoload -U compinit add-zsh-hook
+compinit
+
+for config ($DOTFILES/zsh/settings/**/*completion.sh) source $config
+
 export EDITOR='nvim'
+export GIT_EDITOR='nvim'
 
 export PATH=/usr/local/bin:$PATH
 
@@ -117,10 +128,10 @@ if [[ -d ~/bin ]]; then
     export PATH=~/bin:$PATH
 fi
 
-# [ -z "$TMUX" ] && export TERM=xterm-256color-italic
+[ -z "$TMUX" ] && export TERM=xterm-256color-italic
 
 # install rbenv
-if hash rbenv 2>/dev/null; then
+if command_exists rbenv; then
     eval "$(rbenv init -)"
 fi
 
@@ -130,9 +141,17 @@ if [[ -d ~/.rvm ]]; then
 fi
 
 # alias git to hub
-if hash hub 2>/dev/null; then
+if command_exists hub; then
     eval "$(hub alias -s)"
 fi
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# Base16 shell setup
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 # source nvm
 export NVM_DIR=~/.nvm
@@ -149,7 +168,6 @@ if hash brew 2>/dev/null; then
     source `brew --prefix`/etc/profile.d/z.sh
     # when sourcing, check and ensure that the correct Node version is set
     load-nvmrc
-
 fi
 
 

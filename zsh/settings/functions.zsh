@@ -44,10 +44,14 @@ function ng-restart() {
      sudo launchctl start homebrew.mxcl.nginx
 }
 
+function dns-restart() {
+    sudo launchctl stop homebrew.mxcl.dnsmasq
+    sudo launchctl start homebrew.mxcl.dnsmasq
+}
+
 pretty() {
     pygmentize -f terminal256 $* | less -R
 }
-
 
 # Start an HTTP server from a directory, optionally specifying the port
 function server() {
@@ -133,15 +137,6 @@ function hl() {
     fi
 
     echo $src | highlight -O rtf --syntax $1 --font Inconsoloata --style $style --line-number --font-size 24 | pbcopy
-}
-
-# set the background color to light
-function light() {
-    export BACKGROUND="light" && reload!
-}
-
-function dark() {
-    export BACKGROUND="dark" && reload!
 }
 
 function homestead() {

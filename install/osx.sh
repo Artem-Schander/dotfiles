@@ -1,7 +1,10 @@
 #!/usr/bin/env sh
 
-echo -e "\n\nSetting OS X settings"
-echo "=============================="
+GREEN="$(tput setaf 2)"
+NORMAL="$(tput sgr0)"
+
+echo -e "\n\n${GREEN}Setting OS X settings"
+echo "==============================${NORMAL}"
 
 # echo "Finder: show all filename extensions"
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true

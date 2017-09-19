@@ -1,9 +1,18 @@
 #!/bin/sh
 
-echo -e "\n\nInstalling Tmux"
-echo "=============================="
+GREEN="$(tput setaf 2)"
+NORMAL="$(tput sgr0)"
 
-brew install tmux
+echo -e "\n\n${GREEN}Installing Tmux"
+echo "==============================${NORMAL}"
+
+if [ "$(uname)" == "Darwin" ]; then
+    if brew list tmux > /dev/null 2>&1; then
+        echo "tmux already installed... skipping."
+    else
+        brew install tmux
+    fi
+fi
 
 if [ -d ~/.tmux/plugins/tpm ]; then
     # printf "${YELLOW}You already have Tmux Plugin Manager installed.${NORMAL}\n"
@@ -11,5 +20,5 @@ if [ -d ~/.tmux/plugins/tpm ]; then
     git fetch
     git pull
 else
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    git clone git://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi

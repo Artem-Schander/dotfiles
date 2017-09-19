@@ -2,8 +2,12 @@
 
 DOTFILES=$HOME/.dotfiles
 
-echo -e "\nCreating symlinks"
-echo "=============================="
+GREEN="$(tput setaf 2)"
+NORMAL="$(tput sgr0)"
+
+echo -e "\n${GREEN}Creating symlinks"
+echo "==============================${NORMAL}"
+
 linkables=$( find -H "$DOTFILES" -maxdepth 3 -name '*.symlink' )
 for file in $linkables ; do
     target="$HOME/.$( basename $file '.symlink' )"
@@ -15,8 +19,10 @@ for file in $linkables ; do
     fi
 done
 
-echo -e "\n\ninstalling to ~/.config"
-echo "=============================="
+
+echo -e "\n\n${GREEN}installing${NORMAL} to ~/.config${GREEN}"
+echo "==============================${NORMAL}"
+
 if [ ! -d $HOME/.config ]; then
     echo "Creating ~/.config"
     mkdir -p $HOME/.config
@@ -39,8 +45,8 @@ done
 # like to configure vim, so lets symlink ~/.vimrc and ~/.vim over to their
 # neovim equivalent.
 
-echo -e "\n\nCreating vim symlinks"
-echo "=============================="
+echo -e "\n\n${GREEN}Creating vim symlinks"
+echo "==============================${NORMAL}"
 
 typeset -A vimfiles
 vimfiles[~/.vim]=$DOTFILES/config/nvim

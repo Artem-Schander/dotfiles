@@ -1,55 +1,66 @@
 #!/bin/sh
 
+GREEN="$(tput setaf 2)"
+NORMAL="$(tput sgr0)"
+
 if test ! $(which brew); then
-    echo "Installing homebrew"
+    echo -e "\n\n${GREEN}Installing homebrew"
+    echo "==============================${NORMAL}"
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+else
+    echo -e "\n\n${GREEN}Updating homebrew"
+    echo "==============================${NORMAL}"
+    brew update
 fi
 
-echo -e "\n\nUpdateing homebrew..."
-echo "=============================="
+echo -e "\n\n${GREEN}Installing homebrew packages"
+echo "==============================${NORMAL}"
 
-brew update
+formulas=(
+    # flags should pass through the the `brew list check`
+    bash
+    # cli tools
+    the_silver_searcher
+    ack
+    tree
+    fasd
+    toilet
+    wget
+    ctags
+    htop
+    php-cs-fixer
+    python
+    python3
+    # development server setup
+    nginx
+    mariadb
+    dnsmasq
+    # development tools
+    git
+    hub
+    'macvim --with-override-system-vim'
+    reattach-to-user-namespace
+    # tmux
+    zsh
+    highlight
+    nvm
+    z
+    markdown
+    diff-so-fancy
 
-echo -e "\n\nInstalling homebrew packages..."
-echo "=============================="
+    # fzf
+    # 'grep --with-default-names'
+    # neovim/neovim/neovim
+    # node
+    # ripgrep
+    # git-standup
+    # entr
+)
 
-brew install bash
-
-# cli tools
-# brew install ack
-brew install the_silver_searcher
-brew install tree
-brew install fasd
-brew install wget
-brew install ctags
-brew install htop
-brew install php-cs-fixer
-brew install python
-brew install python3
-
-# development server setup
-brew install nginx
-brew install mariadb
-brew install dnsmasq
-
-# development tools
-brew install git
-brew install hub
-brew install macvim --override-system-vim
-brew install reattach-to-user-namespace
-
-# brew install tmux
-brew install toilet
-brew install zsh
-brew install highlight
-brew install nvm
-brew install z
-brew install markdown
-brew install diff-so-fancy
-
-# install neovim
-pip2 install neovim --upgrade
-pip3 install neovim --upgrade
-brew install neovim
-
-# exit 0
+for formula in "${formulas[@]}"; do
+    if brew list $formula > /dev/null 2>&1; then
+        echo "$formula already installed... skipping."
+    else
+        brew install $formula
+    fi
+done
