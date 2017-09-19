@@ -39,11 +39,12 @@
 " " cat " like ciw but takes the tag also
 "
 "
-"   AUTOCOMPLETE / SNIPPETS
+"   AUTOCOMPLETE / SNIPPETS / SYNTAX
 "
 " " <C-y><leader> " (ctrl+y ,) render emmet-string to html--> mattn/emmet-vim
 " " <C-y>n " (ctrl+y n) go to next edit point --> mattn/emmet-vim
 " " <C-o> or <C-i> " snippet - navigate between edit points
+" " <C-w> E " toggle syntastic mode {passive|active} default => passive --> vim-syntastic/syntastic
 "
 "   VISUALS
 "
@@ -809,6 +810,12 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" let g:syntastic_phpcs_disable = 1
+" let g:syntastic_phpmd_disable = 1
+
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>" let g:syntastic_phpcs_disable = 1
 
 let g:syntastic_javascript_checkers = ['eslint']
 
