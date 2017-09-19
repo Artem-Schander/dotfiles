@@ -22,6 +22,7 @@ brew install tree
 brew install fasd
 brew install wget
 brew install ctags
+brew install htop
 brew install php-cs-fixer
 brew install python
 brew install python3
