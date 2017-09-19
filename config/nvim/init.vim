@@ -82,6 +82,7 @@ Plug 'rickharris/vim-monokai' " monokai has to be downloaded and installed for t
 " utilities
 Plug 'dyng/ctrlsf.vim' " mimics Ctrl-Shift-F on Sublime Text 2
 Plug 'tpope/vim-obsession' " obsession.vim: continuously updated session files
+Plug 'dhruvasagar/vim-prosession' " A VIM plugin to handle sessions like a pro
 Plug 'ctrlpvim/ctrlp.vim' " fuzzy file finder, mapped to <leader>p
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons' " file drawer
 " Plug 'mileszs/ack.vim' " search inside files using ack. Same as command line ack utility, but use :Ack
@@ -296,6 +297,16 @@ augroup configgroup
   autocmd InsertEnter * set cul
   autocmd InsertLeave * set nocul
 
+  " if has('autocmd')
+  "     autocmd VimEnter * nested
+  "         \ if !argc() && empty(v:this_session) && !modified|
+  "         \   if filereadable('Session.vim') |
+  "         \     source Session.vim |
+  "         \   elseif |
+  "         \     Obsession |
+  "         \   endif |
+  "         \ endif
+  " endif
 augroup END
 
 " }}}

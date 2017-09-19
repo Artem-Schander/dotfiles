@@ -1,4 +1,4 @@
-####################
+####################g
 # functions
 ####################
 
@@ -42,6 +42,10 @@ function ng-start() {
 }
 function ng-restart() {
      sudo launchctl start homebrew.mxcl.nginx
+}
+
+pretty() {
+    pygmentize -f terminal256 $* | less -R
 }
 
 
