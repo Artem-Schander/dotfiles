@@ -15,8 +15,8 @@
 " " <leader>. " switch to the last used buffer
 " " <leader>p " search file by name --> kien/ctrlp.vim
 " " <leader>r " search tag in current buffer --> kien/ctrlp.vim
-" " <leader>k " toggle NERDTree
-" " <leader>y " reveal current file in NERDTree
+" " <leader>k " toggle NERDTree --> scrooloose/nerdtree
+" " <leader>y " reveal current file in NERDTree --> scrooloose/nerdtree
 "
 " " :!ctags -R --exclude=node_modules --exclude=dist " create a tags index --> ctags
 " " <C-]> " (ctrl+alt+6) go to declaration of whatever is under the cursor --> ctags
@@ -773,7 +773,7 @@ let g:neomake_javascript_enabled_makers = ['jshint', 'jscs']
 "             \ 'file': '\.exe$\|\.so$'
 "             \ }
 " only show files that are not ignored by git
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+" let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 " search the nearest ancestor that contains .git, .hg, .svn
 let g:ctrlp_working_path_mode = 2
