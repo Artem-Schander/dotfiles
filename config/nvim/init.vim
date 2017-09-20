@@ -15,8 +15,8 @@
 " " <leader>. " switch to the last used buffer
 " " <leader>p " search file by name --> kien/ctrlp.vim
 " " <leader>r " search tag in current buffer --> kien/ctrlp.vim
-" " <leader>k " toggle NERDTree
-" " <leader>y " reveal current file in NERDTree
+" " <leader>k " toggle NERDTree --> scrooloose/nerdtree
+" " <leader>y " reveal current file in NERDTree --> scrooloose/nerdtree
 "
 " " :!ctags -R --exclude=node_modules --exclude=dist " create a tags index --> ctags
 " " <C-]> " (ctrl+alt+6) go to declaration of whatever is under the cursor --> ctags
@@ -82,6 +82,7 @@ Plug 'rickharris/vim-monokai' " monokai has to be downloaded and installed for t
 " utilities
 Plug 'dyng/ctrlsf.vim' " mimics Ctrl-Shift-F on Sublime Text 2
 Plug 'tpope/vim-obsession' " obsession.vim: continuously updated session files
+Plug 'dhruvasagar/vim-prosession' " A VIM plugin to handle sessions like a pro
 Plug 'ctrlpvim/ctrlp.vim' " fuzzy file finder, mapped to <leader>p
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons' " file drawer
 " Plug 'mileszs/ack.vim' " search inside files using ack. Same as command line ack utility, but use :Ack
@@ -296,6 +297,16 @@ augroup configgroup
   autocmd InsertEnter * set cul
   autocmd InsertLeave * set nocul
 
+  " if has('autocmd')
+  "     autocmd VimEnter * nested
+  "         \ if !argc() && empty(v:this_session) && !modified|
+  "         \   if filereadable('Session.vim') |
+  "         \     source Session.vim |
+  "         \   elseif |
+  "         \     Obsession |
+  "         \   endif |
+  "         \ endif
+  " endif
 augroup END
 
 " }}}
@@ -786,7 +797,7 @@ let g:neomake_javascript_enabled_makers = ['jshint', 'jscs']
 "             \ 'file': '\.exe$\|\.so$'
 "             \ }
 " only show files that are not ignored by git
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+" let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
 " search the nearest ancestor that contains .git, .hg, .svn
 let g:ctrlp_working_path_mode = 2

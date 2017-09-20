@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
 DOTFILES=$HOME/.dotfiles
+GREEN="$(tput setaf 2)"
+NORMAL="$(tput sgr0)"
 
-echo "Installing Oh-My-Zsh"
+echo -e "\n\n${GREEN}Installing Oh-My-Zsh"
+echo "==============================${NORMAL}"
 # sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 main() {
