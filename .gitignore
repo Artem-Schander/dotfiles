@@ -1,6 +1,5 @@
 .netrwhist
-npm-debug.log
-Session.vim
+*.log
 
 plug.vim.old
 
