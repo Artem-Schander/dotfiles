@@ -23,9 +23,9 @@ if [ "$(uname)" == "Darwin" ]; then
 
     source install/nvim.sh # TODO: check not for Darwin OS only
 
-    source install/tmux.sh # TODO: check not for Darwin OS only
+    # source install/tmux.sh # TODO: check not for Darwin OS only
 
-    source install/nvm.sh # TODO: check not for Darwin OS only
+    source ./install/nvm.sh # TODO: check not for Darwin OS only
 
     # create a backup of the original nginx.conf
     if [ -f /usr/local/etc/nginx/nginx.conf ]; then
@@ -37,8 +37,6 @@ if [ "$(uname)" == "Darwin" ]; then
     # symlink the code.dev from dotfiles
     ln -s ~/.dotfiles/nginx/code.dev /usr/local/etc/nginx/sites-enabled/code.dev
 fi
-
-source install/omz.sh
 
 echo "creating vim directories"
 mkdir -p ~/.vim-tmp
@@ -54,10 +52,12 @@ fi
 YELLOW="$(tput setaf 3)"
 NORMAL="$(tput sgr0)"
 
-if [ "$(uname)" == "Darwin" ]; then
-    toilet -f future -F border ' Remember to install the vim pligins ! ' -t && toilet -f smmono9 '   ~/$ vim +PlugInstall' -t
-else
+# if [ "$(uname)" == "Darwin" ]; then
+#     toilet -f future -F border ' Remember to install the vim pligins ! ' -t && toilet -f smmono9 '   ~/$ vim +PlugInstall' -t
+# else
     printf "💡 ${YELLOW}Remember to install the vim pligins!${NORMAL} vim +PlugInstall!\n"
-fi
+# fi
 
-# echo "Done."
+source install/omz.sh
+
+echo "Done. Restart your Terminal."
