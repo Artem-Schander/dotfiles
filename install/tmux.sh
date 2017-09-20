@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 GREEN="$(tput setaf 2)"
 NORMAL="$(tput sgr0)"
