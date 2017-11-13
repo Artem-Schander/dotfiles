@@ -1,3 +1,38 @@
+global !p
+def convertToSnakeCase(name):
+	s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+	return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
+
+def convertToSingular(name):
+	l3 = name[-3:]
+	l1 = name[-1:]
+	if l3 == 'ies':
+		result = name.rstrip(l3) + 'y'
+	elif l3 == 'xes':
+		result = name.rstrip(l3) + 'x'
+	elif l1 == 's':
+		result = name.rstrip(l1)
+	else:
+		result = name
+	return result
+
+def convertToPlural(name):
+	l1 = name[-1:]
+	l2 = name[-2:]
+	if l1 == 'y':
+		result = name.rstrip(l1) + 'ies'
+	elif l2 == 'ss' or l1 == 'x':
+		result = name + 'es'
+	elif l1 == 's':
+		result = name
+	else:
+		result = name + 's'
+	return result
+
+def capitalize(name):
+	return name[:1].upper() + name[1:]
+endglobal
+
 snippet l_mfk "Laravel migration foreign key" b
 $table->integer('$1_id')->${2:required}()->unsigned();
 $table->foreign('$1_id')->references('$1s')->on('id');
@@ -7,4 +42,190 @@ snippet l_mdrop "Laravel migration drop table and ignore foreign keys" b
 DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 Schema::dropIfExists('$1');
 DB::statement('SET FOREIGN_KEY_CHECKS = 1');
+endsnippet
+
+snippet testRelationBelongsTo "Laravel test case - tests eloquent model belongsTo relation" b
+/**
+ * this method tests the
+ * BelongsTo relation between this Model (`!p snip.rv = capitalize(t[2])`)
+ * and the `!p snip.rv = capitalize(t[1])` Eloquent model
+ * 1 -> ${1:author} (foreign model)
+ * 2 -> ${2:book} (current model)
+ */
+public function testRelationTo${1/.*/\u$0/}Model()
+{
+	\$`!p snip.rv = capitalize(t[2])` = new `!p snip.rv = capitalize(t[2])`;
+
+	\$msg = 'wrong relationship type --- $1 relation';
+	\$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->$1() instanceof BelongsTo, \$msg);
+
+	\$msg = 'wrong relationship model --- $1 relation';
+	\$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->$1()->getModel() instanceof `!p snip.rv = capitalize(t[1])`, \$msg);
+
+	\$key = explode('.', \$`!p snip.rv = capitalize(t[2])`->$1()->getQualifiedForeignKey());
+
+	\$msg = 'wrong foreign table --- $1 relation';
+	\$this->assertTrue(\$key[0] === '`!p snip.rv = convertToSnakeCase(convertToPlural(t[2])) `', $msg);
+
+	\$msg = 'wrong foreign key --- $1 relation';
+	\$this->assertTrue(\$key[1] === '`!p snip.rv = convertToSnakeCase(t[1]) `_id', \$msg);
+}
+endsnippet
+
+snippet testRelationHasMany "Laravel test case - tests eloquent model hasMany relation" b
+/**
+ * this method tests the
+ * HasMany relation between this Model (`!p snip.rv = capitalize(t[2])`)
+ * and the `!p snip.rv = convertToSingular(capitalize(t[1]))` Eloquent model
+ * 1 -> ${1:books} (foreign model - plural)
+ * 2 -> ${2:author} (current model - singular)
+ */
+public function testRelationTo`!p snip.rv = convertToSingular(capitalize(t[1]))`Model()
+{
+	\$`!p snip.rv = capitalize(t[2])` = new `!p snip.rv = capitalize(t[2])`;
+
+	\$msg = 'wrong relationship type --- `!p snip.rv = convertToPlural(t[1])` relation';
+	\$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`() instanceof HasMany, \$msg);
+
+	\$msg = 'wrong relationship model --- `!p snip.rv = convertToPlural(t[1])` relation';
+	\$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getModel() instanceof `!p snip.rv = convertToSingular(capitalize(t[1]))`, \$msg);
+
+	\$key = explode('.', \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getQualifiedForeignKeyName());
+
+	\$msg = 'wrong foreign table --- `!p snip.rv = convertToPlural(t[1])` relation';
+	\$this->assertTrue(\$key[0] === '`!p snip.rv = convertToSnakeCase(convertToPlural(t[1]))`', $msg);
+
+	\$msg = 'wrong foreign key --- `!p snip.rv = convertToPlural(t[1])` relation';
+	\$this->assertTrue(\$key[1] === '`!p snip.rv = convertToSnakeCase(t[2]) `_id', \$msg);
+}
+endsnippet
+
+snippet testRelationBelongsToMany "Laravel test case - tests eloquent model belongsToMany relation" b
+`!p
+def generatePivotTable(foreignName, currentName):
+	names = [foreignName, currentName]
+	return min(names) + '_' + max(names)
+`
+/**
+ * this method tests the
+ * BelongsToMany relation between this Model (`!p snip.rv = convertToSingular(capitalize(t[2]))`)
+ * and the `!p snip.rv = convertToSingular(capitalize(t[1]))` Eloquent model
+ * 1 -> ${1:roles} (foreign model - plural)
+ * 2 -> ${2:user} (current model - singular)
+ */
+public function testRelationTo`!p snip.rv = capitalize(t[1])`Model()
+{
+	\$`!p snip.rv = capitalize(t[2])` = new `!p snip.rv = capitalize(t[2])`;
+
+	\$msg = 'wrong relationship type --- `!p snip.rv = convertToPlural(t[1])` relation';
+	\$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`() instanceof BelongsToMany, \$msg);
+
+	\$msg = 'wrong relationship model --- `!p snip.rv = convertToPlural(t[1])` relation';
+	\$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getModel() instanceof `!p snip.rv = convertToSingular(capitalize(t[1]))`, \$msg);
+
+	\$msg = 'wrong foreign table --- `!p snip.rv = convertToPlural(t[1])` relation';
+	\$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getTable() === '`!p snip.rv = generatePivotTable(convertToSnakeCase(convertToSingular(t[1])), convertToSnakeCase(t[2])) `', \$msg);
+
+	\$fpk = \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getQualifiedForeignPivotKeyName();
+	\$fid = \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getTable() . '.`!p snip.rv = convertToSnakeCase(t[2])`_id';
+	\$msg = 'wrong foreign key in pivot table --- `!p snip.rv = convertToPlural(t[1])` relation';
+	\$this->assertTrue(\$fpk === \$fid, \$msg);
+
+	\$rpk = \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getQualifiedRelatedPivotKeyName();
+	\$rid = \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getTable() . '.`!p snip.rv = convertToSnakeCase(convertToSingular(t[1]))`_id';
+	\$msg = 'wrong related key in pivot table --- `!p snip.rv = convertToPlural(t[1])` relation';
+	\$this->assertTrue(\$rpk === \$rid, \$msg);
+}
+endsnippet
+
+snippet testRelationMorphOne "Laravel test case - tests eloquent model morphOne relation" b
+/**
+ * this method tests the
+ * MorphOne relation between this Model (`!p snip.rv = capitalize(t[2])`)
+ * and the `!p snip.rv = capitalize(t[1])` Eloquent model
+ * 1 -> ${1:address} (foreign model)
+ * 2 -> ${2:user} (current model)
+ */
+public function testRelationTo`!p snip.rv = capitalize(t[1])`Model()
+{
+	\$`!p snip.rv = capitalize(t[2])` = new `!p snip.rv = capitalize(t[2])`;
+
+	\$msg = 'wrong relationship type --- $1 relation';
+	\$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->$1() instanceof MorphOne, \$msg);
+
+	\$msg = 'wrong relationship model --- $1 relation';
+	\$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->$1()->getModel() instanceof `!p snip.rv = capitalize(t[1])`, \$msg);
+
+	\$msg = 'wrong morph class --- $1 relation';
+	\$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->$1()->getMorphClass() === `!p snip.rv = capitalize(t[2])`::class);
+
+	\$morphType = explode('.', \$`!p snip.rv = capitalize(t[2])`->$1()->getQualifiedMorphType());
+
+	\$msg = 'wrong foreign table --- $1 relation';
+	\$this->assertTrue(\$morphType[0] === '`!p snip.rv = convertToSnakeCase(convertToPlural(t[1]))`', \$msg);
+
+	\$msg = 'wrong morph type --- $1 relation';
+	\$this->assertTrue(\$morphType[1] === '`!p snip.rv = convertToSnakeCase(t[1])`able_type', \$msg);
+
+	\$msg = 'wrong morph id --- $1 relation';
+	\$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->$1()->getForeignKeyName() === '`!p snip.rv = convertToSnakeCase(t[1])`able_id', \$msg);
+}
+endsnippet
+
+snippet testRelationMorphMany "Laravel test case - tests eloquent model morphMany relation" b
+/**
+ * this method tests the
+ * MorphMany relation between this Model (`!p snip.rv = capitalize(t[2])`)
+ * and the `!p snip.rv = capitalize(t[1])` Eloquent model
+ * 1 -> ${1:images} (foreign model - plural)
+ * 2 -> ${2:user} (current model - singular)
+ */
+public function testRelationTo`!p snip.rv = convertToSingular(capitalize(t[1]))`Model()
+{
+	\$`!p snip.rv = capitalize(t[2])` = new `!p snip.rv = capitalize(t[2])`;
+
+	\$msg = 'wrong relationship type --- `!p snip.rv = convertToPlural(t[1])` relation';
+	\$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`() instanceof MorphMany, \$msg);
+
+	\$msg = 'wrong relationship model --- `!p snip.rv = convertToPlural(t[1])` relation';
+	\$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getModel() instanceof `!p snip.rv = convertToSingular(capitalize(t[1]))`, \$msg);
+
+	\$msg = 'wrong morph class --- `!p snip.rv = convertToPlural(t[1])` relation';
+	\$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getMorphClass() === `!p snip.rv = capitalize(t[2])`::class);
+
+	\$morphType = explode('.', \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getQualifiedMorphType());
+
+	\$msg = 'wrong foreign table --- `!p snip.rv = convertToPlural(t[1])` relation';
+	\$this->assertTrue(\$morphType[0] === '`!p snip.rv = convertToSnakeCase(convertToPlural(t[1]))`', \$msg);
+
+	\$msg = 'wrong morph type --- `!p snip.rv = convertToPlural(t[1])` relation';
+	\$this->assertTrue(\$morphType[1] === '`!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`able_type', \$msg);
+
+	\$msg = 'wrong morph id --- `!p snip.rv = convertToPlural(t[1])` relation';
+	\$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getForeignKeyName() === '`!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`able_id', \$msg);
+}
+endsnippet
+
+snippet testRelationMorphTo "Laravel test case - tests eloquent model morphTo relation" b
+/**
+ * this method tests the
+ * MorphTo relation
+ * 1 -> ${1:image}
+ */
+public function testRelationTo`!p snip.rv = capitalize(t[1])`ableModel()
+{
+	\$`!p snip.rv = capitalize(t[1])` = new `!p snip.rv = capitalize(t[1])`;
+
+	$msg = 'wrong relationship type --- $1able relation';
+	$this->assertTrue($`!p snip.rv = capitalize(t[1])`->$1able() instanceof MorphTo, $msg);
+
+	$key = $`!p snip.rv = capitalize(t[1])`->$1able()->getForeignKey();
+	$type = $`!p snip.rv = capitalize(t[1])`->$1able()->getMorphType();
+
+	$msg = 'wrong foreign key field name --- $1able relation';
+	$this->assertTrue($key === '$1able_id', $msg);
+
+	$msg = 'wrong morph type field name --- $1able relation';
+	$this->assertTrue($type === '$1able_type', $msg);
+}
 endsnippet
