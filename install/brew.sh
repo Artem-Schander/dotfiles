@@ -49,9 +49,8 @@ formulas=(
     markdown
     diff-so-fancy
 
-    # fzf
     # 'grep --with-default-names'
-    # neovim/neovim/neovim
+    neovim/neovim/neovim
     # node
     # ripgrep
     # git-standup
