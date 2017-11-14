@@ -13,9 +13,9 @@
 " " <leader>t " open and go to new tab
 " " öä or äö " navigate through tabs
 " " <leader>. " switch to the last used buffer
-    " " <leader>p " search file by name --> kien/ctrlp.vim
-    " " <leader>b " search file in open buffers --> kien/ctrlp.vim
-    " " <leader>r " search tag in current buffer --> kien/ctrlp.vim
+" " <leader>p " search file by name --> junegunn/fzf.vim
+" " <leader>b " search file in open buffers --> junegunn/fzf.vim
+" " <leader>r " search tag in current buffer --> junegunn/fzf.vim
 " " <leader>k " toggle NERDTree --> scrooloose/nerdtree
 " " <leader>y " reveal current file in NERDTree --> scrooloose/nerdtree
 "
