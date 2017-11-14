@@ -22,6 +22,7 @@ formulas=(
     # cli tools
     the_silver_searcher
     ack
+    fzf
     tree
     fasd
     toilet
