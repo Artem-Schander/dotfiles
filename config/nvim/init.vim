@@ -427,6 +427,8 @@ augroup configgroup
     " autocmd BufNewFile,BufRead .eslintrc set filetype=json
     " autocmd BufNewFile,BufRead *.es6 set filetype=javascript
 
+    autocmd FileType php setlocal commentstring=//\ %s
+
 augroup END
 
 " }}}
