@@ -44,6 +44,14 @@ Schema::dropIfExists('$1');
 DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 endsnippet
 
+snippet test "Laravel test" b
+/** @test */
+public function ${1:a_test_is_getting_executed}()
+{
+    $2
+}
+endsnippet
+
 snippet testRelationBelongsTo "Laravel test case - tests eloquent model belongsTo relation" b
 /**
  * this method tests the
