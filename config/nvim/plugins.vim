@@ -27,12 +27,12 @@ Plug 'rickharris/vim-monokai' " monokai has to be downloaded and installed for t
 
 " utilities
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons' " file drawer
-" Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim' " fuzzy file finder and so much more
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim' " fuzzy file finder and so much more
 Plug 'ctrlpvim/ctrlp.vim' " fuzzy file finder, mapped to <leader>p
 Plug 'tpope/vim-obsession' " obsession.vim: continuously updated session files
 Plug 'dhruvasagar/vim-prosession' " A VIM plugin to handle sessions like a pro
 " Plug 'mileszs/ack.vim' " search inside files using ack. Same as command line ack utility, but use :Ack
-Plug 'rking/ag.vim' " a replacement for the Perl module / CLI script 'ack' (the_silver_searcher)
+" Plug 'rking/ag.vim' " a replacement for the Perl module / CLI script 'ack' (the_silver_searcher)
 Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
 " Plug 'scrooloose/nerdcommenter' " comment stuff out
 Plug 'tpope/vim-commentary' " comment stuff out
