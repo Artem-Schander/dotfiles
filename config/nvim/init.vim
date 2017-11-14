@@ -554,12 +554,6 @@ let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 
 let g:fzf_layout = { 'down': '~25%' }
 
-" [Buffers] Jump to the existing window if possible
-let g:fzf_buffers_jump = 1
-
-" [[B]Commits] Customize the options used by 'git log':
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-
 " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'ctags -R --exclude=node_modules --exclude=dist'
 
