@@ -13,8 +13,9 @@
 " " <leader>t " open and go to new tab
 " " öä or äö " navigate through tabs
 " " <leader>. " switch to the last used buffer
-" " <leader>p " search file by name --> kien/ctrlp.vim
-" " <leader>r " search tag in current buffer --> kien/ctrlp.vim
+    " " <leader>p " search file by name --> kien/ctrlp.vim
+    " " <leader>b " search file in open buffers --> kien/ctrlp.vim
+    " " <leader>r " search tag in current buffer --> kien/ctrlp.vim
 " " <leader>k " toggle NERDTree --> scrooloose/nerdtree
 " " <leader>y " reveal current file in NERDTree --> scrooloose/nerdtree
 "
@@ -485,39 +486,37 @@ let g:UltiSnipsEditSplit="vertical"
 " CtrlP
 """""""""""""""""""""""""""""""""""""
 
-" map fuzzyfinder (CtrlP) plugin
-" nmap <silent> <leader>p :CtrlP<cr>
-nmap <silent> <leader>b :CtrlPBuffer<cr>
-nmap <silent> <leader>r :CtrlPBufTag<cr>
-nmap <silent> <leader>ö :CtrlPMRUFiles<cr>
-let g:ctrlp_map='<leader>p'
-let g:ctrlp_dotfiles=1
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_max_files=0
+" nmap <silent> <leader>b :CtrlPBuffer<cr>
+" nmap <silent> <leader>r :CtrlPBufTag<cr>
+" nmap <silent> <leader>ö :CtrlPMRUFiles<cr>
+" let g:ctrlp_map='<leader>p'
+" let g:ctrlp_dotfiles=1
+" let g:ctrlp_working_path_mode = 'ra'
+" let g:ctrlp_max_files=0
 
-" CtrlP ignore patterns
-" let g:ctrlp_custom_ignore = {
-"             \ 'dir': '\.git$\|node_modules$\|bower_components$\|\.hg$\|\.svn$',
-"             \ 'file': '\.exe$\|\.so$'
-"             \ }
-" only show files that are not ignored by git
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
+" " CtrlP ignore patterns
+" " let g:ctrlp_custom_ignore = {
+" "             \ 'dir': '\.git$\|node_modules$\|bower_components$\|\.hg$\|\.svn$',
+" "             \ 'file': '\.exe$\|\.so$'
+" "             \ }
+" " only show files that are not ignored by git
+" let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
-" search the nearest ancestor that contains .git, .hg, .svn
-let g:ctrlp_working_path_mode = 2
-let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:30'
+" " search the nearest ancestor that contains .git, .hg, .svn
+" let g:ctrlp_working_path_mode = 2
+" let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:30'
 
-" Ignore spaces when searching
-let g:ctrlp_abbrev = {
-\   'gmode': 'i',
-\   'abbrevs': [
-\     {
-\       'pattern': ' ',
-\       'expanded': '',
-\       'mode': 'pfrz',
-\     },
-\   ]
-\ }
+" " Ignore spaces when searching
+" let g:ctrlp_abbrev = {
+" \   'gmode': 'i',
+" \   'abbrevs': [
+" \     {
+" \       'pattern': ' ',
+" \       'expanded': '',
+" \       'mode': 'pfrz',
+" \     },
+" \   ]
+" \ }
 
 " CtrlSF
 """""""""""""""""""""""""""""""""""""
@@ -555,15 +554,25 @@ let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 
 let g:fzf_layout = { 'down': '~25%' }
 
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+
+" [[B]Commits] Customize the options used by 'git log':
+let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+" [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R --exclude=node_modules --exclude=dist'
+
 if isdirectory(".git")
     " if in a git project, use :GFiles
-    nmap <silent> <leader>t :GFiles --cached --others --exclude-standard<cr>
+    nmap <silent> <leader>p :GFiles --cached --others --exclude-standard<cr>
 else
     " otherwise, use :FZF
-    nmap <silent> <leader>t :FZF<cr>
+    nmap <silent> <leader>p :FZF<cr>
 endif
 
-nmap <silent> <leader>r :Buffers<cr>
+nmap <silent> <leader>b :Buffers<cr>
+nmap <silent> <leader>r :BTags<cr>
 nmap <silent> <leader>e :FZF<cr>
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
@@ -594,60 +603,6 @@ command! -bang -nargs=* Find call fzf#vim#grep(
 \ 'rg --column --line-number --no-heading --follow --color=always '.<q-args>, 1,
 \ <bang>0 ? fzf#vim#with_preview('up:60%') : fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 
-" function! s:align_lists(lists)
-"     let maxes = {}
-"     for list in a:lists
-"         let i = 0
-"         while i < len(list)
-"             let maxes[i] = max([get(maxes, i, 0), len(list[i])])
-"             let i += 1
-"         endwhile
-"     endfor
-"     for list in a:lists
-"         call map(list, "printf('%-'.maxes[v:key].'s', v:val)")
-"     endfor
-"     return a:lists
-" endfunction
-
-" function! s:btags_source()
-"     let lines = map(split(system(printf(
-"                 \ 'ctags -f - --sort=no --excmd=pattern --language-force=%s %s',
-"                 \ &filetype, expand('%:S'))), "\n"), 'split(v:val, "\t")')
-"     if v:shell_error
-"         throw 'failed to extract tags'
-"     endif
-"     return map(s:align_lists(lines), 'join(v:val, "\t")')
-" endfunction
-
-" function! s:btags_sink(line)
-"     execute split(a:line, "\t")[2]
-" endfunction
-
-" function! s:btags()
-"     try
-"         call fzf#run({'source':  s:btags_source(),
-"                     \'down':    '40%',
-"                     \'options': '+m -d "\t" --with-nth 1,4..',
-"                     \'sink':    function('s:btags_sink')})
-"     catch
-"         echohl WarningMsg
-"         echom v:exception
-"         echohl None
-"     endtry
-" endfunction
-
-function! s:tag_handler(tag)
-    if !empty(a:tag)
-        let token = split(split(a:tag, '\t')[2],';"')[0]
-        let m = &magic
-        setlocal nomagic
-        execute token
-        if m
-            setlocal magic
-        endif
-    endif
-endfunction
-" command! BTags call s:btags()
 " Emmet
 """""""""""""""""""""""""""""""""""""
 let g:user_emmet_settings = {
