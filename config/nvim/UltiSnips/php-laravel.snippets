@@ -1,4 +1,11 @@
 global !p
+def namespace():
+    namespace = ''
+    for entry in path.split('/'):
+        if entry != fn:
+            namespace += capitalize(entry) + '\\'
+    return namespace.rstrip('\\')
+
 def convertToSnakeCase(name):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
     return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
@@ -34,8 +41,8 @@ def capitalize(name):
 endglobal
 
 snippet l_mfk "Laravel migration foreign key" b
-$table->integer('$1_id')->${2:required}()->unsigned();
-$table->foreign('$1_id')->references('$1s')->on('id');
+$table->integer('${1:relation}_id')->${2:required}()->unsigned();
+$table->foreign('$1_id')->references('id')->on('`!p snip.rv = convertToSnakeCase(convertToPlural(t[1])) `');
 endsnippet
 
 snippet l_mdrop "Laravel migration drop table and ignore foreign keys" b
@@ -52,6 +59,45 @@ public function ${1:a_test_is_getting_executed}()
 }
 endsnippet
 
+snippet belongsTo "one2many belongsTo" b
+/**
+ * `!p snip.rv = capitalize(snip.basename)` belongs to `!p snip.rv = capitalize(t[1])`.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+ */
+public function ${1:item}()
+{
+    // belongsTo(RelatedModel, foreignKey = `!p snip.rv = convertToSnakeCase(t[1])`_id, keyOnRelatedModel = id)
+    return $this->belongsTo(`!p snip.rv = convertToSingular(capitalize(t[1]))`::class$2);
+}
+endsnippet
+
+snippet hasMany "one2many hasMany" b
+/**
+ * `!p snip.rv = capitalize(snip.basename)` has many `!p snip.rv = capitalize(t[1])`.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\HasMany
+ */
+public function ${1:items}()
+{
+    // hasMany(RelatedModel, foreignKeyOnRelatedModel = `!p snip.rv = convertToSnakeCase(snip.basename)`_id, localKey = id)
+    return $this->hasMany(`!p snip.rv = convertToSingular(capitalize(t[1]))`::class$2);
+}
+endsnippet
+
+snippet belongsToMany "many2many belongsToMany" b
+/**
+ * Property belongs to many (many-to-many) `!p snip.rv = convertToSingular(capitalize(t[1]))`.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+ */
+public function ${1:items}()
+{
+    // belongsToMany(RelatedModel, pivotTable, thisKeyOnPivot = `!p snip.rv = convertToSnakeCase(snip.basename)`_id, otherKeyOnPivot = `!p snip.rv = convertToSnakeCase(t[1])`_id)
+    return $this->belongsToMany(`!p snip.rv = convertToSingular(capitalize(t[1]))`::class$2);
+}
+endsnippet
+
 snippet testRelationBelongsTo "Laravel test case - tests eloquent model belongsTo relation" b
 /**
  * this method tests the
@@ -60,7 +106,7 @@ snippet testRelationBelongsTo "Laravel test case - tests eloquent model belongsT
  * 1 -> ${1:author} (foreign model)
  * 2 -> ${2:book} (current model)
  */
-public function testRelationTo${1/.*/\u$0/}Model()
+public function testRelationTo`!p snip.rv = capitalize(t[1])`Model()
 {
     \$`!p snip.rv = capitalize(t[2])` = new `!p snip.rv = capitalize(t[2])`;
 
@@ -238,7 +284,7 @@ public function testRelationTo`!p snip.rv = capitalize(t[1])`ableModel()
 }
 endsnippet
 
-snippet seed "Laravel database seeder class" b
+snippet seeder "Laravel database seeder class" b
 <?php
 
 use Illuminate\Database\Seeder;
@@ -253,6 +299,36 @@ class ${2:`!p snip.rv = snip.basename`} extends Seeder
     public function run()
     {
         $1
+    }
+}
+endsnippet
+
+snippet gqlType "Folklore/GraphQL - Type" b
+<?php
+
+namespace `!p snip.rv = namespace()`;
+
+use GraphQL;
+use GraphQL\Type\Definition\Type;
+use Folklore\GraphQL\Support\Type as BaseType;
+
+class ${1:`!p snip.rv = snip.basename`} extends BaseType
+{
+    protected $attributes = [
+        'name' => '$1',
+    ];
+
+    public function fields()
+    {
+        return [
+            'id' => [
+                'type' => Type::nonNull(Type::int()),
+            ],
+            'name' => [
+                'type' => Type::string(),
+            ],
+            ${2://...}
+        ];
     }
 }
 endsnippet

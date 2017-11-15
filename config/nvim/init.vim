@@ -337,10 +337,10 @@ nmap <leader>. <c-^>
 vnoremap . :normal .<cr>
 
 " create split with current buffer in it
-map <silent> <C-h> :call functions#WinMove('h')<cr>
-map <silent> <C-j> :call functions#WinMove('j')<cr>
-map <silent> <C-k> :call functions#WinMove('k')<cr>
-map <silent> <C-l> :call functions#WinMove('l')<cr>
+" map <silent> <C-h> :call functions#WinMove('h')<cr>
+" map <silent> <C-j> :call functions#WinMove('j')<cr>
+" map <silent> <C-k> :call functions#WinMove('k')<cr>
+" map <silent> <C-l> :call functions#WinMove('l')<cr>
 
 " quit current buffer
 map <leader>wc :wincmd q<cr>
