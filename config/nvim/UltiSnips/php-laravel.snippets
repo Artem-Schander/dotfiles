@@ -78,18 +78,33 @@ class ${1:`!p snip.rv = snip.basename`} extends Model
 }
 endsnippet
 
-snippet l_mfk "Laravel migration foreign key" b
+snippet schema:table "Laravel migration - Schema 'table'" b
+Schema::table('${1:items}', function (Blueprint $table) {
+    ${2://...}
+});
+endsnippet
+
+snippet l_mfk "Laravel migration - foreign key" b
 $table->integer('${1:relation}_id')->${2:required}()->unsigned();
 $table->foreign('$1_id')->references('id')->on('`!p snip.rv = convertToSnakeCase(convertToPlural(t[1])) `');
 endsnippet
 
-snippet l_mdrop "Laravel migration drop table and ignore foreign keys" b
+snippet l_mdrop "Laravel migration - drop table and ignore foreign keys" b
 DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 Schema::dropIfExists('$1');
 DB::statement('SET FOREIGN_KEY_CHECKS = 1');
 endsnippet
 
-snippet test "Laravel test" b
+snippet TestCase "Laravel TestCase class" b
+<?php
+
+class `!p snip.rv = capitalize(snip.basename)` extends TestCase
+{
+    ${1://...}
+}
+endsnippet
+
+snippet test "Laravel test method" b
 /** @test */
 public function ${1:a_test_is_getting_executed}()
 {
@@ -200,12 +215,12 @@ def generatePivotTable(foreignName, currentName):
 `
 /**
  * this method tests the
- * BelongsToMany relation between this Model (`!p snip.rv = convertToSingular(capitalize(t[2]))`)
+ * BelongsToMany relation between this Model (`!p snip.rv = capitalize(t[2])`)
  * and the `!p snip.rv = convertToSingular(capitalize(t[1]))` Eloquent model
  * 1 -> ${1:roles} (foreign model - plural)
  * 2 -> ${2:user} (current model - singular)
  */
-public function testRelationTo`!p snip.rv = capitalize(t[1])`Model()
+public function testRelationTo`!p snip.rv = convertToSingular(capitalize(t[1]))`Model()
 {
     \$`!p snip.rv = capitalize(t[2])` = new `!p snip.rv = capitalize(t[2])`;
 
