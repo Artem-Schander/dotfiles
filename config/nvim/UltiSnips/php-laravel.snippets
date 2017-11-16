@@ -40,6 +40,44 @@ def capitalize(name):
     return name[:1].upper() + name[1:]
 endglobal
 
+snippet model "Laravel model" b
+<?php
+
+namespace `!p snip.rv = namespace()`;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class ${1:`!p snip.rv = snip.basename`} extends Model
+{
+    use ${2:SoftDeletes};
+
+    
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['$3'];
+
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = ['$4'];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['${5:deleted_at}'];
+
+    ${6://...}
+}
+endsnippet
+
 snippet l_mfk "Laravel migration foreign key" b
 $table->integer('${1:relation}_id')->${2:required}()->unsigned();
 $table->foreign('$1_id')->references('id')->on('`!p snip.rv = convertToSnakeCase(convertToPlural(t[1])) `');
@@ -93,7 +131,7 @@ snippet belongsToMany "many2many belongsToMany" b
  */
 public function ${1:items}()
 {
-    // belongsToMany(RelatedModel, pivotTable, thisKeyOnPivot = `!p snip.rv = convertToSnakeCase(snip.basename)`_id, otherKeyOnPivot = `!p snip.rv = convertToSnakeCase(t[1])`_id)
+    // belongsToMany(RelatedModel, pivotTable, thisKeyOnPivot = `!p snip.rv = convertToSnakeCase(snip.basename)`_id, otherKeyOnPivot = `!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`_id)
     return $this->belongsToMany(`!p snip.rv = convertToSingular(capitalize(t[1]))`::class$2);
 }
 endsnippet
