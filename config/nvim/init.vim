@@ -52,9 +52,9 @@
 "
 " " <leader>l " toggles the invisible chars
 " " <leader>ig " toggles the indent guides --> nathanaelkane/vim-indent-guides
-" " z " fold
 " " zo " open fold
 " " zc " close fold
+" " zf<Motion> " zfa} -> folds all incl. parent curly brackets - only in manual mode " :setlocal foldmethod=manual "
 "
 "
 "   RECOMMENDATIONS
@@ -231,7 +231,7 @@ set shiftround " round indent to a multiple of 'shiftwidth'
 set completeopt+=longest
 
 " code folding settings
-set foldmethod=syntax " fold based on indent
+set foldmethod=indent " fold based on indent
 set foldnestmax=10 " deepest fold is 10 levels
 set nofoldenable " don't fold by default
 set foldlevel=1
@@ -776,9 +776,6 @@ endif
 
 " A: don't give the "ATTENTION" message when an existing swap file set
 set shortmess+=A
-
-" vim:foldmethod=marker:foldlevel=0
-
 
 
 set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types:h11
