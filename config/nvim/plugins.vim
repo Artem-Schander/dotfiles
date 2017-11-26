@@ -67,6 +67,7 @@ Plug 'nathanaelkane/vim-indent-guides' " visually displaying indent levels in co
 Plug 'easymotion/vim-easymotion' " Vim motion on speed
 " Plug 'terryma/vim-multiple-cursors' " True Sublime Text style multiple selections for Vim
 Plug 'Chiel92/vim-autoformat' " Format code with one button press. <F3>
+Plug 'ludovicchabant/vim-gutentags' " A Vim plugin that manages your tag files
 
 
 " " html / templates
