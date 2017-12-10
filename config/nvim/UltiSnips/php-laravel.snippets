@@ -385,3 +385,52 @@ class ${1:`!p snip.rv = snip.basename`} extends BaseType
     }
 }
 endsnippet
+
+snippet gqlQuery "Folklore/GraphQL - Query" b
+<?php
+
+namespace `!p snip.rv = namespace()`;
+
+use Folklore\GraphQL\Support\Query;
+use GraphQL\Type\Definition\ResolveInfo;
+use GraphQL\Type\Definition\Type;
+use GraphQL;
+
+class ${1:`!p snip.rv = snip.basename`} extends Query
+{
+    protected $attributes = [
+        'name' => '$1',
+    ];
+
+    public function type()
+    {
+        return GraphQL::type('$1');
+    }
+
+    public function args()
+    {
+        return [
+            'id' => [
+                'name' => 'id',
+                'type' => Type::int(),
+            ],
+        ];
+    }
+
+    public function resolve($root, $args, $context, ResolveInfo $info)
+    {
+        $fields = $info->getFieldSelection($depth = 3);
+
+        $`!p snip.rv = convertToPlural(t[1])` = App\\Models\\`!p snip.rv = convertToPlural(t[1])`::query();
+
+        if (isset($args['id'])) {
+            $Users->where('id', $args['id']);
+            if ($$1 = $`!p snip.rv = convertToPlural(t[1])`->first()) {
+                return $$1;
+            }
+            return abort(404, 'Not Found');
+        }
+        return abort(403, 'Required argument "ID" was not provided!');
+    }
+}
+endsnippet
