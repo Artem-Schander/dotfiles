@@ -421,7 +421,7 @@ class ${1:`!p snip.rv = snip.basename`} extends Query
     {
         $fields = $info->getFieldSelection($depth = 3);
 
-        $`!p snip.rv = convertToPlural(t[1])` = App\\Models\\`!p snip.rv = convertToPlural(t[1])`::query();
+        $`!p snip.rv = convertToPlural(t[1])` = \\App\\Models\\`!p snip.rv = convertToPlural(t[1])`::query();
 
         if (isset($args['id'])) {
             $Users->where('id', $args['id']);
