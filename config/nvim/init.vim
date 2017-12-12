@@ -436,6 +436,11 @@ augroup END
 
 " Section Plugins {{{
 
+" vim-test
+"""""""""""""""""""""""""""""""""""""
+" make test commands execute using neovim
+let test#strategy = "neovim"
+
 " NERDTree
 """""""""""""""""""""""""""""""""""""
 
