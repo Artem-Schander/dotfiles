@@ -151,6 +151,19 @@ public function ${1:items}()
 }
 endsnippet
 
+snippet morphMany "one2many polymorphic relationship" b
+/**
+ * `!p snip.rv = capitalize(snip.basename)` morphs many `!p snip.rv = capitalize(t[1])`.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+ */
+public function ${1:images}()
+{
+    // morphMany(MorphedModel, morphableName, type = `!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`able_type, relatedKeyName = `!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`able_id, localKey = id)
+    return $this->morphMany(`!p snip.rv = capitalize(convertToSingular(t[1]))`::class, '`!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`able');
+}
+endsnippet
+
 snippet testRelationBelongsTo "Laravel test case - tests eloquent model belongsTo relation" b
 /**
  * this method tests the
