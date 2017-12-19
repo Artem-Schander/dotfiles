@@ -38,6 +38,9 @@ def convertToPlural(name):
 
 def capitalize(name):
     return name[:1].upper() + name[1:]
+
+def decapitalize(name):
+    return name[:1].lower() + name[1:]
 endglobal
 
 snippet model "Laravel model" b
@@ -161,6 +164,20 @@ public function ${1:images}()
 {
     // morphMany(MorphedModel, morphableName, type = `!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`able_type, relatedKeyName = `!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`able_id, localKey = id)
     return $this->morphMany(`!p snip.rv = capitalize(convertToSingular(t[1]))`::class, '`!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`able');
+}
+endsnippet
+
+snippet morphTo "morphable model" b
+/**
+ * `!p snip.rv = capitalize(snip.basename)` morphs to models in `!p snip.rv = convertToSnakeCase(t[1])`able_type.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\MorphTo
+ */
+public function ${1:`!p snip.rv = decapitalize(snip.basename)`}able()
+{
+    // morphTo($name = `!p snip.rv = convertToSnakeCase(t[1])`able, $type = `!p snip.rv = convertToSnakeCase(t[1])`able_type, $id = `!p snip.rv = convertToSnakeCase(t[1])`able_id)
+    // requires `!p snip.rv = convertToSnakeCase(t[1])`able_type and `!p snip.rv = convertToSnakeCase(t[1])`able_id fields on $this->table
+    return $this->morphTo($2);
 }
 endsnippet
 
@@ -343,10 +360,10 @@ public function testRelationTo`!p snip.rv = capitalize(t[1])`ableModel()
     $type = $`!p snip.rv = capitalize(t[1])`->$1able()->getMorphType();
 
     $msg = 'wrong foreign key field name --- $1able relation';
-    $this->assertTrue($key === '$1able_id', $msg);
+    $this->assertTrue($key === '`!p snip.rv = convertToSnakeCase(t[1])`able_id', $msg);
 
     $msg = 'wrong morph type field name --- $1able relation';
-    $this->assertTrue($type === '$1able_type', $msg);
+    $this->assertTrue($type === '`!p snip.rv = convertToSnakeCase(t[1])`able_type', $msg);
 }
 endsnippet
 
