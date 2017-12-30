@@ -36,6 +36,8 @@
 " " dst " delete surrounding tag --> tpope/vim-surround
 " " cst " change surrounding tag --> tpope/vim-surround
 " " <leader><f " format php file (psr-2) --> stephpy/vim-php-cs-fixer
+" " crs " convert to snake_case --> tpope/vim-abolish
+" " crc " convert to camelCase --> tpope/vim-abolish
 " " cit " change in tag
 " " cat " like ciw but takes the tag also
 "

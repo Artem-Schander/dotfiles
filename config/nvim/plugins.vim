@@ -49,6 +49,7 @@ Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutte
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'tpope/vim-rhubarb' " hub extension for fugitive
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
+Plug 'tpope/vim-abolish' " easily search for, substitute, and abbreviate multiple variants of a word
 " Plug 'garbas/vim-snipmate' " snippet manager
 Plug 'SirVer/ultisnips' " snippet engine
 Plug 'honza/vim-snippets' " snippet manager
