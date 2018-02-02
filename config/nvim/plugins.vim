@@ -38,7 +38,7 @@ Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets
 Plug 'tpope/vim-commentary' " comment stuff out
 Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
 " Plug 'tpope/vim-endwise' " automatically add end in ruby
-Plug 'tpope/vim-ragtag' " endings for html, xml, etc. - ehances surround
+Plug 'tpope/vim-ragtag' " endings for html, xml, etc. - ehances surround:
 Plug 'tpope/vim-surround' " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
 Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair.
 Plug 'benmills/vimux' " tmux integration for vim
@@ -50,6 +50,7 @@ Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'tpope/vim-rhubarb' " hub extension for fugitive
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
 Plug 'tpope/vim-abolish' " easily search for, substitute, and abbreviate multiple variants of a word
+Plug 'dkprice/vim-easygrep' " Fast and Easy Find and Replace Across Multiple Files
 " Plug 'garbas/vim-snipmate' " snippet manager
 Plug 'SirVer/ultisnips' " snippet engine
 Plug 'honza/vim-snippets' " snippet manager

@@ -134,30 +134,18 @@ nnoremap <esc> :noh<return><esc>
 
 " Section User Interface {{{
 
-set background=dark
-" let g:solarized_termcolors=16
-" let g:onedark_termcolors=16
-" let g:onedark_terminal_italics=1
-
-if (has("gui_running"))
-    syntax on
-    set hlsearch
-    set ai
-    set ruler
-    set bs=2
-    set guioptions=egmrt
-    set background=dark
-    colorscheme macvim
-    let g:airline_left_sep=''
-    let g:airline_right_sep=''
-    let g:airline_powerline_fonts=0
-    " let g:airline_theme='solarized'
-else
-    " colorscheme base16-railscasts
-    " colorscheme solarized
-    " colorscheme monokai
-    colorscheme onedark
+" switch syntax highlighting on
+if !exists('g:encoding_set') || !has('nvim')
+    set encoding=utf-8
+    let g:encoding_set = 1
 endif
+scriptencoding utf-8
+setglobal fileencoding=utf-8
+
+highlight Comment cterm=italic
+highlight htmlArg cterm=italic
+
+set fillchars+=vert:\┃
 
 syntax on
 set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
@@ -181,9 +169,33 @@ if filereadable(expand("~/.vimrc_background"))
     let base16colorspace=256
     source ~/.vimrc_background
 else
-    let g:onedark_termcolors=16
+    let g:onedark_termcolors=256
     let g:onedark_terminal_italics=1
+    let g:solarized_termcolors=256
+endif
 
+set background=dark
+" let g:solarized_termcolors=16
+" let g:onedark_termcolors=16
+" let g:onedark_terminal_italics=1
+
+if (has("gui_running"))
+    syntax on
+    set hlsearch
+    set ai
+    set ruler
+    set bs=2
+    set guioptions=egmrt
+    set background=dark
+    colorscheme macvim
+    let g:airline_left_sep=''
+    let g:airline_right_sep=''
+    let g:airline_powerline_fonts=0
+    " let g:airline_theme='solarized'
+else
+    " colorscheme base16-railscasts
+    " colorscheme solarized
+    " colorscheme monokai
     colorscheme onedark
 endif
 
@@ -538,31 +550,31 @@ let g:snips_author = 'Artem Schander'
 " \   ]
 " \ }
 
-" CtrlSF
-"""""""""""""""""""""""""""""""""""""
+" " CtrlSF
+" """""""""""""""""""""""""""""""""""""
 
-" search in ctags
-" nmap <leader>f :tag<space>
+" " search in ctags
+" " nmap <leader>f :tag<space>
 
-" search and replace in multiple files
-nmap     <C-F>f <Plug>CtrlSFPrompt
-vmap     <C-F>f <Plug>CtrlSFVwordPath
-vmap     <C-F>F <Plug>CtrlSFVwordExec
-nmap     <C-F>n <Plug>CtrlSFCwordPath
-nmap     <C-F>p <Plug>CtrlSFPwordPath
-nnoremap <C-F>o :CtrlSFOpen<CR>
-nnoremap <C-F>t :CtrlSFToggle<CR>
-inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+" " search and replace in multiple files
+" nmap     <C-F>f <Plug>CtrlSFPrompt
+" vmap     <C-F>f <Plug>CtrlSFVwordPath
+" vmap     <C-F>F <Plug>CtrlSFVwordExec
+" nmap     <C-F>n <Plug>CtrlSFCwordPath
+" nmap     <C-F>p <Plug>CtrlSFPwordPath
+" nnoremap <C-F>o :CtrlSFOpen<CR>
+" nnoremap <C-F>t :CtrlSFToggle<CR>
+" inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
 
-let g:ctrlsf_ackprg = '/usr/local/bin/ag'
+" let g:ctrlsf_ackprg = '/usr/local/bin/ag'
 
 " Indent Guides
 """""""""""""""""""""""""""""""""""""
 
 " define the indent guides
-let g:indent_guides_auto_colors = 0
-hi IndentGuidesOdd  guibg=black ctermbg=237
-hi IndentGuidesEven guibg=black ctermbg=236
+let g:indent_guides_auto_colors = 1
+" hi IndentGuidesOdd  guibg=black ctermbg=237
+" hi IndentGuidesEven guibg=black ctermbg=236
 
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
@@ -663,6 +675,7 @@ let g:airline#extensions#tabline#show_splits = 0
 
 let g:airline_left_sep=''
 let g:airline_right_sep=''
+" let g:airline_theme='solarized'
 let g:airline_theme='onedark'
 " let g:airline_theme='base16'
 " let g:airline_theme='badwolf'
@@ -684,9 +697,9 @@ let g:SuperTabCrMapping = 0
 """""""""""""""""""""""""""""""""""""
 
 " Syntastic syntax check - result in statusline
-set statusline+=%#warningmsg#
+" set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%*
 
 " Systastic
 """""""""""""""""""""""""""""""""""""
@@ -731,27 +744,6 @@ nnoremap <silent><leader><d :call PhpCsFixerFixDirectory()<CR>
 " }}}
 
 
-" Section User Interface {{{
-
-" switch syntax highlighting on
-syntax on
-if !exists('g:encoding_set') || !has('nvim')
-    set encoding=utf-8
-    let g:encoding_set = 1
-endif
-scriptencoding utf-8
-setglobal fileencoding=utf-8
-
-let base16colorspace=256  " Access colors present in 256 colorspace
-set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors
-
-
-highlight Comment cterm=italic
-highlight htmlArg cterm=italic
-
-set fillchars+=vert:\┃
-
-" }}}
 
 
 " Section Mappings {{{
@@ -781,7 +773,6 @@ inoremap <Up> <nop>
 inoremap <Down> <nop>
 
 " }}}
-
 
 
 
