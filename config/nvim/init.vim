@@ -751,6 +751,11 @@ autocmd FileType php nnoremap <silent><leader><f :call PhpCsFixerFixFile()<CR>
 nnoremap <silent><leader><d :call PhpCsFixerFixDirectory()<CR>
 " unmap <Leader>pcd
 " unmap <Leader>pcf
+
+" Vim Tagbar
+"""""""""""""""""""""""""""""""""""""
+nmap <F8> :TagbarToggle<CR>
+
 " }}}
 
 
