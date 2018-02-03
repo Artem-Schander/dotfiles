@@ -181,17 +181,24 @@ set background=dark
 
 if (has("gui_running"))
     syntax on
+    set background=dark
+    colorscheme onedark
+
     set hlsearch
     set ai
     set ruler
     set bs=2
     set guioptions=egmrt
-    set background=dark
-    colorscheme macvim
+    set guioptions=
+    set linespace=2
+
     let g:airline_left_sep=''
     let g:airline_right_sep=''
     let g:airline_powerline_fonts=0
-    " let g:airline_theme='solarized'
+    let g:airline_theme='solarized'
+
+    set macligatures
+    set guifont=FiraCode\ Nerd\ Font:h13
 else
     " colorscheme base16-railscasts
     " colorscheme solarized
@@ -429,7 +436,10 @@ augroup configgroup
 
     autocmd FileType php UltiSnipsAddFiletypes php-laravel
     autocmd FileType blade UltiSnipsAddFiletypes html
+
     autocmd FileType vue syntax sync fromstart
+    " autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
+    let g:vue_disable_pre_processors=1
 
     autocmd FileType nerdtree setlocal relativenumber nolist
 
@@ -551,7 +561,7 @@ let g:snips_author = 'Artem Schander'
 " \ }
 
 " " CtrlSF
-" """""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""
 
 " " search in ctags
 " " nmap <leader>f :tag<space>
@@ -787,5 +797,4 @@ endif
 set shortmess+=A
 
 
-set guifont=Droid\ Sans\ Mono\ for\ Powerline\ Plus\ Nerd\ File\ Types:h11
 
