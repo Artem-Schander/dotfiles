@@ -14,11 +14,13 @@ def convertToSingular(name):
     l3 = name[-3:]
     l1 = name[-1:]
     if l3 == 'ies':
-        result = name.rstrip(l3) + 'y'
+        result = name[:-3] + 'y'
     elif l3 == 'xes':
-        result = name.rstrip(l3) + 'x'
+        result = name[:-3] + 'x'
+    elif l3 == 'ses':
+        result = name[:-3] + 's'
     elif l1 == 's':
-        result = name.rstrip(l1)
+        result = name[:-1]
     else:
         result = name
     return result
