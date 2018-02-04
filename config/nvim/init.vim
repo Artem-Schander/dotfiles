@@ -560,11 +560,11 @@ let g:snips_author = 'Artem Schander'
 " \   ]
 " \ }
 
-" " CtrlSF
-""""""""""""""""""""""""""""""""""""""
+" CtrlSF
+""""""""""""""""""""""""""""""""""""
 
-" " search in ctags
-" " nmap <leader>f :tag<space>
+" search in ctags
+" nmap <leader>f :tag<space>
 
 " " search and replace in multiple files
 " nmap     <C-F>f <Plug>CtrlSFPrompt
@@ -754,10 +754,21 @@ nnoremap <silent><leader><d :call PhpCsFixerFixDirectory()<CR>
 
 " Vim Tagbar
 """""""""""""""""""""""""""""""""""""
+" majutsushi/tagbar
+
 nmap <F8> :TagbarToggle<CR>
 let g:tagbar_sort = 0
 let g:tagbar_show_linenumbers = -1
 let g:tagbar_autofocus = 1
+
+" YouCompleteMe
+"""""""""""""""""""""""""""""""""""""
+" valloric/youcompleteme
+
+" " make YCM compatible with UltiSnips (using supertab)
+" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+" let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " }}}
 

@@ -11,14 +11,15 @@ def convertToSnakeCase(name):
     return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
 
 def convertToSingular(name):
+    l4 = name[-4:]
     l3 = name[-3:]
     l1 = name[-1:]
-    if l3 == 'ies':
+	if l4 == 'sses':
+	   result = name[:-3]
+    elif l3 == 'ies':
         result = name[:-3] + 'y'
     elif l3 == 'xes':
         result = name[:-3] + 'x'
-    elif l3 == 'ses':
-        result = name[:-3] + 's'
     elif l1 == 's':
         result = name[:-1]
     else:
