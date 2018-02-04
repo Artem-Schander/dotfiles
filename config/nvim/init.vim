@@ -663,7 +663,6 @@ nmap <leader>* *<c-o>:%s///gn<cr>
 """""""""""""""""""""""""""""""""""""
 
 let g:ale_set_highlights = 0
-let g:airline#extensions#ale#enabled = 1
 let g:ale_change_sign_column_color = 1
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '✕'
@@ -694,9 +693,8 @@ let g:gitgutter_sign_modified_removed = '⚬'
 " Airline
 """""""""""""""""""""""""""""""""""""
 " airline options
+
 let g:airline_powerline_fonts=1
-let g:airline_left_sep=''
-let g:airline_right_sep=''
 
 let g:airline#extensions#tabline#enabled = 1 " enable airline tabline
 let g:airline#extensions#tabline#tab_min_count = 2 " only show tabline if tabs are being used (more than 1 tab open)
