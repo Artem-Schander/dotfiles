@@ -659,10 +659,17 @@ nmap <leader>m :MarkedOpen!<cr>
 nmap <leader>mq :MarkedQuit<cr>
 nmap <leader>* *<c-o>:%s///gn<cr>
 
+" ALE - Asynchronous Lint Engine
+"""""""""""""""""""""""""""""""""""""
+
+let g:ale_set_highlights = 0
+let g:airline#extensions#ale#enabled = 1
 let g:ale_change_sign_column_color = 1
 let g:ale_sign_column_always = 1
-let g:ale_sign_error = '✖'
-let g:ale_sign_warning = '⚠'
+let g:ale_sign_error = '✕'
+" let g:ale_sign_warning = '⚠'
+let g:ale_sign_warning = '!'
+
 " highlight clear ALEErrorSign
 " highlight clear ALEWarningSign
 
@@ -670,6 +677,15 @@ let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'typescript': ['tslint', 'tsserver']
 \}
+
+" vim-gitgutter
+"""""""""""""""""""""""""""""""""""""
+
+let g:gitgutter_sign_added = '•'
+let g:gitgutter_sign_modified = '-'
+let g:gitgutter_sign_removed = '⚬'
+let g:gitgutter_sign_removed_first_line = '⚬'
+let g:gitgutter_sign_modified_removed = '⚬'
 
 " Airline
 """""""""""""""""""""""""""""""""""""
