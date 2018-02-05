@@ -28,13 +28,10 @@ def convertToSingular(name):
 
 def convertToPlural(name):
     l1 = name[-1:]
-    l2 = name[-2:]
     if l1 == 'y':
         result = name.rstrip(l1) + 'ies'
-    elif l2 == 'ss' or l1 == 'x':
+    elif l1 == 's' or l1 == 'x':
         result = name + 'es'
-    elif l1 == 's':
-        result = name
     else:
         result = name + 's'
     return result
@@ -127,7 +124,7 @@ snippet belongsTo "one2many belongsTo" b
 public function ${1:item}()
 {
     // belongsTo(RelatedModel, foreignKey = `!p snip.rv = convertToSnakeCase(t[1])`_id, keyOnRelatedModel = id)
-    return $this->belongsTo(`!p snip.rv = convertToSingular(capitalize(t[1]))`::class$2);
+    return $this->belongsTo(`!p snip.rv = capitalize(t[1])`::class$2);
 }
 endsnippet
 
@@ -154,6 +151,19 @@ public function ${1:items}()
 {
     // belongsToMany(RelatedModel, pivotTable, thisKeyOnPivot = `!p snip.rv = convertToSnakeCase(snip.basename)`_id, otherKeyOnPivot = `!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`_id)
     return $this->belongsToMany(`!p snip.rv = convertToSingular(capitalize(t[1]))`::class$2);
+}
+endsnippet
+
+snippet morphOne "one2one polymorphic relationship" b
+/**
+ * `!p snip.rv = capitalize(snip.basename)` morphs one `!p snip.rv = capitalize(t[1])`.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\MorphOne
+ */
+public function ${1:address}()
+{
+    // morphMany(MorphedModel, morphableName, type = `!p snip.rv = convertToSnakeCase(t[1])`able_type, relatedKeyName = `!p snip.rv = convertToSnakeCase(t[1])`able_id, localKey = id)
+    return $this->morphOne(`!p snip.rv = capitalize(t[1])`::class, '`!p snip.rv = convertToSnakeCase(t[1])`able');
 }
 endsnippet
 
@@ -224,18 +234,18 @@ public function testRelationTo`!p snip.rv = convertToSingular(capitalize(t[1]))`
 {
     \$`!p snip.rv = capitalize(t[2])` = new `!p snip.rv = capitalize(t[2])`;
 
-    \$msg = 'wrong relationship type --- `!p snip.rv = convertToPlural(t[1])` relation';
-    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`() instanceof HasMany, \$msg);
+    \$msg = 'wrong relationship type --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`() instanceof HasMany, \$msg);
 
-    \$msg = 'wrong relationship model --- `!p snip.rv = convertToPlural(t[1])` relation';
-    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getModel() instanceof `!p snip.rv = convertToSingular(capitalize(t[1]))`, \$msg);
+    \$msg = 'wrong relationship model --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`()->getModel() instanceof `!p snip.rv = convertToSingular(capitalize(t[1]))`, \$msg);
 
-    \$key = explode('.', \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getQualifiedForeignKeyName());
+    \$key = explode('.', \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`()->getQualifiedForeignKeyName());
 
-    \$msg = 'wrong foreign table --- `!p snip.rv = convertToPlural(t[1])` relation';
-    \$this->assertTrue(\$key[0] === '`!p snip.rv = convertToSnakeCase(convertToPlural(t[1]))`', $msg);
+    \$msg = 'wrong foreign table --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$key[0] === '`!p snip.rv = convertToSnakeCase(t[1])`', $msg);
 
-    \$msg = 'wrong foreign key --- `!p snip.rv = convertToPlural(t[1])` relation';
+    \$msg = 'wrong foreign key --- `!p snip.rv = t[1]` relation';
     \$this->assertTrue(\$key[1] === '`!p snip.rv = convertToSnakeCase(t[2]) `_id', \$msg);
 }
 endsnippet
@@ -257,23 +267,23 @@ public function testRelationTo`!p snip.rv = convertToSingular(capitalize(t[1]))`
 {
     \$`!p snip.rv = capitalize(t[2])` = new `!p snip.rv = capitalize(t[2])`;
 
-    \$msg = 'wrong relationship type --- `!p snip.rv = convertToPlural(t[1])` relation';
-    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`() instanceof BelongsToMany, \$msg);
+    \$msg = 'wrong relationship type --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`() instanceof BelongsToMany, \$msg);
 
-    \$msg = 'wrong relationship model --- `!p snip.rv = convertToPlural(t[1])` relation';
-    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getModel() instanceof `!p snip.rv = convertToSingular(capitalize(t[1]))`, \$msg);
+    \$msg = 'wrong relationship model --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`()->getModel() instanceof `!p snip.rv = convertToSingular(capitalize(t[1]))`, \$msg);
 
-    \$msg = 'wrong foreign table --- `!p snip.rv = convertToPlural(t[1])` relation';
-    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getTable() === '`!p snip.rv = generatePivotTable(convertToSnakeCase(convertToSingular(t[1])), convertToSnakeCase(t[2])) `', \$msg);
+    \$msg = 'wrong foreign table --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`()->getTable() === '`!p snip.rv = generatePivotTable(convertToSnakeCase(convertToSingular(t[1])), convertToSnakeCase(t[2])) `', \$msg);
 
-    \$fpk = \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getQualifiedForeignPivotKeyName();
-    \$fid = \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getTable() . '.`!p snip.rv = convertToSnakeCase(t[2])`_id';
-    \$msg = 'wrong foreign key in pivot table --- `!p snip.rv = convertToPlural(t[1])` relation';
+    \$fpk = \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`()->getQualifiedForeignPivotKeyName();
+    \$fid = \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`()->getTable() . '.`!p snip.rv = convertToSnakeCase(t[2])`_id';
+    \$msg = 'wrong foreign key in pivot table --- `!p snip.rv = t[1]` relation';
     \$this->assertTrue(\$fpk === \$fid, \$msg);
 
-    \$rpk = \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getQualifiedRelatedPivotKeyName();
-    \$rid = \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getTable() . '.`!p snip.rv = convertToSnakeCase(convertToSingular(t[1]))`_id';
-    \$msg = 'wrong related key in pivot table --- `!p snip.rv = convertToPlural(t[1])` relation';
+    \$rpk = \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`()->getQualifiedRelatedPivotKeyName();
+    \$rid = \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`()->getTable() . '.`!p snip.rv = convertToSnakeCase(convertToSingular(t[1]))`_id';
+    \$msg = 'wrong related key in pivot table --- `!p snip.rv = t[1]` relation';
     \$this->assertTrue(\$rpk === \$rid, \$msg);
 }
 endsnippet
@@ -324,25 +334,25 @@ public function testRelationTo`!p snip.rv = convertToSingular(capitalize(t[1]))`
 {
     \$`!p snip.rv = capitalize(t[2])` = new `!p snip.rv = capitalize(t[2])`;
 
-    \$msg = 'wrong relationship type --- `!p snip.rv = convertToPlural(t[1])` relation';
-    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`() instanceof MorphMany, \$msg);
+    \$msg = 'wrong relationship type --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`() instanceof MorphMany, \$msg);
 
-    \$msg = 'wrong relationship model --- `!p snip.rv = convertToPlural(t[1])` relation';
-    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getModel() instanceof `!p snip.rv = convertToSingular(capitalize(t[1]))`, \$msg);
+    \$msg = 'wrong relationship model --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`()->getModel() instanceof `!p snip.rv = convertToSingular(capitalize(t[1]))`, \$msg);
 
-    \$msg = 'wrong morph class --- `!p snip.rv = convertToPlural(t[1])` relation';
-    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getMorphClass() === `!p snip.rv = capitalize(t[2])`::class);
+    \$msg = 'wrong morph class --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`()->getMorphClass() === `!p snip.rv = capitalize(t[2])`::class);
 
-    \$morphType = explode('.', \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getQualifiedMorphType());
+    \$morphType = explode('.', \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`()->getQualifiedMorphType());
 
-    \$msg = 'wrong foreign table --- `!p snip.rv = convertToPlural(t[1])` relation';
-    \$this->assertTrue(\$morphType[0] === '`!p snip.rv = convertToSnakeCase(convertToPlural(t[1]))`', \$msg);
+    \$msg = 'wrong foreign table --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$morphType[0] === '`!p snip.rv = convertToSnakeCase(t[1])`', \$msg);
 
-    \$msg = 'wrong morph type --- `!p snip.rv = convertToPlural(t[1])` relation';
+    \$msg = 'wrong morph type --- `!p snip.rv = t[1]` relation';
     \$this->assertTrue(\$morphType[1] === '`!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`able_type', \$msg);
 
-    \$msg = 'wrong morph id --- `!p snip.rv = convertToPlural(t[1])` relation';
-    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = convertToPlural(t[1])`()->getForeignKeyName() === '`!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`able_id', \$msg);
+    \$msg = 'wrong morph id --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`()->getForeignKeyName() === '`!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`able_id', \$msg);
 }
 endsnippet
 
