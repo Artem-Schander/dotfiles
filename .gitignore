@@ -9,4 +9,5 @@ config/nvim/plugged
 vim/vim.symlink/spell/
 vim/vim.symlink/plugged/
 zsh/.oh-my-zsh/
+tags.*
 tags
