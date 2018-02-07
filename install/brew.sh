@@ -27,7 +27,7 @@ formulas=(
     fasd
     toilet
     wget
-    ctags
+    universal-ctags/universal-ctags/universal-ctags
     htop
     php-cs-fixer
     python
