@@ -46,6 +46,7 @@ Plug 'benmills/vimux' " tmux integration for vim
 Plug 'vim-airline/vim-airline' " fancy statusline
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
 Plug 'w0rp/ale' " Asynchonous linting engine
+Plug 'osyo-manga/vim-anzu' " show search count
 Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'tpope/vim-rhubarb' " hub extension for fugitive
