@@ -50,7 +50,7 @@ formulas=(
     diff-so-fancy
 
     # 'grep --with-default-names'
-    neovim/neovim/neovim
+    neovim
     # node
     # ripgrep
     # git-standup
