@@ -513,7 +513,7 @@ let NERDSpaceDelims=1
 """""""""""""""""""""""""""""""""""""
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<CR>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 
@@ -787,10 +787,10 @@ let g:tagbar_autofocus = 0
 """""""""""""""""""""""""""""""""""""
 " valloric/youcompleteme
 
-" " make YCM compatible with UltiSnips (using supertab)
-" let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-" let g:SuperTabDefaultCompletionType = '<C-n>'
+" make YCM compatible with UltiSnips (using supertab)
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " }}}
 
@@ -813,15 +813,15 @@ nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :noh
 " disable Ex mode
 noremap Q <NOP>
 
-nnoremap <Left> :echo "won't happen! Use the h key"<cr>
-nnoremap <Right> :echo "won't happen! Use the l key"<cr>
-nnoremap <Up> :echo "won't happen! Use the k key"<cr>
-nnoremap <Down> :echo "won't happen! Use the j key"<cr>
+" nnoremap <Left> :echo "won't happen! Use the h key"<cr>
+" nnoremap <Right> :echo "won't happen! Use the l key"<cr>
+" nnoremap <Up> :echo "won't happen! Use the k key"<cr>
+" nnoremap <Down> :echo "won't happen! Use the j key"<cr>
 
-inoremap <Left> <nop>
-inoremap <Right> <nop>
-inoremap <Up> <nop>
-inoremap <Down> <nop>
+" inoremap <Left> <nop>
+" inoremap <Right> <nop>
+" inoremap <Up> <nop>
+" inoremap <Down> <nop>
 
 " }}}
 
