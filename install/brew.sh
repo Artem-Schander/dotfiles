@@ -40,6 +40,7 @@ formulas=(
     git
     hub
     'macvim --with-override-system-vim'
+    # 'brew install php71-mcrypt php71-imagick php71-intl php71-redis'
     reattach-to-user-namespace
     # tmux
     zsh
