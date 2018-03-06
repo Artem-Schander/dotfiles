@@ -674,10 +674,18 @@ let g:ale_sign_warning = 'i'
 " highlight clear ALEErrorSign
 " highlight clear ALEWarningSign
 
+" let g:ale_lint_on_text_changed = 'never'
 let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'typescript': ['tslint', 'tsserver']
-\}
+\   'javascript': ['eslint', 'flow'],
+\   'typescript': ['eslint', 'tslint', 'tsserver'],
+\   'vue': ['eslint', 'stylelint', 'tsserver'],
+\   'php': ['phpcs'],
+\   'html': []
+\ }
+let g:ale_linter_aliases = {'vue': ['css', 'javascript', 'typescript']}
+
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " vim-gitgutter
 """""""""""""""""""""""""""""""""""""
