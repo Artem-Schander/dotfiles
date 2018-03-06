@@ -31,7 +31,6 @@ formulas=(
     htop
     php-cs-fixer
     python
-    python3
     # development server setup
     nginx
     mariadb

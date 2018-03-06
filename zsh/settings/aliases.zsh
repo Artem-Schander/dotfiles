@@ -96,3 +96,8 @@ alias v='a -e nvim' # with vim
 # codeception
 alias codecept='vendor/bin/codecept'
 alias codeception='vendor/bin/codecept'
+
+# python
+alias python='/usr/bin/python'
+alias python2='/usr/bin/python'
+alias python3='/usr/local/bin/python'
