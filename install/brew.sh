@@ -27,9 +27,9 @@ formulas=(
     fasd
     toilet
     wget
-    universal-ctags/universal-ctags/universal-ctags
+    '--HEAD universal-ctags/universal-ctags/universal-ctags'
     htop
-    php-cs-fixer
+    homebrew/php/php-cs-fixer
     python
     # development server setup
     nginx
@@ -38,10 +38,10 @@ formulas=(
     # development tools
     git
     hub
-    'macvim --with-override-system-vim'
+    macvim
     # 'brew install php71-mcrypt php71-imagick php71-intl php71-redis'
     reattach-to-user-namespace
-    # tmux
+    tmux
     zsh
     highlight
     nvm
