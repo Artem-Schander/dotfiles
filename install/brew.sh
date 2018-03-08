@@ -49,11 +49,11 @@ formulas=(
     z
     markdown
     diff-so-fancy
-    docker
-    docker-compose
-    docker-machine
-    xhyve
-    docker-machine-driver-xhyve
+    # docker
+    # docker-compose
+    # docker-machine
+    # xhyve
+    # docker-machine-driver-xhyve
 
     # 'grep --with-default-names'
     neovim
