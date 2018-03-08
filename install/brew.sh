@@ -65,3 +65,7 @@ for formula in "${formulas[@]}"; do
         brew install $formula
     fi
 done
+
+echo -e "\n\n${GREEN}Running fzf install script"
+echo "==============================${NORMAL}"
+/usr/local/opt/fzf/install --all --no-bash --no-fish

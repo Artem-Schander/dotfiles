@@ -107,7 +107,6 @@ export EDITOR='nvim'
 export GIT_EDITOR='nvim'
 
 export PATH=/usr/local/bin:$PATH
-export PATH=/usr/local/Cellar/python@2/2.7.14_2/bin:$PATH
 
 # add /usr/local/sbin
 if [[ -d /usr/local/sbin ]]; then
@@ -120,6 +119,11 @@ export PATH=$DOTFILES/bin:$PATH
 # check for custom bin directory and add to path
 if [[ -d ~/.composer/vendor/bin ]]; then
     export PATH=~/.composer/vendor/bin:$PATH
+fi
+
+# check for custom bin directory and add to path
+if [[ -d /usr/local/Cellar/python@2/2.7.14_2/bin ]]; then
+	export PATH=/usr/local/Cellar/python@2/2.7.14_2/bin:$PATH
 fi
 
 # check for custom bin directory and add to path
