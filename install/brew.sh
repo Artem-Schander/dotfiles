@@ -30,7 +30,8 @@ formulas=(
     '--HEAD universal-ctags/universal-ctags/universal-ctags'
     htop
     homebrew/php/php-cs-fixer
-    python
+    python2
+    python3
     # development server setup
     nginx
     mariadb
@@ -41,7 +42,7 @@ formulas=(
     macvim
     # 'brew install php71-mcrypt php71-imagick php71-intl php71-redis'
     reattach-to-user-namespace
-    tmux
+    # tmux # is getting installed through own script
     zsh
     highlight
     nvm

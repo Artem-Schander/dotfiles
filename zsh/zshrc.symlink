@@ -107,6 +107,7 @@ export EDITOR='nvim'
 export GIT_EDITOR='nvim'
 
 export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/Cellar/python@2/2.7.14_2/bin:$PATH
 
 # add /usr/local/sbin
 if [[ -d /usr/local/sbin ]]; then

@@ -23,9 +23,11 @@ if [ "$(uname)" == "Darwin" ]; then
 
     source install/nvim.sh # TODO: check not for Darwin OS only
 
-    # source install/tmux.sh # TODO: check not for Darwin OS only
+    source install/tmux.sh # TODO: check not for Darwin OS only
 
     source ./install/nvm.sh # TODO: check not for Darwin OS only
+
+    source install/composer.sh # TODO: check not for Darwin OS only
 
     # create a backup of the original nginx.conf
     if [ -f /usr/local/etc/nginx/nginx.conf ]; then
@@ -55,7 +57,9 @@ NORMAL="$(tput sgr0)"
 # if [ "$(uname)" == "Darwin" ]; then
 #     toilet -f future -F border ' Remember to install the vim pligins ! ' -t && toilet -f smmono9 '   ~/$ vim +PlugInstall' -t
 # else
-    printf "💡 ${YELLOW}Remember to install the vim pligins!${NORMAL} vim +PlugInstall!\n"
+    printf "${YELLOW}Remember to install the plugins!${NORMAL}\n"
+    printf "${GREEN}  --> vim: ${NORMAL} \`vim +PlugInstall!\`\n"
+    printf "${GREEN}  --> tmux: ${NORMAL} run \`prefix + I\` inside a tmux session\n"
 # fi
 
 source install/omz.sh

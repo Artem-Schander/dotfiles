@@ -96,8 +96,11 @@ set textwidth=120
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
-let g:python_host_prog = '/usr/local/bin/python2'
-let g:python3_host_prog = '/usr/local/bin/python3'
+" let g:python_host_prog = '/usr/local/bin/python'
+" let g:python3_host_prog = '/usr/local/bin/python3'
+let g:python_host_prog = 'python'
+let g:python2_host_prog = 'python2'
+let g:python3_host_prog = 'python3'
 
 if (has('nvim'))
     " show results of substition as they're happening
