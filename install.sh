@@ -40,7 +40,8 @@ if [ "$(uname)" == "Darwin" ]; then
     ln -s ~/.dotfiles/nginx/code.dev /usr/local/etc/nginx/sites-enabled/code.dev
 fi
 
-echo "creating vim directories"
+# echo -e "\n\n${GREEN}creating vim directories"
+# echo "==============================${NORMAL}"
 mkdir -p ~/.vim-tmp
 
 if ! command_exists zsh; then
@@ -51,17 +52,23 @@ elif ! [[ $SHELL =~ .*zsh.* ]]; then
     chsh -s $(which zsh)
 fi
 
+RED="$(tput setaf 1)"
 YELLOW="$(tput setaf 3)"
 NORMAL="$(tput sgr0)"
+
+CYAN="$(tput setaf 6)"
+
+source install/omz.sh
+
+echo -e "\n\n${GREEN}Done. Restart your Terminal."
+echo "==============================${NORMAL}"
 
 # if [ "$(uname)" == "Darwin" ]; then
 #     toilet -f future -F border ' Remember to install the vim pligins ! ' -t && toilet -f smmono9 '   ~/$ vim +PlugInstall' -t
 # else
-    printf "${YELLOW}Remember to install the plugins!${NORMAL}\n"
-    printf "${GREEN}  --> vim: ${NORMAL} \`vim +PlugInstall!\`\n"
-    printf "${GREEN}  --> tmux: ${NORMAL} run \`prefix + I\` inside a tmux session\n"
+    printf "${RED}Remember to install the plugins!${NORMAL}\n"
+    printf "${GREEN}  --> vim: ${NORMAL} ${CYAN}vim +PlugInstall!${NORMAL}\n"
+    printf "${GREEN}  --> tmux: ${NORMAL} run ${CYAN}prefix + I${NORMAL} inside a tmux session\n"
 # fi
 
-source install/omz.sh
-
-echo "Done. Restart your Terminal."
+echo -e "\n"

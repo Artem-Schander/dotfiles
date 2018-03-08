@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 GREEN="$(tput setaf 2)"
 NORMAL="$(tput sgr0)"
@@ -19,6 +19,7 @@ if [ -d ~/.tmux/plugins/tpm ]; then
     cd ~/.tmux/plugins/tpm
     git fetch
     git pull
+    cd -
 else
     git clone git://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
