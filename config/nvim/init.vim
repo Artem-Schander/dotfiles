@@ -235,8 +235,8 @@ set smartindent
 set list
 " set invlist
 " set nolist
-set listchars=tab:>-,space:·,eol:¬,trail:·,extends:❯,precedes:❮
-set showbreak=↪
+set listchars=tab:⏤ ,space:·,eol:¬,trail:⚬,extends:❯,precedes:❮
+set showbreak=↩︎
 
 " highlight conflicts
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
