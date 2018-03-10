@@ -102,7 +102,7 @@ let g:python_host_prog = 'python'
 let g:python2_host_prog = 'python2'
 let g:python3_host_prog = 'python3'
 
-if (has('nvim'))
+if has('nvim')
     " show results of substition as they're happening
     " but don't open a split
     set inccommand=nosplit
@@ -597,10 +597,17 @@ let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 " FZF
 """""""""""""""""""""""""""""""""""""
 
-let g:fzf_layout = { 'down': '~25%' }
+if has('nvim')
+    let g:fzf_layout = { 'window': 'enew' }
+else
+    let g:fzf_layout = { 'down': '~25%' }
+endif
 
 " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'ctags -R --exclude=node_modules --exclude=dist'
+
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
 
 if isdirectory(".git")
     " if in a git project, use :GFiles
@@ -622,6 +629,16 @@ imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
+" Advanced customization using autoload functions
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+
+" hide statusline
+autocmd! FileType fzf
+autocmd  FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 nnoremap <silent> <Leader>C :call fzf#run({
 \   'source':
