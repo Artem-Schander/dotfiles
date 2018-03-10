@@ -597,11 +597,13 @@ let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 " FZF
 """""""""""""""""""""""""""""""""""""
 
-if has('nvim')
-    let g:fzf_layout = { 'window': 'enew' }
-else
-    let g:fzf_layout = { 'down': '~25%' }
-endif
+" if has('nvim')
+"     let g:fzf_layout = { 'window': 'enew' }
+" else
+"     let g:fzf_layout = { 'down': '~25%' }
+" endif
+
+let g:fzf_layout = { 'up': '~25%' }
 
 " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'ctags -R --exclude=node_modules --exclude=dist'
@@ -633,12 +635,12 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 " Advanced customization using autoload functions
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
-" hide statusline
-autocmd! FileType fzf
-autocmd  FileType fzf set laststatus=0 noshowmode noruler
-  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+" " hide statusline
+" autocmd! FileType fzf
+" autocmd  FileType fzf set laststatus=0 noshowmode noruler
+"   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
+" autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 nnoremap <silent> <Leader>C :call fzf#run({
 \   'source':
@@ -658,6 +660,17 @@ command! FZFMru call fzf#run({
 command! -bang -nargs=* Find call fzf#vim#grep(
 \ 'rg --column --line-number --no-heading --follow --color=always '.<q-args>, 1,
 \ <bang>0 ? fzf#vim#with_preview('up:60%') : fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
+
+if has('nvim')
+    command! -bang Commits
+        \ call fzf#vim#commits({'window': 'enew'}, <bang>0)
+else
+    command! -bang Commits
+        \ call fzf#vim#commits({'down': '70%'}, <bang>0)
+endif
+
+command! -bang BTags
+    \ call fzf#vim#buffer_tags(<q-args>, {'right': '40'}, <bang>0)
 
 " Emmet
 """""""""""""""""""""""""""""""""""""
