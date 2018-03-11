@@ -148,7 +148,7 @@ setglobal fileencoding=utf-8
 highlight Comment cterm=italic
 highlight htmlArg cterm=italic
 
-set fillchars+=vert:\┃
+set fillchars+=vert:┃
 
 syntax on
 set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
@@ -236,7 +236,7 @@ set list
 " set invlist
 " set nolist
 set listchars=tab:⏤ ,space:·,eol:¬,trail:⚬,extends:❯,precedes:❮
-set showbreak=↩︎
+" set showbreak=↩︎
 
 " highlight conflicts
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
