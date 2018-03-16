@@ -132,93 +132,13 @@ inoremap <expr> <CR> functions#Expander()
 " unset search highlight on pres esc
 nnoremap <esc> :noh<return><esc>
 
+" A: don't give the "ATTENTION" message when an existing swap file set
+set shortmess+=A
+
 " }}}
 
 
 " Section User Interface {{{
-
-" switch syntax highlighting on
-if !exists('g:encoding_set') || !has('nvim')
-    set encoding=utf-8
-    let g:encoding_set = 1
-endif
-scriptencoding utf-8
-setglobal fileencoding=utf-8
-
-highlight Comment cterm=italic
-highlight htmlArg cterm=italic
-
-set fillchars+=vert:┃
-
-syntax on
-set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
-
-" switch cursor to line when in insert mode, and block when not
-set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-\,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-\,sm:block-blinkwait175-blinkoff150-blinkon175
-
-if &term =~ '256color'
-    " disable background color erase
-    set t_ut=
-endif
-
-" enable 24 bit color support if supported
-if (has('mac') && empty($TMUX) && has("termguicolors"))
-    set termguicolors
-endif
-
-if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
-else
-    let g:onedark_termcolors=256
-    let g:onedark_terminal_italics=1
-    let g:solarized_termcolors=256
-endif
-
-set background=dark
-" let g:solarized_termcolors=16
-" let g:onedark_termcolors=16
-" let g:onedark_terminal_italics=1
-
-if (has("gui_running"))
-    syntax on
-    set background=dark
-    colorscheme onedark
-
-    set hlsearch
-    set ai
-    set ruler
-    set bs=2
-    set guioptions=egmrt
-    set guioptions=
-    set linespace=2
-
-    let g:airline_left_sep=''
-    let g:airline_right_sep=''
-    let g:airline_powerline_fonts=0
-    let g:airline_theme='solarized'
-
-    set macligatures
-    set guifont=FiraCode\ Nerd\ Font:h13
-else
-    " colorscheme base16-railscasts
-    " colorscheme solarized
-    " colorscheme monokai
-    colorscheme onedark
-endif
-
-" make the highlighting of tabs and other non-text less annoying
-highlight SpecialKey ctermfg=236
-highlight NonText ctermfg=236
-
-" make comments and HTML attributes italic
-highlight Comment cterm=italic
-highlight htmlArg cterm=italic
-highlight xmlAttrib cterm=italic
-highlight Type cterm=italic
-highlight Normal ctermbg=none
 
 set number " show line numbers
 set relativenumber " show relative line numbers
@@ -480,7 +400,15 @@ nmap <silent> t<C-g> :TestVisit<CR>   " t Ctrl+g
 """""""""""""""""""""""""""""""""""""
 
 " Toggle NERDTree
-nmap <silent> <leader>k :NERDTreeToggle<cr>
+function! ToggleNerdTree()
+    if @% != "" && (!exists("g:NERDTree") || (g:NERDTree.ExistsForTab() && !g:NERDTree.IsOpen()))
+        :NERDTreeFind
+    else 
+        :NERDTreeToggle
+    endif
+endfunction
+
+nmap <silent> <leader>k :call ToggleNerdTree()<cr>
 " expand to the path of the file in the current buffer
 nmap <silent> <leader>y :NERDTreeFind<cr>
 
@@ -509,6 +437,18 @@ let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 " enable open and close folder/directory glyph flags
 let g:DevIconsEnableFoldersOpenClose = 0
 
+let g:NERDTreeIndicatorMapCustom = {
+\ "Modified"  : "✹",
+\ "Staged"	  : "✚",
+\ "Untracked" : "✭",
+\ "Renamed"   : "➜",
+\ "Unmerged"  : "═",
+\ "Deleted"   : "✖",
+\ "Dirty"	  : "✗",
+\ "Clean"	  : "✔︎",
+\ 'Ignored'   : '☒',
+\ "Unknown"   : "?"
+\ }
 " NerdCommenter
 """""""""""""""""""""""""""""""""""""
 
@@ -605,7 +545,7 @@ let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 "     let g:fzf_layout = { 'down': '~25%' }
 " endif
 
-let g:fzf_layout = { 'up': '~25%' }
+let g:fzf_layout = { 'up': '~35%' }
 
 " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'ctags -R --exclude=node_modules --exclude=dist'
@@ -615,7 +555,8 @@ let g:fzf_buffers_jump = 1
 
 if isdirectory(".git")
     " if in a git project, use :GFiles
-    nmap <silent> <leader>p :GFiles --cached --others --exclude-standard<cr>
+    " nmap <silent> <leader>p :GFiles --cached --others --exclude-standard<cr>
+    nmap <silent> <leader>p :GitFiles<cr>
 else
     " otherwise, use :FZF
     nmap <silent> <leader>p :FZF<cr>
@@ -654,10 +595,11 @@ nnoremap <silent> <Leader>C :call fzf#run({
 \ })<CR>
 
 command! FZFMru call fzf#run({
-\  'source':  v:oldfiles,
-\  'sink':    'e',
-\  'options': '-m -x +s',
-\  'down':    '40%'})
+\   'source':  v:oldfiles,
+\   'sink':    'e',
+\   'options': '-m -x +s',
+\   'down':    '40%'
+\ })
 
 command! -bang -nargs=* Find call fzf#vim#grep(
 \ 'rg --column --line-number --no-heading --follow --color=always '.<q-args>, 1,
@@ -672,7 +614,14 @@ else
 endif
 
 command! -bang BTags
-    \ call fzf#vim#buffer_tags(<q-args>, {'right': '40'}, <bang>0)
+    \ call fzf#vim#buffer_tags(<q-args>, {'right': '30%'}, <bang>0)
+
+command! -bang GitFiles
+    \ call fzf#vim#gitfiles('--cached --others --exclude-standard'.<q-args>,
+    \ fzf#vim#with_preview('right:50%', '?'), <bang>0)
+
+command! -bang FZF
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
 
 " Emmet
 """""""""""""""""""""""""""""""""""""
@@ -905,8 +854,88 @@ if exists('g:loaded_webdevicons')
 endif
 
 
-" A: don't give the "ATTENTION" message when an existing swap file set
-set shortmess+=A
 
+" Colorscheme and final setup {{{
+" switch syntax highlighting on
+if !exists('g:encoding_set') || !has('nvim')
+    set encoding=utf-8
+    let g:encoding_set = 1
+endif
+scriptencoding utf-8
+setglobal fileencoding=utf-8
 
+highlight Comment cterm=italic
+highlight htmlArg cterm=italic
 
+set fillchars+=vert:┃
+
+syntax on
+set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
+
+" switch cursor to line when in insert mode, and block when not
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+\,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+\,sm:block-blinkwait175-blinkoff150-blinkon175
+
+if &term =~ '256color'
+    " disable background color erase
+    set t_ut=
+endif
+
+" enable 24 bit color support if supported
+if (has('mac') && empty($TMUX) && has("termguicolors"))
+    set termguicolors
+endif
+
+if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+else
+    let g:onedark_termcolors=256
+    let g:onedark_terminal_italics=1
+    let g:solarized_termcolors=256
+endif
+
+set background=dark
+" let g:solarized_termcolors=16
+" let g:onedark_termcolors=16
+" let g:onedark_terminal_italics=1
+
+if (has("gui_running"))
+    syntax on
+    set background=dark
+    colorscheme onedark
+
+    set hlsearch
+    set ai
+    set ruler
+    set bs=2
+    set guioptions=egmrt
+    set guioptions=
+    set linespace=2
+
+    let g:airline_left_sep=''
+    let g:airline_right_sep=''
+    let g:airline_powerline_fonts=0
+    let g:airline_theme='solarized'
+
+    set macligatures
+    set guifont=FiraCode\ Nerd\ Font:h13
+else
+    " colorscheme base16-railscasts
+    " colorscheme solarized
+    " colorscheme monokai
+    colorscheme onedark
+endif
+
+" make the highlighting of tabs and other non-text less annoying
+highlight SpecialKey ctermfg=236
+highlight NonText ctermfg=236
+
+" make comments and HTML attributes italic
+highlight Comment cterm=italic
+highlight htmlArg cterm=italic
+highlight xmlAttrib cterm=italic
+highlight Type cterm=italic
+highlight Normal ctermbg=none
+" }}}
