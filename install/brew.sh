@@ -45,6 +45,7 @@ formulas=(
     # tmux # is getting installed through own script
     zsh
     highlight
+    yarn
     nvm
     z
     markdown
