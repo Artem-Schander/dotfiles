@@ -135,6 +135,28 @@ nnoremap <esc> :noh<return><esc>
 " A: don't give the "ATTENTION" message when an existing swap file set
 set shortmess+=A
 
+" BufOnly.vim  -  Delete all the buffers except the current/named buffer.
+"
+" Copyright November 2003 by Christian J. Robinson <infynity@onewest.net>
+"
+" Distributed under the terms of the Vim license.  See ":help license".
+"
+" Usage:
+"
+" :Bonly / :BOnly / :Bufonly / :BufOnly [buffer] 
+"
+" Without any arguments the current buffer is kept.  With an argument the
+" buffer name/number supplied is kept.
+
+command! -nargs=? -complete=buffer -bang Bonly
+\ :call functions#BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang BOnly
+\ :call functions#BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang Bufonly
+\ :call functions#BufOnly('<args>', '<bang>')
+command! -nargs=? -complete=buffer -bang BufOnly
+\ :call functions#BufOnly('<args>', '<bang>')
+
 " }}}
 
 
@@ -360,6 +382,7 @@ augroup configgroup
     autocmd FileType php UltiSnipsAddFiletypes php-laravel
     autocmd FileType blade UltiSnipsAddFiletypes html
 
+    autocmd BufNewFile,BufRead *.vue set ft=vue
     autocmd FileType vue syntax sync fromstart
     " autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
     let g:vue_disable_pre_processors=1
@@ -373,8 +396,7 @@ augroup configgroup
     " autocmd BufNewFile,BufRead .jshintrc set filetype=json
     " autocmd BufNewFile,BufRead .eslintrc set filetype=json
     " autocmd BufNewFile,BufRead *.es6 set filetype=javascript
-    autocmd BufNewFile,BufRead *.docker set filetype=dockerfile
-    autocmd BufNewFile,BufRead *.dockerfile set filetype=dockerfile
+    autocmd BufNewFile,BufRead *.docker,*.dockerfile set filetype=dockerfile
 
     autocmd FileType php setlocal commentstring=//\ %s
 
@@ -614,7 +636,7 @@ else
 endif
 
 command! -bang BTags
-    \ call fzf#vim#buffer_tags(<q-args>, {'right': '30%'}, <bang>0)
+    \ call fzf#vim#buffer_tags(<q-args>, {'top': '30%'}, <bang>0)
 
 command! -bang GitFiles
     \ call fzf#vim#gitfiles('--cached --others --exclude-standard'.<q-args>,
