@@ -19,6 +19,8 @@
 " " <leader>k " toggle NERDTree --> scrooloose/nerdtree
 " " <leader>y " reveal current file in NERDTree --> scrooloose/nerdtree
 "
+" " <leader>1 " highlights all occurrences of the word under the cursor (different colors 1 - 6)
+"
 " " :!ctags -R --exclude=node_modules --exclude=dist " create a tags index --> ctags
 " " <C-]> " (ctrl+alt+6) go to declaration of whatever is under the cursor --> ctags
 "
