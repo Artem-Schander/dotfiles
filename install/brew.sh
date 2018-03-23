@@ -38,6 +38,7 @@ formulas=(
     dnsmasq
     # development tools
     git
+    git-flow-avh
     hub
     macvim
     # 'brew install php71-mcrypt php71-imagick php71-intl php71-redis'
