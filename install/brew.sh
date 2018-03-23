@@ -38,6 +38,7 @@ formulas=(
     dnsmasq
     # development tools
     git
+    git-ftp
     git-flow-avh
     hub
     macvim
