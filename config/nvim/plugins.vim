@@ -47,8 +47,8 @@ Plug 'vim-airline/vim-airline' " fancy statusline
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
 Plug 'w0rp/ale' " Asynchonous linting engine
 Plug 'osyo-manga/vim-anzu' " show search count
-" Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter
-Plug 'mhinz/vim-signify' " Show a diff using Vim its sign column.
+Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter
+" Plug 'mhinz/vim-signify' " Show a diff using Vim its sign column.
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'tpope/vim-rhubarb' " hub extension for fugitive
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command

@@ -699,26 +699,28 @@ nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 " vim-gitgutter
 """""""""""""""""""""""""""""""""""""
 
-" set updatetime=100
+set updatetime=300
 
-" let g:gitgutter_sign_added = '•'
-" " let g:gitgutter_sign_modified = '⌇'
-" let g:gitgutter_sign_modified = '•'
-" " let g:gitgutter_sign_removed = '-'
-" let g:gitgutter_sign_removed = '⚬'
-" let g:gitgutter_sign_removed_first_line = '⚬'
-" " let g:gitgutter_sign_modified_removed = '⎓'
-" " let g:gitgutter_sign_modified_removed = '⑊'
-" let g:gitgutter_sign_modified_removed = '⚬'
+let g:gitgutter_sign_added = '•'
+" let g:gitgutter_sign_modified = '⌇'
+let g:gitgutter_sign_modified = '•'
+" let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_removed = '⚬'
+let g:gitgutter_sign_removed_first_line = '⚬'
+" let g:gitgutter_sign_modified_removed = '⎓'
+" let g:gitgutter_sign_modified_removed = '⑊'
+let g:gitgutter_sign_modified_removed = '⚬'
 
 " mhinz/vim-signify
 """""""""""""""""""""""""""""""""""""
 
-let g:signify_vcs_list = [ 'git' ]
-let g:signify_sign_add = '+'
-let g:signify_sign_delete = '-'
-let g:signify_sign_delete_first_line = '‾'
-let g:signify_sign_change = '~'
+" let g:signify_realtime = 1
+
+" let g:signify_vcs_list = [ 'git' ]
+" let g:signify_sign_add = '+'
+" let g:signify_sign_delete = '-'
+" let g:signify_sign_delete_first_line = '‾'
+" let g:signify_sign_change = '~'
 
 " Airline
 """""""""""""""""""""""""""""""""""""
