@@ -644,8 +644,10 @@ command! -bang GitFiles
     \ call fzf#vim#gitfiles('--cached --others --exclude-standard'.<q-args>,
     \ fzf#vim#with_preview('right:50%', '?'), <bang>0)
 
-command! -bang FZF
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
+" does not work
+" command! -bang Buffers
+"     \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
+
 
 " Emmet
 """""""""""""""""""""""""""""""""""""
@@ -693,22 +695,30 @@ let g:ale_linters = {
 let g:ale_linter_aliases = {'vue': ['css', 'javascript', 'typescript']}
 
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 " vim-gitgutter
 """""""""""""""""""""""""""""""""""""
 
-set updatetime=100
+" set updatetime=100
 
-let g:gitgutter_sign_added = '•'
-" let g:gitgutter_sign_modified = '⌇'
-let g:gitgutter_sign_modified = '•'
-" let g:gitgutter_sign_removed = '-'
-let g:gitgutter_sign_removed = '⚬'
-let g:gitgutter_sign_removed_first_line = '⚬'
-" let g:gitgutter_sign_modified_removed = '⎓'
-" let g:gitgutter_sign_modified_removed = '⑊'
-let g:gitgutter_sign_modified_removed = '⚬'
+" let g:gitgutter_sign_added = '•'
+" " let g:gitgutter_sign_modified = '⌇'
+" let g:gitgutter_sign_modified = '•'
+" " let g:gitgutter_sign_removed = '-'
+" let g:gitgutter_sign_removed = '⚬'
+" let g:gitgutter_sign_removed_first_line = '⚬'
+" " let g:gitgutter_sign_modified_removed = '⎓'
+" " let g:gitgutter_sign_modified_removed = '⑊'
+" let g:gitgutter_sign_modified_removed = '⚬'
+
+" mhinz/vim-signify
+"""""""""""""""""""""""""""""""""""""
+
+let g:signify_vcs_list = [ 'git' ]
+let g:signify_sign_add = '+'
+let g:signify_sign_delete = '-'
+let g:signify_sign_delete_first_line = '‾'
+let g:signify_sign_change = '~'
 
 " Airline
 """""""""""""""""""""""""""""""""""""
