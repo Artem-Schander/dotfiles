@@ -58,6 +58,8 @@
 " " <leader>ig " toggles the indent guides --> nathanaelkane/vim-indent-guides
 " " zo " open fold
 " " zc " close fold
+" " zr " open one more level
+" " zm " close one more level
 " " zf<Motion> " zfa} -> folds all incl. parent curly brackets - only in manual mode " :setlocal foldmethod=manual "
 "
 "
