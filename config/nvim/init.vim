@@ -384,6 +384,7 @@ augroup configgroup
     autocmd BufNewFile,BufRead,BufWrite *.md syntax match Comment /\%^---\_.\{-}---$/
 
     autocmd FileType php UltiSnipsAddFiletypes php-laravel
+    autocmd FileType php UltiSnipsAddFiletypes php-extbase
     autocmd FileType blade UltiSnipsAddFiletypes html
 
     autocmd BufNewFile,BufRead *.vue set ft=vue

@@ -1,0 +1,32 @@
+global !p
+def capitalize(name):
+    return name[:1].upper() + name[1:]
+endglobal
+
+snippet x_d "Extbase - default relation" b
+/**
+ * `!p snip.rv = capitalize(t[1])`
+ *
+ * @var ${2:integer}
+ */
+protected \$${1:item};
+
+/**
+ * Gets the `!p snip.rv = capitalize(t[1])`
+ *
+ * @return $2 \$$1
+ */
+public function get`!p snip.rv = capitalize(t[1])`()
+{
+	return \$this->$1;
+}
+
+/**
+ * @param $2 \$$1
+ * return void
+ */
+public function set`!p snip.rv = capitalize(t[1])`(\$$1)
+{
+	\$this->$1 = \$$1;
+}
+endsnippet
