@@ -43,6 +43,15 @@
 " " cit " change in tag
 " " cat " like ciw but takes the tag also
 "
+" find and replace in multiple files: --> junegunn/fzf.vim
+" 1. " :Ag foo " then enter
+" 2. " <alt-a> " to select items (needs to be escaped in iTerm2 config)
+" 3. " enter " to populate quickfix list with selected items
+" 4. " :cfdo %s/foo/bar/g | :w " run a file substitute command then save every file in the quickfix
+" or " :cdo normal @q | :w " run a macro on each matching quickfix item and then save it
+" 5. " :ccl " close the quickfix list
+"
+"
 "
 "   AUTOCOMPLETE / SNIPPETS / SYNTAX
 "
@@ -402,6 +411,8 @@ augroup configgroup
     " autocmd BufNewFile,BufRead .eslintrc set filetype=json
     " autocmd BufNewFile,BufRead *.es6 set filetype=javascript
     autocmd BufNewFile,BufRead *.docker,*.dockerfile set filetype=dockerfile
+    autocmd BufNewFile,BufRead *.blade.php set filetype=html | set filetype=phtml | set filetype=blade
+    autocmd BufNewFile,BufRead *.phtml set filetype=phtml
 
     autocmd FileType php setlocal commentstring=//\ %s
 
@@ -411,6 +422,11 @@ augroup END
 
 
 " Section Plugins {{{
+
+" Localvimrc
+"""""""""""""""""""""""""""""""""""""
+" let g:localvimrc_name = [".lvimrc", ".local.vimrc", ".vimrc"]
+
 
 " vim-test
 """""""""""""""""""""""""""""""""""""
@@ -654,6 +670,7 @@ command! -bang GitFiles
 
 " Emmet
 """""""""""""""""""""""""""""""""""""
+
 let g:user_emmet_settings = {
 \  'javascript.jsx': {
 \      'extends': 'jsx',
@@ -833,8 +850,6 @@ nnoremap <silent><leader><d :call PhpCsFixerFixDirectory()<CR>
 
 " Vim Tagbar
 """""""""""""""""""""""""""""""""""""
-" majutsushi/tagbar
-
 nmap <F8> :TagbarToggle<CR>
 let g:tagbar_sort = 0
 let g:tagbar_show_linenumbers = -1

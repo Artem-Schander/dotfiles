@@ -66,8 +66,8 @@ Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
 Plug 'tpope/vim-vinegar' " netrw helper
 Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
 Plug 'vim-scripts/matchit.zip' " extended % matching
-" Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
-Plug 'ciaranm/detectindent' " automatically detecting indent settings
+Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
+" Plug 'ciaranm/detectindent' " automatically detecting indent settings
 Plug 'nathanaelkane/vim-indent-guides' " visually displaying indent levels in code
 " Plug 'sickill/vim-pasta' " context-aware pasting
 Plug 'easymotion/vim-easymotion' " Vim motion on speed
@@ -75,11 +75,14 @@ Plug 'easymotion/vim-easymotion' " Vim motion on speed
 Plug 'Chiel92/vim-autoformat' " Format code with one button press. <F3>
 Plug 'ludovicchabant/vim-gutentags' " A Vim plugin that manages your tag files
 Plug 'janko-m/vim-test' " A Vim wrapper for running tests on different granularities
+Plug 'embear/vim-localvimrc' " Search local vimrc files (.lvimrc) in the tree (root dir up to current dir) and load them.
+Plug 'vim-vdebug/vdebug' " Multi-language DBGP debugger client for Vim
 
 " " html / templates
-Plug 'mattn/emmet-vim', { 'for': ['html', 'javascript.jsx'] } " emmet support for vim - easily create markdup wth CSS-like syntax
-Plug 'gregsexton/MatchTag', { 'for': 'html' } " match tags in html, similar to paren support
-Plug 'othree/html5.vim', { 'for': 'html' } " html5 support
+Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xml'] } " Auto close (X)HTML tags
+Plug 'mattn/emmet-vim', { 'for': ['html', 'phtml', 'javascript.jsx'] } " emmet support for vim - easily create markdup wth CSS-like syntax
+Plug 'gregsexton/MatchTag', { 'for': ['html', 'phtml', 'xml'] } " match tags in html, similar to paren support
+Plug 'othree/html5.vim', { 'for': ['html', 'phtml'] } " html5 support
 Plug 'mustache/vim-mustache-handlebars' " mustach support
 Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] } " pug / jade support
 
@@ -98,10 +101,10 @@ Plug 'tpope/vim-markdown', { 'for': 'markdown' } " markdown support
 
 
 " JavaScript
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
-Plug 'moll/vim-node', { 'for': 'javascript' } " node support
-Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx', 'javascript'] } " JSX support
-Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
+" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
+" Plug 'moll/vim-node', { 'for': 'javascript' } " node support
+" Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx', 'javascript'] } " JSX support
+" Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
 Plug 'posva/vim-vue', { 'for': 'javascript' } " Syntax Highlight for Vue.js components
 
 

@@ -6,8 +6,9 @@ NORMAL="$(tput sgr0)"
 echo -e "\n\n${GREEN}Installing neovim"
 echo "==============================${NORMAL}"
 
-pip2 install --user neovim --upgrade
-pip3 install --user neovim --upgrade
+# pip2 install --user neovim --upgrade
+# pip3 install --user neovim --upgrade
+pip3 install --no-cache-dir --upgrade --force-reinstall neovim
 
 if [ "$(uname)" == "Darwin" ]; then
     if brew list neovim/neovim/neovim > /dev/null 2>&1; then
