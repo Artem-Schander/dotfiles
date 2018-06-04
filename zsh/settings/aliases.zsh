@@ -98,9 +98,9 @@ alias codecept='vendor/bin/codecept'
 alias codeception='vendor/bin/codecept'
 
 # python
-alias python='/usr/bin/python' # /usr/local/Cellar/python@2/2.7.14_2/bin/python2.7
-alias python2='/usr/bin/python'
-alias python3='/usr/local/bin/python'
+# alias python='/usr/bin/python' # /usr/local/Cellar/python@2/2.7.14_2/bin/python2.7
+# alias python2='/usr/bin/python'
+# alias python3='/usr/local/bin/python'
 
 # ssh with TERM=xterm
 alias ssh='TERM=xterm ssh'

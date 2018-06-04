@@ -17,11 +17,12 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 
 " colorschemes
-Plug 'joshdick/onedark.vim'
-Plug 'chriskempson/base16-vim'
-Plug 'altercation/vim-colors-solarized' " solorized colors must be active in terminal settings
-" https://github.com/mbadolato/iTerm2-Color-Schemes
-Plug 'rickharris/vim-monokai' " monokai has to be downloaded and installed for the terminal
+Plug 'flazz/vim-colorschemes' " one colorscheme pack to rule them all!
+" Plug 'joshdick/onedark.vim'
+" Plug 'chriskempson/base16-vim'
+" Plug 'altercation/vim-colors-solarized' " solorized colors must be active in terminal settings
+" " https://github.com/mbadolato/iTerm2-Color-Schemes
+" Plug 'rickharris/vim-monokai' " monokai has to be downloaded and installed for the terminal
 
 " Plug 'vim-syntastic/syntastic' " syntax checking for vim
 
@@ -77,6 +78,7 @@ Plug 'ludovicchabant/vim-gutentags' " A Vim plugin that manages your tag files
 Plug 'janko-m/vim-test' " A Vim wrapper for running tests on different granularities
 Plug 'embear/vim-localvimrc' " Search local vimrc files (.lvimrc) in the tree (root dir up to current dir) and load them.
 Plug 'vim-vdebug/vdebug' " Multi-language DBGP debugger client for Vim
+Plug 'gioele/vim-autoswap' " Please Vim, stop with these swap file messages. Just switch to the correct window!
 
 " " html / templates
 Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xml'] } " Auto close (X)HTML tags

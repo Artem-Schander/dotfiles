@@ -423,9 +423,33 @@ augroup END
 
 " Section Plugins {{{
 
+" Vdebug
+""""""""""""""""""""""""""""""""""""""""
+
+" Keymap for Vdebug
+let g:vdebug_keymap = {
+\    "run" : "<Leader>/",
+\    "run_to_cursor" : "<Down>",
+\    "step_over" : "<Up>",
+\    "step_into" : "<Left>",
+\    "step_out" : "<Right>",
+\    "close" : "q",
+\    "detach" : "<F7>",
+\    "set_breakpoint" : "<Leader>s",
+\    "eval_visual" : "<Leader>e",
+\    "eval_under_cursor" : "<Leader>c"
+\}
+
+" Vdebug settings.
+let g:vdebug_options = {}
+let g:vdebug_options['break_on_open'] = 1
+let g:vdebug_options['max_children'] = 128
+let g:vdebug_options['watch_window_style'] = 'compact'
+let g:vdebug_options['ide_key'] = 'PHPSTORM'
+
 " Localvimrc
 """""""""""""""""""""""""""""""""""""
-" let g:localvimrc_name = [".lvimrc", ".local.vimrc", ".vimrc"]
+let g:localvimrc_name = [".lvimrc", ".local.vimrc"]
 
 
 " vim-test
@@ -470,6 +494,7 @@ let NERDTreeShowLineNumbers=1
 " nmap <leader>nr :NERDTree<cr> \| R \| <c-w><c-p>
 
 " adjust the space between icon and filename
+let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
 let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
 " whether or not to show the nerdtree brackets around flags
 let g:webdevicons_conceal_nerdtree_brackets = 1
@@ -874,9 +899,9 @@ let g:SuperTabCrMapping = 0
 " Section Mappings {{{
 
 " Format code
-noremap <F2> :set tabstop=4 shiftwidth=4 expandtab<CR> :retab<CR>
-noremap <F3> :set tabstop=4 shiftwidth=4 expandtab<CR> :Autoformat<CR>
-nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+" noremap <F2> :set tabstop=4 shiftwidth=4 expandtab<CR> :retab<CR>
+" noremap <F3> :set tabstop=4 shiftwidth=4 expandtab<CR> :Autoformat<CR>
+" nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 
 " Easier split navigations
 " nnoremap <C-J> <C-W><C-J>
@@ -898,14 +923,6 @@ noremap Q <NOP>
 " inoremap <Down> <nop>
 
 " }}}
-
-
-
-
-" after a re-source, fix syntax matching issues (concealing brackets):
-if exists('g:loaded_webdevicons')
-    call webdevicons#refresh()
-endif
 
 
 
@@ -993,3 +1010,10 @@ highlight xmlAttrib cterm=italic
 highlight Type cterm=italic
 highlight Normal ctermbg=none
 " }}}
+
+
+" after a re-source, fix syntax matching issues (concealing brackets):
+" has to be triggered after `syntax on`
+if exists('g:loaded_webdevicons')
+    call webdevicons#refresh()
+endif
