@@ -13,12 +13,20 @@ else
     brew update
 fi
 
+echo -e "\n\n${GREEN}Tap additional homebrew repositories of formulae"
+echo "==============================${NORMAL}"
+brew tap phinze/homebrew-cask
+
 echo -e "\n\n${GREEN}Installing homebrew packages"
 echo "==============================${NORMAL}"
 
 formulas=(
     # flags should pass through the the `brew list check`
     bash
+    docker-machine-nfs
+    brew-cask
+    unison
+    eugenmayer/dockersync/unox
     # cli tools
     the_silver_searcher
     ack
@@ -74,6 +82,22 @@ for formula in "${formulas[@]}"; do
         brew install $formula
     fi
 done
+
+echo -e "\n\n${GREEN}Install Docker"
+echo "==============================${NORMAL}"
+sudo gem install docker-sync
+brew cask install docker
+open /Applications/Docker.app
+
+echo -e "\n\n${GREEN}Install Fira Code Font"
+echo "==============================${NORMAL}"
+brew tap caskroom/fonts
+brew cask install font-fira-code
+
+echo -e "\n\n${GREEN}Install Glances"
+echo "==============================${NORMAL}"
+pip install --upgrade glances
+pip install --upgrade psutil
 
 echo -e "\n\n${GREEN}Running fzf install script"
 echo "==============================${NORMAL}"

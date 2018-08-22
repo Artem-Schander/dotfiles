@@ -20,6 +20,7 @@
 " " <leader>y " reveal current file in NERDTree --> scrooloose/nerdtree
 "
 " " <leader>1 " highlights all occurrences of the word under the cursor (different colors 1 - 6)
+" " <C-c> " (ctrl+c) like buffer delete but keeps the split open
 "
 " " :!ctags -R --exclude=node_modules --exclude=dist " create a tags index --> ctags
 " " <C-]> " (ctrl+alt+6) go to declaration of whatever is under the cursor --> ctags
@@ -40,15 +41,16 @@
 " " <leader><f " format php file (psr-2) --> stephpy/vim-php-cs-fixer
 " " crs " convert to snake_case --> tpope/vim-abolish
 " " crc " convert to camelCase --> tpope/vim-abolish
+" " vipga= or gaip= " aligns a paragraph by the = symbol --> junegunn/vim-easy-align
 " " cit " change in tag
 " " cat " like ciw but takes the tag also
 "
 " find and replace in multiple files: --> junegunn/fzf.vim
 " 1. " :Ag foo " then enter
 " 2. " <alt-a> " to select items (needs to be escaped in iTerm2 config)
-" 3. " enter " to populate quickfix list with selected items
+" 3. " <enter> " to populate quickfix list with selected items
 " 4. " :cfdo %s/foo/bar/g | :w " run a file substitute command then save every file in the quickfix
-" or " :cdo normal @q | :w " run a macro on each matching quickfix item and then save it
+" ┗━━ or " :cdo normal @q | :w " run a macro on each matching quickfix item and then save it
 " 5. " :ccl " close the quickfix list
 "
 "
@@ -170,6 +172,9 @@ command! -nargs=? -complete=buffer -bang Bufonly
 command! -nargs=? -complete=buffer -bang BufOnly
 \ :call functions#BufOnly('<args>', '<bang>')
 
+" command BD bp\|bd \#
+nnoremap <C-c> :bp\|bd #<CR>
+
 " }}}
 
 
@@ -223,6 +228,7 @@ set laststatus=2 " show the satus line all the time
 set so=7 " set 7 lines to the cursors - when moving vertical
 set wildmenu " enhanced command line completion
 set hidden " current buffer can be put into background
+set switchbuf=usetab,newtab " switch to the existing tab if the buffer is open, or creating a new one if not
 set showcmd " show incomplete commands
 set noshowmode " don't show which mode disabled for PowerLine
 set wildmode=list:longest " complete files like a shell
@@ -336,6 +342,7 @@ vnoremap ∆ :m '<-2<cr>gv=gv
 
 " toggle cursor line
 nnoremap <leader>i :set cursorline!<cr>
+set cursorline
 
 " scroll the viewport faster
 nnoremap <C-e> 3<C-e>
@@ -394,6 +401,7 @@ augroup configgroup
 
     autocmd FileType php UltiSnipsAddFiletypes php-laravel
     autocmd FileType php UltiSnipsAddFiletypes php-extbase
+    autocmd FileType phtml UltiSnipsAddFiletypes php
     autocmd FileType blade UltiSnipsAddFiletypes html
 
     autocmd BufNewFile,BufRead *.vue set ft=vue
@@ -413,8 +421,10 @@ augroup configgroup
     autocmd BufNewFile,BufRead *.docker,*.dockerfile set filetype=dockerfile
     autocmd BufNewFile,BufRead *.blade.php set filetype=html | set filetype=phtml | set filetype=blade
     autocmd BufNewFile,BufRead *.phtml set filetype=phtml
+    autocmd BufNewFile,BufRead *.php_cs set filetype=php
 
-    autocmd FileType php setlocal commentstring=//\ %s
+    autocmd FileType php,cpp setlocal commentstring=//\ %s
+    autocmd FileType ss.html setlocal commentstring=<%--%s--%>
 
 augroup END
 
@@ -423,22 +433,51 @@ augroup END
 
 " Section Plugins {{{
 
+" asyncrun
+""""""""""""""""""""""""""""""""""""""""
+
+" automatically open quickfix window when AsyncRun command is executed
+" set the quickfix window 6 lines height.
+let g:asyncrun_open = 6
+
+" ring the bell to notify you job finished
+let g:asyncrun_bell = 1
+
+" find the project root by on of these
+let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml', 'Makefile']
+
+" F9 single file compilation
+autocmd FileType cpp nnoremap <silent> <F9> :AsyncRun -mode=4 g++ -O3 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+" F5 run binary
+" autocmd FileType cpp nnoremap <silent> <F5> :AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+autocmd FileType cpp nnoremap <silent> <F5> :AsyncRun -mode=4 -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+" F10 to toggle quickfix window
+" autocmd FileType cpp nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
+
+" vim-easy-align
+""""""""""""""""""""""""""""""""""""""""
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
 " Vdebug
 """"""""""""""""""""""""""""""""""""""""
 
 " Keymap for Vdebug
-let g:vdebug_keymap = {
-\    "run" : "<Leader>/",
-\    "run_to_cursor" : "<Down>",
-\    "step_over" : "<Up>",
-\    "step_into" : "<Left>",
-\    "step_out" : "<Right>",
-\    "close" : "q",
-\    "detach" : "<F7>",
-\    "set_breakpoint" : "<Leader>s",
-\    "eval_visual" : "<Leader>e",
-\    "eval_under_cursor" : "<Leader>c"
-\}
+" let g:vdebug_keymap = {
+" \    "run" : "<Leader>/",
+" \    "run_to_cursor" : "<Down>",
+" \    "step_over" : "<Up>",
+" \    "step_into" : "<Right>",
+" \    "step_out" : "<Left>",
+" \    "close" : "q",
+" \    "detach" : "<F7>",
+" \    "set_breakpoint" : "<Leader>s",
+" \    "eval_visual" : "<Leader>e",
+" \    "eval_under_cursor" : "<Leader>c"
+" \}
 
 " Vdebug settings.
 let g:vdebug_options = {}
@@ -805,11 +844,12 @@ let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = '' "       
 let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ' ' "    
+let g:airline_symbols.linenr = " \uF292" "    
 let g:airline_symbols.maxlinenr = '' "    
 
 " let g:airline_theme='solarized'
 let g:airline_theme='onedark'
+" let g:airline_theme='gruvbox'
 " let g:airline_theme='base16'
 " let g:airline_theme='badwolf'
 " let g:airline_theme='wombat'
@@ -927,6 +967,7 @@ noremap Q <NOP>
 
 
 " Colorscheme and final setup {{{
+
 " switch syntax highlighting on
 if !exists('g:encoding_set') || !has('nvim')
     set encoding=utf-8
@@ -964,18 +1005,23 @@ if filereadable(expand("~/.vimrc_background"))
 else
     let g:onedark_termcolors=256
     let g:onedark_terminal_italics=1
-    let g:solarized_termcolors=256
+    " let g:solarized_termcolors=256
+    " let g:gruvbox_termcolors=256
+    " let g:gruvbox_italic=1
 endif
 
 set background=dark
-" let g:solarized_termcolors=16
-let g:onedark_termcolors=16
-" let g:onedark_terminal_italics=1
+let g:onedark_termcolors=256
+let g:onedark_terminal_italics=1
+" let g:solarized_termcolors=256
+" let g:gruvbox_termcolors=256
+" let g:gruvbox_italic=1
 
 if (has("gui_running"))
     syntax on
     set background=dark
     colorscheme onedark
+    " colorscheme gruvbox
 
     set hlsearch
     set ai
@@ -985,18 +1031,19 @@ if (has("gui_running"))
     set guioptions=
     set linespace=2
 
-    let g:airline_left_sep=''
-    let g:airline_right_sep=''
-    let g:airline_powerline_fonts=0
-    let g:airline_theme='solarized'
+    " let g:airline_left_sep=''
+    " let g:airline_right_sep=''
+    " let g:airline_powerline_fonts=0
+    let g:airline_theme='onedark'
 
     set macligatures
-    set guifont=FiraCode\ Nerd\ Font:h13
+    set guifont=FuraCode\ Nerd\ Font:h13
 else
     " colorscheme base16-railscasts
     " colorscheme solarized
     " colorscheme monokai
     colorscheme onedark
+    " colorscheme gruvbox
 endif
 
 " make the highlighting of tabs and other non-text less annoying

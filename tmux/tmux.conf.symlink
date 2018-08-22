@@ -71,15 +71,15 @@ bind - split-window -v
 bind _ split-window -h
 
 # pane navigation
-bind -r h select-pane -L  # move left
-bind -r j select-pane -D  # move down
-bind -r k select-pane -U  # move up
-bind -r l select-pane -R  # move right
+bind h select-pane -L  # move left
+bind j select-pane -D  # move down
+bind k select-pane -U  # move up
+bind l select-pane -R  # move right
 bind > swap-pane -D       # swap current pane with the next one
 bind < swap-pane -U       # swap current pane with the previous one
 
 # maximize current pane
-bind + run 'cut -c3- ~/.tmux.conf | sh -s _maximize_pane #{session_name} #D'
+bind + run 'cut -c3- ~/.tmux.conf | sh -s _maximize_pane "#{session_name}" #D'
 
 # pane resizing
 bind -r H resize-pane -L 2
@@ -90,8 +90,8 @@ bind -r L resize-pane -R 2
 # window navigation
 unbind n
 unbind p
-bind -r C-h previous-window # select previous window
-bind -r C-l next-window     # select next window
+bind C-h previous-window # select previous window
+bind C-l next-window     # select next window
 bind Tab last-window        # move to last active window
 
 # toggle mouse
@@ -142,6 +142,8 @@ run -b 'tmux bind -T copy-mode-vi y send -X copy-selection-and-cancel 2> /dev/nu
 run -b 'tmux bind -t vi-copy Escape cancel 2> /dev/null || true'
 run -b 'tmux bind -T copy-mode-vi Escape send -X cancel 2> /dev/null || true'
 run -b 'tmux bind -t vi-copy H start-of-line 2> /dev/null || true'
+run -b 'tmux bind -T copy-mode-vi H send -X start-of-line 2> /dev/null || true'
+run -b 'tmux bind -t vi-copy L end-of-line 2> /dev/null || true'
 run -b 'tmux bind -T copy-mode-vi L send -X end-of-line 2> /dev/null || true'
 
 # copy to Mac OSX clipboard
@@ -176,7 +178,7 @@ run 'cut -c3- ~/.tmux.conf | sh -s _apply_configuration'
 # # exit the script if any statement returns a non-true return value
 # set -e
 #
-# export LC_ALL=C
+# export LC_NUMERIC=C
 #
 # __newline='
 # '
@@ -201,23 +203,23 @@ run 'cut -c3- ~/.tmux.conf | sh -s _apply_configuration'
 #   current_pane=${2:-$(tmux display -p '#{pane_id}')}
 #
 #   dead_panes=$(tmux list-panes -s -t "$current_session" -F '#{pane_dead} #{pane_id} #{pane_start_command}' | grep -o '^1 %.\+maximized.\+$' || true)
-#   restore=$(echo "$dead_panes" | sed -n -E -e "s/^1 $current_pane .+maximized.+(%[0-9]+)$/tmux swap-pane -s \1 -t $current_pane \; kill-pane -t $current_pane/p" -e "s/^1 (%[0-9]+) .+maximized.+$current_pane$/tmux swap-pane -s \1 -t $current_pane \; kill-pane -t \1/p" )
+#   restore=$(echo "$dead_panes" | sed -n -E -e "s/^1 $current_pane .+maximized.+'(%[0-9]+)'$/tmux swap-pane -s \1 -t $current_pane \; kill-pane -t $current_pane/p" -e "s/^1 (%[0-9]+) .+maximized.+'$current_pane'$/tmux swap-pane -s \1 -t $current_pane \; kill-pane -t \1/p" )
 #
 #   if [ -z "$restore" ]; then
 #     [ "$(tmux list-panes -t "$current_session:" | wc -l | sed 's/^ *//g')" -eq 1 ] && tmux display "Can't maximize with only one pane" && return
-#     window=$(tmux new-window -t "$current_session:" -P "exec maximized... 2> /dev/null & tmux setw -t $current_session: remain-on-exit on; printf 'Pane has been maximized, press <prefix>+ to restore. %s' \\$current_pane")
+#     window=$(tmux new-window -t "$current_session:" -P "exec maximized... 2> /dev/null & tmux setw -t \"$current_session:\" remain-on-exit on; printf \"Pane has been maximized, press <prefix>+ to restore. %s\" '$current_pane'")
 #     window=${window%.*}
 #
-#     guard=10
-#     while [ x"$(tmux list-panes -t "$window" -F '#{session_name}:#{window_index} #{pane_dead}' 2>/dev/null)" != x"$window 1" ] && [ "$guard" -ne 0 ]; do
-#       sleep 0.01
-#       guard=$((guard - 1))
+#     retry=10
+#     while [ x"$(tmux list-panes -t "$window" -F '#{session_name}:#{window_index} #{pane_dead}' 2>/dev/null)" != x"$window 1" ] && [ "$retry" -ne 0 ]; do
+#       sleep 0.05
+#       retry=$((retry - 1))
 #     done
-#     if [ "$guard" -eq 0 ]; then
+#     if [ "$retry" -eq 0 ]; then
 #       tmux display 'Unable to maximize pane'
 #     fi
 #
-#     new_pane=$(tmux display -p '#{pane_id}')
+#     new_pane=$(tmux display -t "$window" -p '#{pane_id}')
 #     tmux setw -t "$window" remain-on-exit off \; swap-pane -s "$current_pane" -t "$new_pane"
 #   else
 #     $restore || tmux kill-pane
@@ -256,6 +258,8 @@ run 'cut -c3- ~/.tmux.conf | sh -s _apply_configuration'
 #       ;;
 #     *Linux*)
 #       while IFS= read -r batpath; do
+#         grep -i -q device "$batpath/scope" 2> /dev/null && continue
+#
 #         if [ x"$discharging" != x"true" ]; then
 #           discharging=$(grep -qi "discharging" "$batpath/status" && echo "true" || echo "false")
 #         fi
@@ -354,7 +358,7 @@ run 'cut -c3- ~/.tmux.conf | sh -s _apply_configuration'
 #     [ x"$palette_style" = x"gradient" ] && \
 #       palette="196 202 208 214 220 226 190 154 118 82 46"
 #     [ x"$palette_style" = x"heat" ] && \
-#       palette="233 234 235 237 239 241 243 245 247 144 143 142 184 214 208 202 196"
+#       palette="243 245 247 144 143 142 184 214 208 202 196"
 #
 #     palette=$(echo "$palette" | awk -v n="$battery_bar_length" '{ for (i = 0; i < n; ++i) printf $(1 + (i * NF / n))" " }')
 #     eval set -- "$palette"
@@ -603,7 +607,7 @@ run 'cut -c3- ~/.tmux.conf | sh -s _apply_configuration'
 #     screen-*|tmux-*)
 #       ;;
 #     *)
-#       tmux set-option -ga terminal-overrides ",$TERM:Tc"
+#       tmux set-option -ga terminal-overrides ",*256col*:Tc"
 #       ;;
 #   esac
 #   fi
@@ -647,9 +651,9 @@ run 'cut -c3- ~/.tmux.conf | sh -s _apply_configuration'
 #     [ -z "$line" ] && continue
 #     left=$(printf '%s' "$line" | cut -c-"$column" | sed -E -e 's/[^ \ta-zA-Z0-9,._+@%/-]/\\&/g')
 #     if _is_enabled "$tmux_conf_new_pane_reconnect_ssh"; then
-#       right=$(printf '%s' "$line" | cut -c"$column"- | awk -F'\"' 'BEGIN { OFS = FS } { for (i = 1; i <= NF; i+=2) { gsub(/#{.+}/, "\"&\"", $i) } print }' | sed -E -e 's/split-window([^;]+)/run-shell "cut -c3- ~\/\.tmux\.conf | sh -s _split_window #{pane_tty}\1"/g')
+#       right=$(printf '%s' "$line" | cut -c"$column"- | awk -F'\"' 'BEGIN { OFS = FS } { for (i = 1; i <= NF; i+=2) { gsub(/#{.+}/, "\"&\"", $i) } print }' | sed -E -e 's/"/\\"/g' -e 's/split-window([^;]+)/run-shell "cut -c3- ~\/\.tmux\.conf | sh -s _split_window #{pane_tty}\1"/g')
 #     else
-#       right=$(printf '%s' "$line" | cut -c"$column"- | awk -F'\"' 'BEGIN { OFS = FS } { for (i = 1; i <= NF; i+=2) { gsub(/#{.+}/, "\"&\"", $i) } print }' | sed -E -e 's/run-shell "cut -c3- ~\/\.tmux\.conf \| sh -s _split_window #\{pane_tty\}([^;]+)"/split-window\1/g' -e 's/#\{.+\}/\"&\"/g')
+#       right=$(printf '%s' "$line" | cut -c"$column"- | awk -F'\"' 'BEGIN { OFS = FS } { for (i = 1; i <= NF; i+=2) { gsub(/#{.+}/, "\"&\"", $i) } print }' | sed -E -e 's/\\"/"/g' -e 's/run-shell "cut -c3- ~\/\.tmux\.conf \| sh -s _split_window #\{pane_tty\}([^;]+)"/split-window\1/g' -e 's/#\{.+\}/\"&\"/g')
 #     fi
 #     eval "tmux $left $right" 2>/dev/null || true
 #   done  << EOF
@@ -661,7 +665,7 @@ run 'cut -c3- ~/.tmux.conf | sh -s _apply_configuration'
 #     [ -z "$line" ] && continue
 #     left=$(printf '%s' "$line" | cut -c-"$column" | sed -E -e 's/[^ \ta-zA-Z0-9,._+@%/-]/\\&/g')
 #     if _is_enabled "$tmux_conf_new_session_prompt"; then
-#       right=$(printf '%s' "$line" | cut -c"$column"- | awk -F'\"' 'BEGIN { OFS = FS } { for (i = 1; i <= NF; i+=2) { gsub(/#{.+}/, "\"&\"", $i) } print }' | sed -E -e 's/new-session$/command-prompt -p new-session \"new-session -s %%\"/g')
+#       right=$(printf '%s' "$line" | cut -c"$column"- | awk -F'\"' 'BEGIN { OFS = FS } { for (i = 1; i <= NF; i+=2) { gsub(/#{.+}/, "\"&\"", $i) } print }' | sed -E -e 's/new-session$/command-prompt -p new-session \"new-session -s '"'"'%%'"'"'\"/g')
 #     else
 #       right=$(printf '%s' "$line" | cut -c"$column"- | awk -F'\"' 'BEGIN { OFS = FS } { for (i = 1; i <= NF; i+=2) { gsub(/#{.+}/, "\"&\"", $i) } print }'| sed -E -e 's/command-prompt -p new-session[^;]+/new-session/g')
 #     fi
@@ -829,6 +833,11 @@ run 'cut -c3- ~/.tmux.conf | sh -s _apply_configuration'
 #   tmux_conf_theme_root_bg=${tmux_conf_theme_root_bg:-'none'}
 #   tmux_conf_theme_root_attr=${tmux_conf_theme_root_attr:-'bold,blink'}
 #
+#   tmux_conf_theme_synchronized=${tmux_conf_theme_synchronized:-'🔒'}  # U+1F512
+#   tmux_conf_theme_synchronized_fg=${tmux_conf_theme_synchronized_fg:-'none'}
+#   tmux_conf_theme_synchronized_bg=${tmux_conf_theme_synchronized_bg:-'none'}
+#   tmux_conf_theme_synchronized_attr=${tmux_conf_theme_synchronized_attr:-'none'}
+#
 #   # -- status left style
 #
 #   tmux_conf_theme_status_left=${tmux_conf_theme_status_left-' ❐ #S '}
@@ -844,6 +853,9 @@ run 'cut -c3- ~/.tmux.conf | sh -s _apply_configuration'
 #
 #   tmux_conf_theme_status_left=$(echo "$tmux_conf_theme_status_left" | sed \
 #     -e "s%#{root}%#[fg=$tmux_conf_theme_root_fg]#[bg=$tmux_conf_theme_root_bg]#[$tmux_conf_theme_root_attr]#(cut -c3- ~/.tmux.conf | sh -s _root #{pane_tty} #D)#[inherit]%g")
+#
+#   tmux_conf_theme_status_left=$(echo "$tmux_conf_theme_status_left" | sed \
+#     -e "s%#{synchronized}%#[fg=$tmux_conf_theme_synchronized_fg]#[bg=$tmux_conf_theme_synchronized_bg]#[$tmux_conf_theme_synchronized_attr]#{?pane_synchronized,$tmux_conf_theme_synchronized,}%g")
 #
 #   if [ -n "$tmux_conf_theme_status_left" ]; then
 #     status_left=$(awk \
@@ -928,6 +940,9 @@ run 'cut -c3- ~/.tmux.conf | sh -s _apply_configuration'
 #
 #   tmux_conf_theme_status_right=$(echo "$tmux_conf_theme_status_right" | sed \
 #     -e "s%#{root}%#[fg=$tmux_conf_theme_root_fg]#[bg=$tmux_conf_theme_root_bg]#[$tmux_conf_theme_root_attr]#(cut -c3- ~/.tmux.conf | sh -s _root #{pane_tty} #D)#[inherit]%g")
+#
+#   tmux_conf_theme_status_right=$(echo "$tmux_conf_theme_status_right" | sed \
+#     -e "s%#{synchronized}%#[fg=$tmux_conf_theme_synchronized_fg]#[bg=$tmux_conf_theme_synchronized_bg]#[$tmux_conf_theme_synchronized_attr]#{?pane_synchronized,$tmux_conf_theme_synchronized,}%g")
 #
 #   if [ -n "$tmux_conf_theme_status_right" ]; then
 #     status_right=$(awk \

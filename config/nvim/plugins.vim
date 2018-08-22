@@ -17,11 +17,12 @@ endif
 call plug#begin('~/.config/nvim/plugged')
 
 " colorschemes
-Plug 'flazz/vim-colorschemes' " one colorscheme pack to rule them all!
-" Plug 'joshdick/onedark.vim'
+" Plug 'flazz/vim-colorschemes' " one colorscheme pack to rule them all!
+" does not work properly - no syntax for php
+Plug 'joshdick/onedark.vim'
+Plug 'morhetz/gruvbox'
 " Plug 'chriskempson/base16-vim'
 " Plug 'altercation/vim-colors-solarized' " solorized colors must be active in terminal settings
-" " https://github.com/mbadolato/iTerm2-Color-Schemes
 " Plug 'rickharris/vim-monokai' " monokai has to be downloaded and installed for the terminal
 
 " Plug 'vim-syntastic/syntastic' " syntax checking for vim
@@ -30,63 +31,59 @@ Plug 'flazz/vim-colorschemes' " one colorscheme pack to rule them all!
 Plug 'majutsushi/tagbar' " Vim plugin that displays tags in a window, ordered by scope
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons' " file drawer
 Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim' " fuzzy file finder and so much more
-" Plug 'ctrlpvim/ctrlp.vim' " fuzzy file finder, mapped to <leader>p
 Plug 'tpope/vim-obsession' " obsession.vim: continuously updated session files
 Plug 'dhruvasagar/vim-prosession' " A VIM plugin to handle sessions like a pro
-" Plug 'mileszs/ack.vim' " search inside files using ack. Same as command line ack utility, but use :Ack
-" Plug 'rking/ag.vim' " a replacement for the Perl module / CLI script 'ack' (the_silver_searcher)
 Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
-" Plug 'scrooloose/nerdcommenter' " comment stuff out
 Plug 'tpope/vim-commentary' " comment stuff out
-Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
-" Plug 'tpope/vim-endwise' " automatically add end in ruby
-Plug 'tpope/vim-ragtag' " endings for html, xml, etc. - ehances surround:
+" Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
+" Plug 'tpope/vim-ragtag' " endings for html, xml, etc. - ehances surround:
 Plug 'tpope/vim-surround' " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
-Plug 'jiangmiao/auto-pairs' " Insert or delete brackets, parens, quotes in pair.
-Plug 'benmills/vimux' " tmux integration for vim
+" Plug 'benmills/vimux' " tmux integration for vim
 Plug 'vim-airline/vim-airline' " fancy statusline
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
 Plug 'w0rp/ale' " Asynchonous linting engine
 Plug 'osyo-manga/vim-anzu' " show search count
 Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutter
-" Plug 'mhinz/vim-signify' " Show a diff using Vim its sign column.
+" " Plug 'mhinz/vim-signify' " Show a diff using Vim its sign column.
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
-Plug 'tpope/vim-rhubarb' " hub extension for fugitive
+" Plug 'tpope/vim-rhubarb' " hub extension for fugitive
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
-Plug 'tpope/vim-abolish' " easily search for, substitute, and abbreviate multiple variants of a word
-Plug 'dkprice/vim-easygrep' " Fast and Easy Find and Replace Across Multiple Files
-" Plug 'garbas/vim-snipmate' " snippet manager
+" Plug 'tpope/vim-abolish' " easily search for, substitute, and abbreviate multiple variants of a word
+" Plug 'dkprice/vim-easygrep' " Fast and Easy Find and Replace Across Multiple Files
+" " Plug 'garbas/vim-snipmate' " snippet manager
 Plug 'SirVer/ultisnips' " snippet engine
 Plug 'honza/vim-snippets' " snippet manager
 Plug 'editorconfig/editorconfig-vim' " .editorconfig support
-" Plug 'MarcWeber/vim-addon-mw-utils' " interpret a file by function and cache file automatically
-" Plug 'tomtom/tlib_vim' " utility functions for vim
-Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab
-" Plug 'Valloric/YouCompleteMe' " A code-completion engine for Vim
-Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
-Plug 'tpope/vim-vinegar' " netrw helper
-Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
-Plug 'vim-scripts/matchit.zip' " extended % matching
-Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
-" Plug 'ciaranm/detectindent' " automatically detecting indent settings
+" " Plug 'MarcWeber/vim-addon-mw-utils' " interpret a file by function and cache file automatically
+" " Plug 'tomtom/tlib_vim' " utility functions for vim
+" Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab
+" " Plug 'Valloric/YouCompleteMe' " A code-completion engine for Vim
+" Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
+" Plug 'tpope/vim-vinegar' " netrw helper
+" Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
+" Plug 'vim-scripts/matchit.zip' " extended % matching
+" -> Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
 Plug 'nathanaelkane/vim-indent-guides' " visually displaying indent levels in code
-" Plug 'sickill/vim-pasta' " context-aware pasting
+" " Plug 'sickill/vim-pasta' " context-aware pasting
 Plug 'easymotion/vim-easymotion' " Vim motion on speed
-" Plug 'terryma/vim-multiple-cursors' " True Sublime Text style multiple selections for Vim
-Plug 'Chiel92/vim-autoformat' " Format code with one button press. <F3>
+" " Plug 'terryma/vim-multiple-cursors' " True Sublime Text style multiple selections for Vim
+" Plug 'Chiel92/vim-autoformat' " Format code with one button press. <F3>
 Plug 'ludovicchabant/vim-gutentags' " A Vim plugin that manages your tag files
 Plug 'janko-m/vim-test' " A Vim wrapper for running tests on different granularities
 Plug 'embear/vim-localvimrc' " Search local vimrc files (.lvimrc) in the tree (root dir up to current dir) and load them.
-Plug 'vim-vdebug/vdebug' " Multi-language DBGP debugger client for Vim
+Plug 'vim-vdebug/vdebug', { 'for': ['php', 'python'] } " Multi-language DBGP debugger client for Vim
 Plug 'gioele/vim-autoswap' " Please Vim, stop with these swap file messages. Just switch to the correct window!
+Plug 'junegunn/vim-easy-align' " A Vim alignment plugin
 
 " " html / templates
 Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xml'] } " Auto close (X)HTML tags
-Plug 'mattn/emmet-vim', { 'for': ['html', 'phtml', 'javascript.jsx'] } " emmet support for vim - easily create markdup wth CSS-like syntax
+Plug 'mattn/emmet-vim', { 'for': ['html', 'phtml', 'javascript.jsx', 'ss.html'] } " emmet support for vim - easily create markdup wth CSS-like syntax
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'phtml', 'xml'] } " match tags in html, similar to paren support
-Plug 'othree/html5.vim', { 'for': ['html', 'phtml'] } " html5 support
+" Plug 'othree/html5.vim', { 'for': ['html', 'phtml'] } " html5 support
 Plug 'mustache/vim-mustache-handlebars' " mustach support
 Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] } " pug / jade support
+Plug 'phalkunz/vim-ss', {'for': ['ss', 'ss.html']} " SilverStripe
+Plug 'skywind3000/asyncrun.vim' " Run Async Shell Commands
 
 
 " styles
@@ -111,8 +108,8 @@ Plug 'posva/vim-vue', { 'for': 'javascript' } " Syntax Highlight for Vue.js comp
 
 
 " PHP
-Plug 'StanAngeloff/php.vim', { 'for': 'php' } " Up-to-date PHP syntax file
-Plug 'arnaud-lb/vim-php-namespace' " plugin for inserting 'use' statements automatically
+" Plug 'StanAngeloff/php.vim', { 'for': 'php' } " Up-to-date PHP syntax file
+" Plug 'arnaud-lb/vim-php-namespace' " plugin for inserting 'use' statements automatically
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' } " psr-2 formating
 
 
@@ -120,7 +117,7 @@ Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' } " psr-2 formating
 Plug 'sheerun/vim-polyglot', " A solid language pack for Vim
 Plug 'elzr/vim-json', { 'for': 'json' } " JSON support
 Plug 'Shougo/vimproc.vim', { 'do': 'make' } " interactive command execution in vim
-Plug 'fatih/vim-go', { 'for': 'go' } " go support
-Plug 'timcharper/textile.vim', { 'for': 'textile' } " textile support
+" Plug 'fatih/vim-go', { 'for': 'go' } " go support
+" Plug 'timcharper/textile.vim', { 'for': 'textile' } " textile support
 
 call plug#end()
