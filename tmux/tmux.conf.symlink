@@ -10,7 +10,6 @@
 # -- general -------------------------------------------------------------------
 
 # set -g default-terminal "screen-256color" # colors!
-# set-option -ga terminal-overrides ",tmux-256color-italic:Tc"
 set -g default-terminal "tmux-256color-italic" # colors!
 set-option -ga terminal-overrides ",tmux-256color-italic:Tc"
 setw -g xterm-keys on
