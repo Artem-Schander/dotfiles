@@ -19,6 +19,7 @@ call plug#begin('~/.config/nvim/plugged')
 " colorschemes
 " Plug 'flazz/vim-colorschemes' " one colorscheme pack to rule them all!
 " does not work properly - no syntax for php
+Plug 'kaicataldo/material.vim'
 Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
 " Plug 'chriskempson/base16-vim'
@@ -111,6 +112,7 @@ Plug 'posva/vim-vue', { 'for': 'javascript' } " Syntax Highlight for Vue.js comp
 " Plug 'StanAngeloff/php.vim', { 'for': 'php' } " Up-to-date PHP syntax file
 " Plug 'arnaud-lb/vim-php-namespace' " plugin for inserting 'use' statements automatically
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' } " psr-2 formating
+" Plug 'captbaritone/better-indent-support-for-php-with-html' " This script allows you to indent HTML sections in PHP files
 
 
 " language-specific plugins

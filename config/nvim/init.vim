@@ -195,7 +195,7 @@ set smartindent
 set list
 " set invlist
 " set nolist
-set listchars=tab:⏤ ,space:·,eol:¬,trail:⚬,extends:❯,precedes:❮
+set listchars=tab:⏤ ,space:·,eol:¬,trail:∞,extends:❯,precedes:❮ " ⚬/●/•/¤/»/ø/Θ/0/O
 " set showbreak=↩︎
 
 " highlight conflicts
@@ -420,7 +420,8 @@ augroup configgroup
     " autocmd BufNewFile,BufRead *.es6 set filetype=javascript
     autocmd BufNewFile,BufRead *.docker,*.dockerfile set filetype=dockerfile
     autocmd BufNewFile,BufRead *.blade.php set filetype=html | set filetype=phtml | set filetype=blade
-    autocmd BufNewFile,BufRead *.phtml set filetype=phtml
+    " autocmd BufNewFile,BufRead *.phtml set filetype=phtml
+    autocmd BufNewFile,BufRead *.phtml set filetype=html | set syntax=php
     autocmd BufNewFile,BufRead *.php_cs set filetype=php
 
     autocmd FileType php,cpp setlocal commentstring=//\ %s
@@ -641,7 +642,7 @@ let g:indent_guides_auto_colors = 1
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'fzf']
 
 " FZF
 """""""""""""""""""""""""""""""""""""
@@ -848,6 +849,7 @@ let g:airline_symbols.linenr = " \uF292" "    
 let g:airline_symbols.maxlinenr = '' "    
 
 " let g:airline_theme='solarized'
+" let g:airline_theme = 'material'
 let g:airline_theme='onedark'
 " let g:airline_theme='gruvbox'
 " let g:airline_theme='base16'
@@ -1006,14 +1008,16 @@ if filereadable(expand("~/.vimrc_background"))
     let base16colorspace=256
     source ~/.vimrc_background
 else
-    let g:onedark_termcolors=256
-    let g:onedark_terminal_italics=1
+    " let g:onedark_termcolors=256
+    " let g:onedark_terminal_italics=1
     " let g:solarized_termcolors=256
     " let g:gruvbox_termcolors=256
     " let g:gruvbox_italic=1
 endif
 
 set background=dark
+" let g:material_terminal_italics = 1
+" let g:material_theme_style = 'default' "'default' | 'palenight' | 'dark'
 let g:onedark_termcolors=256
 let g:onedark_terminal_italics=1
 " let g:solarized_termcolors=256
@@ -1023,6 +1027,7 @@ let g:onedark_terminal_italics=1
 if (has("gui_running"))
     syntax on
     set background=dark
+    " colorscheme material
     colorscheme onedark
     " colorscheme gruvbox
 
@@ -1031,12 +1036,12 @@ if (has("gui_running"))
     set ruler
     set bs=2
     set guioptions=egmrt
-    set guioptions=
     set linespace=2
 
     " let g:airline_left_sep=''
     " let g:airline_right_sep=''
     " let g:airline_powerline_fonts=0
+    " let g:airline_theme = 'material'
     let g:airline_theme='onedark'
 
     set macligatures
@@ -1045,6 +1050,7 @@ else
     " colorscheme base16-railscasts
     " colorscheme solarized
     " colorscheme monokai
+    " colorscheme material
     colorscheme onedark
     " colorscheme gruvbox
 endif
