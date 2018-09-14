@@ -167,9 +167,9 @@ tmux_conf_theme_right_separator_sub=''  #   PowerlineSymbols.otf font
 #     - #{username}
 #     - #{username_ssh}
 
-#  
-tmux_conf_theme_status_left="  #S | ↑#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
-tmux_conf_theme_status_right='#{prefix} | #{username}#{root} | %R , %d %b ,#{pairing}#{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} | '
+#   ﲵ            ﮊ ﮏ ♥ ﰸ ﯅  
+tmux_conf_theme_status_left="  #S | ↑#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
+tmux_conf_theme_status_right='#{prefix} | #{username}#{root} | %R , %d %b ,#{pairing}#{?battery_status, #{battery_status},}#{?battery_vbar, #{battery_vbar},}#{?battery_percentage, #{battery_percentage},} | '
 
 # status left style
 tmux_conf_theme_status_left_fg=$custom_black','$custom_green','$custom_white
@@ -200,15 +200,15 @@ tmux_conf_theme_root_bg='none'
 tmux_conf_theme_root_attr='bold,blink'
 
 # battery bar symbols
-tmux_conf_battery_bar_symbol_full='◼'
-tmux_conf_battery_bar_symbol_empty='◻'
+tmux_conf_battery_bar_symbol_full='█'   # ◼ █ ⁕ ◉ ❚ ▔ 
+tmux_conf_battery_bar_symbol_empty='█'  # ◻ ▐ · ▁ ╺
 #tmux_conf_battery_bar_symbol_full='♥'
 #tmux_conf_battery_bar_symbol_empty='·'
 
 # battery bar length (in number of symbols), possible values are:
 #   - auto
 #   - a number, e.g. 5
-tmux_conf_battery_bar_length='auto'
+tmux_conf_battery_bar_length=12
 
 # battery bar palette, possible values are:
 #   - gradient (default)
@@ -228,12 +228,12 @@ tmux_conf_battery_hbar_palette='gradient'
 #   - gradient (default)
 #   - heat
 #   - 'colour_low,colour_half,colour_full'
-tmux_conf_battery_vbar_palette='gradient'
+tmux_conf_battery_vbar_palette=$custom_black','$custom_black','$custom_black
 #tmux_conf_battery_vbar_palette='#d70000,#ff5f00,#5fff00'  # red, orange, green
 
 # symbols used to indicate whether battery is charging or discharging
-tmux_conf_battery_status_charging='⚡'     # U+26A1
-tmux_conf_battery_status_discharging='ﮊ'  # U+1F50B
+tmux_conf_battery_status_charging='⚡'     #   ⚡
+tmux_conf_battery_status_discharging=''  #  ﮊ ﮏ
 
 # clock style
 tmux_conf_theme_clock_colour=$custom_blue
@@ -303,11 +303,16 @@ set -g @resurrect-save-shell-history 'on'
 # restore all programs that are running inside tmux
 set -g @resurrect-processes ':all:'
 
+# Tmux is automatically started after the computer/server is turned on.
+set -g @continuum-boot 'on'
+set -g @continuum-boot-options 'iterm'
+
 # List of plugins
 set -g @tpm_plugins '          \
   tmux-plugins/tpm             \
   tmux-plugins/tmux-sensible   \
   tmux-plugins/tmux-resurrect  \
+  tmux-plugins/tmux-continuum  \
 '
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)

@@ -148,3 +148,20 @@ function! functions#BufOnly(buffer, bang)
     endif
 
 endfunction
+
+" function! functions#ShowSpaces(...)
+"     let @/='\v(\s+$)|( +\ze\t)'
+"     let oldhlsearch=&hlsearch
+"     if !a:0
+"         let &hlsearch=!&hlsearch
+"     else
+"         let &hlsearch=a:1
+"     end
+"     return oldhlsearch
+" endfunction
+
+" function! functions#TrimSpaces() range
+"   let oldhlsearch=functions#ShowSpaces(1)
+"   execute a:firstline.",".a:lastline."substitute ///gec"
+"   let &hlsearch=oldhlsearch
+" endfunction

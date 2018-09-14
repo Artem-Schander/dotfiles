@@ -49,7 +49,7 @@ Plug 'airblade/vim-gitgutter' " A Vim plugin which shows a git diff in the gutte
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 " Plug 'tpope/vim-rhubarb' " hub extension for fugitive
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
-" Plug 'tpope/vim-abolish' " easily search for, substitute, and abbreviate multiple variants of a word
+Plug 'tpope/vim-abolish' " easily search for, substitute, and abbreviate multiple variants of a word
 " Plug 'dkprice/vim-easygrep' " Fast and Easy Find and Replace Across Multiple Files
 " " Plug 'garbas/vim-snipmate' " snippet manager
 Plug 'SirVer/ultisnips' " snippet engine
@@ -75,6 +75,8 @@ Plug 'embear/vim-localvimrc' " Search local vimrc files (.lvimrc) in the tree (r
 Plug 'vim-vdebug/vdebug', { 'for': ['php', 'python'] } " Multi-language DBGP debugger client for Vim
 Plug 'gioele/vim-autoswap' " Please Vim, stop with these swap file messages. Just switch to the correct window!
 Plug 'junegunn/vim-easy-align' " A Vim alignment plugin
+Plug 'bronson/vim-trailing-whitespace' " Highlights trailing whitespace in red and provides :FixWhitespace to fix it.
+Plug 'skywind3000/asyncrun.vim' " Run Async Shell Commands
 
 " " html / templates
 Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xml'] } " Auto close (X)HTML tags
@@ -82,9 +84,8 @@ Plug 'mattn/emmet-vim', { 'for': ['html', 'phtml', 'javascript.jsx', 'ss.html'] 
 Plug 'gregsexton/MatchTag', { 'for': ['html', 'phtml', 'xml'] } " match tags in html, similar to paren support
 " Plug 'othree/html5.vim', { 'for': ['html', 'phtml'] } " html5 support
 Plug 'mustache/vim-mustache-handlebars' " mustach support
-Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug'] } " pug / jade support
+Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug', 'vue'] } " pug / jade support
 Plug 'phalkunz/vim-ss', {'for': ['ss', 'ss.html']} " SilverStripe
-Plug 'skywind3000/asyncrun.vim' " Run Async Shell Commands
 
 
 " styles
@@ -105,7 +106,8 @@ Plug 'tpope/vim-markdown', { 'for': 'markdown' } " markdown support
 " Plug 'moll/vim-node', { 'for': 'javascript' } " node support
 " Plug 'mxw/vim-jsx', { 'for': ['javascript.jsx', 'javascript'] } " JSX support
 " Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
-Plug 'posva/vim-vue', { 'for': 'javascript' } " Syntax Highlight for Vue.js components
+Plug 'posva/vim-vue', { 'for': 'vue' } " Syntax Highlight for Vue.js components
+" Plug 'storyn26383/vim-vue', { 'for': 'vue' } " Vim syntax highlighting for Vue components.
 
 
 " PHP
@@ -119,6 +121,7 @@ Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' } " psr-2 formating
 Plug 'sheerun/vim-polyglot', " A solid language pack for Vim
 Plug 'elzr/vim-json', { 'for': 'json' } " JSON support
 Plug 'Shougo/vimproc.vim', { 'do': 'make' } " interactive command execution in vim
+Plug 'jparise/vim-graphql', { 'for': ['gql', 'graphql'] } " GraphQL file detection, syntax highlighting, and indentation
 " Plug 'fatih/vim-go', { 'for': 'go' } " go support
 " Plug 'timcharper/textile.vim', { 'for': 'textile' } " textile support
 

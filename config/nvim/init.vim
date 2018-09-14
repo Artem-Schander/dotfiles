@@ -44,6 +44,8 @@
 " " vipga= or gaip= " aligns a paragraph by the = symbol --> junegunn/vim-easy-align
 " " cit " change in tag
 " " cat " like ciw but takes the tag also
+" " :%retab " fixes wrong indent type. FA tabs to spaces
+" " <leader><space> " removes trailing spaces --> bronson/vim-trailing-whitespace
 "
 " find and replace in multiple files: --> junegunn/fzf.vim
 " 1. " :Ag foo " then enter
@@ -52,7 +54,6 @@
 " 4. " :cfdo %s/foo/bar/g | :w " run a file substitute command then save every file in the quickfix
 " ┗━━ or " :cdo normal @q | :w " run a macro on each matching quickfix item and then save it
 " 5. " :ccl " close the quickfix list
-"
 "
 "
 "   AUTOCOMPLETE / SNIPPETS / SYNTAX
@@ -158,7 +159,7 @@ set shortmess+=A
 "
 " Usage:
 "
-" :Bonly / :BOnly / :Bufonly / :BufOnly [buffer] 
+" :Bonly / :BOnly / :Bufonly / :BufOnly [buffer]
 "
 " Without any arguments the current buffer is kept.  With an argument the
 " buffer name/number supplied is kept.
@@ -174,6 +175,13 @@ command! -nargs=? -complete=buffer -bang BufOnly
 
 " command BD bp\|bd \#
 nnoremap <C-c> :bp\|bd #<CR>
+
+" jump to the previous function
+nnoremap <silent> [f :call
+\ search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "bw")<CR>
+" jump to the next function
+nnoremap <silent> ]f :call
+\ search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "w")<CR>
 
 " }}}
 
@@ -192,10 +200,10 @@ set autoindent " automatically set indent of new line
 set smartindent
 
 " toggle invisible characters
-set list
+" set list
 " set invlist
-" set nolist
-set listchars=tab:⏤ ,space:·,eol:¬,trail:∞,extends:❯,precedes:❮ " ⚬/●/•/¤/»/ø/Θ/0/O
+set nolist
+set listchars=tab:⏤ ,space:·,eol:¬,trail:∞,extends:❯,precedes:❮ " ⚬ ● • ¤ » ø Θ 0 O ⟶  ⟼  ⏤ ⤚
 " set showbreak=↩︎
 
 " highlight conflicts
@@ -303,8 +311,9 @@ nmap ;s :set invspell spelllang=en<cr>
 nmap <leader>md :%!markdown --html4tags <cr>
 
 " remove extra whitespace
-nmap <leader><space> :%s/\s\+$<cr>
-nmap <leader><space><space> :%s/\n\{2,}/\r\r/g<cr>
+" nmap <leader><space> :%s/\s\+$<cr>
+" nmap <leader><space><space> :%s/\n\{2,}/\r\r/g<cr>
+nmap <leader><space> :FixWhitespace<cr>
 
 " show hidden chars
 nmap <leader>l :set list!<cr>
@@ -425,14 +434,19 @@ augroup configgroup
     autocmd BufNewFile,BufRead *.php_cs set filetype=php
 
     autocmd FileType php,cpp setlocal commentstring=//\ %s
+    autocmd FileType javascript.jsx setlocal commentstring=//\ %s
     autocmd FileType ss.html setlocal commentstring=<%--%s--%>
-
 augroup END
 
 " }}}
 
 
 " Section Plugins {{{
+
+" bronson/vim-trailing-whitespace
+""""""""""""""""""""""""""""""""""""""""
+
+let g:extra_whitespace_ignored_filetypes = ['pug']
 
 " asyncrun
 """"""""""""""""""""""""""""""""""""""""
@@ -510,7 +524,7 @@ nmap <silent> t<C-g> :TestVisit<CR>   " t Ctrl+g
 function! ToggleNerdTree()
     if @% != "" && (!exists("g:NERDTree") || (g:NERDTree.ExistsForTab() && !g:NERDTree.IsOpen()))
         :NERDTreeFind
-    else 
+    else
         :NERDTreeToggle
     endif
 endfunction
@@ -643,7 +657,7 @@ let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
 let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_color_change_percent=1
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'fzf']
+let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'fzf', 'Tagbar']
 
 " FZF
 """""""""""""""""""""""""""""""""""""
@@ -846,7 +860,7 @@ let g:airline_right_sep = ''
 let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = '' "       
 let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = " \uF292" "    
+let g:airline_symbols.linenr = " \uf922" "       濫
 let g:airline_symbols.maxlinenr = '' "    
 
 " let g:airline_theme='solarized'
