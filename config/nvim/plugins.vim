@@ -31,7 +31,9 @@ Plug 'morhetz/gruvbox'
 " utilities
 Plug 'majutsushi/tagbar' " Vim plugin that displays tags in a window, ordered by scope
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons' " file drawer
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim' " fuzzy file finder and so much more
+" Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim' " fuzzy file finder and so much more
+Plug 'junegunn/fzf', { 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-obsession' " obsession.vim: continuously updated session files
 Plug 'dhruvasagar/vim-prosession' " A VIM plugin to handle sessions like a pro
 Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
@@ -93,7 +95,7 @@ Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] } " markdown support
 Plug 'groenewege/vim-less', { 'for': 'less' } " less support
 Plug 'ap/vim-css-color', { 'for': ['css','stylus','scss'] } " set the background of hex color values to the color
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' } " CSS3 syntax support
-Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " sass scss syntax support
+Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'sass'] } " sass scss syntax support
 
 
 " markdown
@@ -118,7 +120,7 @@ Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' } " psr-2 formating
 
 
 " language-specific plugins
-Plug 'sheerun/vim-polyglot', " A solid language pack for Vim
+Plug 'sheerun/vim-polyglot' " A solid language pack for Vim
 Plug 'elzr/vim-json', { 'for': 'json' } " JSON support
 Plug 'Shougo/vimproc.vim', { 'do': 'make' } " interactive command execution in vim
 Plug 'jparise/vim-graphql', { 'for': ['gql', 'graphql'] } " GraphQL file detection, syntax highlighting, and indentation

@@ -413,11 +413,6 @@ augroup configgroup
     autocmd FileType phtml UltiSnipsAddFiletypes php
     autocmd FileType blade UltiSnipsAddFiletypes html
 
-    autocmd BufNewFile,BufRead *.vue set ft=vue
-    autocmd FileType vue syntax sync fromstart
-    " autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
-    let g:vue_disable_pre_processors=1
-
     autocmd FileType nerdtree setlocal relativenumber nolist
 
     " autocmd BufNewFile,BufRead *.ejs set filetype=html
@@ -433,9 +428,12 @@ augroup configgroup
     autocmd BufNewFile,BufRead *.phtml set filetype=html | set syntax=php
     autocmd BufNewFile,BufRead *.php_cs set filetype=php
 
-    autocmd FileType php,cpp setlocal commentstring=//\ %s
-    autocmd FileType javascript.jsx setlocal commentstring=//\ %s
+    autocmd FileType php,cpp,javascript.jsx,vue setlocal commentstring=//\ %s
     autocmd FileType ss.html setlocal commentstring=<%--%s--%>
+
+    autocmd BufNewFile,BufRead *.vue set ft=vue
+    autocmd BufEnter *.vue :syntax sync fromstart
+    " let g:vue_disable_pre_processors=1
 augroup END
 
 " }}}
