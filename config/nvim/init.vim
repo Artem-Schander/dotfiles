@@ -1037,10 +1037,13 @@ let g:onedark_terminal_italics=1
 " let g:gruvbox_termcolors=256
 " let g:gruvbox_italic=1
 
+" let g:material_style='palenight'
+" let g:airline_theme='material'
+
 if (has("gui_running"))
     syntax on
     set background=dark
-    " colorscheme material
+    " colorscheme vim-material
     colorscheme onedark
     " colorscheme gruvbox
 
@@ -1051,19 +1054,13 @@ if (has("gui_running"))
     set guioptions=egmrt
     set linespace=2
 
-    " let g:airline_left_sep=''
-    " let g:airline_right_sep=''
-    " let g:airline_powerline_fonts=0
-    " let g:airline_theme = 'material'
-    let g:airline_theme='onedark'
-
     set macligatures
     set guifont=FuraCode\ Nerd\ Font:h13
 else
     " colorscheme base16-railscasts
     " colorscheme solarized
     " colorscheme monokai
-    " colorscheme material
+    " colorscheme vim-material
     colorscheme onedark
     " colorscheme gruvbox
 endif
@@ -1077,7 +1074,10 @@ highlight Comment cterm=italic
 highlight htmlArg cterm=italic
 highlight xmlAttrib cterm=italic
 highlight Type cterm=italic
+
+" make the colorscheme background color disappear
 highlight Normal ctermbg=none
+highlight Normal guibg=none
 " }}}
 
 

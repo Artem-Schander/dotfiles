@@ -45,9 +45,31 @@ main() {
     ZSH=$DOTFILES/zsh/.oh-my-zsh
   fi
 
+  hash git >/dev/null 2>&1 || {
+    printf "Error: git is not installed"
+    return 0
+  }
+
+  add_themes()
+  {
+    if [ ! -d "$DOTFILES/zsh/.oh-my-zsh/themes/spaceship-prompt" ]; then
+      printf "${BLUE}Cloning Spaceship theme...${NORMAL}\n"
+      env git clone https://github.com/denysdovhan/spaceship-prompt.git "$DOTFILES/zsh/.oh-my-zsh/themes/spaceship-prompt" || {
+          printf "Error: git clone of spaceship theme repo failed\n"
+      }
+      ln -s "$DOTFILES/zsh/.oh-my-zsh/themes/spaceship-prompt/spaceship.zsh-theme" "$DOTFILES/zsh/.oh-my-zsh/themes/spaceship.zsh-theme"
+    fi
+
+    printf "${BLUE}Download honukai theme...${NORMAL}\n"
+    curl -o $DOTFILES/zsh/.oh-my-zsh/themes/honukai.zsh-theme https://raw.githubusercontent.com/oskarkrawczyk/honukai-iterm-zsh/master/honukai.zsh-theme
+  }
+
   if [ -d "$ZSH" ]; then
     printf "${YELLOW}You already have Oh My Zsh installed.${NORMAL}\n"
     printf "You'll need to remove $ZSH if you want to re-install.\n"
+
+    add_themes
+
     return 0
   fi
 
@@ -59,17 +81,12 @@ main() {
   umask g-w,o-w
 
   printf "${BLUE}Cloning Oh My Zsh...${NORMAL}\n"
-  hash git >/dev/null 2>&1 || {
-    printf "Error: git is not installed"
-    return 0
-  }
   env git clone --depth=1 https://github.com/robbyrussell/oh-my-zsh.git $ZSH || {
     printf "Error: git clone of oh-my-zsh repo failed\n"
     return 0
   }
-  
-  printf "${BLUE}Download honukai theme.${NORMAL}\n"
-  curl -o $DOTFILES/zsh/.oh-my-zsh/themes/honukai.zsh-theme https://raw.githubusercontent.com/oskarkrawczyk/honukai-iterm-zsh/master/honukai.zsh-theme
+
+  add_themes
 
   # The Windows (MSYS) Git is not compatible with normal use on cygwin
   if [ "$OSTYPE" = cygwin ]; then

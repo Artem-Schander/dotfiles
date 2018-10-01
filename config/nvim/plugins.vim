@@ -19,7 +19,7 @@ call plug#begin('~/.config/nvim/plugged')
 " colorschemes
 " Plug 'flazz/vim-colorschemes' " one colorscheme pack to rule them all!
 " does not work properly - no syntax for php
-Plug 'kaicataldo/material.vim'
+Plug 'hzchirs/vim-material'
 Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
 " Plug 'chriskempson/base16-vim'

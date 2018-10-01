@@ -18,14 +18,14 @@ if [ "$(uname)" == "Darwin" ]; then
     echo -e "\n\nRunning on OSX"
 
     source install/brew.sh
-    
+
     source install/osx.sh
 
     source install/nvim.sh # TODO: check not for Darwin OS only
 
     source install/tmux.sh # TODO: check not for Darwin OS only
 
-    source ./install/nvm.sh # TODO: check not for Darwin OS only
+    source install/nvm.sh # TODO: check not for Darwin OS only
 
     source install/composer.sh # TODO: check not for Darwin OS only
 
