@@ -24,6 +24,7 @@
 "
 " " :!ctags -R --exclude=node_modules --exclude=dist " create a tags index --> ctags
 " " <C-]> " (ctrl+alt+6) go to declaration of whatever is under the cursor --> ctags
+" " :tabonly " close all tabs except for the active one
 "
 "
 "   EDIT / COPY & PASTE
@@ -63,6 +64,8 @@
 " " <C-o> or <C-i> " snippet - navigate between edit points
 " " <C-w> E " toggle syntastic mode {passive|active} default => passive --> vim-syntastic/syntastic
 " " <leader>n " Automatically adds the corresponding use statement for the name under the cursor --> arnaud-lb/vim-php-namespace
+" " <C-n> " Autocomplete string --> native
+"
 "
 "   VISUALS
 "
@@ -72,13 +75,14 @@
 " " zc " close fold
 " " zr " open one more level
 " " zm " close one more level
+" " zM " close all levels
 " " zf<Motion> " zfa} -> folds all incl. parent curly brackets - only in manual mode " :setlocal foldmethod=manual "
 "
 "
 "   RECOMMENDATIONS
 "
-" " map capslock to <C> [cmd] "
-" " in your OS settings "
+" " map capslock to <CMD> in your OS settings "
+" " map <CMD>s in Iterm as Escape Sequence to `[24;2~` "
 "
 "
 " " ┏━╸┏━┓┏┓╻┏━╸╻┏━╸ " "
@@ -172,6 +176,8 @@ command! -nargs=? -complete=buffer -bang Bufonly
 \ :call functions#BufOnly('<args>', '<bang>')
 command! -nargs=? -complete=buffer -bang BufOnly
 \ :call functions#BufOnly('<args>', '<bang>')
+command! Bcleanup
+\ :call functions#DeleteEmptyBuffers()
 
 " command BD bp\|bd \#
 nnoremap <C-c> :bp\|bd #<CR>
@@ -203,7 +209,7 @@ set smartindent
 " set list
 " set invlist
 set nolist
-set listchars=tab:⏤ ,space:·,eol:¬,trail:∞,extends:❯,precedes:❮ " ⚬ ● • ¤ » ø Θ 0 O ⟶  ⟼  ⏤ ⤚
+set listchars=tab:⏤ ,space:·,eol:¬,trail:-,extends:❯,precedes:❮ " ⚬ ● • ¤ » ø Θ 0 O ⟶  ⟼  ⏤ ⤚
 " set showbreak=↩︎
 
 " highlight conflicts
@@ -286,7 +292,10 @@ inoremap jk <esc>
 " nmap <silent> <leader>b :bw<cr>
 
 " shortcut to save
-nmap <leader>s :w<cr>
+nmap <leader>w :w<cr>
+" map <cmd>s in Iterm as Escape Sequence to "[24;2~"
+map <F24> :w<cr>
+imap <F24> <esc>:w<cr> a
 
 " toggle auto-indenting for code paste
 set pastetoggle=<F6>
@@ -399,7 +408,7 @@ augroup configgroup
     " make quickfix windows take all the lower section of the screen
     " when there are multiple windows open
     autocmd FileType qf wincmd J
-    autocmd FileType qf nmap q :q<cr>
+    " autocmd FileType qf nmap q :ccl<cr>
 
     autocmd BufNewFile,BufReadPost *.md set filetype=markdown
     let g:markdown_fenced_languages = ['css', 'javascript', 'js=javascript', 'json=javascript', 'stylus', 'html']
@@ -414,6 +423,7 @@ augroup configgroup
     autocmd FileType blade UltiSnipsAddFiletypes html
 
     autocmd FileType nerdtree setlocal relativenumber nolist
+    autocmd FileType gitcommit,gitrebase let g:gutentags_enabled=0
 
     " autocmd BufNewFile,BufRead *.ejs set filetype=html
     " autocmd BufNewFile,BufRead *.ino set filetype=c
@@ -440,6 +450,20 @@ augroup END
 
 
 " Section Plugins {{{
+
+" pseewald/vim-anyfold
+""""""""""""""""""""""""""""""""""""""""
+
+let g:AnyFoldActivate=1
+let g:anyfold_fold_comments=1
+
+" terryma/vim-smooth-scroll
+""""""""""""""""""""""""""""""""""""""""
+
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 
 " bronson/vim-trailing-whitespace
 """"""""""""""""""""""""""""""""""""""""
@@ -520,7 +544,7 @@ nmap <silent> t<C-g> :TestVisit<CR>   " t Ctrl+g
 
 " Toggle NERDTree
 function! ToggleNerdTree()
-    if @% != "" && (!exists("g:NERDTree") || (g:NERDTree.ExistsForTab() && !g:NERDTree.IsOpen()))
+    if @% != "" && @% !~ "Startify" && (!exists("g:NERDTree") || (g:NERDTree.ExistsForTab() && !g:NERDTree.IsOpen()))
         :NERDTreeFind
     else
         :NERDTreeToggle
@@ -533,10 +557,11 @@ nmap <silent> <leader>y :NERDTreeFind<cr>
 
 let NERDTreeShowHidden=1
 let NERDTreeDirArrowExpandable = '+'
+" let NERDTreeDirArrowExpandable = "\u00a0" " make arrows invisible
 let NERDTreeDirArrowCollapsible = '-'
-"
+" let NERDTreeDirArrowCollapsible = "\u00a0" " make arrows invisible
 " close NERDTree after a file is opened
-let g:NERDTreeQuitOnOpen=0
+let g:NERDTreeQuitOnOpen = 0
 " remove some files by extension
 let NERDTreeIgnore = ['\.js.map$','\.DS_Store']
 " enable line numbers
@@ -544,6 +569,11 @@ let NERDTreeShowLineNumbers=1
 " make sure relative line numbers are used
 " refresh NERDtree and jump back to previous window
 " nmap <leader>nr :NERDTree<cr> \| R \| <c-w><c-p>
+
+let g:WebDevIconsOS = 'Darwin'
+
+let g:NERDTreeGitStatusNodeColorization = 1
+let g:NERDTreeGitStatusWithFlags = 1
 
 " adjust the space between icon and filename
 let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
@@ -555,20 +585,33 @@ let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
 " enable folder/directory glyph flag (disabled by default with 0)
 let g:WebDevIconsUnicodeDecorateFolderNodes = 1
 " enable open and close folder/directory glyph flags
-let g:DevIconsEnableFoldersOpenClose = 0
+let g:DevIconsEnableFoldersOpenClose = 1
+" enable pattern matching glyphs on folder/directory
+let g:DevIconsEnableFolderExtensionPatternMatching = 1
+" change the default folder/directory glyph/icon
+let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = "\ue613"
+" change the default open folder/directory glyph/icon (default is '')
+let g:DevIconsDefaultFolderOpenSymbol = "\ue613" " \uf755
+" let g:DevIconsEnableNERDTreeRedraw = 0
 
 let g:NERDTreeIndicatorMapCustom = {
-\ "Modified"  : "✹",
-\ "Staged"	  : "✚",
-\ "Untracked" : "✭",
-\ "Renamed"   : "➜",
-\ "Unmerged"  : "═",
-\ "Deleted"   : "✖",
-\ "Dirty"	  : "✗",
-\ "Clean"	  : "✔︎",
-\ 'Ignored'   : '☒',
-\ "Unknown"   : "?"
-\ }
+    \ "Modified"  : "✹",
+    \ "Staged"    : "•",
+    \ "Untracked" : "⚬",
+    \ "Dirty"     : "⁖",
+    \ "Clean"     : "✔︎",
+    \ }
+
+let g:NERDTreeShowIgnoredStatus = 1
+let g:NERDTreeColorMapCustom = {
+    \ "Modified"  : "#528AB3",
+    \ "Staged"    : "#538B54",
+    \ "Untracked" : "#BE5849",
+    \ "Dirty"     : "#299999",
+    \ "Clean"     : "#87939A",
+    \ "Ignored"   : "#808080"
+    \ }
+
 " NerdCommenter
 """""""""""""""""""""""""""""""""""""
 
@@ -1063,6 +1106,24 @@ else
     " colorscheme vim-material
     colorscheme onedark
     " colorscheme gruvbox
+endif
+
+if (g:colors_name == 'onedark')
+    let one_dark_colors = onedark#GetColors()
+
+    " remove underline from pair highlighting "MatchPair" for the onedark theme
+    " highlight MatchParen cterm=NONE,bold gui=NONE,bold guibg=NONE guifg=one_dark_colors.blue.gui
+    execute "highlight MatchParen cterm=NONE,bold gui=NONE,bold guibg=NONE guifg=" one_dark_colors.blue.gui
+
+    " add matching colors to "NREDTree" git color highlighting
+    let g:NERDTreeColorMapCustom = {
+        \ "Modified"  : one_dark_colors.yellow.gui,
+        \ "Staged"    : one_dark_colors.green.gui,
+        \ "Untracked" : one_dark_colors.red.gui,
+        \ "Dirty"     : one_dark_colors.dark_yellow.gui,
+        \ "Clean"     : one_dark_colors.special_grey.gui,
+        \ "Ignored"   : one_dark_colors.comment_grey.gui
+        \ }
 endif
 
 " make the highlighting of tabs and other non-text less annoying

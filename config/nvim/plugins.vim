@@ -30,7 +30,11 @@ Plug 'morhetz/gruvbox'
 
 " utilities
 Plug 'majutsushi/tagbar' " Vim plugin that displays tags in a window, ordered by scope
-Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons' " file drawer
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } " file drawer
+    " Plug 'Xuyuanp/nerdtree-git-plugin'
+    Plug 'tsony-tsonev/nerdtree-git-plugin'
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim' " fuzzy file finder and so much more
 Plug 'junegunn/fzf', { 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
@@ -79,11 +83,14 @@ Plug 'gioele/vim-autoswap' " Please Vim, stop with these swap file messages. Jus
 Plug 'junegunn/vim-easy-align' " A Vim alignment plugin
 Plug 'bronson/vim-trailing-whitespace' " Highlights trailing whitespace in red and provides :FixWhitespace to fix it.
 Plug 'skywind3000/asyncrun.vim' " Run Async Shell Commands
+Plug 'terryma/vim-smooth-scroll' " Make scrolling in Vim more pleasant
+Plug 'pseewald/vim-anyfold' " Language agnostic vim plugin for folding and motion based on indentation.
 
 " " html / templates
 Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xml'] } " Auto close (X)HTML tags
 Plug 'mattn/emmet-vim', { 'for': ['html', 'phtml', 'javascript.jsx', 'ss.html'] } " emmet support for vim - easily create markdup wth CSS-like syntax
-Plug 'gregsexton/MatchTag', { 'for': ['html', 'phtml', 'xml'] } " match tags in html, similar to paren support
+" Plug 'gregsexton/MatchTag', { 'for': ['html', 'phtml', 'xml'] } " match tags in html, similar to paren support
+Plug 'Valloric/MatchTagAlways', { 'for': ['html', 'phtml', 'xml'] } " always highlights the enclosing html/xml tags
 " Plug 'othree/html5.vim', { 'for': ['html', 'phtml'] } " html5 support
 Plug 'mustache/vim-mustache-handlebars' " mustach support
 Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug', 'vue'] } " pug / jade support

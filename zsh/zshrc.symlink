@@ -5,6 +5,52 @@ command_exists() {
     type "$1" > /dev/null 2>&1
 }
 
+# PHP
+SPACESHIP_PHP_PREFIX=""
+SPACESHIP_PHP_SUFFIX=" "
+SPACESHIP_PHP_SYMBOL=" " # "\ue608"
+
+# PYTHON
+SPACESHIP_PYENV_PREFIX=""
+SPACESHIP_PYENV_SUFFIX=" "
+SPACESHIP_PYENV_SYMBOL=" " # "\ue606"
+
+# NODE
+SPACESHIP_NODE_PREFIX=""
+SPACESHIP_NODE_SUFFIX=" "
+SPACESHIP_NODE_SYMBOL=" " # "\uf898"
+
+# RUBY
+SPACESHIP_RUBY_PREFIX=""
+SPACESHIP_RUBY_SUFFIX=" "
+SPACESHIP_RUBY_SYMBOL=" " # "\ue791"
+
+# DOCKER
+SPACESHIP_DOCKER_PREFIX=""
+SPACESHIP_DOCKER_SUFFIX=" "
+SPACESHIP_DOCKER_SYMBOL=" " # "\uf308"
+
+# GIT
+# change git symbol
+SPACESHIP_GIT_SYMBOL=" " # 
+# remove git prefix
+SPACESHIP_GIT_PREFIX=""
+# Wrap git status to `[...]`
+SPACESHIP_GIT_STATUS_PREFIX=" [ "
+SPACESHIP_GIT_STATUS_SUFFIX="]"
+# SPACESHIP_GIT_STATUS_COLOR="white"
+
+SPACESHIP_GIT_STATUS_UNTRACKED=" " # "\uf7d5 " # ?
+SPACESHIP_GIT_STATUS_ADDED="樂" # "\uf914" # +
+SPACESHIP_GIT_STATUS_MODIFIED=" " # "\uf704 " # !
+SPACESHIP_GIT_STATUS_RENAMED=" " # "\uf553 " # »
+SPACESHIP_GIT_STATUS_DELETED=" " # "\uf655 " # ✘
+SPACESHIP_GIT_STATUS_STASHED="碑" # "\ufa4b" # $
+SPACESHIP_GIT_STATUS_UNMERGED="שּׁ " # "\ufb2c " # =
+SPACESHIP_GIT_STATUS_AHEAD=" " # "\uf55c " # ⇡
+SPACESHIP_GIT_STATUS_BEHIND=" " # "\uf544 " # ⇣
+SPACESHIP_GIT_STATUS_DIVERGED=" " # "\uf5fa " # ⇕
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -20,21 +66,21 @@ SPACESHIP_PROMPT_ORDER=(
   git           # Git section (git_branch + git_status)
   # hg            # Mercurial section (hg_branch  + hg_status)
   # package       # Package version
-  # node          # Node.js section
-  # ruby          # Ruby section
+  node          # Node.js section
+  ruby          # Ruby section
   # elixir        # Elixir section
   # xcode         # Xcode section
   # swift         # Swift section
   # golang        # Go section
-  # php           # PHP section
+  php           # PHP section
   # rust          # Rust section
   # haskell       # Haskell Stack section
   # julia         # Julia section
-  # docker        # Docker section
+  docker        # Docker section
   # aws           # Amazon Web Services section
-  # venv          # virtualenv section
+  venv          # virtualenv section
   # conda         # conda virtualenv section
-  # pyenv         # Pyenv section
+  pyenv         # Pyenv section
   # dotnet        # .NET section
   # ember         # Ember.js section
   # kubecontext   # Kubectl context section
@@ -54,10 +100,13 @@ SPACESHIP_PROMPT_ADD_NEWLINE="true"
 SPACESHIP_PROMPT_SEPARATE_LINE="true"
 
 # Prompt character to be shown before any command
-SPACESHIP_CHAR_SYMBOL="➜ "
+SPACESHIP_CHAR_SYMBOL=" " #   ﲵ ➜ ﯅  ﮊ  ﮏ 
 
 # Show time
 SPACESHIP_TIME_SHOW="true"
+
+SPACESHIP_PROMPT_DEFAULT_PREFIX=""
+SPACESHIP_PROMPT_PREFIXES_SHOW=false
 
 # more options at
 # https://github.com/denysdovhan/spaceship-prompt/blob/master/docs/Options.md
