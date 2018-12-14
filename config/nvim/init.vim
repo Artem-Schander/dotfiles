@@ -281,6 +281,31 @@ endif
 
 " Section Mappings {{{
 
+" Format code
+" noremap <F2> :set tabstop=4 shiftwidth=4 expandtab<CR> :retab<CR>
+" noremap <F3> :set tabstop=4 shiftwidth=4 expandtab<CR> :Autoformat<CR>
+" nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
+
+" Easier split navigations
+" nnoremap <C-J> <C-W><C-J>
+" nnoremap <C-K> <C-W><C-K>
+" nnoremap <C-L> <C-W><C-L>
+" nnoremap <C-H> <C-W><C-H>
+
+" disable Ex mode
+noremap Q <NOP>
+
+" nnoremap <Left> :echo "won't happen! Use the h key"<cr>
+" nnoremap <Right> :echo "won't happen! Use the l key"<cr>
+" nnoremap <Up> :echo "won't happen! Use the k key"<cr>
+" nnoremap <Down> :echo "won't happen! Use the j key"<cr>
+
+" inoremap <Left> <nop>
+" inoremap <Right> <nop>
+" inoremap <Up> <nop>
+" inoremap <Down> <nop>
+
+
 " set a map leader for more key combos
 let mapleader = ','
 let g:mapleader = ','
@@ -394,6 +419,7 @@ command! RM call functions#Delete() <Bar> q!
 
 
 " Section AutoGroups {{{
+
 " file type specific settings
 augroup configgroup
     autocmd!
@@ -867,6 +893,8 @@ let g:gitgutter_sign_modified_removed = '⚬'
 """""""""""""""""""""""""""""""""""""
 " airline options
 
+" let g:airline_section_z = airline#section#create(['%{&tabstop}:%{&shiftwidth}', ' %3p%% ',g:airline_symbols.linenr,'%3l:%c'])
+
 let g:airline_powerline_fonts=1
 
 let g:airline#extensions#tabline#enabled = 1 " enable airline tabline
@@ -994,35 +1022,6 @@ let g:SuperTabCrMapping = 0
 
 
 
-" Section Mappings {{{
-
-" Format code
-" noremap <F2> :set tabstop=4 shiftwidth=4 expandtab<CR> :retab<CR>
-" noremap <F3> :set tabstop=4 shiftwidth=4 expandtab<CR> :Autoformat<CR>
-" nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
-
-" Easier split navigations
-" nnoremap <C-J> <C-W><C-J>
-" nnoremap <C-K> <C-W><C-K>
-" nnoremap <C-L> <C-W><C-L>
-" nnoremap <C-H> <C-W><C-H>
-
-" disable Ex mode
-noremap Q <NOP>
-
-" nnoremap <Left> :echo "won't happen! Use the h key"<cr>
-" nnoremap <Right> :echo "won't happen! Use the l key"<cr>
-" nnoremap <Up> :echo "won't happen! Use the k key"<cr>
-" nnoremap <Down> :echo "won't happen! Use the j key"<cr>
-
-" inoremap <Left> <nop>
-" inoremap <Right> <nop>
-" inoremap <Up> <nop>
-" inoremap <Down> <nop>
-
-" }}}
-
-
 
 " Colorscheme and final setup {{{
 
@@ -1108,8 +1107,26 @@ else
     " colorscheme gruvbox
 endif
 
+" make the highlighting of tabs and other non-text less annoying
+highlight SpecialKey ctermfg=236
+highlight NonText ctermfg=236
+
+" make comments and HTML attributes italic
+highlight Comment cterm=italic
+highlight htmlArg cterm=italic
+highlight xmlAttrib cterm=italic
+highlight Type cterm=italic
+
+" make the colorscheme background color disappear
+" --> does not work well, indent lines desappear also
+highlight Normal ctermbg=none
+highlight Normal guibg=none
+
 if (g:colors_name == 'onedark')
     let one_dark_colors = onedark#GetColors()
+
+    highlight IndentGuidesEven guibg=#2D3038
+    highlight IndentGuidesOdd guibg=#2B2E36
 
     " remove underline from pair highlighting "MatchPair" for the onedark theme
     " highlight MatchParen cterm=NONE,bold gui=NONE,bold guibg=NONE guifg=one_dark_colors.blue.gui
@@ -1126,19 +1143,6 @@ if (g:colors_name == 'onedark')
         \ }
 endif
 
-" make the highlighting of tabs and other non-text less annoying
-highlight SpecialKey ctermfg=236
-highlight NonText ctermfg=236
-
-" make comments and HTML attributes italic
-highlight Comment cterm=italic
-highlight htmlArg cterm=italic
-highlight xmlAttrib cterm=italic
-highlight Type cterm=italic
-
-" make the colorscheme background color disappear
-highlight Normal ctermbg=none
-highlight Normal guibg=none
 " }}}
 
 
