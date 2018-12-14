@@ -1035,9 +1035,6 @@ endif
 scriptencoding utf-8
 setglobal fileencoding=utf-8
 
-" highlight Comment cterm=italic
-" highlight htmlArg cterm=italic
-
 set fillchars+=vert:┃
 
 syntax on
@@ -1066,7 +1063,7 @@ if filereadable(expand("~/.vimrc_background"))
     source ~/.vimrc_background
 else
     " let g:onedark_termcolors=256
-    " let g:onedark_terminal_italics=1
+    let g:onedark_terminal_italics=1
     " let g:solarized_termcolors=256
     " let g:gruvbox_termcolors=256
     " let g:gruvbox_italic=1
@@ -1076,7 +1073,7 @@ set background=dark
 " let g:material_terminal_italics = 1
 " let g:material_theme_style = 'default' "'default' | 'palenight' | 'dark'
 let g:onedark_termcolors=256
-" let g:onedark_terminal_italics=1
+let g:onedark_terminal_italics=1
 " let g:solarized_termcolors=256
 " let g:gruvbox_termcolors=256
 " let g:gruvbox_italic=1
@@ -1135,10 +1132,10 @@ highlight SpecialKey ctermfg=236
 highlight NonText ctermfg=236
 
 " make comments and HTML attributes italic
-" highlight Comment cterm=italic
-" highlight htmlArg cterm=italic
-" highlight xmlAttrib cterm=italic
-" highlight Type cterm=italic
+highlight Comment cterm=italic
+highlight htmlArg cterm=italic
+highlight xmlAttrib cterm=italic
+highlight Type cterm=italic
 
 " make the colorscheme background color disappear
 highlight Normal ctermbg=none
