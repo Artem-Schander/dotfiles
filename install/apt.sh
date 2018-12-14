@@ -32,5 +32,6 @@ if [ -f /etc/lsb-release ]; then
         yarn \
         gnome-tweak-tool \
         chrome-gnome-shell \
-        x11-utils
+        x11-utils \
+        xclip
 fi

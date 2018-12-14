@@ -84,6 +84,9 @@ if [[ "$uname" == "Darwin" ]]; then
     alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
     alias ctags="`brew --prefix`/bin/ctags"
+elif [[ -f /etc/lsb-release ]]; then
+    alias pbcopy='xclip -selection clipboard'
+    alias pbpaste='xclip -selection clipboard -o'
 fi
 
 # alias homestead=~/.composer/vendor/bin/homestead
