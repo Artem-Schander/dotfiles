@@ -32,7 +32,7 @@ SPACESHIP_DOCKER_SYMBOL=" " # "\uf308"
 
 # GIT
 # change git symbol
-SPACESHIP_GIT_SYMBOL=" " # 
+SPACESHIP_GIT_SYMBOL="\uf402 " #  
 # remove git prefix
 SPACESHIP_GIT_PREFIX=""
 # Wrap git status to `[...]`
@@ -236,6 +236,8 @@ fi
 
 if [[ -z "$TMUX" ]] && [[ "$uname" == "Darwin" ]]; then
     export TERM=xterm-256color-italic
+else
+    export TERM=xterm-256color
 fi
 
 # install rbenv

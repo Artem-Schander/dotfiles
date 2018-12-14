@@ -5,10 +5,23 @@ if [ -f /etc/lsb-release ]; then
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 
     sudo apt update
-    sudo apt install -y software-properties-common build-essential libssl-dev
-    sudo add-apt-repository -y ppa:hnakamur/universal-ctags ppa:ondrej/php
+    sudo apt install -y \
+        software-properties-common \
+        build-essential \
+        libssl-dev \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        software-properties-common
+
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+    sudo add-apt-repository -y ppa:hnakamur/universal-ctags ppa:ondrej/php \
+        "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
 
     sudo apt update
+    apt-cache policy docker-ce
+
     sudo apt install -y \
         git \
         python3-pip \
@@ -33,5 +46,15 @@ if [ -f /etc/lsb-release ]; then
         gnome-tweak-tool \
         chrome-gnome-shell \
         x11-utils \
-        xclip
+        xclip \
+        docker-ce \
+        redshift
+
+    sudo usermod -aG docker ${USER}
+    su - ${USER}
+    id -nG
+
+    sudo curl -L "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    docker-compose --version
 fi
