@@ -16,4 +16,4 @@ RESULT=$?
 rm composer-setup.php
 mv composer.phar /usr/local/bin/composer
 
-composer global require "squizlabs/php_codesniffer=*"
+composer global require friendsofphp/php-cs-fixer squizlabs/php_codesniffer

@@ -38,7 +38,6 @@ formulas=(
     '--HEAD universal-ctags/universal-ctags/universal-ctags'
     htop
     brotli
-    homebrew/php/php-cs-fixer
     python2
     python3
     # development server setup
@@ -68,7 +67,7 @@ formulas=(
     # docker-machine-driver-xhyve
 
     # 'grep --with-default-names'
-    neovim
+    # neovim # is getting installed through own script
     # node
     # ripgrep
     # git-standup

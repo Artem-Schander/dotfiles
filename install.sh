@@ -7,27 +7,23 @@ command_exists() {
 echo "Installing dotfiles"
 
 echo "Initializing submodule(s)"
+if [ -f /etc/lsb-release ]; then
+    sudo apt update
+    sudo apt install -y git
+fi
 git submodule update --init --recursive
 
 source install/link.sh
-
-source install/git.sh
 
 # only perform macOS-specific install
 if [ "$(uname)" == "Darwin" ]; then
     echo -e "\n\nRunning on OSX"
 
+    source install/git.sh
+
     source install/brew.sh
 
     source install/osx.sh
-
-    source install/nvim.sh # TODO: check not for Darwin OS only
-
-    source install/tmux.sh # TODO: check not for Darwin OS only
-
-    source install/nvm.sh # TODO: check not for Darwin OS only
-
-    source install/composer.sh # TODO: check not for Darwin OS only
 
     # create a backup of the original nginx.conf
     if [ -f /usr/local/etc/nginx/nginx.conf ]; then
@@ -38,7 +34,35 @@ if [ "$(uname)" == "Darwin" ]; then
 
     # symlink the code.dev from dotfiles
     ln -s ~/.dotfiles/nginx/code.dev /usr/local/etc/nginx/sites-enabled/code.dev
+elif [ -f /etc/lsb-release ]; then
+    echo -e "\n\nRunning on Linux (Debian)"
+
+    source install/apt.sh
+
+    source install/git.sh
+
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+    ~/.fzf/install
+    rm -rf .fzf
+
+    cp resources/fonts/FiraCode/OTF/* /usr/local/share/fonts/
+
+    # make the lest alt key behave like the right one
+    setxkbmap -option lv3:lalt_switch
+
+    # set keyboard delay and repeat rate
+    gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 30
+    gsettings set org.gnome.desktop.peripherals.keyboard delay 250
 fi
+
+
+source install/nvim.sh
+
+source install/tmux.sh
+
+source install/nvm.sh
+
+source install/composer.sh
 
 # echo -e "\n\n${GREEN}creating vim directories"
 # echo "==============================${NORMAL}"

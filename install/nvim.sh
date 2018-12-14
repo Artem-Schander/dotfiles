@@ -16,4 +16,7 @@ if [ "$(uname)" == "Darwin" ]; then
     else
         brew install neovim/neovim/neovim
     fi
+elif [ -f /etc/lsb-release ]; then
+    apt update
+    apt install -y neovim
 fi

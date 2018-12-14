@@ -12,6 +12,9 @@ if [ "$(uname)" == "Darwin" ]; then
     else
         brew install tmux
     fi
+elif [ -f /etc/lsb-release ]; then
+    apt update
+    apt install -y tmux
 fi
 
 if [ -d ~/.tmux/plugins/tpm ]; then

@@ -222,9 +222,11 @@ if [[ -d ~/.composer/vendor/bin ]]; then
 fi
 
 # check for custom bin directory and add to path
-python2_dir=$(find /usr/local/Cellar/python@2 -maxdepth 1 -type d -name '2.*' -print | head -n1)
-if [[ -d $python2_dir/bin ]]; then
-    export PATH=$python2_dir/bin:$PATH
+if [[ -d /usr/local/Cellar/python@2 ]]; then
+    python2_dir=$(find /usr/local/Cellar/python@2 -maxdepth 1 -type d -name '2.*' -print | head -n1)
+    if [[ -d $python2_dir/bin ]]; then
+        export PATH=$python2_dir/bin:$PATH
+    fi
 fi
 
 # check for custom bin directory and add to path
@@ -232,11 +234,13 @@ if [[ -d ~/bin ]]; then
     export PATH=~/bin:$PATH
 fi
 
-[ -z "$TMUX" ] && export TERM=xterm-256color-italic
+if [[ -z "$TMUX" ]] && [[ "$uname" == "Darwin" ]]; then
+    export TERM=xterm-256color-italic
+fi
 
 # install rbenv
 if command_exists rbenv; then
-    eval "$(rbenv init -)"
+    rval "$(rbenv init -)"
 fi
 
 if [[ -d ~/.rvm ]]; then
