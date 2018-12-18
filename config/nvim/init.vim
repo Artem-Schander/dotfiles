@@ -234,7 +234,7 @@ set foldnestmax=10 " deepest fold is 10 levels
 set nofoldenable " don't fold by default
 set foldlevel=1
 
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 set ttyfast " faster redrawing
 set diffopt+=vertical
