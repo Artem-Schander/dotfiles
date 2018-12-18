@@ -45,8 +45,9 @@ elif [ -f /etc/lsb-release ]; then
     ~/.fzf/install
     rm -rf .fzf
 
-    cp resources/fonts/FiraCode/OTF/* ~/.local/share/fonts/
-    cp resources/fonts/Hasklig/* ~/.local/share/fonts/
+    cp resources/fonts/FiraCode/otf/* ~/.local/share/fonts/
+    cp resources/fonts/NerdFonts/FiraCode/OTF/* ~/.local/share/fonts/
+    cp resources/fonts/NerdFonts/Hasklig/* ~/.local/share/fonts/
 
     # make the lest alt key behave like the right one
     setxkbmap -option lv3:lalt_switch

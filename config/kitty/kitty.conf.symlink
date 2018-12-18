@@ -53,7 +53,7 @@ adjust_line_height  2
 
 #:     symbol_map codepoints Font Family Name
 
-symbol_map U+E000-U+FFFF FuraCode Nerd Font Mono
+symbol_map U+E000-U+FFFF FuraCode Nerd Font
 
 # box_drawing_scale 0.001, 1, 1.5, 2
 

@@ -183,7 +183,7 @@ tmux_conf_theme_right_separator_sub=''  #   PowerlineSymbols.otf font
 #   ﲵ            ﮊ ﮏ ♥ ﰸ ﯅  
 tmux_conf_theme_status_left="  #S | ↑#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} "
 # tmux_conf_theme_status_right='#{prefix} | #{username}#{root} | %R , %d %b ,#{pairing}#{?battery_status, #{battery_status},}#{?battery_vbar, #{battery_vbar},}#{?battery_percentage, #{battery_percentage},} | '
-tmux_conf_theme_status_right='#{prefix} | #{pairing}#{?battery_status, #{battery_status},}#{?battery_vbar, #{battery_vbar},}#{?battery_percentage, #{battery_percentage},} | %R , %d %b , #{username}#{root} '
+tmux_conf_theme_status_right='#{prefix} | #{pairing}#{?battery_status, #{battery_status},}#{?battery_percentage, #{battery_percentage},} , #{cpu_percentage} | %R , %d %b , #{username}#{root} '
 
 # status left style
 tmux_conf_theme_status_left_fg=$custom_black','$custom_green','$custom_white
@@ -228,7 +228,7 @@ tmux_conf_battery_bar_length=12
 #   - gradient (default)
 #   - heat
 #   - 'colour_full_fg,colour_empty_fg,colour_bg'
-tmux_conf_battery_bar_palette=$custom_black','$custom_black','$custom_white
+tmux_conf_battery_bar_palette=$custom_white','$custom_white','$custom_white
 #tmux_conf_battery_bar_palette='#d70000,#e4e4e4,#000000'   # red, white, black
 
 # battery hbar palette, possible values are:
@@ -242,7 +242,7 @@ tmux_conf_battery_hbar_palette='gradient'
 #   - gradient (default)
 #   - heat
 #   - 'colour_low,colour_half,colour_full'
-tmux_conf_battery_vbar_palette=$custom_black','$custom_black','$custom_black
+tmux_conf_battery_vbar_palette=$custom_white','$custom_white','$custom_white
 #tmux_conf_battery_vbar_palette='#d70000,#ff5f00,#5fff00'  # red, orange, green
 
 # symbols used to indicate whether battery is charging or discharging
