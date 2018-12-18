@@ -12,7 +12,15 @@ if [ -f /etc/lsb-release ]; then
         apt-transport-https \
         ca-certificates \
         curl \
-        software-properties-common
+        software-properties-common \
+        flatpak \
+        # gir1.2-clutter-1.0 \ # dependencies for clutter / blyr
+		# gir1.2-clutter-gst-3.0 \ # dependencies for clutter / blyr
+		# gir1.2-gtkclutter-1.0 \ # dependencies for clutter / blyr
+        gnome-software-plugin-flatpak
+
+
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
@@ -47,8 +55,7 @@ if [ -f /etc/lsb-release ]; then
         chrome-gnome-shell \
         x11-utils \
         xclip \
-        docker-ce \
-        redshift
+        docker-ce
 
     sudo usermod -aG docker ${USER}
     su - ${USER}

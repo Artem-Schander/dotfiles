@@ -261,11 +261,11 @@ tmux_conf_theme_clock_style='24'
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
-#set -g status-keys vi
-#set -g mode-keys vi
+# set -g status-keys vi
+# set -g mode-keys vi
 
 # move status line to top
-#set -g status-position top
+# set -g status-position top
 
 
 # quickly open a new window
@@ -323,7 +323,6 @@ set -g @continuum-boot-options 'iterm'
 # List of plugins
 set -g @tpm_plugins '          \
   tmux-plugins/tpm             \
-  tmux-plugins/tmux-sensible   \
   tmux-plugins/tmux-resurrect  \
   tmux-plugins/tmux-continuum  \
 '

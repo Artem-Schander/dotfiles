@@ -42,6 +42,7 @@ Plug 'tpope/vim-obsession' " obsession.vim: continuously updated session files
 Plug 'dhruvasagar/vim-prosession' " A VIM plugin to handle sessions like a pro
 Plug 'Raimondi/delimitMate' " automatic closing of quotes, parenthesis, brackets, etc.
 Plug 'tpope/vim-commentary' " comment stuff out
+Plug 'tpope/vim-dadbod' " Modern database interface for Vim
 " Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
 " Plug 'tpope/vim-ragtag' " endings for html, xml, etc. - ehances surround:
 Plug 'tpope/vim-surround' " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.

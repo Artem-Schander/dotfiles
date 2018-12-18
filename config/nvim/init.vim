@@ -471,7 +471,7 @@ augroup configgroup
     autocmd BufEnter *.vue :syntax sync fromstart
     " let g:vue_disable_pre_processors=1
 
-    autocmd BufRead,BufNewFile logging.conf setf dosini
+    autocmd BufRead,BufNewFile *.conf set filetype=dosini | set filetype=nginx
 augroup END
 
 " }}}
