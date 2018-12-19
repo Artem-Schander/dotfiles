@@ -100,7 +100,7 @@ SPACESHIP_PROMPT_ADD_NEWLINE="true"
 SPACESHIP_PROMPT_SEPARATE_LINE="true"
 
 # Prompt character to be shown before any command
-SPACESHIP_CHAR_SYMBOL=" " #   ﲵ ➜  ﯅  ﮊ  ﮏ    
+SPACESHIP_CHAR_SYMBOL=" " #   ﲵ ➜  ﯅  ﮊ  ﮏ    
 
 # Show time
 SPACESHIP_TIME_SHOW="true"
