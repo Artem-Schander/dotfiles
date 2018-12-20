@@ -55,6 +55,7 @@ if [ -f /etc/lsb-release ]; then
         chrome-gnome-shell \
         x11-utils \
         xclip \
+        net-tools \
         docker-ce
 
     sudo usermod -aG docker ${USER}
