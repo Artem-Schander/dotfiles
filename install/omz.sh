@@ -52,16 +52,16 @@ main() {
 
   add_themes()
   {
-    if [ ! -d "$DOTFILES/zsh/.oh-my-zsh/themes/spaceship-prompt" ]; then
+    if [ ! -d "$DOTFILES/zsh/.oh-my-zsh/custom/themes/spaceship-prompt" ]; then
       printf "${BLUE}Cloning Spaceship theme...${NORMAL}\n"
-      env git clone https://github.com/denysdovhan/spaceship-prompt.git "$DOTFILES/zsh/.oh-my-zsh/themes/spaceship-prompt" || {
+      env git clone https://github.com/denysdovhan/spaceship-prompt.git "$DOTFILES/zsh/.oh-my-zsh/custom/themes/spaceship-prompt" || {
           printf "Error: git clone of spaceship theme repo failed\n"
       }
-      ln -s "$DOTFILES/zsh/.oh-my-zsh/themes/spaceship-prompt/spaceship.zsh-theme" "$DOTFILES/zsh/.oh-my-zsh/themes/spaceship.zsh-theme"
+      ln -s "$DOTFILES/zsh/.oh-my-zsh/custom/themes/spaceship-prompt/spaceship.zsh-theme" "$DOTFILES/zsh/.oh-my-zsh/custom/themes/spaceship.zsh-theme"
     fi
 
     printf "${BLUE}Download honukai theme...${NORMAL}\n"
-    curl -o $DOTFILES/zsh/.oh-my-zsh/themes/honukai.zsh-theme https://raw.githubusercontent.com/oskarkrawczyk/honukai-iterm-zsh/master/honukai.zsh-theme
+    curl -o $DOTFILES/zsh/.oh-my-zsh/custom/themes/honukai.zsh-theme https://raw.githubusercontent.com/oskarkrawczyk/honukai-iterm-zsh/master/honukai.zsh-theme
   }
 
   if [ -d "$ZSH" ]; then
