@@ -281,6 +281,10 @@ endif
 
 " Section Mappings {{{
 
+" remap visual block shift
+vnoremap > >gv
+vnoremap < <gv
+
 " Format code
 " noremap <F2> :set tabstop=4 shiftwidth=4 expandtab<CR> :retab<CR>
 " noremap <F3> :set tabstop=4 shiftwidth=4 expandtab<CR> :Autoformat<CR>
@@ -374,14 +378,14 @@ vnoremap . :normal .<cr>
 map <leader>wc :wincmd q<cr>
 
 " move line mappings
-" º is <A-j> on macOS
-" ∆ is <A-k> on macOS
-nnoremap º :m .+1<cr>==
-nnoremap ∆ :m .-2<cr>==
-inoremap º <Esc>:m .+1<cr>==gi
-inoremap ∆ <Esc>:m .-2<cr>==gi
-vnoremap º :m '>+1<cr>gv=gv
-vnoremap ∆ :m '<-2<cr>gv=gv
+" ∆ is <A-j> on macOS
+" ˚ is <A-k> on macOS
+nnoremap ∆ :m .+1<cr>==
+nnoremap ˚ :m .-2<cr>==
+inoremap ∆ <Esc>:m .+1<cr>==gi
+inoremap ˚ <Esc>:m .-2<cr>==gi
+vnoremap ∆ :m '>+1<cr>gv=gv
+vnoremap ˚ :m '<-2<cr>gv=gv
 
 " toggle cursor line
 nnoremap <leader>i :set cursorline!<cr>
