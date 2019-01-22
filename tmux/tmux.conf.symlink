@@ -11,8 +11,21 @@
 
 # set -g default-terminal "screen-256color" # colors!
 
-set -g default-terminal "xterm-256color-italic" # colors!
-set-option -ga terminal-overrides ",xterm-256color-italic:Tc"
+set -g default-terminal "xterm-kitty" # colors!
+set-option -ga terminal-overrides ",xterm-kitty:Tc"
+
+# if-shell -b '[[ basename $(cat "/proc/$PPID/comm") = "kitty" ]]' \
+#   "set -g default-terminal xterm-kitty; \
+#     set -g default-terminal xterm-256color-italic"
+
+# if-shell -b '[[ basename $(cat "/proc/$PPID/comm") = "kitty" ]]' \
+#   "set-option -ga terminal-overrides ,xterm-kitty:Tc; \
+#     set-option -ga terminal-overrides ,xterm-256color-italic:Tc"
+
+# if-shell -b '[ "kitty" = "kitty" ]' 'set -g default-terminal "xterm-kitty"'
+
+# set -g default-terminal "xterm-256color-italic" # colors!
+# set-option -ga terminal-overrides ",xterm-256color-italic:Tc"
 
 setw -g xterm-keys on
 set -s escape-time 10                     # faster command sequences

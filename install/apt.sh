@@ -25,13 +25,14 @@ if [ -f /etc/lsb-release ]; then
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
     sudo add-apt-repository -y ppa:hnakamur/universal-ctags ppa:ondrej/php \
-        "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+        "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
     sudo apt update
     apt-cache policy docker-ce
 
     sudo apt install -y \
         git \
+        python-pip \
         python3-pip \
         curl \
         php-xdebug \
@@ -56,6 +57,7 @@ if [ -f /etc/lsb-release ]; then
         x11-utils \
         xclip \
         net-tools \
+        neofetch \
         docker-ce
 
     sudo usermod -aG docker ${USER}

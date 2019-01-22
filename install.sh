@@ -67,6 +67,13 @@ elif [ -f /etc/lsb-release ]; then
     # symlink kitty terminal config file
     mkdir -p ~/.config/kitty/
     ln -s ~/.dotfiles/config/kitty/kitty.conf.symlink ~/.config/kitty/kitty.conf
+
+    # add pillow to system so the kitty image preview works
+    pip install pillow
+
+    # symlink ranger terminal config file
+    mkdir -p ~/.config/ranger/
+    ln -s ~/.dotfiles/config/ranger/rc.conf.symlink ~/.config/ranger/rc.conf
 fi
 
 
