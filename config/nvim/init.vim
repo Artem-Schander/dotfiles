@@ -132,9 +132,9 @@ set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 " go through tabs
-map <silent> öä :tabn<cr>
-map <silent> äö :tabp<cr>
-map <silent> <leader>t :tabnew<cr>
+nnoremap <C-Left> :tabprevious<CR>
+nnoremap <C-Right> :tabnext<CR>
+nnoremap <C-t> :tabnew<cr>
 
 let delimitMate_expand_cr = 1
 let delimitMate_expand_space = 1
@@ -558,6 +558,7 @@ let g:vdebug_options['ide_key'] = 'PHPSTORM'
 " Localvimrc
 """""""""""""""""""""""""""""""""""""
 let g:localvimrc_name = [".lvimrc", ".local.vimrc"]
+let g:localvimrc_ask = 0
 
 
 " vim-test
@@ -752,7 +753,7 @@ let g:fzf_buffers_jump = 1
 if isdirectory(".git")
     " if in a git project, use :GFiles
     " nmap <silent> <leader>p :GFiles --cached --others --exclude-standard<cr>
-    nmap <silent> <leader>p :GitFiles<cr>
+    nmap <silent> <leader>p :GFiles --cached --others --exclude-standard<cr>
 else
     " otherwise, use :FZF
     nmap <silent> <leader>p :FZF<cr>
@@ -801,20 +802,29 @@ command! -bang -nargs=* Find call fzf#vim#grep(
 \ 'rg --column --line-number --no-heading --follow --color=always '.<q-args>, 1,
 \ <bang>0 ? fzf#vim#with_preview('up:60%') : fzf#vim#with_preview('right:50%:hidden', '?'), <bang>0)
 
-if has('nvim')
-    command! -bang Commits
-        \ call fzf#vim#commits({'window': 'enew'}, <bang>0)
-else
-    command! -bang Commits
-        \ call fzf#vim#commits({'down': '70%'}, <bang>0)
-endif
+" if has('nvim')
+"     command! -bang Commits
+"         \ call fzf#vim#commits({'window': 'enew'}, <bang>0)
+" else
+"     command! -bang Commits
+"         \ call fzf#vim#commits({'down': '70%'}, <bang>0)
+" endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""" preview broken
+
+command! -bang Commits
+    \ call fzf#vim#commits({'options': '--no-preview'}, <bang>0)
+
+command! -bang BCommits
+    \ call fzf#vim#buffer_commits({'options': '--no-preview'}, <bang>0)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 command! -bang BTags
     \ call fzf#vim#buffer_tags(<q-args>, {'top': '30%'}, <bang>0)
 
-command! -bang GitFiles
-    \ call fzf#vim#gitfiles('--cached --others --exclude-standard'.<q-args>,
-    \ fzf#vim#with_preview('right:50%', '?'), <bang>0)
+command! -bang -nargs=? -complete=dir GitFiles
+    \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
 
 " does not work
 " command! -bang Buffers
@@ -904,7 +914,8 @@ let g:gitgutter_sign_modified_removed = '⚬'
 let g:airline_powerline_fonts=1
 
 let g:airline#extensions#tabline#enabled = 1 " enable airline tabline
-let g:airline#extensions#tabline#tab_min_count = 2 " only show tabline if tabs are being used (more than 1 tab open)
+let g:airline#extensions#tabline#tab_min_count = 1 " only show tabline if tabs are being used (more than 1 tab open)
+let g:airline#extensions#tabline#fnamemod = ':t' " show only the filename, not the full path
 let g:airline#extensions#tabline#show_buffers = 0 " do not show open buffers in tabline
 let g:airline#extensions#tabline#show_splits = 0
 

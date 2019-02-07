@@ -57,16 +57,8 @@ elif [ -f /etc/lsb-release ]; then
     gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 30
     gsettings set org.gnome.desktop.peripherals.keyboard delay 250
 
-    # install kitty terminal
-    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin \
-        launch=n
-    ln -s ~/.local/kitty.app/bin/kitty ~/.local/bin/
-    cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications
-    sed -i "s/Icon\=kitty/Icon\=\/home\/$USER\/.local\/kitty.app\/share\/icons\/hicolor\/256x256\/apps\/kitty.png/g" ~/.local/share/applications/kitty.desktop
-
-    # symlink kitty terminal config file
-    mkdir -p ~/.config/kitty/
-    ln -s ~/.dotfiles/config/kitty/kitty.conf.symlink ~/.config/kitty/kitty.conf
+    # install kitty
+    source install/kitty.sh
 
     # add pillow to system so the kitty image preview works
     pip install pillow
@@ -74,6 +66,19 @@ elif [ -f /etc/lsb-release ]; then
     # symlink ranger terminal config file
     mkdir -p ~/.config/ranger/
     ln -s ~/.dotfiles/config/ranger/rc.conf.symlink ~/.config/ranger/rc.conf
+
+    # symlink ranger terminal config file
+    mkdir -p ~/.config/compton/
+    ln -s ~/.dotfiles/config/compton/compton.conf.symlink ~/.config/compton/compton.conf
+
+    # install i3-gaps
+    source install/i3-gaps.sh
+
+    # install polybar
+    source install/polybar.sh
+
+    # install rofi
+    source install/rofi.sh
 fi
 
 

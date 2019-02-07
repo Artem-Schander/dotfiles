@@ -9,7 +9,7 @@ echo "==============================${NORMAL}"
 if [ "$(uname)" == "Darwin" ]; then
     source $(brew --prefix nvm)/nvm.sh
 elif [ -f /etc/lsb-release ]; then
-    curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash
+    curl https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
 fi
 
 nvm install stable

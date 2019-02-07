@@ -58,6 +58,10 @@ if [ -f /etc/lsb-release ]; then
         xclip \
         net-tools \
         neofetch \
+        i3 \
+        rofi \
+        compton \
+        feh \
         docker-ce
 
     sudo usermod -aG docker ${USER}

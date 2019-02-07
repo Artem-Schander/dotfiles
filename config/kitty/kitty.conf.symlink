@@ -247,7 +247,7 @@ enabled_layouts *
 #: resizing windows. The cells value is used for horizontal resizing
 #: and the lines value for vertical resizing.
 
-window_border_width 1
+window_border_width 0
 
 #: The width (in pts) of window borders. Will be rounded to the
 #: nearest number of pixels based on screen resolution. Note that
@@ -338,8 +338,8 @@ background #282c34
 
 #: The foreground and background colors
 
-# background_opacity         1.0
-# dynamic_background_opacity no
+# background_opacity         0.9
+# dynamic_background_opacity yes
 
 #: The opacity of the background. A number between 0 and 1, where 1 is
 #: opaque and 0 is fully transparent.  This will only work if
@@ -480,7 +480,7 @@ editor nvim
 
 #: OS specific tweaks {{{
 
-macos_titlebar_color #282c34
+# macos_titlebar_color #282c34
 
 #: Change the color of the kitty window's titlebar on macOS. A value
 #: of system means to use the default system color, a value of

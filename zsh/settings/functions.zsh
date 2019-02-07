@@ -14,6 +14,10 @@ function colours() {
     done
 }
 
+function random-string() {
+    cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w ${1:-32} | head -n 1
+}
+
 # Create a new directory and enter it
 function md () {
   case "$1" in
@@ -149,6 +153,6 @@ function _accept-line() {
         BUFFER="source ~/.zshrc"
     fi
     zle .accept-line
-} 
+}
 
 zle -N accept-line _accept-line

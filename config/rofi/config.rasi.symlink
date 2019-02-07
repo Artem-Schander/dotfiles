@@ -1,0 +1,133 @@
+* {
+    font: "Fira Code 9";
+    black:                       rgba( 40, 44, 52, 100% );
+    white:                       rgba( 171, 178, 191, 100% );
+    red:                         rgba( 190, 80, 70, 100% );
+    orange:                      rgba(209, 154, 102, 1);
+    blue:                        rgba( 97, 175, 239, 100% );
+    green:                       rgba( 152, 195, 121, 100% );
+    selected-normal-foreground:  @black;
+    foreground:                  @white;
+    normal-foreground:           @foreground;
+    alternate-normal-background: rgba ( 255, 255, 255, 7 % );
+    selected-urgent-foreground:  rgba ( 51, 51, 51, 100 % );
+    urgent-foreground:           @red;
+    alternate-urgent-background: rgba ( 255, 255, 255, 7 % );
+    active-foreground:           @green;
+    lightbg:                     rgba ( 238, 232, 213, 100 % );
+    selected-active-foreground:  rgba ( 51, 51, 51, 100 % );
+    alternate-active-background: rgba ( 255, 255, 255, 7 % );
+    background:                  @black;
+    bordercolor:                 @blue;
+    alternate-normal-foreground: @foreground;
+    normal-background:           rgba ( 0, 0, 0, 0 % );
+    lightfg:                     rgba ( 88, 104, 117, 100 % );
+    selected-normal-background:  @orange;
+    border-color:                @orange;
+    spacing:                     2;
+    separatorcolor:              rgba( 92, 99, 112, 100% );
+    urgent-background:           rgba ( 0, 0, 0, 0 % );
+    selected-urgent-background:  @red;
+    alternate-urgent-foreground: @urgent-foreground;
+    background-color:            rgba ( 0, 0, 0, 0 % );
+    alternate-active-foreground: @active-foreground;
+    active-background:           rgba ( 0, 0, 0, 0 % );
+    selected-active-background:  @green;
+}
+#window {
+    background-color: @background;
+    border-color: @bordercolor;
+    border:           1;
+    padding:          0;
+}
+#mainbox {
+    border:  0;
+    padding: 0;
+}
+#message {
+    border:       1px solid 0px 0px;
+    border-color: @bordercolor;
+    padding:      1px;
+}
+#textbox {
+    text-color: @foreground;
+}
+#listview {
+    fixed-height: 0;
+    border:       1px solid 0px 0px;
+    border-color: @separatorcolor;
+    spacing:      2px ;
+    scrollbar:    true;
+    padding:      2px 0px 0px;
+}
+#element {
+    border:  0;
+    padding: 4px 6px 4px 6px;
+}
+#element.normal.normal {
+    background-color: @normal-background;
+    text-color:       @normal-foreground;
+}
+#element.normal.urgent {
+    background-color: @urgent-background;
+    text-color:       @urgent-foreground;
+}
+#element.normal.active {
+    background-color: @active-background;
+    text-color:       @active-foreground;
+}
+#element.selected.normal {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+#element.selected.urgent {
+    background-color: @selected-urgent-background;
+    text-color:       @selected-urgent-foreground;
+}
+#element.selected.active {
+    background-color: @selected-active-background;
+    text-color:       @selected-active-foreground;
+}
+#element.alternate.normal {
+    background-color: @alternate-normal-background;
+    text-color:       @alternate-normal-foreground;
+}
+#element.alternate.urgent {
+    background-color: @alternate-urgent-background;
+    text-color:       @alternate-urgent-foreground;
+}
+#element.alternate.active {
+    background-color: @alternate-active-background;
+    text-color:       @alternate-active-foreground;
+}
+#scrollbar {
+    width:        0px ;
+    border:       0;
+    handle-width: 0px ;
+    padding:      0;
+}
+#sidebar {
+    border:       1px solid 0px 0px ;
+    border-color: @bordercolor;
+}
+#button.selected {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+#inputbar {
+    spacing:    10;
+    text-color: @normal-foreground;
+    padding:    6px 6px 4px 6px;
+}
+#case-indicator {
+    spacing:    0;
+    text-color: @normal-foreground;
+}
+#entry {
+    spacing:    0;
+    text-color: @normal-foreground;
+}
+#prompt {
+    spacing:    0;
+    text-color: @normal-foreground;
+}
