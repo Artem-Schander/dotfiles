@@ -3,6 +3,8 @@
 
 plug.vim.old
 
+config/i3/layouts
+
 config/nvim/spell
 config/nvim/shada
 config/nvim/plugged

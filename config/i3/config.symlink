@@ -50,12 +50,13 @@ bindsym $mod+q kill
 bindsym $mod+space exec --no-startup-id rofi -show run -display-run "->"
 
 # remap caps lock to CTRL
-exec --no-startup-id setxkbmap -option 'ctrl:nocaps,shift:both_capslock_cancel'
+exec_always --no-startup-id setxkbmap -option 'ctrl:nocaps,shift:both_capslock_cancel'
 
 # adjust keyboard repeat rate and delay
-exec --no-startup-id xset r rate 200 25
+exec_always --no-startup-id xset r rate 200 25
 
-
+# set compose key to right alt
+exec_always --no-startup-id setxkbmap -option compose:ralt
 
 # # launch categorized menu
 # bindsym $mod+' exec --no-startup-id morc_menu
@@ -72,8 +73,11 @@ exec --no-startup-id xset r rate 200 25
 # bindsym $mod+KP_Page_Up exec $myTerm -e 'sh ./scripts/tig-script.sh'
 
 # Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 1-9>
-bindsym $mod+Shift+KP_1 exec $myTerm -e 'ranger'
-bindsym $mod+Shift+KP_2 exec $myTerm -e 'htop'
+bindsym $mod+Shift+KP_2 workspace 2; layout tabbed; exec 'google-chrome'
+bindsym $mod+Shift+KP_3 workspace 3; exec 'mailspring'
+bindsym $mod+Shift+KP_4 workspace 4; exec 'slack'
+bindsym $mod+Shift+KP_8 exec $myTerm -e 'ranger'
+bindsym $mod+Shift+KP_9 exec $myTerm -e 'htop'
 # bindsym $mod+Shift+KP_3 exec $myTerm -e 'cmus'
 # bindsym $mod+Shift+KP_4 exec $myTerm -e 'irssi'
 # bindsym $mod+Shift+KP_5 exec $myTerm -e 'rtorrent'
@@ -139,7 +143,7 @@ bindsym $mod+v split v;exec notify-send 'tile vertically'
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
+# bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
@@ -151,7 +155,7 @@ bindsym $mod+d focus mode_toggle
 
 # toggle sticky
 # bindsym $mod+Shift+s sticky toggle
-bindsym $mod+Shift+s exec ~/.i3/i3-display-swap.sh
+bindsym $mod+Shift+s exec ~/.dotfiles/config/i3/i3-display-swap.sh
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -184,6 +188,20 @@ set $ws6 6
 set $ws7 7
 set $ws8 8
 
+# set the connected monitors
+set $monitor1 HDMI-2
+set $monitor2 DP-2
+
+# Bind the workspaces for monitor one
+workspace $ws1 output $monitor1
+workspace $ws7 output $monitor1
+workspace $ws8 output $monitor1
+
+# Bind the workspaces for monitor one
+workspace $ws2 output $monitor2
+workspace $ws3 output $monitor2
+workspace $ws4 output $monitor2
+
 # switch to workspace
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
@@ -214,17 +232,21 @@ bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 
+# save and restore alyouts
+# bindsym $mod+s exec $HOME/.dotfiles/config/i3/save-layouts.sh
+
 # Open applications on specific workspaces
-assign [class="Kitty"] $ws1
-assign [class="Google-Chrome"] $ws2
-assign [class="Mailspring"] $ws3
-assign [class="Slack"] $ws4
+assign [class="kitty"] $ws1
+assign [class="google-chrome"] $ws2
+for_window [class="google-chrome"] tabbed
+assign [class="mailspring"] $ws3
+assign [class="slack"] $ws4
 
 # Open specific applications in tabbed mode
-for_window [title="TeamViewer"] tabbed
+for_window [title="google-chrome"] tabbed
 
 # Open specific applications in floating mode
-# for_window [title="TeamViewer"] floating enable border pixel 1
+for_window [title="teamviewer"] floating enable border pixel 1
 # for_window [title="alsamixer"] floating enable border pixel 1
 # for_window [class="Clipgrab"] floating enable
 # for_window [title="File Transfer*"] floating enable
@@ -314,8 +336,6 @@ mode "resize" {
 # # Lock screen
 # bindsym $mod+9 exec --no-startup-id blurlock
 
-# Autostart applications
-
 # enable natural-scrolling and tap-to-click
 exec --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-touchpad.sh
 exec --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-mouse.sh
@@ -324,12 +344,25 @@ exec --no-startup-id $HOME/.dotfiles/resources/i3/tap-to-click.sh
 # polybar
 exec_always --no-startup-id $HOME/.dotfiles/resources/i3/launch-polybar.sh
 
+# restore layouts
+exec --no-startup-id i3-msg 'workspace 2; append_layout ~/.dotfiles/config/i3/layouts/workspace-2.json; exec google-chrome --restore-last-session'
+exec --no-startup-id i3-msg 'workspace 1; append_layout ~/.dotfiles/config/i3/layouts/workspace-1.json; exec kitty -e tmux'
+exec --no-startup-id i3-msg 'workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec mailspring'
+exec --no-startup-id i3-msg 'workspace 4; append_layout ~/.dotfiles/config/i3/layouts/workspace-4.json; exec slack'
+exec --no-startup-id i3-msg 'workspace 2;'
+
+# Autostart applications
+
 # exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec --no-startup-id feh --randomize --bg-fill $HOME/.dotfiles/resources/wallpapers/*
 # exec_always --no-startup-id compton -b --config $HOME/.config/compton/compton.conf
+exec --no-startup-id feh --randomize --bg-fill $HOME/.dotfiles/resources/wallpapers/*
+exec --no-startup-id nm-applet
+# exec --no-startup-id i3-msg 'workspace 1; exec kitty;'
+# exec --no-startup-id i3-msg 'workspace 2; layout tabbed; exec google-chrome'
+# exec --no-startup-id i3-msg 'workspace 3; exec mailspring'
+# exec --no-startup-id i3-msg 'workspace 4; exec slack'
 # exec --no-startup-id nitrogen --restore; sleep 1; compton -b --config $HOME/.config/compton/compton.conf
 # exec --no-startup-id numlockx off
-exec --no-startup-id nm-applet
 # exec --no-startup-id xfce4-power-manager
 # # exec --no-startup-id xautolock -time 10 -locker blurlock
 # exec_always --no-startup-id ff-theme-util

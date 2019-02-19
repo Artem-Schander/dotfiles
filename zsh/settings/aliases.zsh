@@ -85,6 +85,8 @@ if [[ "$uname" == "Darwin" ]]; then
 
     alias ctags="`brew --prefix`/bin/ctags"
 elif [[ -f /etc/lsb-release ]]; then
+    alias chromekill="ps ux | grep 'chrome --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
     alias pbcopy='xclip -selection clipboard'
     alias pbpaste='xclip -selection clipboard -o'
 fi
