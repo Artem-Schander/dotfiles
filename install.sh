@@ -1,22 +1,59 @@
 #!/usr/bin/env bash
 
+RED="$(tput setaf 1)"
+YELLOW="$(tput setaf 3)"
+NORMAL="$(tput sgr0)"
+
+CYAN="$(tput setaf 6)"
+
 command_exists() {
     type "$1" > /dev/null 2>&1
 }
 
+echo "Recognize OS"
+if [ -f /etc/os-release ]; then
+    # freedesktop.org and systemd
+    . /etc/os-release
+    OS=$NAME
+    VER=$VERSION_ID
+elif type lsb_release >/dev/null 2>&1; then
+    # linuxbase.org
+    OS=$(lsb_release -si)
+    VER=$(lsb_release -sr)
+elif [ -f /etc/lsb-release ]; then
+    # For some versions of Debian/Ubuntu without lsb_release command
+    . /etc/lsb-release
+    OS=$DISTRIB_ID
+    VER=$DISTRIB_RELEASE
+elif [ -f /etc/debian_version ]; then
+    # Older Debian/Ubuntu/etc.
+    OS=Debian
+    VER=$(cat /etc/debian_version)
+elif [ -f /etc/SuSe-release ]; then
+    # Older SuSE/etc.
+    ...
+elif [ -f /etc/redhat-release ]; then
+    # Older Red Hat, CentOS, etc.
+    ...
+else
+    # Fall back to uname, e.g. "Linux <version>", also works for BSD, etc.
+    OS=$(uname -s)
+    VER=$(uname -r)
+fi
+echo $OS
+
 echo "Installing dotfiles"
 
 echo "Initializing submodule(s)"
-if [ -f /etc/lsb-release ]; then
-    sudo apt update
-    sudo apt install -y git
+if [ "$OS" == "Ubuntu Linux" ]; then
+    sudo apt update && apt install -y git
 fi
 git submodule update --init --recursive
 
 source install/link.sh
 
 # only perform macOS-specific install
-if [ "$(uname)" == "Darwin" ]; then
+if [ "$OS" == "Darwin" ]; then
     echo -e "\n\nRunning on OSX"
 
     source install/git.sh
@@ -34,7 +71,49 @@ if [ "$(uname)" == "Darwin" ]; then
 
     # symlink the code.dev from dotfiles
     ln -s ~/.dotfiles/nginx/code.dev /usr/local/etc/nginx/sites-enabled/code.dev
-elif [ -f /etc/lsb-release ]; then
+
+    # install neovim
+    source install/nvim.sh
+
+    # install tmux
+    source install/tmux.sh
+
+    # install node version manager
+    source install/nvm.sh
+
+elif [ "$OS" == "Manjaro Linux" ]; then
+    echo -e "\n\nRunning on Linux (Arch)"
+
+    source install/pacman.sh
+
+    source install/git.sh
+
+    if [ -d ~/.tmux/plugins/tpm ]; then
+        # printf "${YELLOW}You already have Tmux Plugin Manager installed.${NORMAL}\n"
+        cd ~/.tmux/plugins/tpm
+        git fetch
+        git pull
+        cd -
+    else
+        git clone git://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    fi
+
+    mkdir -p ~/.local/share/fonts/
+    cp ~/.dotfiles/resources/fonts/Hasklig/* ~/.local/share/fonts/
+    cp ~/.dotfiles/resources/fonts/FiraCode/otf/* ~/.local/share/fonts/
+    cp ~/.dotfiles/resources/fonts/NerdFonts/FiraCode/OTF/* ~/.local/share/fonts/
+    # cp ~/.dotfiles/resources/fonts/NerdFonts/Hasklig/* ~/.local/share/fonts/
+
+    # pillow is needed to render images in kitty terminal
+    sudo pip install -U pillow
+
+    # symlink i3 config file
+    if [ ! -f ~/.i3/config.bak ]; then
+        mv ~/.i3/config ~/.i3/config.bak
+    fi
+    ln -s ~/.dotfiles/config/i3/config ~/.i3/config
+
+elif [ "$OS" == "Ubuntu Linux" ]; then
     echo -e "\n\nRunning on Linux (Debian)"
 
     source install/apt.sh
@@ -43,14 +122,14 @@ elif [ -f /etc/lsb-release ]; then
 
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
     ~/.fzf/install
-    rm -rf .fzf
+    rm -rf ~/.fzf
 
-    cp resources/fonts/Hasklig/* ~/.local/share/fonts/
-    cp resources/fonts/FiraCode/otf/* ~/.local/share/fonts/
-    cp resources/fonts/NerdFonts/FiraCode/OTF/* ~/.local/share/fonts/
-    # cp resources/fonts/NerdFonts/Hasklig/* ~/.local/share/fonts/
+    cp ~/.dotfiles/resources/fonts/Hasklig/* ~/.local/share/fonts/
+    cp ~/.dotfiles/resources/fonts/FiraCode/otf/* ~/.local/share/fonts/
+    cp ~/.dotfiles/resources/fonts/NerdFonts/FiraCode/OTF/* ~/.local/share/fonts/
+    # cp ~/.dotfiles/resources/fonts/NerdFonts/Hasklig/* ~/.local/share/fonts/
 
-    # make the lest alt key behave like the right one
+    # make the left alt key behave like the right one
     setxkbmap -option lv3:lalt_switch
 
     # set keyboard delay and repeat rate
@@ -63,14 +142,6 @@ elif [ -f /etc/lsb-release ]; then
     # add pillow to system so the kitty image preview works
     pip install pillow
 
-    # symlink ranger terminal config file
-    mkdir -p ~/.config/ranger/
-    ln -s ~/.dotfiles/config/ranger/rc.conf.symlink ~/.config/ranger/rc.conf
-
-    # symlink ranger terminal config file
-    mkdir -p ~/.config/compton/
-    ln -s ~/.dotfiles/config/compton/compton.conf.symlink ~/.config/compton/compton.conf
-
     # install i3-gaps
     source install/i3-gaps.sh
 
@@ -79,14 +150,17 @@ elif [ -f /etc/lsb-release ]; then
 
     # install rofi
     source install/rofi.sh
+
+    # install neovim
+    source install/nvim.sh
+
+    # install tmux
+    source install/tmux.sh
+
+    # install node version manager
+    source install/nvm.sh
+
 fi
-
-
-source install/nvim.sh
-
-source install/tmux.sh
-
-source install/nvm.sh
 
 source install/composer.sh
 
@@ -101,12 +175,6 @@ elif ! [[ $SHELL =~ .*zsh.* ]]; then
     echo "Configuring zsh as default shell"
     chsh -s $(which zsh)
 fi
-
-RED="$(tput setaf 1)"
-YELLOW="$(tput setaf 3)"
-NORMAL="$(tput sgr0)"
-
-CYAN="$(tput setaf 6)"
 
 source install/omz.sh
 

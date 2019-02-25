@@ -3,7 +3,6 @@
 #
 # Should you change your keyboard layout some time, delete
 # this file and re-run i3-config-wizard(1).
-#
 
 # i3 config file (v4)
 #
@@ -41,25 +40,48 @@ bindsym $mod+Return exec $myTerm
 # kill focused window
 bindsym $mod+q kill
 
-# start dmenu (a program launcher)
-# bindsym $mod+space exec dmenu_run
+# start program launcher (dmenu)
+# bindsym $mod+d exec --no-startup-id dmenu_recency
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-# bindsym $mod+space exec --no-startup-id i3-dmenu-desktop
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+
+# start program launcher (rofi)
 bindsym $mod+space exec --no-startup-id rofi -show run -display-run "->"
 
-# remap caps lock to CTRL
-exec_always --no-startup-id setxkbmap -option 'ctrl:nocaps,shift:both_capslock_cancel'
+# launch categorized menu
+bindsym $mod+m exec --no-startup-id morc_menu
 
-# adjust keyboard repeat rate and delay
-exec_always --no-startup-id xset r rate 200 25
+################################################################################################
+## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
+################################################################################################
 
-# set compose key to right alt
-exec_always --no-startup-id setxkbmap -option compose:ralt
+exec --no-startup-id volumeicon
+bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
+#exec --no-startup-id pulseaudio
+#exec --no-startup-id pa-applet
+#bindsym $mod+Ctrl+m exec pavucontrol
 
-# # launch categorized menu
-# bindsym $mod+' exec --no-startup-id morc_menu
+################################################################################################
+
+# Screen brightness controls
+# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
+# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+
+# Start Applications
+bindsym $mod+Ctrl+b exec $myTerm -e 'bmenu'
+bindsym $mod+Shift+F3 exec gksu pcmanfm
+# bindsym $mod+F5 exec terminal -e 'mocp'
+bindsym $mod+t exec --no-startup-id pkill compton
+bindsym $mod+Ctrl+t exec --no-startup-id compton -b
+bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
+bindsym Print exec --no-startup-id i3-scrot
+bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
+bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
+# bindsym $mod+Shift+h exec xdg-open /usr/share/doc/manjaro/i3_help.pdf
+bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
 # # Apps Launched with <SUPER> + <KEYPAD 1-9>
 # bindsym $mod+KP_End exec $myTerm -e 'lynx -cfg=~/.lynx.cfg -lss=~/.lynx.lss http://www.distrowatch.com'
@@ -73,17 +95,17 @@ exec_always --no-startup-id setxkbmap -option compose:ralt
 # bindsym $mod+KP_Page_Up exec $myTerm -e 'sh ./scripts/tig-script.sh'
 
 # Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 1-9>
-bindsym $mod+Shift+KP_2 workspace 2; layout tabbed; exec 'google-chrome'
+bindsym $mod+Shift+KP_2 workspace 2; layout tabbed; exec 'google-chrome-stable'
 bindsym $mod+Shift+KP_3 workspace 3; exec 'mailspring'
-bindsym $mod+Shift+KP_4 workspace 4; exec 'slack'
-bindsym $mod+Shift+KP_8 exec $myTerm -e 'ranger'
-bindsym $mod+Shift+KP_9 exec $myTerm -e 'htop'
+bindsym $mod+Shift+KP_4 workspace 4; exec 'Slack'
 # bindsym $mod+Shift+KP_3 exec $myTerm -e 'cmus'
 # bindsym $mod+Shift+KP_4 exec $myTerm -e 'irssi'
 # bindsym $mod+Shift+KP_5 exec $myTerm -e 'rtorrent'
 # bindsym $mod+Shift+KP_6 exec $myTerm -e 'youtube-viewer'
 # bindsym $mod+Shift+KP_7 exec $myTerm -e 'ncpamixer'
 # bindsym $mod+Shift+KP_8 exec $myTerm -e 'calcurse'
+# bindsym $mod+Shift+KP_8 exec $myTerm -e 'ranger'
+bindsym $mod+Shift+KP_8 exec pcmanfm
 # bindsym $mod+Shift+KP_9 exec $myTerm -e 'vim /home/dt/.i3/config'
 
 # # Apps Launched with <SUPER> + <CTRL> + <KEYPAD 1-9>
@@ -95,7 +117,9 @@ bindsym $mod+Shift+KP_9 exec $myTerm -e 'htop'
 # bindsym $mod+Ctrl+KP_Right exec $myTerm -e 'pianobar'
 # bindsym $mod+Ctrl+KP_Home exec $myTerm -e 'cmatrix -C cyan'
 # bindsym $mod+Ctrl+KP_Up exec $myTerm -e 'joplin'
+bindsym $mod+Ctrl+KP_Up exec gksu pcmanfm
 # bindsym $mod+Ctrl+KP_Page_Up exec $myTerm -e 'wopr report.xml'
+bindsym $mod+Ctrl+KP_Page_Up exec $myTerm -e 'htop'
 
 
 
@@ -151,7 +175,7 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+d focus mode_toggle
+# bindsym $mod+d focus mode_toggle
 
 # toggle sticky
 # bindsym $mod+Shift+s sticky toggle
@@ -189,8 +213,8 @@ set $ws7 7
 set $ws8 8
 
 # set the connected monitors
-set $monitor1 HDMI-2
-set $monitor2 DP-2
+set $monitor1 HDMI2
+set $monitor2 DP2
 
 # Bind the workspaces for monitor one
 workspace $ws1 output $monitor1
@@ -236,42 +260,44 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 # bindsym $mod+s exec $HOME/.dotfiles/config/i3/save-layouts.sh
 
 # Open applications on specific workspaces
-assign [class="kitty"] $ws1
+# assign [class="kitty"] $ws1
 assign [class="google-chrome"] $ws2
-for_window [class="google-chrome"] tabbed
+assign [class="google-chrome-stable"] $ws2
 assign [class="mailspring"] $ws3
-assign [class="slack"] $ws4
+assign [class="Slack"] $ws4
 
 # Open specific applications in tabbed mode
 for_window [title="google-chrome"] tabbed
+for_window [class="google-chrome-stable"] tabbed
 
 # Open specific applications in floating mode
 for_window [title="teamviewer"] floating enable border pixel 1
-# for_window [title="alsamixer"] floating enable border pixel 1
-# for_window [class="Clipgrab"] floating enable
-# for_window [title="File Transfer*"] floating enable
-# for_window [class="Galculator"] floating enable border pixel 1
-# for_window [class="GParted"] floating enable border normal
-# for_window [title="i3_help"] floating enable sticky enable border normal
-# for_window [class="Lightdm-gtk-greeter-settings"] floating enable
-# for_window [class="Lxappearance"] floating enable sticky enable border normal
-# for_window [class="Manjaro-hello"] floating enable
-# for_window [class="Manjaro Settings Manager"] floating enable border normal
-# for_window [title="MuseScore: Play Panel"] floating enable
-# for_window [class="Nitrogen"] floating enable sticky enable border normal
-# for_window [class="Oblogout"] fullscreen enable
-# for_window [class="octopi"] floating enable
-# for_window [class="Pamac-manager"] floating enable
-# for_window [class="Pavucontrol"] floating enable
-# for_window [class="qt5ct"] floating enable sticky enable border normal
-# for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
-# for_window [class="Simple-scan"] floating enable border normal
-# for_window [class="(?i)System-config-printer.py"] floating enable border normal
-# for_window [class="Thus"] floating enable border normal
-# for_window [class="Timeset-gui"] floating enable border normal
-# for_window [class="(?i)virtualbox"] floating enable border normal
-# for_window [class="(?i)virtualbox"] fullscreen enable
-# for_window [class="Xfburn"] floating enable
+for_window [title="alsamixer"] floating enable border pixel 1
+for_window [class="Clipgrab"] floating enable
+for_window [title="File Transfer*"] floating enable
+for_window [class="Galculator"] floating enable border pixel 1
+for_window [class="GParted"] floating enable border normal
+for_window [title="i3_help"] floating enable sticky enable border normal
+for_window [class="Lightdm-gtk-greeter-settings"] floating enable
+for_window [class="Lxappearance"] floating enable sticky enable border normal
+for_window [class="Manjaro-hello"] floating enable
+for_window [class="Manjaro Settings Manager"] floating enable border normal
+for_window [title="MuseScore: Play Panel"] floating enable
+for_window [class="Nitrogen"] floating enable sticky enable border normal
+for_window [class="Oblogout"] fullscreen enable
+for_window [class="octopi"] floating enable
+for_window [class="Pamac-manager"] floating enable
+for_window [class="Pavucontrol"] floating enable
+for_window [class="qt5ct"] floating enable sticky enable border normal
+for_window [class="Qtconfig-qt4"] floating enable sticky enable border normal
+for_window [class="Simple-scan"] floating enable border normal
+for_window [class="(?i)System-config-printer.py"] floating enable border normal
+for_window [class="Thus"] floating enable border normal
+for_window [class="Timeset-gui"] floating enable border normal
+for_window [class="(?i)virtualbox"] floating enable border normal
+for_window [class="(?i)virtualbox"] fullscreen enable
+for_window [class="Xfburn"] floating enable
+for_window [class="Slack"] floating enable border normal
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -288,14 +314,15 @@ bindsym $mod+Shift+r restart
 # Set shut down, restart and locking features
 bindsym $mod+Escape mode "$mode_system"
 # set $mode_system (l)ock, (e)xit, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
-set $mode_system (l)ock, (e)xit, (s)uspend, (r)eboot, (Shift+s)hutdown
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id i3lock -c 282c34 -n, mode "default"
-    bindsym s exec --no-startup-id i3lock -c 282c34 && systemctl suspend -i, mode "default"
-    bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    # bindsym h exec --no-startup-id systemctl hibernate, mode "default"
-    bindsym r exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
 
     # exit system mode: "Enter" or "Escape"
     bindsym Return mode "default"
@@ -327,49 +354,58 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-# bar {
-#         status_command i3status
-# }
+# Lock screen
+bindsym $mod+9 exec --no-startup-id blurlock
 
-# # Lock screen
-# bindsym $mod+9 exec --no-startup-id blurlock
+################################################################################################
+# Autostart applications                                                                      ##
+################################################################################################
 
 # enable natural-scrolling and tap-to-click
 exec --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-touchpad.sh
 exec --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-mouse.sh
 exec --no-startup-id $HOME/.dotfiles/resources/i3/tap-to-click.sh
 
+exec --no-startup-id numlockx off
+# exec_always --no-startup-id xset r rate 250 30
+exec_always --no-startup-id setxkbmap -option 'ctrl:nocaps,shift:both_capslock_cancel'
+exec_always --no-startup-id setxkbmap -option compose:ralt
+
 # polybar
 exec_always --no-startup-id $HOME/.dotfiles/resources/i3/launch-polybar.sh
 
 # restore layouts
-exec --no-startup-id i3-msg 'workspace 2; append_layout ~/.dotfiles/config/i3/layouts/workspace-2.json; exec google-chrome --restore-last-session'
-exec --no-startup-id i3-msg 'workspace 1; append_layout ~/.dotfiles/config/i3/layouts/workspace-1.json; exec kitty -e tmux'
-exec --no-startup-id i3-msg 'workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec mailspring'
-exec --no-startup-id i3-msg 'workspace 4; append_layout ~/.dotfiles/config/i3/layouts/workspace-4.json; exec slack'
-exec --no-startup-id i3-msg 'workspace 2;'
+exec --no-startup-id i3-msg "workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec mailspring"
+exec --no-startup-id i3-msg "workspace 4; append_layout ~/.dotfiles/config/i3/layouts/workspace-4.json; exec slack"
+# exec --no-startup-id i3-msg "workspace 7; append_layout ~/.dotfiles/config/i3/layouts/workspace-7.json; exec $myTerm -e htop; exec $myTerm -e earlyoom"
+exec --no-startup-id i3-msg "workspace 2; append_layout ~/.dotfiles/config/i3/layouts/workspace-2.json; exec google-chrome-stable --restore-last-session"
+exec --no-startup-id i3-msg "workspace 1; append_layout ~/.dotfiles/config/i3/layouts/workspace-1.json; exec $myTerm -e tmux"
+exec --no-startup-id i3-msg "workspace 2; workspace 1;"
 
-# Autostart applications
-
-# exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # exec_always --no-startup-id compton -b --config $HOME/.config/compton/compton.conf
-exec --no-startup-id feh --randomize --bg-fill $HOME/.dotfiles/resources/wallpapers/*
-exec --no-startup-id nm-applet
+exec --no-startup-id nitrogen --restore; sleep 1; compton -b
+# exec --no-startup-id feh --randomize --bg-fill $HOME/.dotfiles/resources/wallpapers/*
 # exec --no-startup-id i3-msg 'workspace 1; exec kitty;'
-# exec --no-startup-id i3-msg 'workspace 2; layout tabbed; exec google-chrome'
+# exec --no-startup-id i3-msg 'workspace 2; layout tabbed; exec google-chrome-stable'
 # exec --no-startup-id i3-msg 'workspace 3; exec mailspring'
 # exec --no-startup-id i3-msg 'workspace 4; exec slack'
-# exec --no-startup-id nitrogen --restore; sleep 1; compton -b --config $HOME/.config/compton/compton.conf
-# exec --no-startup-id numlockx off
-# exec --no-startup-id xfce4-power-manager
-# # exec --no-startup-id xautolock -time 10 -locker blurlock
-# exec_always --no-startup-id ff-theme-util
-# exec_always --no-startup-id fix_xcursor
+exec --no-startup-id nm-applet
+exec --no-startup-id xfce4-power-manager
+exec --no-startup-id pamac-tray
+exec --no-startup-id clipit
+# exec --no-startup-id blueman-applet
+# exec_always --no-startup-id sbxkb
+# exec --no-startup-id start_conky_maia
+exec --no-startup-id $HOME/.dotfiles/resources/i3/launch-conky-one-dark.sh
+exec --no-startup-id xautolock -time 10 -locker blurlock
+exec_always --no-startup-id ff-theme-util
+exec_always --no-startup-id fix_xcursor
+exec_always --no-startup-id export DISPLAY=:0; xset r rate 250 30
+
 
 # Color palette used for the terminal ( ~/.Xresources file )
-# Colors are gathered based on the documentation:
+# Colors are gathered based on the documentation:xsetroot -solid "#000000"
 # https://i3wm.org/docs/userguide.html#xresources
 # Change the variable name at the place you want to match the color
 # of your terminal like this:
@@ -399,15 +435,47 @@ set_from_resource $term_color13    color13
 set_from_resource $term_color14    color14
 set_from_resource $term_color15    color15
 
+# Start i3bar to display a workspace bar (plus the system information i3status if available)
+# bar {
+# 	i3bar_command i3bar
+# 	status_command i3status
+# 	position bottom
+
+# ## please set your primary output first. Example: 'xrandr --output eDP1 --primary'
+# #	tray_output primary
+# #	tray_output eDP1
+
+# 	bindsym button4 nop
+# 	bindsym button5 nop
+# #   font xft:URWGothic-Book 11
+# 	strip_workspace_numbers yes
+
+#     colors {
+#         background #222D31
+#         statusline #F9FAF9
+#         separator  #454947
+
+# #                      border  backgr. text
+#         focused_workspace  #F9FAF9 #16a085 #292F34
+#         active_workspace   #595B5B #353836 #FDF6E3
+#         inactive_workspace #595B5B #222D31 #EEE8D5
+#         binding_mode       #16a085 #2C2C2C #F9FAF9
+#         urgent_workspace   #16a085 #FDF6E3 #E5201D
+#     }
+# }
+
+# hide/unhide i3status bar
+# bindsym $mod+m bar mode toggle
+
 # Theme colors
 # class                 border  backgr. text    indic.   child_border
-client.focused          #61afef #61afef #282c34 #FDF6E3
-client.focused_inactive #282c34 #282c34 #d19a66 #454948
-client.unfocused        #282c34 #282c34 #d19a66 #454948
-client.urgent           #be5046 #be5046 #282c34 #268BD2
-client.placeholder      #000000 #0c0c0c #ffffff #000000
+  client.focused          #61afef #61afef #282c34 #FDF6E3
+  client.focused_inactive #282c34 #282c34 #d19a66 #454948
+  client.unfocused        #282c34 #282c34 #d19a66 #454948
+  client.urgent           #be5046 #be5046 #282c34 #268BD2
+  client.placeholder      #000000 #0c0c0c #ffffff #000000
 
-client.background       #2B2C2B
+  client.background       #2B2C2B
 
 #############################
 ### settings for i3-gaps: ###
@@ -469,124 +537,3 @@ mode "$mode_gaps_outer" {
         bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-
-
-
-
-
-
-
-####################################################################################3
-
-## change focus
-#bindsym $mod+j focus left
-#bindsym $mod+k focus down
-#bindsym $mod+l focus up
-#bindsym $mod+semicolon focus right
-
-## alternatively, you can use the cursor keys:
-#bindsym $mod+Left focus left
-#bindsym $mod+Down focus down
-#bindsym $mod+Up focus up
-#bindsym $mod+Right focus right
-
-## move focused window
-#bindsym $mod+Shift+j move left
-#bindsym $mod+Shift+k move down
-#bindsym $mod+Shift+l move up
-#bindsym $mod+Shift+semicolon move right
-
-## alternatively, you can use the cursor keys:
-#bindsym $mod+Shift+Left move left
-#bindsym $mod+Shift+Down move down
-#bindsym $mod+Shift+Up move up
-#bindsym $mod+Shift+Right move right
-
-## split in horizontal orientation
-#bindsym $mod+h split h
-
-## split in vertical orientation
-#bindsym $mod+v split v
-
-## enter fullscreen mode for the focused container
-#bindsym $mod+f fullscreen toggle
-
-## change container layout (stacked, tabbed, toggle split)
-#bindsym $mod+s layout stacking
-#bindsym $mod+w layout tabbed
-#bindsym $mod+e layout toggle split
-
-## toggle tiling / floating
-#bindsym $mod+Shift+space floating toggle
-
-## change focus between tiling / floating windows
-#bindsym $mod+space focus mode_toggle
-
-## focus the parent container
-#bindsym $mod+a focus parent
-
-## focus the child container
-##bindsym $mod+d focus child
-
-## switch to workspace
-#bindsym $mod+1 workspace 1
-#bindsym $mod+2 workspace 2
-#bindsym $mod+3 workspace 3
-#bindsym $mod+4 workspace 4
-#bindsym $mod+5 workspace 5
-#bindsym $mod+6 workspace 6
-#bindsym $mod+7 workspace 7
-#bindsym $mod+8 workspace 8
-#bindsym $mod+9 workspace 9
-#bindsym $mod+0 workspace 10
-
-## move focused container to workspace
-#bindsym $mod+Shift+1 move container to workspace 1
-#bindsym $mod+Shift+2 move container to workspace 2
-#bindsym $mod+Shift+3 move container to workspace 3
-#bindsym $mod+Shift+4 move container to workspace 4
-#bindsym $mod+Shift+5 move container to workspace 5
-#bindsym $mod+Shift+6 move container to workspace 6
-#bindsym $mod+Shift+7 move container to workspace 7
-#bindsym $mod+Shift+8 move container to workspace 8
-#bindsym $mod+Shift+9 move container to workspace 9
-#bindsym $mod+Shift+0 move container to workspace 10
-
-## reload the configuration file
-#bindsym $mod+Shift+c reload
-## restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-#bindsym $mod+Shift+r restart
-## exit i3 (logs you out of your X session)
-#bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-
-## resize window (you can also use the mouse for that)
-#mode "resize" {
-#        # These bindings trigger as soon as you enter the resize mode
-
-#        # Pressing left will shrink the window’s width.
-#        # Pressing right will grow the window’s width.
-#        # Pressing up will shrink the window’s height.
-#        # Pressing down will grow the window’s height.
-#        bindsym j resize shrink width 10 px or 10 ppt
-#        bindsym k resize grow height 10 px or 10 ppt
-#        bindsym l resize shrink height 10 px or 10 ppt
-#        bindsym semicolon resize grow width 10 px or 10 ppt
-
-#        # same bindings, but for the arrow keys
-#        bindsym Left resize shrink width 10 px or 10 ppt
-#        bindsym Down resize grow height 10 px or 10 ppt
-#        bindsym Up resize shrink height 10 px or 10 ppt
-#        bindsym Right resize grow width 10 px or 10 ppt
-
-#        # back to normal: Enter or Escape
-#        bindsym Return mode "default"
-#        bindsym Escape mode "default"
-#}
-
-#bindsym $mod+r mode "resize"
-
-## Start i3bar to display a workspace bar (plus the system information i3status
-## finds out, if available)
-#bar {
-#        status_command i3status
-#}

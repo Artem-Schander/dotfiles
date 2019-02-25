@@ -39,4 +39,4 @@ fi
 
 mkdir -p ~/.config/polybar
 rm -f ~/.config/polybar/config
-ln -s ~/.dotfiles/config/polybar/config.symlink ~/.config/polybar/config
+ln -s ~/.dotfiles/config/polybar/config ~/.config/polybar/config

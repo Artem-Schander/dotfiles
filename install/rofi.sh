@@ -41,5 +41,5 @@ DOTFILES=$HOME/.dotfiles
 # done
 
 mkdir -p ~/.config/rofi
-ln -s ~/.dotfiles/config/rofi/config.rasi.symlink ~/.config/rofi/config.rasi
-ln -s ~/.dotfiles/config/rofi/config.symlink ~/.config/rofi/config
+ln -s ~/.dotfiles/config/rofi/config.rasi ~/.config/rofi/config.rasi
+ln -s ~/.dotfiles/config/rofi/config ~/.config/rofi/config

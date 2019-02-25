@@ -1,6 +1,7 @@
 #!/bin/sh
 
 GREEN="$(tput setaf 2)"
+YELLOW="$(tput setaf 3)"
 NORMAL="$(tput sgr0)"
 
 echo -e "\n\n${GREEN}Installing Tmux"

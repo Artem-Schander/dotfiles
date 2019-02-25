@@ -11,6 +11,6 @@ if [ -f /etc/lsb-release ]; then
 
     # symlink kitty terminal config file
     mkdir -p ~/.config/kitty/
-    ln -s ~/.dotfiles/config/kitty/kitty.conf.symlink ~/.config/kitty/kitty.conf
+    ln -s ~/.dotfiles/config/kitty/kitty.conf ~/.config/kitty/kitty.conf
 
 fi

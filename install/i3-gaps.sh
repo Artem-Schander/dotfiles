@@ -44,5 +44,5 @@ if [ -f /etc/lsb-release ]; then
 
     # symlink i3 config file
     mkdir -p ~/.config/i3/
-    ln -s ~/.dotfiles/config/i3/config.symlink ~/.config/i3/config
+    ln -s ~/.dotfiles/config/i3/config ~/.config/i3/config
 fi

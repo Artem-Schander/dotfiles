@@ -121,7 +121,7 @@ Plug 'posva/vim-vue', { 'for': 'vue' } " Syntax Highlight for Vue.js components
 
 
 " PHP
-" Plug 'StanAngeloff/php.vim', { 'for': 'php' } " Up-to-date PHP syntax file
+Plug 'StanAngeloff/php.vim', { 'for': 'php' } " Up-to-date PHP syntax file
 " Plug 'arnaud-lb/vim-php-namespace' " plugin for inserting 'use' statements automatically
 Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' } " psr-2 formating
 " Plug 'captbaritone/better-indent-support-for-php-with-html' " This script allows you to indent HTML sections in PHP files
