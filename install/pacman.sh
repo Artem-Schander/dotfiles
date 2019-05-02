@@ -1,7 +1,11 @@
 #!/bin/sh
 
 sudo pacman -Sy --noconfirm \
+    xclip xsel \
+    xorg-xwininfo \
     perl-anyevent-i3 \
+    # thunderbird \
+    evolution evolution-spamassassin evolution-bogofilter evolution-on \
     docker \
     docker-compose \
     neovim \
@@ -41,10 +45,14 @@ yay -Sy --noconfirm \
     earlyoom \
     teamviewer \
     anydesk \
+    minetime \
     nvm
 
 systemctl enable docker
 systemctl start docker
+
+systemctl enable teamviewerd
+systemctl start teamviewerd
 
 # sudo usermod -aG docker ${USER}
 # su - ${USER}

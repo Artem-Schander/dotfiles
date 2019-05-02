@@ -291,10 +291,10 @@ vnoremap < <gv
 " nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
 
 " Easier split navigations
-" nnoremap <C-J> <C-W><C-J>
-" nnoremap <C-K> <C-W><C-K>
-" nnoremap <C-L> <C-W><C-L>
-" nnoremap <C-H> <C-W><C-H>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " disable Ex mode
 noremap Q <NOP>
@@ -483,6 +483,12 @@ augroup END
 
 " Section Plugins {{{
 
+" eshion/vim-sync
+""""""""""""""""""""""""""""""""""""""""
+
+nnoremap <C-U> <ESC>:call SyncUploadFile()<CR>
+nnoremap <C-D> <ESC>:call SyncDownloadFile()<CR>
+
 " pseewald/vim-anyfold
 """"""""""""""""""""""""""""""""""""""""
 
@@ -492,8 +498,8 @@ let g:anyfold_fold_comments=1
 " terryma/vim-smooth-scroll
 """"""""""""""""""""""""""""""""""""""""
 
-noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
+" noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
+" noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 " noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 " noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
 

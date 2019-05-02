@@ -96,7 +96,7 @@ bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
 # Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 1-9>
 bindsym $mod+Shift+KP_2 workspace 2; layout tabbed; exec 'google-chrome-stable'
-bindsym $mod+Shift+KP_3 workspace 3; exec 'mailspring'
+bindsym $mod+Shift+KP_3 workspace 3; exec 'evolution'
 bindsym $mod+Shift+KP_4 workspace 4; exec 'Slack'
 # bindsym $mod+Shift+KP_3 exec $myTerm -e 'cmus'
 # bindsym $mod+Shift+KP_4 exec $myTerm -e 'irssi'
@@ -218,6 +218,7 @@ set $monitor2 DP2
 
 # Bind the workspaces for monitor one
 workspace $ws1 output $monitor1
+workspace $ws5 output $monitor1
 workspace $ws7 output $monitor1
 workspace $ws8 output $monitor1
 
@@ -263,12 +264,14 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 # assign [class="kitty"] $ws1
 assign [class="google-chrome"] $ws2
 assign [class="google-chrome-stable"] $ws2
-assign [class="mailspring"] $ws3
+assign [class="Evolution"] $ws3
 assign [class="Slack"] $ws4
+assign [class="MineTime"] $ws5
 
 # Open specific applications in tabbed mode
 for_window [title="google-chrome"] tabbed
 for_window [class="google-chrome-stable"] tabbed
+for_window [class="Evolution"] tabbed
 
 # Open specific applications in floating mode
 for_window [title="teamviewer"] floating enable border pixel 1
@@ -375,11 +378,12 @@ exec_always --no-startup-id setxkbmap -option compose:ralt
 exec_always --no-startup-id $HOME/.dotfiles/resources/i3/launch-polybar.sh
 
 # restore layouts
-exec --no-startup-id i3-msg "workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec mailspring"
+exec --no-startup-id i3-msg "workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec evolution"
 exec --no-startup-id i3-msg "workspace 4; append_layout ~/.dotfiles/config/i3/layouts/workspace-4.json; exec slack"
 # exec --no-startup-id i3-msg "workspace 7; append_layout ~/.dotfiles/config/i3/layouts/workspace-7.json; exec $myTerm -e htop; exec $myTerm -e earlyoom"
+# exec --no-startup-id i3-msg "workspace 5; append_layout ~/.dotfiles/config/i3/layouts/workspace-5.json; exec minetime"
 exec --no-startup-id i3-msg "workspace 2; append_layout ~/.dotfiles/config/i3/layouts/workspace-2.json; exec google-chrome-stable --restore-last-session"
-exec --no-startup-id i3-msg "workspace 1; append_layout ~/.dotfiles/config/i3/layouts/workspace-1.json; exec $myTerm -e tmux"
+exec --no-startup-id i3-msg "workspace 1; append_layout ~/.dotfiles/config/i3/layouts/workspace-1.json; exec $myTerm"
 exec --no-startup-id i3-msg "workspace 2; workspace 1;"
 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
@@ -388,13 +392,13 @@ exec --no-startup-id nitrogen --restore; sleep 1; compton -b
 # exec --no-startup-id feh --randomize --bg-fill $HOME/.dotfiles/resources/wallpapers/*
 # exec --no-startup-id i3-msg 'workspace 1; exec kitty;'
 # exec --no-startup-id i3-msg 'workspace 2; layout tabbed; exec google-chrome-stable'
-# exec --no-startup-id i3-msg 'workspace 3; exec mailspring'
+# exec --no-startup-id i3-msg 'workspace 3; exec evolution'
 # exec --no-startup-id i3-msg 'workspace 4; exec slack'
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
-# exec --no-startup-id blueman-applet
+exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
 # exec --no-startup-id start_conky_maia
 exec --no-startup-id $HOME/.dotfiles/resources/i3/launch-conky-one-dark.sh

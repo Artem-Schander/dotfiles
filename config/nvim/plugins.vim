@@ -84,8 +84,9 @@ Plug 'gioele/vim-autoswap' " Please Vim, stop with these swap file messages. Jus
 Plug 'junegunn/vim-easy-align' " A Vim alignment plugin
 Plug 'bronson/vim-trailing-whitespace' " Highlights trailing whitespace in red and provides :FixWhitespace to fix it.
 Plug 'skywind3000/asyncrun.vim' " Run Async Shell Commands
-Plug 'terryma/vim-smooth-scroll' " Make scrolling in Vim more pleasant
+" Plug 'terryma/vim-smooth-scroll' " Make scrolling in Vim more pleasant
 Plug 'pseewald/vim-anyfold' " Language agnostic vim plugin for folding and motion based on indentation.
+Plug 'eshion/vim-sync' " Automatic sync local and remote file in vim
 
 " " html / templates
 Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xml'] } " Auto close (X)HTML tags
