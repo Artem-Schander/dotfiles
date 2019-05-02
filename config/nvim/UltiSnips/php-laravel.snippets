@@ -128,6 +128,19 @@ public function ${1:item}()
 }
 endsnippet
 
+snippet hasOne "one2one hasOne" b
+/**
+ * `!p snip.rv = capitalize(snip.basename)` has one `!p snip.rv = capitalize(t[1])`.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\HasOne
+ */
+public function ${1:item}()
+{
+    // hasOne(RelatedModel, foreignKeyOnRelatedModel = `!p snip.rv = convertToSnakeCase(snip.basename)`_id, localKey = id)
+    return $this->hasOne(`!p snip.rv = capitalize(t[1])`::class$2);
+}
+endsnippet
+
 snippet hasMany "one2many hasMany" b
 /**
  * `!p snip.rv = capitalize(snip.basename)` has many `!p snip.rv = capitalize(t[1])`.
@@ -219,6 +232,34 @@ public function testRelationTo`!p snip.rv = capitalize(t[1])`Model()
 
     \$msg = 'wrong foreign key --- $1 relation';
     \$this->assertTrue(\$key[1] === '`!p snip.rv = convertToSnakeCase(t[1]) `_id', \$msg);
+}
+endsnippet
+
+snippet testRelationHasOne "Laravel test case - tests eloquent model hasOne relation" b
+/**
+ * this method tests the
+ * HasOne relation between this Model (`!p snip.rv = capitalize(t[2])`)
+ * and the `!p snip.rv = capitalize(t[1])` Eloquent model
+ * 1 -> ${1:cart} (foreign model)
+ * 2 -> ${2:customer} (current model)
+ */
+public function testRelationTo`!p snip.rv = capitalize(t[1])`Model()
+{
+    \$`!p snip.rv = capitalize(t[2])` = new `!p snip.rv = capitalize(t[2])`;
+
+    \$msg = 'wrong relationship type --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`() instanceof HasOne, \$msg);
+
+    \$msg = 'wrong relationship model --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`()->getModel() instanceof `!p snip.rv = capitalize(t[1])`, \$msg);
+
+    \$key = explode('.', \$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = t[1]`()->getQualifiedForeignKeyName());
+
+    \$msg = 'wrong foreign table --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$key[0] === '`!p snip.rv = convertToSnakeCase(convertToPlural(t[1]))`', $msg);
+
+    \$msg = 'wrong foreign key --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$key[1] === '`!p snip.rv = convertToSnakeCase(t[2]) `_id', \$msg);
 }
 endsnippet
 

@@ -357,10 +357,10 @@ nmap <leader><space> :FixWhitespace<cr>
 nmap <leader>l :set list!<cr>
 
 " Textmate style indentation
-vmap <leader>[ <gv
-vmap <leader>] >gv
-nmap <leader>[ <<
-nmap <leader>] >>
+vmap < <gv
+vmap > >gv
+nmap < <<
+nmap > >>
 
 " switch between current and last buffer
 nmap <leader>. <c-^>
@@ -660,9 +660,9 @@ let NERDSpaceDelims=1
 """""""""""""""""""""""""""""""""""""
 
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+let g:UltiSnipsExpandTrigger = '<c-right>'
+let g:UltiSnipsJumpForwardTrigger = '<c-right>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-left>'
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"

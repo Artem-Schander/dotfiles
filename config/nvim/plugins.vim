@@ -65,6 +65,7 @@ Plug 'editorconfig/editorconfig-vim' " .editorconfig support
 " " Plug 'MarcWeber/vim-addon-mw-utils' " interpret a file by function and cache file automatically
 " " Plug 'tomtom/tlib_vim' " utility functions for vim
 " Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab
+Plug 'ajh17/VimCompletesMe' " tab-completion plugin for Vim
 " " Plug 'Valloric/YouCompleteMe' " A code-completion engine for Vim
 " Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
 " Plug 'tpope/vim-vinegar' " netrw helper
