@@ -205,10 +205,10 @@ compinit
 
 for config ($DOTFILES/zsh/settings/**/*completion.sh) source $config
 
-export VISUAL='vim'
+export VISUAL='nvim'
 
-export EDITOR='vim'
-export GIT_EDITOR='vim'
+export EDITOR='nvim'
+export GIT_EDITOR='nvim'
 
 export PATH=/usr/local/bin:$PATH
 

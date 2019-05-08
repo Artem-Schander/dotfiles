@@ -117,7 +117,8 @@ bindsym $mod+Shift+KP_8 exec pcmanfm
 # bindsym $mod+Ctrl+KP_Right exec $myTerm -e 'pianobar'
 # bindsym $mod+Ctrl+KP_Home exec $myTerm -e 'cmatrix -C cyan'
 # bindsym $mod+Ctrl+KP_Up exec $myTerm -e 'joplin'
-bindsym $mod+Ctrl+KP_Up exec gksu pcmanfm
+# bindsym $mod+Ctrl+KP_Up exec gksu pcmanfm
+bindsym $mod+Ctrl+KP_Up exec $myTerm -e 'ranger'
 # bindsym $mod+Ctrl+KP_Page_Up exec $myTerm -e 'wopr report.xml'
 bindsym $mod+Ctrl+KP_Page_Up exec $myTerm -e 'htop'
 
