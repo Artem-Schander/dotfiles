@@ -103,6 +103,7 @@ bindsym $mod+Shift+KP_4 workspace 4; exec 'Slack'
 # bindsym $mod+Shift+KP_5 exec $myTerm -e 'rtorrent'
 # bindsym $mod+Shift+KP_6 exec $myTerm -e 'youtube-viewer'
 # bindsym $mod+Shift+KP_7 exec $myTerm -e 'ncpamixer'
+bindsym $mod+Shift+KP_7 exec $myTerm -e 'htop'
 # bindsym $mod+Shift+KP_8 exec $myTerm -e 'calcurse'
 # bindsym $mod+Shift+KP_8 exec $myTerm -e 'ranger'
 bindsym $mod+Shift+KP_8 exec pcmanfm
@@ -120,7 +121,6 @@ bindsym $mod+Shift+KP_8 exec pcmanfm
 # bindsym $mod+Ctrl+KP_Up exec gksu pcmanfm
 bindsym $mod+Ctrl+KP_Up exec $myTerm -e 'ranger'
 # bindsym $mod+Ctrl+KP_Page_Up exec $myTerm -e 'wopr report.xml'
-bindsym $mod+Ctrl+KP_Page_Up exec $myTerm -e 'htop'
 
 
 
@@ -302,6 +302,8 @@ for_window [class="(?i)virtualbox"] floating enable border normal
 for_window [class="(?i)virtualbox"] fullscreen enable
 for_window [class="Xfburn"] floating enable
 for_window [class="Slack"] floating enable border normal
+for_window [class="Viewnior"] floating enable border normal
+for_window [class="feh"] floating enable border normal
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
