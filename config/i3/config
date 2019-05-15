@@ -96,7 +96,7 @@ bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
 # Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 1-9>
 bindsym $mod+Shift+KP_2 workspace 2; layout tabbed; exec 'google-chrome-stable'
-bindsym $mod+Shift+KP_3 workspace 3; exec 'evolution'
+bindsym $mod+Shift+KP_3 workspace 3; layout tabbed; exec 'evolution'
 bindsym $mod+Shift+KP_4 workspace 4; exec 'Slack'
 # bindsym $mod+Shift+KP_3 exec $myTerm -e 'cmus'
 # bindsym $mod+Shift+KP_4 exec $myTerm -e 'irssi'
@@ -270,9 +270,9 @@ assign [class="Slack"] $ws4
 assign [class="MineTime"] $ws5
 
 # Open specific applications in tabbed mode
-for_window [title="google-chrome"] tabbed
-for_window [class="google-chrome-stable"] tabbed
-for_window [class="Evolution"] tabbed
+for_window [title="google-chrome"] layout tabbed
+for_window [class="google-chrome-stable"] layout tabbed
+for_window [title="Evolution"] layout tabbed
 
 # Open specific applications in floating mode
 for_window [title="teamviewer"] floating enable border pixel 1
