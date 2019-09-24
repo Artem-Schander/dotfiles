@@ -759,7 +759,7 @@ let g:fzf_buffers_jump = 1
 if isdirectory(".git")
     " if in a git project, use :GFiles
     " nmap <silent> <leader>p :GFiles --cached --others --exclude-standard<cr>
-    nmap <silent> <leader>p :GFiles --cached --others --exclude-standard<cr>
+    nmap <silent> <leader>p :GitFiles --cached --others --exclude-standard<cr>
 else
     " otherwise, use :FZF
     nmap <silent> <leader>p :FZF<cr>
@@ -792,9 +792,9 @@ nnoremap <silent> <Leader>C :call fzf#run({
 \   'source':
 \     map(split(globpath(&rtp, "colors/*.vim"), "\n"),
 \         "substitute(fnamemodify(v:val, ':t'), '\\..\\{-}$', '', '')"),
-\   'sink':    'colo',
+\   'sink': 'color',
 \   'options': '+m',
-\   'left':    30
+\   'left': 45
 \ })<CR>
 
 command! FZFMru call fzf#run({
@@ -836,6 +836,8 @@ command! -bang -nargs=? -complete=dir GitFiles
 " command! -bang Buffers
 "     \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
 
+command! -bang -nargs=* Ag
+  \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
 
 " Emmet
 """""""""""""""""""""""""""""""""""""

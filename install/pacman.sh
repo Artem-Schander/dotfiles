@@ -28,6 +28,7 @@ sudo pacman -Sy --noconfirm \
     xclip \
     neofetch \
     net-tools \
+    unclutter,
     compton \
     rofi \
     fzf \

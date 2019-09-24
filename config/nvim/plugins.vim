@@ -19,9 +19,25 @@ call plug#begin('~/.config/nvim/plugged')
 " colorschemes
 " Plug 'flazz/vim-colorschemes' " one colorscheme pack to rule them all!
 " does not work properly - no syntax for php
-Plug 'hzchirs/vim-material'
+" Plug 'hzchirs/vim-material'
 Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
+Plug 'nightsense/carbonized'
+Plug 'romainl/flattened'
+Plug 'ayu-theme/ayu-vim'
+Plug 'keith/parsec.vim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'lifepillar/vim-solarized8'
+Plug 'AlessandroYorba/Alduin'
+Plug 'ajmwagar/vim-deus'
+Plug 'tlhr/anderson.vim'
+Plug 'challenger-deep-theme/vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'nanotech/jellybeans.vim'
+Plug 'dikiaap/minimalist'
+Plug 'mhartington/oceanic-next'
+Plug 'junegunn/seoul256.vim'
+Plug 'jacoborus/tender.vim'
 " Plug 'chriskempson/base16-vim'
 " Plug 'altercation/vim-colors-solarized' " solorized colors must be active in terminal settings
 " Plug 'rickharris/vim-monokai' " monokai has to be downloaded and installed for the terminal

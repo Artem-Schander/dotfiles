@@ -262,6 +262,7 @@ tmux_conf_theme_clock_style='24'
 # on macOS, this requires installing reattach-to-user-namespace, see README.md
 # on Linux, this requires xsel or xclip
 tmux_conf_copy_to_os_clipboard=true
+set-option -s set-clipboard off
 
 # ------------------------------------------------------------------------------
 # this is the place to override or undo settings
@@ -327,8 +328,9 @@ set -g @resurrect-save-shell-history 'on'
 set -g @resurrect-processes ':all:'
 
 # Tmux is automatically started after the computer/server is turned on.
-set -g @continuum-boot 'on'
-set -g @continuum-boot-options 'iterm'
+# set -g @continuum-boot 'on'
+# set -g @continuum-restore 'on'
+# set -g @continuum-boot-options 'kitty'
 
 # List of plugins
 set -g @tpm_plugins '          \

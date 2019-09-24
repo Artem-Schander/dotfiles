@@ -41,7 +41,8 @@ bindsym $mod+Return exec $myTerm
 bindsym $mod+q kill
 
 # start program launcher (dmenu)
-# bindsym $mod+d exec --no-startup-id dmenu_recency
+# bindsym $mod+Ctrl+space exec --no-startup-id dmenu_recency
+# bindsym $mod+Ctrl+space exec --no-startup-id i3-dmenu-desktop
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
@@ -49,7 +50,8 @@ bindsym $mod+q kill
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # start program launcher (rofi)
-bindsym $mod+space exec --no-startup-id rofi -show run -display-run "->"
+bindsym $mod+space exec --no-startup-id rofi -show drun -display-drun "->"
+bindsym $mod+Ctrl+space exec --no-startup-id rofi -show run -display-run "$"
 
 # launch categorized menu
 bindsym $mod+m exec --no-startup-id morc_menu
@@ -96,7 +98,7 @@ bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
 # Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 1-9>
 bindsym $mod+Shift+KP_2 workspace 2; layout tabbed; exec 'google-chrome-stable'
-bindsym $mod+Shift+KP_3 workspace 3; layout tabbed; exec 'evolution'
+bindsym $mod+Shift+KP_3 workspace 3; layout tabbed; exec 'thunderbird'
 bindsym $mod+Shift+KP_4 workspace 4; exec 'Slack'
 # bindsym $mod+Shift+KP_3 exec $myTerm -e 'cmus'
 # bindsym $mod+Shift+KP_4 exec $myTerm -e 'irssi'
@@ -212,6 +214,7 @@ set $ws5 5
 set $ws6 6
 set $ws7 7
 set $ws8 8
+set $ws9 9
 
 # set the connected monitors
 set $monitor1 HDMI2
@@ -237,6 +240,7 @@ bindsym $mod+5 workspace $ws5
 bindsym $mod+6 workspace $ws6
 bindsym $mod+7 workspace $ws7
 bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
 
 # Move focused container to workspace
 bindsym $mod+Ctrl+1 move container to workspace $ws1
@@ -247,6 +251,7 @@ bindsym $mod+Ctrl+5 move container to workspace $ws5
 bindsym $mod+Ctrl+6 move container to workspace $ws6
 bindsym $mod+Ctrl+7 move container to workspace $ws7
 bindsym $mod+Ctrl+8 move container to workspace $ws8
+bindsym $mod+Ctrl+9 move container to workspace $ws9
 
 # Move to workspace with focused container
 bindsym $mod+Shift+1 move container to workspace $ws1; workspace $ws1
@@ -257,6 +262,7 @@ bindsym $mod+Shift+5 move container to workspace $ws5; workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6; workspace $ws6
 bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 
 # save and restore alyouts
 # bindsym $mod+s exec $HOME/.dotfiles/config/i3/save-layouts.sh
@@ -265,14 +271,18 @@ bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 # assign [class="kitty"] $ws1
 assign [class="google-chrome"] $ws2
 assign [class="google-chrome-stable"] $ws2
+assign [class="firefox"] $ws2
 assign [class="Evolution"] $ws3
+assign [class="Thunderbird"] $ws3
 assign [class="Slack"] $ws4
 assign [class="MineTime"] $ws5
 
 # Open specific applications in tabbed mode
-for_window [title="google-chrome"] layout tabbed
+for_window [class="google-chrome"] layout tabbed
 for_window [class="google-chrome-stable"] layout tabbed
+for_window [class="firefox"] layout tabbed
 for_window [title="Evolution"] layout tabbed
+for_window [title="Thunderbird"] layout tabbed
 
 # Open specific applications in floating mode
 for_window [title="teamviewer"] floating enable border pixel 1
@@ -362,7 +372,7 @@ mode "resize" {
 }
 
 # Lock screen
-bindsym $mod+9 exec --no-startup-id blurlock
+# bindsym $mod+9 exec --no-startup-id blurlock
 
 ################################################################################################
 # Autostart applications                                                                      ##
@@ -382,7 +392,7 @@ exec_always --no-startup-id setxkbmap -option compose:ralt
 exec_always --no-startup-id $HOME/.dotfiles/resources/i3/launch-polybar.sh
 
 # restore layouts
-exec --no-startup-id i3-msg "workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec evolution"
+exec --no-startup-id i3-msg "workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec thunderbird"
 exec --no-startup-id i3-msg "workspace 4; append_layout ~/.dotfiles/config/i3/layouts/workspace-4.json; exec slack"
 # exec --no-startup-id i3-msg "workspace 7; append_layout ~/.dotfiles/config/i3/layouts/workspace-7.json; exec $myTerm -e htop; exec $myTerm -e earlyoom"
 # exec --no-startup-id i3-msg "workspace 5; append_layout ~/.dotfiles/config/i3/layouts/workspace-5.json; exec minetime"
