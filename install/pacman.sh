@@ -40,14 +40,11 @@ sudo pacman -Sy --noconfirm \
 yay -Sy --noconfirm \
     git-ftp \
     gitflow-avh \
-    oh-my-zsh-git \
     google-chrome \
     slack-desktop \
-    mailspring \
     earlyoom \
     teamviewer \
     anydesk \
-    minetime \
     dust \
     nvm
 
