@@ -11,6 +11,7 @@ sudo pacman -Sy --noconfirm \
     neovim \
     python-neovim \
     kitty \
+    tmux \
     polybar \
     arandr \
     python-pip \
