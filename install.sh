@@ -111,10 +111,12 @@ elif [ "$OS" == "Manjaro Linux" ]; then
     if [ ! -d ~/.i3 ]; then
         mkdir ~/.i3
     fi
-    if [ ! -f ~/.i3/config.bak ]; then
+    if [ ! -f ~/.i3/config.bak && -f ~/.i3/config ]; then
         mv ~/.i3/config ~/.i3/config.bak
     fi
-    ln -s ~/.dotfiles/config/i3/config ~/.i3/config
+    if [ ! -f ~/.i3/config ]; then
+        ln -s ~/.dotfiles/config/i3/config ~/.i3/config
+    fi
 
 elif [ "$OS" == "Ubuntu Linux" ]; then
     echo -e "\n\nRunning on Linux (Debian)"

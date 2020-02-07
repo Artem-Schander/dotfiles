@@ -4,8 +4,7 @@ sudo pacman -Sy --noconfirm \
     xclip xsel \
     xorg-xwininfo \
     perl-anyevent-i3 \
-    # thunderbird \
-    evolution evolution-spamassassin evolution-bogofilter evolution-on \
+    thunderbird \
     docker \
     docker-compose \
     neovim \
@@ -29,7 +28,7 @@ sudo pacman -Sy --noconfirm \
     xclip \
     neofetch \
     net-tools \
-    unclutter,
+    unclutter \
     compton \
     rofi \
     fzf \
@@ -49,6 +48,7 @@ yay -Sy --noconfirm \
     teamviewer \
     anydesk \
     minetime \
+    dust \
     nvm
 
 systemctl enable docker
