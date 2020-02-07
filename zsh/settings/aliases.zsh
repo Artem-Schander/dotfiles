@@ -107,6 +107,10 @@ alias v='a -e nvim' # with vim
 alias codecept='vendor/bin/codecept'
 alias codeception='vendor/bin/codecept'
 
+# docker
+alias dsall='docker stop $(docker ps -q)'
+alias dsa='dsall'
+
 # python
 # alias python='/usr/bin/python' # /usr/local/Cellar/python@2/2.7.14_2/bin/python2.7
 # alias python2='/usr/bin/python'

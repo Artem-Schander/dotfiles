@@ -33,6 +33,7 @@ sudo pacman -Sy --noconfirm \
     rofi \
     fzf \
     feh \
+    rust \
     php \
     yay
 

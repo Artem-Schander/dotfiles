@@ -116,11 +116,8 @@ set textwidth=120
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
-" let g:python_host_prog = '/usr/local/bin/python'
-" let g:python3_host_prog = '/usr/local/bin/python3'
-let g:python_host_prog = 'python'
-let g:python2_host_prog = 'python2'
-let g:python3_host_prog = 'python3'
+let g:python_host_prog = '/usr/bin/python2'
+let g:python3_host_prog = '/usr/bin/python'
 
 if has('nvim')
     " show results of substition as they're happening
@@ -1139,6 +1136,14 @@ if (g:colors_name == 'onedark')
     " highlight MatchParen cterm=NONE,bold gui=NONE,bold guibg=NONE guifg=one_dark_colors.blue.gui
     execute "highlight MatchParen cterm=NONE,bold gui=NONE,bold guibg=NONE guifg=" one_dark_colors.blue.gui
 
+    " change vdebug colors
+    execute "highlight DbgBreakptLine term=reverse ctermfg=Black ctermbg=Green guifg=#000000 guibg=" one_dark_colors.green.gui
+    execute "highlight DbgBreakptSign term=reverse ctermfg=Black ctermbg=Green guifg=#000000 guibg=" one_dark_colors.green.gui
+
+    " change vdebug colors
+    execute "highlight DbgCurrentLine term=reverse ctermfg=Black ctermbg=Green guifg=#000000 guibg=" one_dark_colors.blue.gui
+    execute "highlight DbgCurrentSign term=reverse ctermfg=Black ctermbg=Green guifg=#000000 guibg=" one_dark_colors.blue.gui
+
     " add matching colors to "NREDTree" git color highlighting
     let g:NERDTreeColorMapCustom = {
         \ "Modified"  : one_dark_colors.yellow.gui,
@@ -1164,7 +1169,6 @@ highlight Type cterm=italic
 highlight Normal ctermbg=none
 highlight Normal guibg=none
 " }}}
-
 
 " after a re-source, fix syntax matching issues (concealing brackets):
 " has to be triggered after `syntax on`

@@ -217,6 +217,16 @@ if [[ -d /usr/local/sbin ]]; then
     export PATH=/usr/local/sbin:$PATH
 fi
 
+# add ~/.cargo/bin
+if [[ -d $HOME/.cargo/bin ]]; then
+    export PATH=$HOME/.cargo/bin:$PATH
+fi
+
+# add ~/.cargo/bin
+if [[ -d $HOME/.gem/ruby/2.6.0/bin ]]; then
+    export PATH=$HOME/.gem/ruby/2.6.0/bin:$PATH
+fi
+
 # adding path directory for custom scripts
 export PATH=$DOTFILES/bin:$PATH
 
@@ -308,9 +318,9 @@ export FZF_DEFAULT_COMMAND='if [ -f cscope.files ]; then cat cscope.files; else 
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-if [[ -x "$(command -v neofetch)" ]]; then
-    neofetch
-fi
+# if [[ -x "$(command -v neofetch)" ]]; then
+#     neofetch
+# fi
 
 # if [[ -x "$(command -v keychain)" ]]; then
 #     eval $(keychain --eval --quiet id_rsa)
