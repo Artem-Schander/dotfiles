@@ -108,6 +108,9 @@ elif [ "$OS" == "Manjaro Linux" ]; then
     sudo pip install -U pillow
 
     # symlink i3 config file
+    if [ ! -d ~/.i3 ]; then
+        mkdir ~/.i3
+    fi
     if [ ! -f ~/.i3/config.bak ]; then
         mv ~/.i3/config ~/.i3/config.bak
     fi
