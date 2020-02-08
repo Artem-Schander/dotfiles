@@ -34,7 +34,7 @@ SPACESHIP_DOCKER_SYMBOL=" " # "\uf308"
 
 # GIT
 # change git symbol
-SPACESHIP_GIT_SYMBOL="\uf402 " #  
+SPACESHIP_GIT_SYMBOL=" " #  
 # remove git prefix
 # SPACESHIP_GIT_PREFIX=""
 # # Wrap git status to `[...]`
@@ -159,10 +159,6 @@ SPACESHIP_PROMPT_PREFIXES_SHOW=false
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git git-flow sublime osx common-aliases fasd httpie history tmux fzf)
 
-
-source $ZSH/oh-my-zsh.sh
-
-
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -265,6 +261,9 @@ fi
 #     fi
 # fi
 
+export LANG=de_DE.UTF-8
+export LC_CTYPE=de_DE.UTF-8
+
 # install rbenv
 if command_exists rbenv; then
     rval "$(rbenv init -)"
@@ -325,3 +324,5 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # if [[ -x "$(command -v keychain)" ]]; then
 #     eval $(keychain --eval --quiet id_rsa)
 # fi
+
+source $ZSH/oh-my-zsh.sh
