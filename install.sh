@@ -86,6 +86,9 @@ elif [ "$OS" == "Manjaro Linux" ]; then
 
     source install/pacman.sh
 
+    # turn on network time protocol
+    sudo timedatectl set-ntp true
+
     source install/git.sh
 
     if [ -d ~/.tmux/plugins/tpm ]; then

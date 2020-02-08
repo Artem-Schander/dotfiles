@@ -31,6 +31,7 @@ sudo pacman -Sy --noconfirm \
     unclutter \
     compton \
     rofi \
+    ntp \
     fzf \
     feh \
     rust \
