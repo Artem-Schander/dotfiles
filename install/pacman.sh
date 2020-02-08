@@ -1,7 +1,10 @@
 #!/bin/sh
 
-sudo pacman -Sy --noconfirm \
-    xclip xsel \
+sudo pacman -Syu --noconfirm \
+
+for P in \
+    xclip \
+    xsel \
     xorg-xwininfo \
     perl-anyevent-i3 \
     thunderbird \
@@ -20,7 +23,6 @@ sudo pacman -Sy --noconfirm \
     ack \
     tree \
     fasd \
-    universal-ctags \
     htop \
     zsh \
     highlight \
@@ -38,9 +40,17 @@ sudo pacman -Sy --noconfirm \
     php \
     yay
 
-yay -Sy --noconfirm \
+do
+    if ! (pacman -Q | grep ${P} > /dev/null)
+    then
+        sudo pacman -S ${P} --noconfirm
+    fi
+done
+
+for P in \
     git-ftp \
     gitflow-avh \
+    universal-ctags \
     google-chrome \
     slack-desktop \
     earlyoom \
@@ -49,11 +59,24 @@ yay -Sy --noconfirm \
     dust \
     nvm
 
-systemctl enable docker
-systemctl start docker
+do
+    if ! (pacman -Q | grep ${P} > /dev/null)
+    then
+        yay -Sy ${P} --noconfirm
+    fi
+done
 
-systemctl enable teamviewerd
-systemctl start teamviewerd
+if ! (systemctl is-active --quiet docker)
+then
+    systemctl enable docker
+    systemctl start docker
+fi
+
+if ! (systemctl is-active --quiet teamviewerd)
+then
+    systemctl enable teamviewerd
+    systemctl start teamviewerd
+fi
 
 # sudo usermod -aG docker ${USER}
 # su - ${USER}
