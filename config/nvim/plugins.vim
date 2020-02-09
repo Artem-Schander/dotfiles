@@ -100,7 +100,8 @@ Plug 'embear/vim-localvimrc' " Search local vimrc files (.lvimrc) in the tree (r
 Plug 'vim-vdebug/vdebug', { 'for': ['php', 'python'] } " Multi-language DBGP debugger client for Vim
 Plug 'gioele/vim-autoswap' " Please Vim, stop with these swap file messages. Just switch to the correct window!
 Plug 'junegunn/vim-easy-align' " A Vim alignment plugin
-Plug 'bronson/vim-trailing-whitespace' " Highlights trailing whitespace in red and provides :FixWhitespace to fix it.
+" Plug 'bronson/vim-trailing-whitespace' " Highlights trailing whitespace in red and provides :FixWhitespace to fix it.
+Plug 'ntpeters/vim-better-whitespace' " Better whitespace highlighting for Vim
 Plug 'skywind3000/asyncrun.vim' " Run Async Shell Commands
 " Plug 'terryma/vim-smooth-scroll' " Make scrolling in Vim more pleasant
 Plug 'pseewald/vim-anyfold' " Language agnostic vim plugin for folding and motion based on indentation.

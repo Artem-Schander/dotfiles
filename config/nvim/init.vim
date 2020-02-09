@@ -46,7 +46,7 @@
 " " cit " change in tag
 " " cat " like ciw but takes the tag also
 " " :%retab " fixes wrong indent type. FA tabs to spaces
-" " <leader><space> " removes trailing spaces --> bronson/vim-trailing-whitespace
+" " <leader><space> " removes trailing spaces --> ntpeters/vim-better-whitespace
 "
 " find and replace in multiple files: --> junegunn/fzf.vim
 " 1. " :Ag foo " then enter
@@ -348,7 +348,7 @@ nmap <leader>md :%!markdown --html4tags <cr>
 " remove extra whitespace
 " nmap <leader><space> :%s/\s\+$<cr>
 " nmap <leader><space><space> :%s/\n\{2,}/\r\r/g<cr>
-nmap <leader><space> :FixWhitespace<cr>
+nmap <leader><space> :StripWhitespace<cr>
 
 " show hidden chars
 nmap <leader>l :set list!<cr>
@@ -499,11 +499,6 @@ let g:anyfold_fold_comments=1
 " noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
 " noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
 " noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
-
-" bronson/vim-trailing-whitespace
-""""""""""""""""""""""""""""""""""""""""
-
-let g:extra_whitespace_ignored_filetypes = ['pug']
 
 " asyncrun
 """"""""""""""""""""""""""""""""""""""""
@@ -745,6 +740,19 @@ let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'fzf', 'Tagbar']
 let g:indentLine_color_gui = '#3e4452'
 nmap <leader>ig :IndentLinesToggle<cr>
 
+" bronson/vim-trailing-whitespace
+""""""""""""""""""""""""""""""""""""""""
+" let g:extra_whitespace_ignored_filetypes = ['pug']
+
+
+" ntpeters/vim-better-whitespace
+"""""""""""""""""""""""""""""""""""""
+
+let g:better_whitespace_guicolor = '#be5046'
+let g:strip_whitespace_on_save = 0
+let g:better_whitespace_filetypes_blacklist = ['pug', 'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']
+let g:show_spaces_that_precede_tabs = 1
+let g:better_whitespace_skip_empty_lines = 1
 
 " FZF
 """""""""""""""""""""""""""""""""""""
