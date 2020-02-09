@@ -739,8 +739,10 @@ let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'fzf', 'Tagbar']
 " Yggdroot/indentLine
 """"""""""""""""""""""""""""""""""""""""
 
-let g:indentLine_char_list = ['|', '│']
+" let g:indentLine_char_list = ['|', '│']
+let g:indentLine_char = '│'
 let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'fzf', 'Tagbar']
+let g:indentLine_color_gui = '#3e4452'
 nmap <leader>ig :IndentLinesToggle<cr>
 
 
