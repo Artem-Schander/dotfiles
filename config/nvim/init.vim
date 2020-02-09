@@ -116,8 +116,8 @@ set textwidth=120
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
-let g:python_host_prog = '/usr/bin/python2'
-let g:python3_host_prog = '/usr/bin/python'
+let g:python_host_prog = 'python2'
+let g:python3_host_prog = 'python3'
 
 if has('nvim')
     " show results of substition as they're happening
@@ -728,6 +728,7 @@ let NERDSpaceDelims=1
 let g:UltiSnipsExpandTrigger = '<c-right>'
 let g:UltiSnipsJumpForwardTrigger = '<c-right>'
 let g:UltiSnipsJumpBackwardTrigger = '<c-left>'
+" let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/UltiSnips', '~/.config/nvim/snippets', '~/.config/nvim/plugged/vim-snippets/UltiSnips', '~/.config/nvim/plugged/vim-snippets/snippets']
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
