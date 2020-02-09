@@ -116,9 +116,9 @@ elif [ "$OS" == "Manjaro Linux" ]; then
     fi
     if [ ! -f ~/.i3/config.bak && -f ~/.i3/config ]; then
         mv ~/.i3/config ~/.i3/config.bak
-    fi
-    if [ ! -f ~/.i3/config ]; then
-        ln -s ~/.dotfiles/config/i3/config ~/.i3/config
+        if [ ! -f ~/.i3/config ]; then
+            ln -s ~/.dotfiles/config/i3/config ~/.i3/config
+        fi
     fi
 
 elif [ "$OS" == "Ubuntu Linux" ]; then
