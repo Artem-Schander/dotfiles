@@ -736,6 +736,14 @@ let g:indent_guides_enable_on_vim_startup=1
 let g:indent_guides_color_change_percent=1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'fzf', 'Tagbar']
 
+" Yggdroot/indentLine
+""""""""""""""""""""""""""""""""""""""""
+
+let g:indentLine_char_list = ['|', '│']
+let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'fzf', 'Tagbar']
+nmap <leader>ig :IndentLinesToggle<cr>
+
+
 " FZF
 """""""""""""""""""""""""""""""""""""
 

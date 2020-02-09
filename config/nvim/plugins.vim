@@ -88,7 +88,8 @@ Plug 'ajh17/VimCompletesMe' " tab-completion plugin for Vim
 " Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
 " Plug 'vim-scripts/matchit.zip' " extended % matching
 " -> Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
-Plug 'nathanaelkane/vim-indent-guides' " visually displaying indent levels in code
+" Plug 'nathanaelkane/vim-indent-guides' " visually displaying indent levels in code
+Plug 'Yggdroot/indentLine' " A vim plugin to display the indention levels with thin vertical lines
 " " Plug 'sickill/vim-pasta' " context-aware pasting
 Plug 'easymotion/vim-easymotion' " Vim motion on speed
 " " Plug 'terryma/vim-multiple-cursors' " True Sublime Text style multiple selections for Vim
