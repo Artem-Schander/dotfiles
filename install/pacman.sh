@@ -1,6 +1,6 @@
 #!/bin/sh
 
-sudo pacman -Syu --noconfirm \
+sudo pacman -Syu --noconfirm
 
 for P in \
     xclip \
