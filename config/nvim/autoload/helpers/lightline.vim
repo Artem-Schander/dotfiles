@@ -33,6 +33,7 @@ function! helpers#lightline#whitespace()
 endfunction
 
 function! helpers#lightline#gitBranch()
+    " TODO: check if current projet is a git repo
     return "\uF402" . (exists('*FugitiveHead') ? ' ' . FugitiveHead() : '')
 endfunction
 
