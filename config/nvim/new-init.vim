@@ -92,9 +92,7 @@
 " run:
 " nvim +PlugInstall
 
-" ensure vim-plug is installed and then load it
-call functions#PlugLoad()
-call plug#begin('~/.config/nvim/plugged')
+source ~/.config/nvim/plugins.vim
 
 
 
@@ -150,16 +148,11 @@ call plug#begin('~/.config/nvim/plugged')
     set t_vb=
     set tm=500
 
-    set switchbuf=usetab,newtab " switch to the existing tab if the buffer is open, or creating a new one if not
-
-    " unset search highlight on pres esc
-    nnoremap <esc> :noh<return><esc>
-
     " " go through tabs
     " nnoremap <C-Left> :tabprevious<CR>
     " nnoremap <C-Right> :tabnext<CR>
     " nnoremap <C-t> :tabnew<cr>
-
+    "
     " let delimitMate_expand_cr = 1
     " let delimitMate_expand_space = 1
     "
@@ -172,6 +165,9 @@ call plug#begin('~/.config/nvim/plugged')
     "
     " " expand previous indent on new line
     " inoremap <expr> <CR> functions#Expander()
+    "
+    " " unset search highlight on pres esc
+    " nnoremap <esc> :noh<return><esc>
     "
     " " A: don't give the "ATTENTION" message when an existing swap file set
     "
@@ -213,7 +209,6 @@ call plug#begin('~/.config/nvim/plugged')
 
 " Appearance {{{
     set number " show line numbers
-    set relativenumber " show relative line numbers
     set wrap " turn on line wrapping
     set wrapmargin=8 " wrap lines when coming within n characters from side
     set linebreak " set soft wrapping
@@ -257,9 +252,7 @@ call plug#begin('~/.config/nvim/plugged')
     set foldlevel=1
 
     " toggle invisible characters
-    " set list
-    " set invlist
-    set nolist
+    set list
     set listchars=tab:⏤ ,space:·,eol:¬,trail:-,extends:❯,precedes:❮ " ⚬ ● • ¤ » ø Θ 0 O ⟶  ⟼  ⏤ ⤚
     set showbreak=↪ " ↩︎  …
 
@@ -287,137 +280,71 @@ call plug#begin('~/.config/nvim/plugged')
     match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
     " Load colorschemes
-    "
-    " " one colorscheme pack to rule them all! - does not work properly - no syntax for php
-    " Plug 'flazz/vim-colorschemes'
-    " Plug 'chriskempson/base16-vim'
+    " Plug 'flazz/vim-colorschemes' " one colorscheme pack to rule them all! - does not work properly - no syntax for php
+    Plug 'chriskempson/base16-vim'
     Plug 'joshdick/onedark.vim'
-    " Plug 'morhetz/gruvbox'
-    " Plug 'nightsense/carbonized'
-    " Plug 'romainl/flattened'
-    " Plug 'ayu-theme/ayu-vim'
-    " Plug 'keith/parsec.vim'
-    " Plug 'arcticicestudio/nord-vim'
-    " Plug 'lifepillar/vim-solarized8'
-    " Plug 'AlessandroYorba/Alduin'
-    " Plug 'ajmwagar/vim-deus'
-    " Plug 'tlhr/anderson.vim'
-    " Plug 'challenger-deep-theme/vim'
-    " Plug 'NLKNguyen/papercolor-theme'
-    " Plug 'nanotech/jellybeans.vim'
-    " Plug 'dikiaap/minimalist'
-    " Plug 'mhartington/oceanic-next'
-    " Plug 'junegunn/seoul256.vim'
-    " Plug 'jacoborus/tender.vim'
+    Plug 'morhetz/gruvbox'
+    Plug 'nightsense/carbonized'
+    Plug 'romainl/flattened'
+    Plug 'ayu-theme/ayu-vim'
+    Plug 'keith/parsec.vim'
+    Plug 'arcticicestudio/nord-vim'
+    Plug 'lifepillar/vim-solarized8'
+    Plug 'AlessandroYorba/Alduin'
+    Plug 'ajmwagar/vim-deus'
+    Plug 'tlhr/anderson.vim'
+    Plug 'challenger-deep-theme/vim'
+    Plug 'NLKNguyen/papercolor-theme'
+    Plug 'nanotech/jellybeans.vim'
+    Plug 'dikiaap/minimalist'
+    Plug 'mhartington/oceanic-next'
+    Plug 'junegunn/seoul256.vim'
+    Plug 'jacoborus/tender.vim'
     " Plug 'hzchirs/vim-material'
-    " Plug 'altercation/vim-colors-solarized'
-    " Plug 'rickharris/vim-monokai'
+    " Plug 'altercation/vim-colors-solarized' " solorized colors must be active in terminal settings
+    " Plug 'rickharris/vim-monokai' " monokai has to be downloaded and installed for the terminal
 
-    " LightLine {{{
-        Plug 'itchyny/lightline.vim'
-        " Plug 'nicknisi/vim-base16-lightline'
-        let g:lightline = {
-            \   'colorscheme': 'onedark',
-            \   'active': {
-            \       'left': [ [ 'mode', 'paste' ],
-            \               [ 'gitbranch' ],
-            \               [ 'readonly', 'filetype', 'filename' ]],
-            \       'right': [ [ 'percent' ], [ 'lineinfo' ],
-            \               [ 'fileformat', 'fileencoding' ],
-            \               [ 'gitblame', 'currentfunction',  'cocstatus', 'linter_errors', 'linter_warnings' ]]
-            \   },
-            \   'component_expand': {
-            \   },
-            \   'component_type': {
-            \       'readonly': 'error',
-            \       'linter_warnings': 'warning',
-            \       'linter_errors': 'error'
-            \   },
-            \   'component_function': {
-            \       'fileencoding': 'helpers#lightline#fileEncoding',
-            \       'filename': 'helpers#lightline#fileName',
-            \       'fileformat': 'helpers#lightline#fileFormat',
-            \       'filetype': 'helpers#lightline#fileType',
-            \       'gitbranch': 'helpers#lightline#gitBranch',
-            \       'cocstatus': 'coc#status',
-            \       'currentfunction': 'helpers#lightline#currentFunction',
-            \       'gitblame': 'helpers#lightline#gitBlame'
-            \   },
-            \   'tabline': {
-            \       'left': [ [ 'tabs' ] ],
-            \       'right': [ [ 'close' ] ]
-            \   },
-            \   'tab': {
-            \       'active': [ 'filename', 'modified' ],
-            \       'inactive': [ 'filename', 'modified' ],
-            \   },
-            \   'separator': { 'left': '', 'right': '' },
-            \   'subseparator': { 'left': '', 'right': '' }
-        \ }
-    " }}}
-
-    " " AirLine {{{
-    "     Plug 'vim-airline/vim-airline'
-    "     Plug 'vim-airline/vim-airline-themes'
-      
-    "     " let g:airline_section_z = airline#section#create(['%{&tabstop}:%{&shiftwidth}', ' %3p%% ',g:airline_symbols.linenr,'%3l:%c'])
-      
-    "     let g:airline_powerline_fonts=1
-      
-    "     let g:airline#extensions#tabline#enabled = 1 " enable airline tabline
-    "     let g:airline#extensions#tabline#tab_min_count = 2 " only show tabline if tabs are being used (more than 1 tab open)
-    "     let g:airline#extensions#tabline#fnamemod = ':t' " show only the filename, not the full path
-    "     let g:airline#extensions#tabline#show_buffers = 0 " do not show open buffers in tabline
-    "     let g:airline#extensions#tabline#show_splits = 0
-      
-    "     if !exists('g:airline_symbols')
-    "         let g:airline_symbols = {}
-    "     endif
-      
-    "     " unicode symbols
-    "     let g:airline_symbols.crypt = ""
-    "     " let g:airline_symbols.linenr = '☰'
-    "     " let g:airline_symbols.linenr = '␊'
-    "     " let g:airline_symbols.linenr = '␤'
-    "     " let g:airline_symbols.linenr = '¶'
-    "     " let g:airline_symbols.maxlinenr = ''
-    "     " let g:airline_symbols.maxlinenr = '㏑'
-    "     " let g:airline_symbols.branch = '⎇'
-    "     " let g:airline_symbols.paste = 'ρ'
-    "     " let g:airline_symbols.paste = 'Þ'
-    "     let g:airline_symbols.paste = '∥'
-    "     let g:airline_symbols.spell = 'Ꞩ'
-    "     let g:airline_symbols.notexists = '∄'
-    "     let g:airline_symbols.whitespace = 'Ξ'
-      
-    "     " powerline symbols
-    "     let g:airline_left_sep = ''
-    "     let g:airline_left_alt_sep = ''
-    "     let g:airline_right_sep = ''
-    "     let g:airline_right_alt_sep = ''
-    "     let g:airline_symbols.branch = '' "       
-    "     let g:airline_symbols.dirty = ""
-    "     let g:airline_symbols.readonly = ''
-    "     let g:airline_symbols.linenr = " \uf922" "       濫
-    "     let g:airline_symbols.maxlinenr = '' "    
-      
-    "     " let g:airline_theme = 'solarized'
-    "     " let g:airline_theme = 'material'
-    "     let g:airline_theme = 'onedark'
-    "     " let g:airline_theme = 'gruvbox'
-    "     " let g:airline_theme = 'base16'
-    "     " let g:airline_theme = 'badwolf'
-    "     " let g:airline_theme = 'wombat'
-    "     " let g:airline_theme = 'molokai'
-      
-    "     " Show just the filename
-    "     " let g:airline#extensions#tabline#fnamemod = ':t'
-      
-    "     " don't hide quotes in json files
-    "     let g:vim_json_syntax_conceal = 0
-      
-    "     " show errors or warnings in my statusline
-    "     let g:airline#extensions#ale#enabled = 1
+    " " LightLine {{{
+    "     Plug 'itchyny/lightline.vim'
+    "     Plug 'nicknisi/vim-base16-lightline'
+    "     let g:lightline = {
+    "         \   'colorscheme': 'base16',
+    "         \   'active': {
+    "         \       'left': [ [ 'mode', 'paste' ],
+    "         \               [ 'gitbranch' ],
+    "         \               [ 'readonly', 'filetype', 'filename' ]],
+    "         \       'right': [ [ 'percent' ], [ 'lineinfo' ],
+    "         \               [ 'fileformat', 'fileencoding' ],
+    "         \               [ 'gitblame', 'currentfunction',  'cocstatus', 'linter_errors', 'linter_warnings' ]]
+    "         \   },
+    "         \   'component_expand': {
+    "         \   },
+    "         \   'component_type': {
+    "         \       'readonly': 'error',
+    "         \       'linter_warnings': 'warning',
+    "         \       'linter_errors': 'error'
+    "         \   },
+    "         \   'component_function': {
+    "         \       'fileencoding': 'helpers#lightline#fileEncoding',
+    "         \       'filename': 'helpers#lightline#fileName',
+    "         \       'fileformat': 'helpers#lightline#fileFormat',
+    "         \       'filetype': 'helpers#lightline#fileType',
+    "         \       'gitbranch': 'helpers#lightline#gitBranch',
+    "         \       'cocstatus': 'coc#status',
+    "         \       'currentfunction': 'helpers#lightline#currentFunction',
+    "         \       'gitblame': 'helpers#lightline#gitBlame'
+    "         \   },
+    "         \   'tabline': {
+    "         \       'left': [ [ 'tabs' ] ],
+    "         \       'right': [ [ 'close' ] ]
+    "         \   },
+    "         \   'tab': {
+    "         \       'active': [ 'filename', 'modified' ],
+    "         \       'inactive': [ 'filename', 'modified' ],
+    "         \   },
+    "         \   'separator': { 'left': '', 'right': '' },
+    "         \   'subseparator': { 'left': '', 'right': '' }
+    "     \ }
     " " }}}
 " }}}
 
@@ -453,6 +380,7 @@ call plug#begin('~/.config/nvim/plugged')
     " remove extra whitespace
     " nmap <leader><space> :%s/\s\+$<cr>
     " nmap <leader><space><space> :%s/\n\{2,}/\r\r/g<cr>
+    nmap <leader><space> :StripWhitespace<cr>
 
     inoremap <expr> <C-j> pumvisible() ? "\<C-N>" : "\<C-j>"
     inoremap <expr> <C-k> pumvisible() ? "\<C-P>" : "\<C-k>"
@@ -560,21 +488,43 @@ call plug#begin('~/.config/nvim/plugged')
         autocmd FileType qf wincmd J
         autocmd FileType qf nmap <buffer> q :q<cr>
 
-        autocmd FileType php UltiSnipsAddFiletypes php-laravel
-        autocmd FileType php UltiSnipsAddFiletypes php-extbase
-        autocmd FileType phtml UltiSnipsAddFiletypes php
-        autocmd FileType blade UltiSnipsAddFiletypes html
-
-        autocmd FileType nerdtree setlocal relativenumber nolist
-        autocmd FileType gitcommit,gitrebase let g:gutentags_enabled=0
-
+        " autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+        " let g:markdown_fenced_languages = ['css', 'javascript', 'js=javascript', 'json=javascript', 'stylus', 'html']
+        "
+        " " autocmd! BufEnter * call functions#ApplyLocalSettings(expand('<afile>:p:h'))
+        "
+        " autocmd BufNewFile,BufRead,BufWrite *.md syntax match Comment /\%^---\_.\{-}---$/
+        "
+        " autocmd FileType php UltiSnipsAddFiletypes php-laravel
+        " autocmd FileType php UltiSnipsAddFiletypes php-extbase
+        " autocmd FileType phtml UltiSnipsAddFiletypes php
+        " autocmd FileType blade UltiSnipsAddFiletypes html
+        "
+        " autocmd FileType nerdtree setlocal relativenumber nolist
+        " autocmd FileType gitcommit,gitrebase let g:gutentags_enabled=0
+        "
+        " " autocmd BufNewFile,BufRead *.ejs set filetype=html
+        " " autocmd BufNewFile,BufRead *.ino set filetype=c
+        " " autocmd BufNewFile,BufRead *.svg set filetype=xml
+        " " autocmd BufNewFile,BufRead .babelrc set filetype=json
+        " " autocmd BufNewFile,BufRead .jshintrc set filetype=json
+        " " autocmd BufNewFile,BufRead .eslintrc set filetype=json
+        " " autocmd BufNewFile,BufRead *.es6 set filetype=javascript
+        " autocmd BufNewFile,BufRead *.docker,*.dockerfile set filetype=dockerfile
+        " autocmd BufNewFile,BufRead *.blade.php set filetype=html | set filetype=phtml | set filetype=blade
+        " " autocmd BufNewFile,BufRead *.phtml set filetype=phtml
+        " autocmd BufNewFile,BufRead *.phtml set filetype=html | set syntax=php
+        " autocmd BufNewFile,BufRead *.php_cs set filetype=php
+        "
         " autocmd FileType php,cpp,javascript.jsx,vue setlocal commentstring=//\ %s
         " autocmd FileType ss.html setlocal commentstring=<%--%s--%>
-
+        "
         " autocmd BufNewFile,BufRead *.vue set ft=vue
         " autocmd BufEnter *.vue :syntax sync fromstart
-
+        " " let g:vue_disable_pre_processors=1
+        "
         " autocmd BufRead,BufNewFile *.conf set filetype=dosini | set filetype=nginx
+
     augroup END
 " }}}
 
@@ -582,6 +532,9 @@ call plug#begin('~/.config/nvim/plugged')
     " better terminal integration
     " substitute, search, and abbreviate multiple variants of a word
     Plug 'tpope/vim-abolish'
+
+    " easy commenting motions
+    " Plug 'tpope/vim-commentary'
 
     " mappings which are simply short normal mode aliases for commonly used ex commands
     " Plug 'tpope/vim-unimpaired'
@@ -607,170 +560,60 @@ call plug#begin('~/.config/nvim/plugged')
     " add end, endif, etc. automatically
     Plug 'tpope/vim-endwise'
 
-    " context-aware pasting
-    " Plug 'sickill/vim-pasta'
-
     " detect indent style (tabs vs. spaces)
     " Plug 'tpope/vim-sleuth'
 
-    " Session Management {{{
-        Plug 'tpope/vim-obsession'
-        Plug 'dhruvasagar/vim-prosession'
+    " Startify: Fancy startup screen for vim {{{
+        Plug 'mhinz/vim-startify'
+
+        " Don't change to directory when selecting a file
+        let g:startify_files_number = 5
+        let g:startify_change_to_dir = 0
+        let g:startify_custom_header = [ ]
+        let g:startify_relative_path = 1
+        let g:startify_use_env = 1
+
+        " Custom startup list, only show MRU from current directory/project
+        let g:startify_lists = [
+        \  { 'type': 'dir',       'header': [ 'Files '. getcwd() ] },
+        \  { 'type': function('helpers#startify#listcommits'), 'header': [ 'Recent Commits' ] },
+        \  { 'type': 'sessions',  'header': [ 'Sessions' ]       },
+        \  { 'type': 'bookmarks', 'header': [ 'Bookmarks' ]      },
+        \  { 'type': 'commands',  'header': [ 'Commands' ]       },
+        \ ]
+
+        let g:startify_commands = [
+        \   { 'up': [ 'Update Plugins', ':PlugUpdate' ] },
+        \   { 'ug': [ 'Upgrade Plugin Manager', ':PlugUpgrade' ] },
+        \ ]
+
+        let g:startify_bookmarks = [
+            \ { 'c': '~/.config/nvim/init.vim' },
+            \ { 'g': '~/.gitconfig' },
+            \ { 'z': '~/.zshrc' }
+        \ ]
+
+        autocmd User Startified setlocal cursorline
+        nmap <leader>st :Startify<cr>
     " }}}
 
-    " Commenting Motions {{{
-        " Plug 'tpope/vim-commentary'
-        Plug 'preservim/nerdcommenter'
+    " Close buffers but keep splits
+    Plug 'moll/vim-bbye'
+    nmap <leader>b :Bdelete<cr>
 
-        vmap gc <Plug>NERDCommenterToggle
-        nmap gcc <Plug>NERDCommenterToggle
+    " Writing in vim {{{{
+        Plug 'junegunn/goyo.vim'
 
-        " Add spaces after comment delimiters by default
-        let g:NERDSpaceDelims = 1
-        
-        " Use compact syntax for prettified multi-line comments
-        let g:NERDCompactSexyComs = 1
-        
-        " Align line-wise comment delimiters flush left instead of following code indentation
-        let g:NERDDefaultAlign = 'left'
-        
-        " Set a language to use its alternate delimiters by default
-        let g:NERDAltDelims_java = 1
-        
-        " Add your own custom formats or override the defaults
-        let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-        
-        " Allow commenting and inverting empty lines (useful when commenting a region)
-        let g:NERDCommentEmptyLines = 1
-        
-        " Enable trimming of trailing whitespace when uncommenting
-        let g:NERDTrimTrailingWhitespace = 1
-        
-        " Enable NERDCommenterToggle to check all selected lines is commented or not
-        let g:NERDToggleCheckAllLines = 1
-        
-        let g:ft = ''
-        function! NERDCommenter_before()
-            if &ft == 'vue'
-                let g:ft = 'vue'
-                let stack = synstack(line('.'), col('.'))
-                if len(stack) > 0
-                    let syn = synIDattr((stack)[0], 'name')
-                    if len(syn) > 0
-                        exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
-                    endif
-                endif
-            endif
-            if &ft == 'php'
-                let g:ft = 'php'
-                let stack = synstack(line('.'), col('.'))
-                if len(stack) > 0
-                    "most nested item in the stack
-                    let syn = synIDattr((stack)[-1], 'name')
-                    if len(syn) > 0
-                        let syn = substitute(syn, '[A-Z].*', '', '')
-                        if len(syn) > 0
-                            exe 'setf '.syn
-                        endif
-                    endif
-                endif
-            endif
-        endfunction
-        function! NERDCommenter_after()
-            if g:ft == 'vue'
-                setf vue
-                let g:ft = ''
-            endif
-            if g:ft == 'php'
-                setf php
-                let g:ft = ''
-            endif
-        endfunction
+        autocmd! User GoyoEnter nested call helpers#goyo#enter()
+        autocmd! User GoyoLeave nested call helpers#goyo#leave()
     " }}}
 
-    " " Vim Tagbar {{{
-    "     " Vim plugin that displays tags in a window, ordered by scope
-    "     Plug 'majutsushi/tagbar'
-
-    "     nmap <F8> :TagbarToggle<CR>
-    "     let g:tagbar_sort = 0
-    "     let g:tagbar_show_linenumbers = -1
-    "     let g:tagbar_autofocus = 0
-    " " }}}
-
-    " Better Whitespace {{{
-        " Better whitespace highlighting for Vim
-        Plug 'ntpeters/vim-better-whitespace'
-
-        nmap <leader><space> :StripWhitespace<cr>
-        let g:better_whitespace_guicolor = '#be5046'
-        let g:strip_whitespace_on_save = 0
-        let g:better_whitespace_filetypes_blacklist = ['pug', 'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'coc-explorer']
-        let g:show_spaces_that_precede_tabs = 1
-        let g:better_whitespace_skip_empty_lines = 1
-    " }}}
-
-    " " Startify: Fancy startup screen for vim {{{
-    "     Plug 'mhinz/vim-startify'
-    "
-    "     " Don't change to directory when selecting a file
-    "     let g:startify_files_number = 5
-    "     let g:startify_change_to_dir = 0
-    "     let g:startify_custom_header = [ ]
-    "     let g:startify_relative_path = 1
-    "     let g:startify_use_env = 1
-    "
-    "     " Custom startup list, only show MRU from current directory/project
-    "     let g:startify_lists = [
-    "     \  { 'type': 'dir',       'header': [ 'Files '. getcwd() ] },
-    "     \  { 'type': function('helpers#startify#listcommits'), 'header': [ 'Recent Commits' ] },
-    "     \  { 'type': 'sessions',  'header': [ 'Sessions' ]       },
-    "     \  { 'type': 'bookmarks', 'header': [ 'Bookmarks' ]      },
-    "     \  { 'type': 'commands',  'header': [ 'Commands' ]       },
-    "     \ ]
-    "
-    "     let g:startify_commands = [
-    "     \   { 'up': [ 'Update Plugins', ':PlugUpdate' ] },
-    "     \   { 'ug': [ 'Upgrade Plugin Manager', ':PlugUpgrade' ] },
-    "     \ ]
-    "
-    "     let g:startify_bookmarks = [
-    "         \ { 'c': '~/.config/nvim/init.vim' },
-    "         \ { 'g': '~/.gitconfig' },
-    "         \ { 'z': '~/.zshrc' }
-    "     \ ]
-    "
-    "     autocmd User Startified setlocal cursorline
-    "     nmap <leader>st :Startify<cr>
-    " " }}}
-
-    " Splits {{{{
-        " Close buffers but keep splits
-        Plug 'moll/vim-bbye'
-        nmap <leader>b :Bdelete<cr>
-    " }}}
-
-    " " Writing in vim {{{{
-    "     Plug 'junegunn/goyo.vim'
-
-    "     autocmd! User GoyoEnter nested call helpers#goyo#enter()
-    "     autocmd! User GoyoLeave nested call helpers#goyo#leave()
-    " " }}}
-
-    " Indent Lines {{{{
-        Plug 'Yggdroot/indentLine' " A vim plugin to display the indention levels with thin vertical lines
-
-        " let g:indentLine_char_list = ['|', '│']
-        let g:indentLine_char = '│'
-        let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'fzf', 'Tagbar']
-        let g:indentLine_color_gui = '#3e4452'
-        nmap <leader>ig :IndentLinesToggle<cr>
-    " }}}
+    " context-aware pasting
+    " Plug 'sickill/vim-pasta'
 
     " NERDTree {{{
         Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
         " Plug 'Xuyuanp/nerdtree-git-plugin'
-        " Plug 'tsony-tsonev/nerdtree-git-plugin'
         Plug 'ryanoasis/vim-devicons'
         Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
         let g:WebDevIconsOS = 'Darwin'
@@ -807,7 +650,7 @@ call plug#begin('~/.config/nvim/plugged')
         " let NERDTreeDirArrowExpandable = '▷'
         " let NERDTreeDirArrowCollapsible = '▼'
         let g:NERDTreeIndicatorMapCustom = {
-        \ "Modified"  : "",
+        \ "Modified"  : "✹",
         \ "Staged"    : "✚",
         \ "Untracked" : "✭",
         \ "Renamed"   : "➜",
@@ -892,11 +735,10 @@ call plug#begin('~/.config/nvim/plugged')
 
     " UltiSnips {{{
         Plug 'SirVer/ultisnips' " Snippets plugin
-        Plug 'honza/vim-snippets' " snippet manager
         " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-        let g:UltiSnipsExpandTrigger = '<C-Right>'
-        let g:UltiSnipsJumpForwardTrigger = '<C-Right>'
-        let g:UltiSnipsJumpBackwardTrigger = '<C-Left>'
+        let g:UltiSnipsExpandTrigger = '<c-right>'
+        let g:UltiSnipsJumpForwardTrigger = '<c-right>'
+        let g:UltiSnipsJumpBackwardTrigger = '<c-left>'
         " let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/UltiSnips', '~/.config/nvim/snippets', '~/.config/nvim/plugged/vim-snippets/UltiSnips', '~/.config/nvim/plugged/vim-snippets/snippets']
 
         " If you want :UltiSnipsEdit to split your window.
@@ -904,11 +746,9 @@ call plug#begin('~/.config/nvim/plugged')
     " }}}
 
     " coc {{{
-        " an intellisense engine for Vim/Neovim.
-        Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+        Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'} " an intellisense engine for Vim/Neovim.
 
         let g:coc_global_extensions = [
-        \ 'coc-phpls',
         \ 'coc-css',
         \ 'coc-json',
         \ 'coc-tsserver',
@@ -1001,7 +841,7 @@ call plug#begin('~/.config/nvim/plugged')
         " pug / jade support
         Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug', 'vue'] }
 
-        " nunjucks support
+		" nunjucks support
         " Plug 'niftylettuce/vim-jinja', { 'for': 'njk' }
     " }}}
 
@@ -1009,13 +849,9 @@ call plug#begin('~/.config/nvim/plugged')
         Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
         " Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
         Plug 'moll/vim-node', { 'for': 'javascript' }
-        " Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
-        Plug 'MaxMEllon/vim-jsx-pretty'
-        let g:vim_jsx_pretty_highlight_close_tag = 1
-
-        Plug 'posva/vim-vue', { 'for': 'vue' }
-        let g:vue_pre_processors = ['pug', 'scss', 'sass']
-        let g:vue_pre_processors = 'detect_on_enter'
+		" Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
+		Plug 'MaxMEllon/vim-jsx-pretty'
+		let g:vim_jsx_pretty_highlight_close_tag = 1
     " }}}
 
     " TypeScript {{{
@@ -1023,12 +859,6 @@ call plug#begin('~/.config/nvim/plugged')
         " Plug 'Shougo/vimproc.vim', { 'do': 'make' } TODO what still needs this?
     " }}}
 
-    " PHP {{{
-        Plug 'StanAngeloff/php.vim', { 'for': 'php' } " Up-to-date PHP syntax file
-        " Plug 'arnaud-lb/vim-php-namespace' " plugin for inserting 'use' statements automatically
-        Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' } " psr-2 formating
-        " Plug 'captbaritone/better-indent-support-for-php-with-html' " This script allows you to indent HTML sections in PHP files
-    " }}}
 
     " Styles {{{
         Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] }
@@ -1054,9 +884,7 @@ call plug#begin('~/.config/nvim/plugged')
         let g:vim_json_syntax_conceal = 0
     " }}}
 
-    " Docker {{{
-        Plug 'ekalinin/Dockerfile.vim'
-    " }}}
+    Plug 'ekalinin/Dockerfile.vim'
 " }}}
 
 call plug#end()
@@ -1128,13 +956,19 @@ call plug#end()
 "
 " " Section User Interface {{{
 "
+" set relativenumber " show relative line numbers
 "
+" " toggle invisible characters
+" " set list
+" " set invlist
+" set nolist
 "
 " " highlight conflicts
 "
 " " Tab control
 " " set noexpandtab " insert tabs rather than spaces for <Tab>
 "
+" set switchbuf=usetab,newtab " switch to the existing tab if the buffer is open, or creating a new one if not
 "
 " " code folding settings
 "
@@ -1219,10 +1053,75 @@ call plug#end()
 " " preservim/nerdcommenter
 " """"""""""""""""""""""""""""""""""""""""
 "
+" " Add spaces after comment delimiters by default
+" let g:NERDSpaceDelims = 1
+"
+" " Use compact syntax for prettified multi-line comments
+" let g:NERDCompactSexyComs = 1
+"
+" " Align line-wise comment delimiters flush left instead of following code indentation
+" let g:NERDDefaultAlign = 'left'
+"
+" " Set a language to use its alternate delimiters by default
+" let g:NERDAltDelims_java = 1
+"
+" " Add your own custom formats or override the defaults
+" let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+"
+" " Allow commenting and inverting empty lines (useful when commenting a region)
+" let g:NERDCommentEmptyLines = 1
+"
+" " Enable trimming of trailing whitespace when uncommenting
+" let g:NERDTrimTrailingWhitespace = 1
+"
+" " Enable NERDCommenterToggle to check all selected lines is commented or not
+" let g:NERDToggleCheckAllLines = 1
+"
+" let g:ft = ''
+" function! NERDCommenter_before()
+"     if &ft == 'vue'
+"         let g:ft = 'vue'
+"         let stack = synstack(line('.'), col('.'))
+"         if len(stack) > 0
+"             let syn = synIDattr((stack)[0], 'name')
+"             if len(syn) > 0
+"                 exe 'setf ' . substitute(tolower(syn), '^vue_', '', '')
+"             endif
+"         endif
+"     endif
+"     if &ft == 'php'
+"         let g:ft = 'php'
+"         let stack = synstack(line('.'), col('.'))
+"         if len(stack) > 0
+"             "most nested item in the stack
+"             let syn = synIDattr((stack)[-1], 'name')
+"             if len(syn) > 0
+"                 let syn = substitute(syn, '[A-Z].*', '', '')
+"                 if len(syn) > 0
+"                     exe 'setf '.syn
+"                 endif
+"             endif
+"         endif
+"     endif
+" endfunction
+" function! NERDCommenter_after()
+"     if g:ft == 'vue'
+"         setf vue
+"         let g:ft = ''
+"     endif
+"     if g:ft == 'php'
+"         setf php
+"         let g:ft = ''
+"     endif
+" endfunction
+"
+" map gc <Plug>NERDCommenterToggle
 "
 " " posva/vim-vue
 " """"""""""""""""""""""""""""""""""""""""
 "
+" let g:vue_pre_processors = ['pug', 'scss', 'sass']
+" let g:vue_pre_processors = 'detect_on_enter'
 "
 " " eshion/vim-sync
 " """"""""""""""""""""""""""""""""""""""""
@@ -1436,10 +1335,25 @@ call plug#end()
 " " Yggdroot/indentLine
 " """"""""""""""""""""""""""""""""""""""""
 "
+" " let g:indentLine_char_list = ['|', '│']
+" let g:indentLine_char = '│'
+" let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'fzf', 'Tagbar']
+" let g:indentLine_color_gui = '#3e4452'
+" nmap <leader>ig :IndentLinesToggle<cr>
+"
+" " bronson/vim-trailing-whitespace
+" """"""""""""""""""""""""""""""""""""""""
+" " let g:extra_whitespace_ignored_filetypes = ['pug']
+"
 "
 " " ntpeters/vim-better-whitespace
 " """""""""""""""""""""""""""""""""""""
 "
+" let g:better_whitespace_guicolor = '#be5046'
+" let g:strip_whitespace_on_save = 0
+" let g:better_whitespace_filetypes_blacklist = ['pug', 'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown']
+" let g:show_spaces_that_precede_tabs = 1
+" let g:better_whitespace_skip_empty_lines = 1
 "
 " " FZF
 " """""""""""""""""""""""""""""""""""""
@@ -1571,6 +1485,63 @@ call plug#end()
 " """""""""""""""""""""""""""""""""""""
 " " airline options
 "
+" " let g:airline_section_z = airline#section#create(['%{&tabstop}:%{&shiftwidth}', ' %3p%% ',g:airline_symbols.linenr,'%3l:%c'])
+"
+" let g:airline_powerline_fonts=1
+"
+" let g:airline#extensions#tabline#enabled = 1 " enable airline tabline
+" let g:airline#extensions#tabline#tab_min_count = 2 " only show tabline if tabs are being used (more than 1 tab open)
+" let g:airline#extensions#tabline#fnamemod = ':t' " show only the filename, not the full path
+" let g:airline#extensions#tabline#show_buffers = 0 " do not show open buffers in tabline
+" let g:airline#extensions#tabline#show_splits = 0
+"
+" if !exists('g:airline_symbols')
+"     let g:airline_symbols = {}
+" endif
+"
+" " unicode symbols
+" let g:airline_symbols.crypt = ""
+" " let g:airline_symbols.linenr = '☰'
+" " let g:airline_symbols.linenr = '␊'
+" " let g:airline_symbols.linenr = '␤'
+" " let g:airline_symbols.linenr = '¶'
+" " let g:airline_symbols.maxlinenr = ''
+" " let g:airline_symbols.maxlinenr = '㏑'
+" " let g:airline_symbols.branch = '⎇'
+" " let g:airline_symbols.paste = 'ρ'
+" " let g:airline_symbols.paste = 'Þ'
+" let g:airline_symbols.paste = '∥'
+" let g:airline_symbols.spell = 'Ꞩ'
+" let g:airline_symbols.notexists = '∄'
+" let g:airline_symbols.whitespace = 'Ξ'
+"
+" " powerline symbols
+" let g:airline_left_sep = ''
+" let g:airline_left_alt_sep = ''
+" let g:airline_right_sep = ''
+" let g:airline_right_alt_sep = ''
+" let g:airline_symbols.branch = '' "       
+" let g:airline_symbols.readonly = ''
+" let g:airline_symbols.linenr = " \uf922" "       濫
+" let g:airline_symbols.maxlinenr = '' "    
+"
+" " let g:airline_theme='solarized'
+" " let g:airline_theme = 'material'
+" let g:airline_theme='onedark'
+" " let g:airline_theme='gruvbox'
+" " let g:airline_theme='base16'
+" " let g:airline_theme='badwolf'
+" " let g:airline_theme='wombat'
+" " let g:airline_theme='molokai'
+"
+" " Show just the filename
+" " let g:airline#extensions#tabline#fnamemod = ':t'
+"
+" " don't hide quotes in json files
+" let g:vim_json_syntax_conceal = 0
+"
+" " show errors or warnings in my statusline
+" let g:airline#extensions#ale#enabled = 1
 "
 " " Statusline
 " """""""""""""""""""""""""""""""""""""
@@ -1621,6 +1592,12 @@ call plug#end()
 " " unmap <Leader>pcd
 " " unmap <Leader>pcf
 "
+" " Vim Tagbar
+" """""""""""""""""""""""""""""""""""""
+" nmap <F8> :TagbarToggle<CR>
+" let g:tagbar_sort = 0
+" let g:tagbar_show_linenumbers = -1
+" let g:tagbar_autofocus = 0
 "
 " " YouCompleteMe
 " """""""""""""""""""""""""""""""""""""

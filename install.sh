@@ -172,8 +172,8 @@ fi
 
 source install/composer.sh
 
-# echo -e "\n\n${GREEN}creating vim directories"
-# echo "==============================${NORMAL}"
+echo -e "\n\n${GREEN}Creating vim directories."
+echo "==============================${NORMAL}"
 mkdir -p ~/.vim-tmp
 
 if ! command_exists zsh; then
