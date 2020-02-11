@@ -19,11 +19,21 @@ function! helpers#lightline#fileFormat()
 endfunction
 
 function! helpers#lightline#fileType()
-    return WebDevIconsGetFileTypeSymbol()
+    return (exists('*WebDevIconsGetFileTypeSymbol') ? WebDevIconsGetFileTypeSymbol() : &filetype)
+endfunction
+
+function! helpers#lightline#whitespace()
+    " try
+        let mixedindent = helpers#whitespace#DetectMixedIndent()
+        let trailingspaces = helpers#whitespace#DetectTrailingSpaces()
+        " return (trailingspaces == '[\s]' ? 'trailing spaces' : '')
+        return mixedindent . trailingspaces
+    " catch
+    " endtry
 endfunction
 
 function! helpers#lightline#gitBranch()
-    return "\uE725" . (exists('*fugitive#head') ? ' ' . fugitive#head() : '')
+    return "\uF402" . (exists('*FugitiveHead') ? ' ' . FugitiveHead() : '')
 endfunction
 
 function! helpers#lightline#currentFunction()

@@ -35,7 +35,7 @@ Plug 'pseewald/vim-anyfold' " Language agnostic vim plugin for folding and motio
 " " html / templates
 Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xml'] } " Auto close (X)HTML tags
 Plug 'Valloric/MatchTagAlways', { 'for': ['html', 'phtml', 'xml'] } " always highlights the enclosing html/xml tags
-Plug 'phalkunz/vim-ss', {'for': ['ss', 'ss.html']} " SilverStripe
+
 
 
 " styles

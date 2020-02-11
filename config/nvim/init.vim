@@ -330,7 +330,7 @@ call plug#begin('~/.config/nvim/plugged')
             \       'right': [
             \           [ 'percent' ],
             \           [ 'lineinfo' ],
-            \           [ 'fileformat', 'fileencoding' ],
+            \           [ 'fileformat', 'fileencoding', 'whitespace' ],
             \           [ 'gitblame', 'currentfunction',  'cocstatus', 'linter_errors', 'linter_warnings' ]
             \       ]
             \   },
@@ -346,6 +346,7 @@ call plug#begin('~/.config/nvim/plugged')
             \       'filename': 'helpers#lightline#fileName',
             \       'fileformat': 'helpers#lightline#fileFormat',
             \       'filetype': 'helpers#lightline#fileType',
+            \       'whitespace': 'helpers#lightline#whitespace',
             \       'gitbranch': 'helpers#lightline#gitBranch',
             \       'cocstatus': 'coc#status',
             \       'currentfunction': 'helpers#lightline#currentFunction',
@@ -367,21 +368,22 @@ call plug#begin('~/.config/nvim/plugged')
     " " AirLine {{{
     "     Plug 'vim-airline/vim-airline'
     "     Plug 'vim-airline/vim-airline-themes'
-      
+
+
     "     " let g:airline_section_z = airline#section#create(['%{&tabstop}:%{&shiftwidth}', ' %3p%% ',g:airline_symbols.linenr,'%3l:%c'])
-      
+
     "     let g:airline_powerline_fonts=1
-      
+
     "     let g:airline#extensions#tabline#enabled = 1 " enable airline tabline
     "     let g:airline#extensions#tabline#tab_min_count = 2 " only show tabline if tabs are being used (more than 1 tab open)
     "     let g:airline#extensions#tabline#fnamemod = ':t' " show only the filename, not the full path
     "     let g:airline#extensions#tabline#show_buffers = 0 " do not show open buffers in tabline
     "     let g:airline#extensions#tabline#show_splits = 0
-      
+
     "     if !exists('g:airline_symbols')
     "         let g:airline_symbols = {}
     "     endif
-      
+
     "     " unicode symbols
     "     let g:airline_symbols.crypt = ""
     "     " let g:airline_symbols.linenr = '☰'
@@ -397,7 +399,7 @@ call plug#begin('~/.config/nvim/plugged')
     "     let g:airline_symbols.spell = 'Ꞩ'
     "     let g:airline_symbols.notexists = '∄'
     "     let g:airline_symbols.whitespace = 'Ξ'
-      
+
     "     " powerline symbols
     "     let g:airline_left_sep = ''
     "     let g:airline_left_alt_sep = ''
@@ -408,7 +410,7 @@ call plug#begin('~/.config/nvim/plugged')
     "     let g:airline_symbols.readonly = ''
     "     let g:airline_symbols.linenr = " \uf922" "       濫
     "     let g:airline_symbols.maxlinenr = '' "    
-      
+
     "     " let g:airline_theme = 'solarized'
     "     " let g:airline_theme = 'material'
     "     let g:airline_theme = 'onedark'
@@ -417,13 +419,13 @@ call plug#begin('~/.config/nvim/plugged')
     "     " let g:airline_theme = 'badwolf'
     "     " let g:airline_theme = 'wombat'
     "     " let g:airline_theme = 'molokai'
-      
+
     "     " Show just the filename
     "     " let g:airline#extensions#tabline#fnamemod = ':t'
-      
+
     "     " don't hide quotes in json files
     "     let g:vim_json_syntax_conceal = 0
-      
+
     "     " show errors or warnings in my statusline
     "     let g:airline#extensions#ale#enabled = 1
     " " }}}
@@ -558,8 +560,8 @@ call plug#begin('~/.config/nvim/plugged')
 
         " automatically resize panes on resize
         autocmd VimResized * exe 'normal! \<c-w>='
-        autocmd BufWritePost .vimrc,.vimrc.local,init.vim source %
-        autocmd BufWritePost .vimrc.local source %
+        " autocmd BufWritePost .vimrc,.vimrc.local,init.vim source %
+        " autocmd BufWritePost .vimrc.local source %
         " save all files on focus lost, ignoring warnings about untitled buffers
         " autocmd FocusLost * silent! wa
 
@@ -621,6 +623,22 @@ call plug#begin('~/.config/nvim/plugged')
     " detect indent style (tabs vs. spaces)
     Plug 'tpope/vim-sleuth'
 
+    " Better Whitespace {{{
+        " Better whitespace highlighting for Vim
+        Plug 'ntpeters/vim-better-whitespace'
+
+        nmap <leader><space> :StripWhitespace<cr>
+        let g:better_whitespace_guicolor = '#be5046'
+        let g:strip_whitespace_on_save = 0
+        let g:better_whitespace_filetypes_blacklist = ['pug', 'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'coc-explorer']
+        let g:show_spaces_that_precede_tabs = 1
+        let g:better_whitespace_skip_empty_lines = 1
+
+        " " Remove white-space mess from files in ViM
+        " Plug 'mboughaba/vim-lessmess'
+        " let g:enable_lessmess_onsave = 0
+    " }}}
+
     " Session Management {{{
         Plug 'tpope/vim-obsession'
         Plug 'dhruvasagar/vim-prosession'
@@ -642,28 +660,28 @@ call plug#begin('~/.config/nvim/plugged')
 
         " Add spaces after comment delimiters by default
         let g:NERDSpaceDelims = 1
-        
+
         " Use compact syntax for prettified multi-line comments
         let g:NERDCompactSexyComs = 1
-        
+
         " Align line-wise comment delimiters flush left instead of following code indentation
         let g:NERDDefaultAlign = 'left'
-        
+
         " Set a language to use its alternate delimiters by default
         let g:NERDAltDelims_java = 1
-        
+
         " Add your own custom formats or override the defaults
         let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-        
+
         " Allow commenting and inverting empty lines (useful when commenting a region)
         let g:NERDCommentEmptyLines = 1
-        
+
         " Enable trimming of trailing whitespace when uncommenting
         let g:NERDTrimTrailingWhitespace = 1
-        
+
         " Enable NERDCommenterToggle to check all selected lines is commented or not
         let g:NERDToggleCheckAllLines = 1
-        
+
         let g:ft = ''
         function! NERDCommenter_before()
             if &ft == 'vue'
@@ -712,18 +730,6 @@ call plug#begin('~/.config/nvim/plugged')
     "     let g:tagbar_show_linenumbers = -1
     "     let g:tagbar_autofocus = 0
     " " }}}
-
-    " Better Whitespace {{{
-        " Better whitespace highlighting for Vim
-        Plug 'ntpeters/vim-better-whitespace'
-
-        nmap <leader><space> :StripWhitespace<cr>
-        let g:better_whitespace_guicolor = '#be5046'
-        let g:strip_whitespace_on_save = 0
-        let g:better_whitespace_filetypes_blacklist = ['pug', 'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'coc-explorer']
-        let g:show_spaces_that_precede_tabs = 1
-        let g:better_whitespace_skip_empty_lines = 1
-    " }}}
 
     " " Startify: Fancy startup screen for vim {{{
     "     Plug 'mhinz/vim-startify'
@@ -788,7 +794,7 @@ call plug#begin('~/.config/nvim/plugged')
         Plug 'ryanoasis/vim-devicons'
         Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
-        " let g:WebDevIconsOS = 'Darwin'
+        let g:WebDevIconsOS = 'Darwin'
         let g:WebDevIconsUnicodeDecorateFolderNodes = 1 " enable folder/directory glyph flag (disabled by default with 0)
         let g:DevIconsEnableFoldersOpenClose = 1 " enable open and close folder/directory glyph flags
         let g:DevIconsEnableFolderExtensionPatternMatching = 1 " enable pattern matching glyphs on folder/directory
@@ -933,6 +939,7 @@ call plug#begin('~/.config/nvim/plugged')
 
         let g:coc_global_extensions = [
         \ 'coc-phpls',
+        \ 'coc-vetur',
         \ 'coc-css',
         \ 'coc-json',
         \ 'coc-tsserver',
@@ -948,6 +955,9 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'coc-ultisnips',
         \ 'coc-explorer'
         \ ]
+
+        let g:coc_status_error_sign = 'X'
+        let g:coc_status_warning_sign = 'X'
 
         autocmd CursorHold * silent call CocActionAsync('highlight')
 
@@ -1028,6 +1038,9 @@ call plug#begin('~/.config/nvim/plugged')
 
         " nunjucks support
         " Plug 'niftylettuce/vim-jinja', { 'for': 'njk' }
+
+        " SilverStripe
+        Plug 'phalkunz/vim-ss', {'for': ['ss', 'ss.html']}
     " }}}
 
     " JavaScript {{{
@@ -1228,7 +1241,7 @@ call plug#end()
 "
 " " code folding settings
 "
-" 
+"
 "
 " " }}}
 "
