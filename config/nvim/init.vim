@@ -128,7 +128,9 @@ call plug#begin('~/.config/nvim/plugged')
     endif
 
     set backspace=indent,eol,start " make backspace behave in a sane manner
-    set clipboard=unnamed
+    set clipboard=unnamed " copy to system clipboard
+
+    let b:match_debug=1 " fixes the - not jumping to other bracket with % - issue
 
     if has('mouse')
         set mouse=a
@@ -162,17 +164,17 @@ call plug#begin('~/.config/nvim/plugged')
 
     " let delimitMate_expand_cr = 1
     " let delimitMate_expand_space = 1
-    "
-    " " More natural split opening
-    " set splitbelow
-    " set splitright
-    "
-    " " remap <CR> to indent html
-    " inoremap <leader><CR> <CR><C-o>==<C-o>O
-    "
-    " " expand previous indent on new line
-    " inoremap <expr> <CR> functions#Expander()
-    "
+
+    " More natural split opening
+    set splitbelow
+    set splitright
+
+    " remap <CR> to indent html
+    inoremap <leader><CR> <CR><C-o>==<C-o>O
+
+    " expand previous indent on new line
+    inoremap <expr> <CR> functions#Expander()
+
     " " A: don't give the "ATTENTION" message when an existing swap file set
     "
     " " BufOnly.vim  -  Delete all the buffers except the current/named buffer.
@@ -246,7 +248,8 @@ call plug#begin('~/.config/nvim/plugged')
     set softtabstop=4 " edit as if the tabs are 4 characters wide
     set shiftwidth=4 " number of spaces to use for indent and unindent
     set shiftround " round indent to a multiple of 'shiftwidth'
-    " set expandtab " Expand TABs to spaces
+    set expandtab " expand tabs to spaces
+    " set noexpandtab " insert tabs rather than spaces for <Tab>
     " set completeopt+=longest
 
     " code folding settings
@@ -319,12 +322,17 @@ call plug#begin('~/.config/nvim/plugged')
         let g:lightline = {
             \   'colorscheme': 'onedark',
             \   'active': {
-            \       'left': [ [ 'mode', 'paste' ],
-            \               [ 'gitbranch' ],
-            \               [ 'readonly', 'filetype', 'filename' ]],
-            \       'right': [ [ 'percent' ], [ 'lineinfo' ],
-            \               [ 'fileformat', 'fileencoding' ],
-            \               [ 'gitblame', 'currentfunction',  'cocstatus', 'linter_errors', 'linter_warnings' ]]
+            \       'left': [
+            \           [ 'mode', 'paste' ],
+            \           [ 'gitbranch' ],
+            \           [ 'readonly', 'filetype', 'filename' ]
+            \       ],
+            \       'right': [
+            \           [ 'percent' ],
+            \           [ 'lineinfo' ],
+            \           [ 'fileformat', 'fileencoding' ],
+            \           [ 'gitblame', 'currentfunction',  'cocstatus', 'linter_errors', 'linter_warnings' ]
+            \       ]
             \   },
             \   'component_expand': {
             \   },
@@ -763,7 +771,6 @@ call plug#begin('~/.config/nvim/plugged')
         " let g:indentLine_char_list = ['|', '│']
         let g:indentLine_char = '│'
         let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'fzf', 'Tagbar']
-        let g:indentLine_color_gui = '#3e4452'
         nmap <leader>ig :IndentLinesToggle<cr>
     " }}}
 
@@ -773,7 +780,8 @@ call plug#begin('~/.config/nvim/plugged')
         " Plug 'tsony-tsonev/nerdtree-git-plugin'
         Plug 'ryanoasis/vim-devicons'
         Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-        let g:WebDevIconsOS = 'Darwin'
+
+        " let g:WebDevIconsOS = 'Darwin'
         let g:WebDevIconsUnicodeDecorateFolderNodes = 1 " enable folder/directory glyph flag (disabled by default with 0)
         let g:DevIconsEnableFoldersOpenClose = 1 " enable open and close folder/directory glyph flags
         let g:DevIconsEnableFolderExtensionPatternMatching = 1 " enable pattern matching glyphs on folder/directory
@@ -803,7 +811,6 @@ call plug#begin('~/.config/nvim/plugged')
         " find the current file in nerdtree without needing to reload the drawer
         nmap <silent> <leader>y :NERDTreeFind<cr>
 
-        let NERDTreeShowHidden=1
         " let NERDTreeDirArrowExpandable = '▷'
         " let NERDTreeDirArrowCollapsible = '▼'
         let g:NERDTreeIndicatorMapCustom = {
@@ -828,6 +835,12 @@ call plug#begin('~/.config/nvim/plugged')
         " let g:fzf_layout = { 'down': '~25%' }
         let g:fzf_layout = { 'up': '~35%' }
 
+        " [Tags] Command to generate tags file
+        let g:fzf_tags_command = 'ctags -R --exclude=node_modules --exclude=dist'
+
+        " [Buffers] Jump to the existing window if possible
+        let g:fzf_buffers_jump = 1
+
         if isdirectory(".git")
             " if in a git project, use :GFiles
             " nmap <silent> <leader>p :GFiles --cached --others --exclude-standard<cr>
@@ -839,9 +852,10 @@ call plug#begin('~/.config/nvim/plugged')
 
 
         nmap <silent> <leader>s :GFiles?<cr>
-
         nmap <silent> <leader>b :Buffers<cr>
         nmap <silent> <leader>e :FZF<cr>
+        nmap <silent> <leader>r :BTags<cr>
+
         nmap <leader><tab> <plug>(fzf-maps-n)
         xmap <leader><tab> <plug>(fzf-maps-x)
         omap <leader><tab> <plug>(fzf-maps-o)
@@ -877,6 +891,9 @@ call plug#begin('~/.config/nvim/plugged')
 
         command! -bang -nargs=? -complete=dir GitFiles
             \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
+
+        command! -bang BTags
+            \ call fzf#vim#buffer_tags(<q-args>, {'top': '30%'}, <bang>0)
     " }}}
 
     " vim-fugitive {{{
@@ -919,6 +936,7 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'coc-sh',
         \ 'coc-vimlsp',
         \ 'coc-emmet',
+        \ 'coc-highlight',
         \ 'coc-prettier',
         \ 'coc-ultisnips',
         \ 'coc-explorer'
@@ -1026,7 +1044,7 @@ call plug#begin('~/.config/nvim/plugged')
     " PHP {{{
         Plug 'StanAngeloff/php.vim', { 'for': 'php' } " Up-to-date PHP syntax file
         " Plug 'arnaud-lb/vim-php-namespace' " plugin for inserting 'use' statements automatically
-        Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' } " psr-2 formating
+        " Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' } " psr-2 formating
         " Plug 'captbaritone/better-indent-support-for-php-with-html' " This script allows you to indent HTML sections in PHP files
     " }}}
 
@@ -1070,20 +1088,88 @@ call plug#end()
     else
         let g:onedark_termcolors=16
         let g:onedark_terminal_italics=1
+
         colorscheme onedark
     endif
+
     syntax on
     filetype plugin indent on
+
     " make the highlighting of tabs and other non-text less annoying
-    highlight SpecialKey ctermfg=19 guifg=#333333
-    highlight NonText ctermfg=19 guifg=#333333
+    hi! SpecialKey ctermfg=19 guifg=#333333
+    hi! NonText ctermfg=19 guifg=#333333
 
     " make comments and HTML attributes italic
-    highlight Comment cterm=italic term=italic gui=italic
-    highlight htmlArg cterm=italic term=italic gui=italic
-    highlight xmlAttrib cterm=italic term=italic gui=italic
-    " highlight Type cterm=italic term=italic gui=italic
-    highlight Normal ctermbg=none
+    hi! Comment cterm=italic term=italic gui=italic
+    hi! htmlArg cterm=italic term=italic gui=italic
+    hi! xmlAttrib cterm=italic term=italic gui=italic
+    " hi! Type cterm=italic term=italic gui=italic
+    hi! Normal ctermbg=none
+    hi! Normal guibg=none
+
+    if (g:colors_name == 'onedark')
+        " +---------------------------------------------+
+        " |  Color Name  |         RGB        |   Hex   |
+        " |--------------+--------------------+---------|
+        " | Black        | rgb(40, 44, 52)    | #282c34 |
+        " |--------------+--------------------+---------|
+        " | White        | rgb(171, 178, 191) | #abb2bf |
+        " |--------------+--------------------+---------|
+        " | Light Red    | rgb(224, 108, 117) | #e06c75 |
+        " |--------------+--------------------+---------|
+        " | Dark Red     | rgb(190, 80, 70)   | #be5046 |
+        " |--------------+--------------------+---------|
+        " | Green        | rgb(152, 195, 121) | #98c379 |
+        " |--------------+--------------------+---------|
+        " | Light Yellow | rgb(229, 192, 123) | #e5c07b |
+        " |--------------+--------------------+---------|
+        " | Dark Yellow  | rgb(209, 154, 102) | #d19a66 |
+        " |--------------+--------------------+---------|
+        " | Blue         | rgb(97, 175, 239)  | #61afef |
+        " |--------------+--------------------+---------|
+        " | Magenta      | rgb(198, 120, 221) | #c678dd |
+        " |--------------+--------------------+---------|
+        " | Cyan         | rgb(86, 182, 194)  | #56b6c2 |
+        " |--------------+--------------------+---------|
+        " | Gutter Grey  | rgb(76, 82, 99)    | #4b5263 |
+        " |--------------+--------------------+---------|
+        " | Comment Grey | rgb(92, 99, 112)   | #5c6370 |
+        " +---------------------------------------------+
+
+        let one_dark_colors = onedark#GetColors()
+        let g:indentLine_color_gui = one_dark_colors.cursor_grey.gui
+
+        " remove underline from pair highlighting "MatchPair" for the onedark theme
+        " hi! MatchParen cterm=NONE,bold gui=NONE,bold guibg=NONE guifg=one_dark_colors.blue.gui
+        execute "hi! MatchParen cterm=NONE,bold gui=NONE,bold guibg=NONE guifg=" one_dark_colors.blue.gui
+
+        " change vdebug colors
+        execute "hi! DbgBreakptLine term=reverse ctermfg=Black ctermbg=Green guifg=#000000 guibg=" one_dark_colors.green.gui
+        execute "hi! DbgBreakptSign term=reverse ctermfg=Black ctermbg=Green guifg=#000000 guibg=" one_dark_colors.green.gui
+
+        " change vdebug colors
+        execute "hi! DbgCurrentLine term=reverse ctermfg=Black ctermbg=Green guifg=#000000 guibg=" one_dark_colors.blue.gui
+        execute "hi! DbgCurrentSign term=reverse ctermfg=Black ctermbg=Green guifg=#000000 guibg=" one_dark_colors.blue.gui
+
+        execute "hi! SpecialKey ctermfg=19 guifg=" one_dark_colors.gutter_fg_grey.gui
+        execute "hi! NonText ctermfg=19 guifg=" one_dark_colors.gutter_fg_grey.gui
+
+        execute "hi! CocErrorSign guifg=" one_dark_colors.red.gui
+        execute "hi! CocInfoSign guifg=" one_dark_colors.cyan.gui
+        execute "hi! CocWarningSign guifg=" one_dark_colors.dark_yellow.gui
+        execute "hi! CocFloating guibg=" one_dark_colors.cursor_grey.gui " guifg=" one_dark_colors.comment_grey.gui
+
+        " " add matching colors to "NREDTree" git color highlighting
+        " let g:NERDTreeColorMapCustom = {
+        "     \ "Modified"  : one_dark_colors.yellow.gui,
+        "     \ "Staged"    : one_dark_colors.green.gui,
+        "     \ "Untracked" : one_dark_colors.red.gui,
+        "     \ "Dirty"     : one_dark_colors.dark_yellow.gui,
+        "     \ "Clean"     : one_dark_colors.special_grey.gui,
+        "     \ "Ignored"   : one_dark_colors.comment_grey.gui
+        "     \ }
+
+    endif
 " }}}
 
 " vim:set foldmethod=marker foldlevel=0
@@ -1132,13 +1218,10 @@ call plug#end()
 "
 " " highlight conflicts
 "
-" " Tab control
-" " set noexpandtab " insert tabs rather than spaces for <Tab>
-"
 "
 " " code folding settings
 "
-" let b:match_debug=1 " fixes the - not jumping to other bracket with % - issue
+" 
 "
 " " }}}
 "
@@ -1317,42 +1400,6 @@ call plug#end()
 " " NERDTree
 " """""""""""""""""""""""""""""""""""""
 "
-" " close NERDTree after a file is opened
-" let g:NERDTreeQuitOnOpen = 0
-" " remove some files by extension
-" let NERDTreeIgnore = ['\.js.map$','\.DS_Store']
-" " enable line numbers
-" let NERDTreeShowLineNumbers=1
-" " make sure relative line numbers are used
-" " refresh NERDtree and jump back to previous window
-" " nmap <leader>nr :NERDTree<cr> \| R \| <c-w><c-p>
-"
-" let g:NERDTreeGitStatusNodeColorization = 1
-" let g:NERDTreeGitStatusWithFlags = 1
-"
-" " adjust the space between icon and filename
-" let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
-" let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '
-" " whether or not to show the nerdtree brackets around flags
-" let g:webdevicons_conceal_nerdtree_brackets = 1
-" " Force extra padding in NERDTree so that the filetype icons line up vertically
-" let g:WebDevIconsNerdTreeGitPluginForceVAlign = 0
-" " change the default folder/directory glyph/icon
-" let g:WebDevIconsUnicodeDecorateFolderNodesDefaultSymbol = "\ue613"
-" " change the default open folder/directory glyph/icon (default is '')
-" let g:DevIconsDefaultFolderOpenSymbol = "\ue613" " \uf755
-" " let g:DevIconsEnableNERDTreeRedraw = 0
-"
-" let g:NERDTreeShowIgnoredStatus = 1
-" let g:NERDTreeColorMapCustom = {
-"     \ "Modified"  : "#528AB3",
-"     \ "Staged"    : "#538B54",
-"     \ "Untracked" : "#BE5849",
-"     \ "Dirty"     : "#299999",
-"     \ "Clean"     : "#87939A",
-"     \ "Ignored"   : "#808080"
-"     \ }
-"
 " " NerdCommenter
 " """""""""""""""""""""""""""""""""""""
 "
@@ -1443,61 +1490,6 @@ call plug#end()
 "
 " " FZF
 " """""""""""""""""""""""""""""""""""""
-"
-" " if has('nvim')
-" "     let g:fzf_layout = { 'window': 'enew' }
-" " else
-" "     let g:fzf_layout = { 'down': '~25%' }
-" " endif
-"
-" " [Tags] Command to generate tags file
-" let g:fzf_tags_command = 'ctags -R --exclude=node_modules --exclude=dist'
-"
-" " [Buffers] Jump to the existing window if possible
-" let g:fzf_buffers_jump = 1
-"
-" nmap <silent> <leader>r :BTags<cr>
-"
-"
-" " Advanced customization using autoload functions
-" inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
-"
-" " " hide statusline
-" " autocmd! FileType fzf
-" " autocmd  FileType fzf set laststatus=0 noshowmode noruler
-" "   \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-"
-" " autocmd! User FzfStatusLine call <SID>fzf_statusline()
-"
-"
-" " if has('nvim')
-" "     command! -bang Commits
-" "         \ call fzf#vim#commits({'window': 'enew'}, <bang>0)
-" " else
-" "     command! -bang Commits
-" "         \ call fzf#vim#commits({'down': '70%'}, <bang>0)
-" " endif
-"
-" """"""""""""""""""""""""""""""""""""""""""""""""""""""" preview broken
-"
-" command! -bang Commits
-"     \ call fzf#vim#commits({'options': '--no-preview'}, <bang>0)
-"
-" command! -bang BCommits
-"     \ call fzf#vim#buffer_commits({'options': '--no-preview'}, <bang>0)
-"
-" """""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" command! -bang BTags
-"     \ call fzf#vim#buffer_tags(<q-args>, {'top': '30%'}, <bang>0)
-"
-"
-" " does not work
-" " command! -bang Buffers
-" "     \ call fzf#vim#buffers(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
-"
-" command! -bang -nargs=* Ag
-"   \ call fzf#vim#ag(<q-args>, fzf#vim#with_preview('right:50%', '?'), <bang>0)
 "
 " " Emmet
 " """""""""""""""""""""""""""""""""""""
@@ -1702,50 +1694,6 @@ call plug#end()
 "     colorscheme onedark
 "     " colorscheme gruvbox
 " endif
-"
-" if (g:colors_name == 'onedark')
-"     let one_dark_colors = onedark#GetColors()
-"
-"     highlight IndentGuidesEven guibg=#2D3038
-"     highlight IndentGuidesOdd guibg=#2B2E36
-"
-"     " remove underline from pair highlighting "MatchPair" for the onedark theme
-"     " highlight MatchParen cterm=NONE,bold gui=NONE,bold guibg=NONE guifg=one_dark_colors.blue.gui
-"     execute "highlight MatchParen cterm=NONE,bold gui=NONE,bold guibg=NONE guifg=" one_dark_colors.blue.gui
-"
-"     " change vdebug colors
-"     execute "highlight DbgBreakptLine term=reverse ctermfg=Black ctermbg=Green guifg=#000000 guibg=" one_dark_colors.green.gui
-"     execute "highlight DbgBreakptSign term=reverse ctermfg=Black ctermbg=Green guifg=#000000 guibg=" one_dark_colors.green.gui
-"
-"     " change vdebug colors
-"     execute "highlight DbgCurrentLine term=reverse ctermfg=Black ctermbg=Green guifg=#000000 guibg=" one_dark_colors.blue.gui
-"     execute "highlight DbgCurrentSign term=reverse ctermfg=Black ctermbg=Green guifg=#000000 guibg=" one_dark_colors.blue.gui
-"
-"     " add matching colors to "NREDTree" git color highlighting
-"     let g:NERDTreeColorMapCustom = {
-"         \ "Modified"  : one_dark_colors.yellow.gui,
-"         \ "Staged"    : one_dark_colors.green.gui,
-"         \ "Untracked" : one_dark_colors.red.gui,
-"         \ "Dirty"     : one_dark_colors.dark_yellow.gui,
-"         \ "Clean"     : one_dark_colors.special_grey.gui,
-"         \ "Ignored"   : one_dark_colors.comment_grey.gui
-"         \ }
-" endif
-"
-" " make the highlighting of tabs and other non-text less annoying
-" highlight SpecialKey ctermfg=236
-" highlight NonText ctermfg=236
-"
-" " make comments and HTML attributes italic
-" highlight Comment cterm=italic
-" highlight htmlArg cterm=italic
-" highlight xmlAttrib cterm=italic
-" highlight Type cterm=italic
-"
-" " make the colorscheme background color disappear
-" highlight Normal ctermbg=none
-" highlight Normal guibg=none
-" " }}}
 "
 " " after a re-source, fix syntax matching issues (concealing brackets):
 " " has to be triggered after `syntax on`
