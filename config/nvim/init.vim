@@ -619,11 +619,18 @@ call plug#begin('~/.config/nvim/plugged')
     " Plug 'sickill/vim-pasta'
 
     " detect indent style (tabs vs. spaces)
-    " Plug 'tpope/vim-sleuth'
+    Plug 'tpope/vim-sleuth'
 
     " Session Management {{{
         Plug 'tpope/vim-obsession'
         Plug 'dhruvasagar/vim-prosession'
+    " }}}
+
+    " Sync Files {{{
+        " Automatic sync local and remote file in vim
+        Plug 'eshion/vim-sync'
+        nnoremap <C-U> <ESC>:call SyncUploadFile()<CR>
+        nnoremap <C-D> <ESC>:call SyncDownloadFile()<CR>
     " }}}
 
     " Commenting Motions {{{
@@ -996,8 +1003,8 @@ call plug#begin('~/.config/nvim/plugged')
         inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
         function! s:check_back_space() abort
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~# '\s'
+            let col = col('.') - 1
+            return !col || getline('.')[col - 1]  =~# '\s'
         endfunction
     " }}}
 " }}}
@@ -1309,9 +1316,6 @@ call plug#end()
 "
 " " eshion/vim-sync
 " """"""""""""""""""""""""""""""""""""""""
-"
-" nnoremap <C-U> <ESC>:call SyncUploadFile()<CR>
-" nnoremap <C-D> <ESC>:call SyncDownloadFile()<CR>
 "
 " " pseewald/vim-anyfold
 " """"""""""""""""""""""""""""""""""""""""
