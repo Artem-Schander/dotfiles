@@ -92,6 +92,8 @@
 " run:
 " nvim +PlugInstall
 
+" call functions#PlugLoad()
+" call plug#begin('~/.config/nvim/plugged')
 source ~/.config/nvim/plugins.vim
 
 
@@ -699,11 +701,16 @@ let g:DevIconsDefaultFolderOpenSymbol = "\ue613" " \uf755
 " let g:DevIconsEnableNERDTreeRedraw = 0
 
 let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "•",
-    \ "Untracked" : "⚬",
-    \ "Dirty"     : "⁖",
-    \ "Clean"     : "✔︎",
+    \ "Modified"  : "✹ ",
+    \ "Staged"    : "• ",
+    \ "Untracked" : "⚬ ",
+    \ "Unmerged"  : "═ ",
+    \ "Deleted"   : "✖ ",
+    \ "Renamed"   : "➜ ",
+    \ "Dirty"     : "⁖ ",
+    \ "Clean"     : "✔︎ ",
+    \ "Ignored"   : "☒ ",
+    \ "Unknown"   : "? "
     \ }
 
 let g:NERDTreeShowIgnoredStatus = 1
@@ -811,7 +818,7 @@ let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'fzf', 'Tagbar']
 " let g:indentLine_char_list = ['|', '│']
 let g:indentLine_char = '│'
 let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'fzf', 'Tagbar']
-let g:indentLine_color_gui = '#3e4452'
+let g:indentLine_color_gui = '#2f3440'
 nmap <leader>ig :IndentLinesToggle<cr>
 
 " bronson/vim-trailing-whitespace
