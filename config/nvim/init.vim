@@ -632,7 +632,7 @@ call plug#begin('~/.config/nvim/plugged')
         let g:strip_whitespace_on_save = 0
         let g:better_whitespace_filetypes_blacklist = ['pug', 'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'coc-explorer']
         let g:show_spaces_that_precede_tabs = 1
-        let g:better_whitespace_skip_empty_lines = 1
+        let g:better_whitespace_skip_empty_lines = 0
 
         " " Remove white-space mess from files in ViM
         " Plug 'mboughaba/vim-lessmess'
