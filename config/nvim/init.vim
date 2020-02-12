@@ -128,7 +128,7 @@ call plug#begin('~/.config/nvim/plugged')
     endif
 
     set backspace=indent,eol,start " make backspace behave in a sane manner
-    set clipboard=unnamed " copy to system clipboard
+    set clipboard^=unnamed,unnamedplus " copy to system clipboard
 
     let b:match_debug=1 " fixes the - not jumping to other bracket with % - issue
 
@@ -642,6 +642,8 @@ call plug#begin('~/.config/nvim/plugged')
     " Session Management {{{
         Plug 'tpope/vim-obsession'
         Plug 'dhruvasagar/vim-prosession'
+
+        let g:prosession_on_startup = 0
     " }}}
 
     " Sync Files {{{
@@ -731,41 +733,43 @@ call plug#begin('~/.config/nvim/plugged')
     "     let g:tagbar_autofocus = 0
     " " }}}
 
-    " " Startify: Fancy startup screen for vim {{{
-    "     Plug 'mhinz/vim-startify'
-    "
-    "     " Don't change to directory when selecting a file
-    "     let g:startify_files_number = 5
-    "     let g:startify_change_to_dir = 0
-    "     let g:startify_custom_header = [ ]
-    "     let g:startify_relative_path = 1
-    "     let g:startify_use_env = 1
-    "
-    "     " Custom startup list, only show MRU from current directory/project
-    "     let g:startify_lists = [
-    "     \  { 'type': 'dir',       'header': [ 'Files '. getcwd() ] },
-    "     \  { 'type': function('helpers#startify#listcommits'), 'header': [ 'Recent Commits' ] },
-    "     \  { 'type': 'sessions',  'header': [ 'Sessions' ]       },
-    "     \  { 'type': 'bookmarks', 'header': [ 'Bookmarks' ]      },
-    "     \  { 'type': 'commands',  'header': [ 'Commands' ]       },
-    "     \ ]
-    "
-    "     let g:startify_commands = [
-    "     \   { 'up': [ 'Update Plugins', ':PlugUpdate' ] },
-    "     \   { 'ug': [ 'Upgrade Plugin Manager', ':PlugUpgrade' ] },
-    "     \ ]
-    "
-    "     let g:startify_bookmarks = [
-    "         \ { 'c': '~/.config/nvim/init.vim' },
-    "         \ { 'g': '~/.gitconfig' },
-    "         \ { 'z': '~/.zshrc' }
-    "     \ ]
-    "
-    "     autocmd User Startified setlocal cursorline
-    "     nmap <leader>st :Startify<cr>
-    " " }}}
+    " Startify: Fancy startup screen for vim {{{
+        Plug 'mhinz/vim-startify'
 
-    " Splits {{{{
+        " Don't change to directory when selecting a file
+        let g:startify_files_number = 5
+        let g:startify_change_to_dir = 0
+        let g:startify_custom_header = [ ]
+        let g:startify_relative_path = 1
+        let g:startify_use_env = 1
+
+        " Custom startup list, only show MRU from current directory/project
+        " TODO: add sessions from dhruvasagar/vim-prosession
+        " ^^^^^ only for the current folder
+        let g:startify_lists = [
+        \  { 'type': 'dir',       'header': [ 'Files '. getcwd() ] },
+        \  { 'type': function('helpers#startify#listcommits'), 'header': [ 'Recent Commits' ] },
+        \  { 'type': 'sessions',  'header': [ 'Sessions' ]       },
+        \  { 'type': 'bookmarks', 'header': [ 'Bookmarks' ]      },
+        \  { 'type': 'commands',  'header': [ 'Commands' ]       },
+        \ ]
+
+        let g:startify_commands = [
+        \   { 'up': [ 'Update Plugins', ':PlugUpdate' ] },
+        \   { 'ug': [ 'Upgrade Plugin Manager', ':PlugUpgrade' ] },
+        \ ]
+
+        let g:startify_bookmarks = [
+            \ { 'c': '~/.config/nvim/init.vim' },
+            \ { 'g': '~/.gitconfig' },
+            \ { 'z': '~/.zshrc' }
+        \ ]
+
+        autocmd User Startified setlocal cursorline
+        nmap <leader>st :Startify<cr>
+    " }}}
+
+    " Splits {{{
         " Close buffers but keep splits
         Plug 'moll/vim-bbye'
         nmap <leader>b :Bdelete<cr>
