@@ -23,13 +23,13 @@ function! helpers#lightline#fileType()
 endfunction
 
 function! helpers#lightline#whitespace()
-    " try
+    try
         let mixedindent = helpers#whitespace#DetectMixedIndent()
         let trailingspaces = helpers#whitespace#DetectTrailingSpaces()
         " return (trailingspaces == '[\s]' ? 'trailing spaces' : '')
         return mixedindent . trailingspaces
-    " catch
-    " endtry
+    catch
+    endtry
 endfunction
 
 function! helpers#lightline#gitBranch()

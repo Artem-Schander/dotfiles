@@ -644,6 +644,7 @@ call plug#begin('~/.config/nvim/plugged')
         Plug 'dhruvasagar/vim-prosession'
 
         let g:prosession_on_startup = 0
+        let g:prosession_last_session_dir = '~/.vim/session'
     " }}}
 
     " Sync Files {{{
@@ -742,17 +743,16 @@ call plug#begin('~/.config/nvim/plugged')
         let g:startify_custom_header = [ ]
         let g:startify_relative_path = 1
         let g:startify_use_env = 1
+        let g:startify_session_dir = '~/.vim/session'
 
-        " Custom startup list, only show MRU from current directory/project
-        " TODO: add sessions from dhruvasagar/vim-prosession
-        " ^^^^^ only for the current folder
         let g:startify_lists = [
-        \  { 'type': 'dir',       'header': [ 'Files '. getcwd() ] },
+        \  { 'type': 'dir', 'header': [ 'Files '. getcwd() ] },
+        \  { 'type': function('helpers#startify#listsessions'), 'header': [ 'Related Sessions' ] },
         \  { 'type': function('helpers#startify#listcommits'), 'header': [ 'Recent Commits' ] },
-        \  { 'type': 'sessions',  'header': [ 'Sessions' ]       },
-        \  { 'type': 'bookmarks', 'header': [ 'Bookmarks' ]      },
-        \  { 'type': 'commands',  'header': [ 'Commands' ]       },
+        \  { 'type': 'bookmarks', 'header': [ 'Bookmarks' ] },
+        \  { 'type': 'commands', 'header': [ 'Commands' ] },
         \ ]
+
 
         let g:startify_commands = [
         \   { 'up': [ 'Update Plugins', ':PlugUpdate' ] },
