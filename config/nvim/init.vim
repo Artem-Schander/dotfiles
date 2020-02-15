@@ -96,8 +96,6 @@
 call functions#PlugLoad()
 call plug#begin('~/.config/nvim/plugged')
 
-
-
 " Section General {{{
 
     " Abbreviations
@@ -162,9 +160,6 @@ call plug#begin('~/.config/nvim/plugged')
     " nnoremap <C-Right> :tabnext<CR>
     " nnoremap <C-t> :tabnew<cr>
 
-    " let delimitMate_expand_cr = 1
-    " let delimitMate_expand_space = 1
-
     " More natural split opening
     set splitbelow
     set splitright
@@ -175,42 +170,37 @@ call plug#begin('~/.config/nvim/plugged')
     " expand previous indent on new line
     inoremap <expr> <CR> functions#Expander()
 
-    " " A: don't give the "ATTENTION" message when an existing swap file set
+    " BufOnly.vim  -  Delete all the buffers except the current/named buffer.
+    " Copyright November 2003 by Christian J. Robinson <infynity@onewest.net>
+    " Distributed under the terms of the Vim license.  See ":help license".
     "
-    " " BufOnly.vim  -  Delete all the buffers except the current/named buffer.
-    " "
-    " " Copyright November 2003 by Christian J. Robinson <infynity@onewest.net>
-    " "
-    " " Distributed under the terms of the Vim license.  See ":help license".
-    " "
-    " " Usage:
-    " "
-    " " :Bonly / :BOnly / :Bufonly / :BufOnly [buffer]
-    " "
-    " " Without any arguments the current buffer is kept.  With an argument the
-    " " buffer name/number supplied is kept.
+    " Usage:
     "
-    " command! -nargs=? -complete=buffer -bang Bonly
-    " \ :call functions#BufOnly('<args>', '<bang>')
-    " command! -nargs=? -complete=buffer -bang BOnly
-    " \ :call functions#BufOnly('<args>', '<bang>')
-    " command! -nargs=? -complete=buffer -bang Bufonly
-    " \ :call functions#BufOnly('<args>', '<bang>')
-    " command! -nargs=? -complete=buffer -bang BufOnly
-    " \ :call functions#BufOnly('<args>', '<bang>')
-    " command! Bcleanup
-    " \ :call functions#DeleteEmptyBuffers()
+    " :Bonly / :BOnly / :Bufonly / :BufOnly [buffer]
     "
+    " Without any arguments the current buffer is kept.  With an argument the
+    " buffer name/number supplied is kept.
+
+    command! -nargs=? -complete=buffer -bang Bonly
+    \ :call functions#BufOnly('<args>', '<bang>')
+    command! -nargs=? -complete=buffer -bang BOnly
+    \ :call functions#BufOnly('<args>', '<bang>')
+    command! -nargs=? -complete=buffer -bang Bufonly
+    \ :call functions#BufOnly('<args>', '<bang>')
+    command! -nargs=? -complete=buffer -bang BufOnly
+    \ :call functions#BufOnly('<args>', '<bang>')
+    command! Bcleanup
+    \ :call functions#DeleteEmptyBuffers()
+
     " " command BD bp\|bd \#
     " nnoremap <C-c> :bp\|bd #<CR>
-    "
-    " " jump to the previous function
-    " nnoremap <silent> [f :call
-    " \ search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "bw")<CR>
-    " " jump to the next function
-    " nnoremap <silent> ]f :call
-    " \ search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "w")<CR>
 
+    " jump to the previous function
+    nnoremap <silent> [f :call
+    \ search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "bw")<CR>
+    " jump to the next function
+    nnoremap <silent> ]f :call
+    \ search('\(\(if\\|for\\|while\\|switch\\|catch\)\_s*\)\@64<!(\_[^)]*)\_[^;{}()]*\zs{', "w")<CR>
 " }}}
 
 " Appearance {{{
@@ -237,7 +227,7 @@ call plug#begin('~/.config/nvim/plugged')
     set mat=2 " how many tenths of a second to blink
     set updatetime=300
     set signcolumn=yes
-    set shortmess+=c
+    set shortmess+=A " don't give the "ATTENTION" message when an existing swap file set
     set scrolloff=3 " lines of text around cursor
     set cursorline " highlight cursor line
 
@@ -464,8 +454,8 @@ call plug#begin('~/.config/nvim/plugged')
     " nmap <leader><space> :%s/\s\+$<cr>
     " nmap <leader><space><space> :%s/\n\{2,}/\r\r/g<cr>
 
-    inoremap <expr> <C-j> pumvisible() ? "\<C-N>" : "\<C-j>"
-    inoremap <expr> <C-k> pumvisible() ? "\<C-P>" : "\<C-k>"
+    " inoremap <expr> <C-j> pumvisible() ? "\<C-N>" : "\<C-j>"
+    " inoremap <expr> <C-k> pumvisible() ? "\<C-P>" : "\<C-k>"
 
     " show hidden chars
     nmap <leader>l :set list!<cr>
@@ -482,10 +472,10 @@ call plug#begin('~/.config/nvim/plugged')
     " enable . command in visual mode
     vnoremap . :normal .<cr>
 
-    map <silent> <C-h> <Plug>WinMoveLeft
-    map <silent> <C-j> <Plug>WinMoveDown
-    map <silent> <C-k> <Plug>WinMoveUp
-    map <silent> <C-l> <Plug>WinMoveRight
+    " map <silent> <C-h> <Plug>WinMoveLeft
+    " map <silent> <C-j> <Plug>WinMoveDown
+    " map <silent> <C-k> <Plug>WinMoveUp
+    " map <silent> <C-l> <Plug>WinMoveRight
 
     " zoom current pane
     nmap <leader>z <Plug>Zoom
@@ -551,6 +541,11 @@ call plug#begin('~/.config/nvim/plugged')
     nmap <leader>4 <Plug>HiInterestingWord4
     nmap <leader>5 <Plug>HiInterestingWord5
     nmap <leader>6 <Plug>HiInterestingWord6
+
+    " shortcut to save
+    " map <cmd>s as Escape Sequence to "[24;2~"
+    " map <F24> :w<cr>
+    " imap <F24> <esc>:w<cr> a
 " }}}
 
 " AutoGroups {{{
@@ -575,11 +570,11 @@ call plug#begin('~/.config/nvim/plugged')
         autocmd FileType phtml UltiSnipsAddFiletypes php
         autocmd FileType blade UltiSnipsAddFiletypes html
 
-        autocmd FileType nerdtree setlocal relativenumber nolist
-        autocmd FileType gitcommit,gitrebase let g:gutentags_enabled=0
+        " autocmd FileType nerdtree setlocal relativenumber nolist
+        " autocmd FileType gitcommit,gitrebase let g:gutentags_enabled=0
 
         " autocmd FileType php,cpp,javascript.jsx,vue setlocal commentstring=//\ %s
-        " autocmd FileType ss.html setlocal commentstring=<%--%s--%>
+        autocmd FileType ss.html setlocal commentstring=<%--%s--%>
 
         " autocmd BufNewFile,BufRead *.vue set ft=vue
         " autocmd BufEnter *.vue :syntax sync fromstart
@@ -623,20 +618,95 @@ call plug#begin('~/.config/nvim/plugged')
     " detect indent style (tabs vs. spaces)
     Plug 'tpope/vim-sleuth'
 
+    " Vim motion on speed
+    Plug 'easymotion/vim-easymotion'
+
+    " Debugging {{{
+        " Multi-language DBGP debugger client for Vim
+        Plug 'vim-vdebug/vdebug', { 'for': ['php', 'python'] }
+
+        " Keymap for Vdebug
+        " let g:vdebug_keymap = {
+        " \    "run" : "<Leader>/",
+        " \    "run_to_cursor" : "<Down>",
+        " \    "step_over" : "<Up>",
+        " \    "step_into" : "<Right>",
+        " \    "step_out" : "<Left>",
+        " \    "close" : "q",
+        " \    "detach" : "<F7>",
+        " \    "set_breakpoint" : "<Leader>s",
+        " \    "eval_visual" : "<Leader>e",
+        " \    "eval_under_cursor" : "<Leader>c"
+        " \}
+
+        " Vdebug settings.
+        let g:vdebug_options = {}
+        let g:vdebug_options['break_on_open'] = 1
+        let g:vdebug_options['max_children'] = 128
+        let g:vdebug_options['watch_window_style'] = 'compact'
+        let g:vdebug_options['ide_key'] = 'PHPSTORM'
+    " }}}
+
+    " Testing {{{
+        " A Vim wrapper for running tests on different granularities
+        Plug 'janko-m/vim-test'
+
+        " make test commands execute using neovim
+        let test#strategy = "neovim"
+
+        nmap <silent> t<C-n> :TestNearest<CR> " t Ctrl+n
+        nmap <silent> t<C-f> :TestFile<CR>    " t Ctrl+f
+        nmap <silent> t<C-s> :TestSuite<CR>   " t Ctrl+s
+        nmap <silent> t<C-l> :TestLast<CR>    " t Ctrl+l
+        nmap <silent> t<C-g> :TestVisit<CR>   " t Ctrl+g
+    " }}}
+
+    " Local Configuration {{{
+        " Search local vimrc files (.lvimrc) in the tree (root dir up to current dir) and load them.
+        Plug 'embear/vim-localvimrc'
+        let g:localvimrc_name = [".lvimrc", ".local.vimrc"]
+        let g:localvimrc_ask = 0
+    " }}}
+
+    " Alignment {{{
+        " A Vim alignment plugin
+        Plug 'junegunn/vim-easy-align'
+
+        " Start interactive EasyAlign in visual mode (e.g. vipga)
+        xmap ga <Plug>(EasyAlign)
+        " Start interactive EasyAlign for a motion/text object (e.g. gaip)
+        nmap ga <Plug>(EasyAlign)
+    " }}}
+
+    " Better Folding {{{
+        " Language agnostic vim plugin for folding and motion based on indentation.
+        Plug 'pseewald/vim-anyfold'
+        let g:AnyFoldActivate=1
+        let g:anyfold_fold_comments=1
+    " }}}
+
+    " show search count
+    Plug 'osyo-manga/vim-anzu'
+
     " Better Whitespace {{{
         " Better whitespace highlighting for Vim
         Plug 'ntpeters/vim-better-whitespace'
 
         nmap <leader><space> :StripWhitespace<cr>
-        let g:better_whitespace_guicolor = '#be5046'
         let g:strip_whitespace_on_save = 0
-        let g:better_whitespace_filetypes_blacklist = ['pug', 'diff', 'gitcommit', 'unite', 'qf', 'help', 'markdown', 'coc-explorer']
+        let g:better_whitespace_filetypes_blacklist = [
+        \ 'pug',
+        \ 'diff',
+        \ 'gitcommit',
+        \ 'unite',
+        \ 'qf',
+        \ 'help',
+        \ 'markdown',
+        \ 'coc-explorer',
+        \ 'startify'
+        \ ]
         let g:show_spaces_that_precede_tabs = 1
         let g:better_whitespace_skip_empty_lines = 0
-
-        " " Remove white-space mess from files in ViM
-        " Plug 'mboughaba/vim-lessmess'
-        " let g:enable_lessmess_onsave = 0
     " }}}
 
     " Session Management {{{
@@ -644,6 +714,7 @@ call plug#begin('~/.config/nvim/plugged')
         Plug 'dhruvasagar/vim-prosession'
 
         let g:prosession_on_startup = 0
+        let g:prosession_tmux_title = 1
         let g:prosession_last_session_dir = '~/.vim/session'
     " }}}
 
@@ -740,14 +811,15 @@ call plug#begin('~/.config/nvim/plugged')
         " Don't change to directory when selecting a file
         let g:startify_files_number = 5
         let g:startify_change_to_dir = 0
-        let g:startify_custom_header = [ ]
+        let g:startify_custom_header = helpers#startify#header()
         let g:startify_relative_path = 1
         let g:startify_use_env = 1
-        let g:startify_session_dir = '~/.vim/session'
 
         let g:startify_lists = [
+        \  { 'type': function('helpers#startify#listprosessions'), 'header': [ 'Location Related Sessions' ] },
+        \  { 'type': function('helpers#startify#listsessions'), 'header': [ 'Global Sessions' ] },
+        \  { 'type': function('helpers#startify#startsession'), 'header': [ 'Start Session' ] },
         \  { 'type': 'dir', 'header': [ 'Files '. getcwd() ] },
-        \  { 'type': function('helpers#startify#listsessions'), 'header': [ 'Related Sessions' ] },
         \  { 'type': function('helpers#startify#listcommits'), 'header': [ 'Recent Commits' ] },
         \  { 'type': 'bookmarks', 'header': [ 'Bookmarks' ] },
         \  { 'type': 'commands', 'header': [ 'Commands' ] },
@@ -787,7 +859,7 @@ call plug#begin('~/.config/nvim/plugged')
 
         " let g:indentLine_char_list = ['|', '│']
         let g:indentLine_char = '│'
-        let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'fzf', 'Tagbar']
+        let g:indentLine_fileTypeExclude = ['help', 'nerdtree', 'fzf', 'Tagbar', 'coc-explorer', 'startify']
         nmap <leader>ig :IndentLinesToggle<cr>
     " }}}
 
@@ -919,6 +991,9 @@ call plug#begin('~/.config/nvim/plugged')
         nmap <leader>ge :Gedit<cr>
         nmap <silent><leader>gr :Gread<cr>
         nmap <silent><leader>gb :Gblame<cr>
+        " nmap <leader>m :MarkedOpen!<cr>
+        " nmap <leader>mq :MarkedQuit<cr>
+        " nmap <leader>* *<c-o>:%s///gn<cr>
 
         " Plug 'tpope/vim-rhubarb' " hub extension for fugitive
         Plug 'sodapopcan/vim-twiggy' " fugitive extension that loads, decorates and sorts git branches into an interactive buffer
@@ -941,7 +1016,10 @@ call plug#begin('~/.config/nvim/plugged')
         " an intellisense engine for Vim/Neovim.
         Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
+         " ccls need to be installed separately. see https://github.com/MaskRay/ccls/wiki
         let g:coc_global_extensions = [
+        \ 'coc-ccls',
+        \ 'coc-python',
         \ 'coc-phpls',
         \ 'coc-vetur',
         \ 'coc-css',
@@ -1020,19 +1098,63 @@ call plug#begin('~/.config/nvim/plugged')
             let col = col('.') - 1
             return !col || getline('.')[col - 1]  =~# '\s'
         endfunction
+
+        " " bases
+        " nn <silent> xb :call CocLocations('ccls','$ccls/inheritance')<cr>
+        " " bases of up to 3 levels
+        " nn <silent> xB :call CocLocations('ccls','$ccls/inheritance',{'levels':3})<cr>
+        " " derived
+        " nn <silent> xd :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true})<cr>
+        " " derived of up to 3 levels
+        " nn <silent> xD :call CocLocations('ccls','$ccls/inheritance',{'derived':v:true,'levels':3})<cr>
+        "
+        " " caller
+        " nn <silent> xc :call CocLocations('ccls','$ccls/call')<cr>
+        " " callee
+        " nn <silent> xC :call CocLocations('ccls','$ccls/call',{'callee':v:true})<cr>
+
+        " $ccls/member
+        " member variables / variables in a namespace
+        nn <silent> xm :call CocLocations('ccls','$ccls/member')<cr>
+        " member functions / functions in a namespace
+        nn <silent> xf :call CocLocations('ccls','$ccls/member',{'kind':3})<cr>
+        " nested classes / types in a namespace
+        nn <silent> xs :call CocLocations('ccls','$ccls/member',{'kind':2})<cr>
+
+        nmap <silent> xt <Plug>(coc-type-definition)<cr>
+        nn <silent> xv :call CocLocations('ccls','$ccls/vars')<cr>
+        nn <silent> xV :call CocLocations('ccls','$ccls/vars',{'kind':1})<cr>
+
+        " nn <silent><buffer> <C-l> :call CocLocations('ccls','$ccls/navigate',{'direction':'D'})<cr>
+        " nn <silent><buffer> <C-k> :call CocLocations('ccls','$ccls/navigate',{'direction':'L'})<cr>
+        " nn <silent><buffer> <C-j> :call CocLocations('ccls','$ccls/navigate',{'direction':'R'})<cr>
+        " nn <silent><buffer> <C-h> :call CocLocations('ccls','$ccls/navigate',{'direction':'U'})<cr>
+
+        nn xx x
     " }}}
 " }}}
 
 " Language-Specific Configuration {{{
+"
+    " A solid language pack for Vim
+    Plug 'sheerun/vim-polyglot'
+
     " html / templates {{{
         " emmet support for vim - easily create markdup wth CSS-like syntax
         Plug 'mattn/emmet-vim', { 'for': ['html', 'phtml', 'javascript.jsx', 'ss.html'] }
-
+        let g:user_emmet_settings = {
+        \  'javascript.jsx': {
+        \      'extends': 'jsx',
+        \  },
+        \}
         " match tags in html, similar to paren support
-        " Plug 'gregsexton/MatchTag', { 'for': 'html' }
+        Plug 'gregsexton/MatchTag', { 'for': 'html' }
+
+        " Auto close (X)HTML tags
+        Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xml'] }
 
         " html5 support
-        " Plug 'othree/html5.vim', { 'for': 'html' }
+        Plug 'othree/html5.vim', { 'for': 'html' }
 
         " mustache support
         Plug 'mustache/vim-mustache-handlebars'
@@ -1045,6 +1167,29 @@ call plug#begin('~/.config/nvim/plugged')
 
         " SilverStripe
         Plug 'phalkunz/vim-ss', {'for': ['ss', 'ss.html']}
+    " }}}
+
+    " C++ {{{
+        " Run Async Shell Commands
+        Plug 'skywind3000/asyncrun.vim'
+
+        " automatically open quickfix window when AsyncRun command is executed
+        " set the quickfix window 6 lines height.
+        let g:asyncrun_open = 6
+
+        " ring the bell to notify you job finished
+        let g:asyncrun_bell = 1
+
+        " find the project root by on of these
+        let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml', 'Makefile']
+
+        " F9 single file compilation
+        autocmd FileType cpp nnoremap <silent> <F9> :AsyncRun -mode=4 g++ -O3 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+        " F5 run binary
+        " autocmd FileType cpp nnoremap <silent> <F5> :AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+        autocmd FileType cpp nnoremap <silent> <F5> :AsyncRun -mode=4 -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+        " F10 to toggle quickfix window
+        " autocmd FileType cpp nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
     " }}}
 
     " JavaScript {{{
@@ -1091,6 +1236,10 @@ call plug#begin('~/.config/nvim/plugged')
         nmap <leader>* *<c-o>:%s///gn<cr>
     " }}}
 
+    " GraphQL {{{
+        Plug 'jparise/vim-graphql', { 'for': ['gql', 'graphql'] }
+    " }}}
+
     " JSON {{{
         Plug 'elzr/vim-json', { 'for': 'json' }
         let g:vim_json_syntax_conceal = 0
@@ -1106,6 +1255,17 @@ call plug#end()
 " Colorscheme and final setup {{{
     " This call must happen after the plug#end() call to ensure
     " that the colorschemes have been loaded
+
+    " switch syntax highlighting on
+    if !exists('g:encoding_set') || !has('nvim')
+        set encoding=utf-8
+        let g:encoding_set = 1
+    endif
+    scriptencoding utf-8
+    setglobal fileencoding=utf-8
+
+    set fillchars+=vert:┃
+
     if filereadable(expand("~/.vimrc_background"))
         let base16colorspace=256
         source ~/.vimrc_background
@@ -1114,10 +1274,17 @@ call plug#end()
         let g:onedark_terminal_italics=1
 
         colorscheme onedark
+        " colorscheme base16-railscasts
+        " colorscheme solarized
+        " colorscheme monokai
+        " colorscheme vim-material
+        " colorscheme gruvbox
     endif
 
     syntax on
     filetype plugin indent on
+
+    set background=dark
 
     " make the highlighting of tabs and other non-text less annoying
     hi! SpecialKey ctermfg=19 guifg=#333333
@@ -1130,6 +1297,17 @@ call plug#end()
     " hi! Type cterm=italic term=italic gui=italic
     hi! Normal ctermbg=none
     hi! Normal guibg=none
+
+    if (has("gui_running"))
+        set ai
+        set ruler
+        set bs=2
+        set guioptions=egmrt
+        set linespace=2
+
+        set macligatures
+        set guifont=FuraCode\ Nerd\ Font:h13
+    endif
 
     if (g:colors_name == 'onedark')
         " +---------------------------------------------+
@@ -1163,6 +1341,8 @@ call plug#end()
         let one_dark_colors = onedark#GetColors()
         let g:indentLine_color_gui = one_dark_colors.cursor_grey.gui
 
+        let g:better_whitespace_guicolor = one_dark_colors.red.gui
+
         " remove underline from pair highlighting "MatchPair" for the onedark theme
         " hi! MatchParen cterm=NONE,bold gui=NONE,bold guibg=NONE guifg=one_dark_colors.blue.gui
         execute "hi! MatchParen cterm=NONE,bold gui=NONE,bold guibg=NONE guifg=" one_dark_colors.blue.gui
@@ -1183,6 +1363,16 @@ call plug#end()
         execute "hi! CocWarningSign guifg=" one_dark_colors.dark_yellow.gui
         execute "hi! CocFloating guibg=" one_dark_colors.cursor_grey.gui " guifg=" one_dark_colors.comment_grey.gui
 
+        " execute "hi! StartifyBracket guifg=" one_dark_colors.white.gui
+        " execute "hi! StartifyPath guifg=" one_dark_colors.red.gui
+        " execute "hi! StartifySlash guifg=" one_dark_colors.dark_red.gui
+        " execute "hi! StartifyFile guifg=" one_dark_colors.dark_yellow.gui
+        execute "hi! StartifyHeader guifg=" one_dark_colors.comment_grey.gui
+        execute "hi! StartifyFooter guifg=" one_dark_colors.white.gui
+        " execute "hi! StartifyNumber guifg=" one_dark_colors.dark_yellow.gui
+        execute "hi! StartifySection guifg=" one_dark_colors.dark_yellow.gui
+        execute "hi! StartifySpecial guifg=" one_dark_colors.purple.gui
+
         " " add matching colors to "NREDTree" git color highlighting
         " let g:NERDTreeColorMapCustom = {
         "     \ "Modified"  : one_dark_colors.yellow.gui,
@@ -1194,530 +1384,12 @@ call plug#end()
         "     \ }
 
     endif
+
+    " after a re-source, fix syntax matching issues (concealing brackets):
+    " has to be triggered after `syntax on`
+    if exists('g:loaded_webdevicons')
+        call webdevicons#refresh()
+    endif
 " }}}
 
 " vim:set foldmethod=marker foldlevel=0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" " Section User Interface {{{
-"
-"
-"
-" " highlight conflicts
-"
-"
-" " code folding settings
-"
-"
-"
-" " }}}
-"
-"
-" " Section Mappings {{{
-"
-" " remap visual block shift
-" vnoremap > >gv
-" vnoremap < <gv
-"
-" " Format code
-" " noremap <F2> :set tabstop=4 shiftwidth=4 expandtab<CR> :retab<CR>
-" " noremap <F3> :set tabstop=4 shiftwidth=4 expandtab<CR> :Autoformat<CR>
-" " nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
-"
-" " Easier split navigations
-" nnoremap <C-J> <C-W><C-J>
-" nnoremap <C-K> <C-W><C-K>
-" nnoremap <C-L> <C-W><C-L>
-" nnoremap <C-H> <C-W><C-H>
-"
-" " disable Ex mode
-" noremap Q <NOP>
-"
-" " nnoremap <Left> :echo "won't happen! Use the h key"<cr>
-" " nnoremap <Right> :echo "won't happen! Use the l key"<cr>
-" " nnoremap <Up> :echo "won't happen! Use the k key"<cr>
-" " nnoremap <Down> :echo "won't happen! Use the j key"<cr>
-"
-" " inoremap <Left> <nop>
-" " inoremap <Right> <nop>
-" " inoremap <Up> <nop>
-" " inoremap <Down> <nop>
-"
-"
-" " set a map leader for more key combos
-"
-" " wipout buffer
-" " nmap <silent> <leader>b :bw<cr>
-"
-" " shortcut to save
-" " map <cmd>s in Iterm as Escape Sequence to "[24;2~"
-" map <F24> :w<cr>
-" imap <F24> <esc>:w<cr> a
-"
-" " toggle auto-indenting for code paste
-"
-" " toggle paste mode
-" " map <leader>v :set paste!<cr>
-"
-"
-" " Textmate style indentation
-"
-" " create split with current buffer in it
-" " map <silent> <C-h> :call functions#WinMove('h')<cr>
-" " map <silent> <C-j> :call functions#WinMove('j')<cr>
-" " map <silent> <C-k> :call functions#WinMove('k')<cr>
-" " map <silent> <C-l> :call functions#WinMove('l')<cr>
-"
-"
-" " search for word under the cursor
-" nnoremap <leader>/ "fyiw :/<c-r>f<cr>
-"
-" " inoremap <tab> <c-r>=Smart_TabComplete()<CR>
-"
-" map <leader>r :call RunCustomCommand()<cr>
-" " map <leader>s :call SetCustomCommand()<cr>
-" let g:silent_custom_command = 0
-"
-"
-" " }}}
-"
-"
-"
-"
-" " Section Plugins {{{
-"
-" " preservim/nerdcommenter
-" """"""""""""""""""""""""""""""""""""""""
-"
-"
-" " posva/vim-vue
-" """"""""""""""""""""""""""""""""""""""""
-"
-"
-" " eshion/vim-sync
-" """"""""""""""""""""""""""""""""""""""""
-"
-" " pseewald/vim-anyfold
-" """"""""""""""""""""""""""""""""""""""""
-"
-" let g:AnyFoldActivate=1
-" let g:anyfold_fold_comments=1
-"
-" " terryma/vim-smooth-scroll
-" """"""""""""""""""""""""""""""""""""""""
-"
-" " noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-" " noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-" " noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-" " noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
-"
-" " asyncrun
-" """"""""""""""""""""""""""""""""""""""""
-"
-" " automatically open quickfix window when AsyncRun command is executed
-" " set the quickfix window 6 lines height.
-" let g:asyncrun_open = 6
-"
-" " ring the bell to notify you job finished
-" let g:asyncrun_bell = 1
-"
-" " find the project root by on of these
-" let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml', 'Makefile']
-"
-" " F9 single file compilation
-" autocmd FileType cpp nnoremap <silent> <F9> :AsyncRun -mode=4 g++ -O3 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
-" " F5 run binary
-" " autocmd FileType cpp nnoremap <silent> <F5> :AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
-" autocmd FileType cpp nnoremap <silent> <F5> :AsyncRun -mode=4 -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
-" " F10 to toggle quickfix window
-" " autocmd FileType cpp nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
-"
-" " vim-easy-align
-" """"""""""""""""""""""""""""""""""""""""
-" " Start interactive EasyAlign in visual mode (e.g. vipga)
-" xmap ga <Plug>(EasyAlign)
-"
-" " Start interactive EasyAlign for a motion/text object (e.g. gaip)
-" nmap ga <Plug>(EasyAlign)
-"
-" " Vdebug
-" """"""""""""""""""""""""""""""""""""""""
-"
-" " Keymap for Vdebug
-" " let g:vdebug_keymap = {
-" " \    "run" : "<Leader>/",
-" " \    "run_to_cursor" : "<Down>",
-" " \    "step_over" : "<Up>",
-" " \    "step_into" : "<Right>",
-" " \    "step_out" : "<Left>",
-" " \    "close" : "q",
-" " \    "detach" : "<F7>",
-" " \    "set_breakpoint" : "<Leader>s",
-" " \    "eval_visual" : "<Leader>e",
-" " \    "eval_under_cursor" : "<Leader>c"
-" " \}
-"
-" " Vdebug settings.
-" let g:vdebug_options = {}
-" let g:vdebug_options['break_on_open'] = 1
-" let g:vdebug_options['max_children'] = 128
-" let g:vdebug_options['watch_window_style'] = 'compact'
-" let g:vdebug_options['ide_key'] = 'PHPSTORM'
-"
-" " Localvimrc
-" """""""""""""""""""""""""""""""""""""
-" let g:localvimrc_name = [".lvimrc", ".local.vimrc"]
-" let g:localvimrc_ask = 0
-"
-"
-" " vim-test
-" """""""""""""""""""""""""""""""""""""
-" " make test commands execute using neovim
-" let test#strategy = "neovim"
-"
-" nmap <silent> t<C-n> :TestNearest<CR> " t Ctrl+n
-" nmap <silent> t<C-f> :TestFile<CR>    " t Ctrl+f
-" nmap <silent> t<C-s> :TestSuite<CR>   " t Ctrl+s
-" nmap <silent> t<C-l> :TestLast<CR>    " t Ctrl+l
-" nmap <silent> t<C-g> :TestVisit<CR>   " t Ctrl+g
-"
-" " NERDTree
-" """""""""""""""""""""""""""""""""""""
-"
-" " NerdCommenter
-" """""""""""""""""""""""""""""""""""""
-"
-" let NERDSpaceDelims=1
-"
-" " UltiSnips
-" """""""""""""""""""""""""""""""""""""
-"
-" " Snipmate
-" """""""""""""""""""""""""""""""""""""
-"
-" let g:snips_author = 'Artem Schander'
-"
-" " CtrlP
-" """""""""""""""""""""""""""""""""""""
-"
-" " nmap <silent> <leader>b :CtrlPBuffer<cr>
-" " nmap <silent> <leader>r :CtrlPBufTag<cr>
-" " nmap <silent> <leader>ö :CtrlPMRUFiles<cr>
-" " let g:ctrlp_map='<leader>p'
-" " let g:ctrlp_dotfiles=1
-" " let g:ctrlp_working_path_mode = 'ra'
-" " let g:ctrlp_max_files=0
-"
-" " " CtrlP ignore patterns
-" " " let g:ctrlp_custom_ignore = {
-" " "             \ 'dir': '\.git$\|node_modules$\|bower_components$\|\.hg$\|\.svn$',
-" " "             \ 'file': '\.exe$\|\.so$'
-" " "             \ }
-" " " only show files that are not ignored by git
-" " let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
-"
-" " " search the nearest ancestor that contains .git, .hg, .svn
-" " let g:ctrlp_working_path_mode = 2
-" " let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:30'
-"
-" " " Ignore spaces when searching
-" " let g:ctrlp_abbrev = {
-" " \   'gmode': 'i',
-" " \   'abbrevs': [
-" " \     {
-" " \       'pattern': ' ',
-" " \       'expanded': '',
-" " \       'mode': 'pfrz',
-" " \     },
-" " \   ]
-" " \ }
-"
-" " CtrlSF
-" """"""""""""""""""""""""""""""""""""
-"
-" " search in ctags
-" " nmap <leader>f :tag<space>
-"
-" " " search and replace in multiple files
-" " nmap     <C-F>f <Plug>CtrlSFPrompt
-" " vmap     <C-F>f <Plug>CtrlSFVwordPath
-" " vmap     <C-F>F <Plug>CtrlSFVwordExec
-" " nmap     <C-F>n <Plug>CtrlSFCwordPath
-" " nmap     <C-F>p <Plug>CtrlSFPwordPath
-" " nnoremap <C-F>o :CtrlSFOpen<CR>
-" " nnoremap <C-F>t :CtrlSFToggle<CR>
-" " inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
-"
-" " let g:ctrlsf_ackprg = '/usr/local/bin/ag'
-"
-" " Indent Guides
-" """""""""""""""""""""""""""""""""""""
-"
-" " define the indent guides
-" let g:indent_guides_auto_colors = 1
-" " hi IndentGuidesOdd  guibg=black ctermbg=237
-" " hi IndentGuidesEven guibg=black ctermbg=236
-"
-" let g:indent_guides_start_level=2
-" let g:indent_guides_guide_size=1
-" let g:indent_guides_enable_on_vim_startup=1
-" let g:indent_guides_color_change_percent=1
-" let g:indent_guides_exclude_filetypes = ['help', 'nerdtree', 'fzf', 'Tagbar']
-"
-" " Yggdroot/indentLine
-" """"""""""""""""""""""""""""""""""""""""
-"
-"
-" " ntpeters/vim-better-whitespace
-" """""""""""""""""""""""""""""""""""""
-"
-"
-" " FZF
-" """""""""""""""""""""""""""""""""""""
-"
-" " Emmet
-" """""""""""""""""""""""""""""""""""""
-"
-" let g:user_emmet_settings = {
-" \  'javascript.jsx': {
-" \      'extends': 'jsx',
-" \  },
-" \}
-"
-" " Fugitive Shortcuts
-" """""""""""""""""""""""""""""""""""""
-"
-"
-" nmap <leader>m :MarkedOpen!<cr>
-" nmap <leader>mq :MarkedQuit<cr>
-" nmap <leader>* *<c-o>:%s///gn<cr>
-"
-" " ALE - Asynchronous Lint Engine
-" """""""""""""""""""""""""""""""""""""
-"
-" let g:ale_set_highlights = 0
-" let g:ale_change_sign_column_color = 1
-" let g:ale_sign_column_always = 1
-" " let g:ale_sign_error = '✕'
-" " let g:ale_sign_error = '☓'
-" let g:ale_sign_error = '!'
-" " let g:ale_sign_warning = '⚠'
-" let g:ale_sign_warning = 'i'
-"
-" " highlight clear ALEErrorSign
-" " highlight clear ALEWarningSign
-"
-" " let g:ale_lint_on_text_changed = 'never'
-" let g:ale_linters = {
-" \   'javascript': ['eslint', 'flow'],
-" \   'typescript': ['eslint', 'tslint', 'tsserver'],
-" \   'vue': ['eslint', 'stylelint', 'tsserver'],
-" \   'php': ['phpcs'],
-" \   'html': []
-" \ }
-" let g:ale_linter_aliases = {'vue': ['css', 'javascript', 'typescript']}
-"
-" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-"
-" " vim-gitgutter
-" """""""""""""""""""""""""""""""""""""
-"
-" let g:gitgutter_sign_added = '•'
-" " let g:gitgutter_sign_modified = '⌇'
-" let g:gitgutter_sign_modified = '•'
-" " let g:gitgutter_sign_removed = '-'
-" let g:gitgutter_sign_removed = '⚬'
-" let g:gitgutter_sign_removed_first_line = '⚬'
-" " let g:gitgutter_sign_modified_removed = '⎓'
-" " let g:gitgutter_sign_modified_removed = '⑊'
-" let g:gitgutter_sign_modified_removed = '⚬'
-"
-" " mhinz/vim-signify
-" """""""""""""""""""""""""""""""""""""
-"
-" " let g:signify_realtime = 1
-"
-" " let g:signify_vcs_list = [ 'git' ]
-" " let g:signify_sign_add = '+'
-" " let g:signify_sign_delete = '-'
-" " let g:signify_sign_delete_first_line = '‾'
-" " let g:signify_sign_change = '~'
-"
-" " Airline
-" """""""""""""""""""""""""""""""""""""
-" " airline options
-"
-"
-" " Statusline
-" """""""""""""""""""""""""""""""""""""
-"
-" " Syntastic syntax check - result in statusline
-" " set statusline+=%#warningmsg#
-" " set statusline+=%{SyntasticStatuslineFlag()}
-" " set statusline+=%*
-"
-" " Systastic
-" """""""""""""""""""""""""""""""""""""
-"
-" " let g:syntastic_always_populate_loc_list = 1
-" " let g:syntastic_auto_loc_list = 1
-" " let g:syntastic_check_on_open = 1
-" " let g:syntastic_check_on_wq = 0
-"
-" " " let g:syntastic_phpcs_disable = 1
-" " " let g:syntastic_phpmd_disable = 1
-"
-" " let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-" " nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>" let g:syntastic_phpcs_disable = 1
-"
-" " let g:syntastic_javascript_checkers = ['eslint']
-"
-" " Vim PHP Namespace
-" """""""""""""""""""""""""""""""""""""
-" " arnaud-lb/vim-php-namespace
-"
-" " Automatically adds the corresponding use statement for the name under the cursor.
-" function! IPhpInsertUse()
-"     call PhpInsertUse()
-"     call feedkeys('a',  'n')
-" endfunction
-" autocmd FileType php inoremap <Leader>n <Esc>:call IPhpInsertUse()<CR>
-" autocmd FileType php noremap <Leader>n :call PhpInsertUse()<CR>
-"
-" function! IPhpExpandClass()
-"     call PhpExpandClass()
-"     call feedkeys('a', 'n')
-" endfunction
-" autocmd FileType php inoremap <Leader>nf <Esc>:call IPhpExpandClass()<CR>
-" autocmd FileType php noremap <Leader>nf :call PhpExpandClass()<CR>
-"
-" " stephpy/vim-php-cs-fixer
-" autocmd FileType php nnoremap <silent><leader><f :call PhpCsFixerFixFile()<CR>
-" nnoremap <silent><leader><d :call PhpCsFixerFixDirectory()<CR>
-" " unmap <Leader>pcd
-" " unmap <Leader>pcf
-"
-"
-" " YouCompleteMe
-" """""""""""""""""""""""""""""""""""""
-" " valloric/youcompleteme
-"
-" " make YCM compatible with UltiSnips (using supertab)
-" let g:ycm_key_list_select_completion = ['<C-j>', '<C-n>', '<Down>']
-" let g:ycm_key_list_previous_completion = ['<C-k>', '<C-p>', '<Up>']
-"
-" let g:SuperTabDefaultCompletionType = '<C-n>'
-" let g:SuperTabCrMapping = 0
-"
-" " }}}
-"
-"
-"
-"
-"
-" " Colorscheme and final setup {{{
-"
-" " switch syntax highlighting on
-" if !exists('g:encoding_set') || !has('nvim')
-"     set encoding=utf-8
-"     let g:encoding_set = 1
-" endif
-" scriptencoding utf-8
-" setglobal fileencoding=utf-8
-"
-" set fillchars+=vert:┃
-"
-" syntax on
-"
-" " switch cursor to line when in insert mode, and block when not
-"
-" if filereadable(expand("~/.vimrc_background"))
-"     let base16colorspace=256
-"     source ~/.vimrc_background
-" else
-"     " let g:onedark_termcolors=256
-"     let g:onedark_terminal_italics=1
-"     " let g:solarized_termcolors=256
-"     " let g:gruvbox_termcolors=256
-"     " let g:gruvbox_italic=1
-" endif
-"
-" set background=dark
-" " let g:material_terminal_italics = 1
-" " let g:material_theme_style = 'default' "'default' | 'palenight' | 'dark'
-" let g:onedark_termcolors=256
-" let g:onedark_terminal_italics=1
-" " let g:solarized_termcolors=256
-" " let g:gruvbox_termcolors=256
-" " let g:gruvbox_italic=1
-"
-" " let g:material_style='palenight'
-" " let g:airline_theme='material'
-"
-" if (has("gui_running"))
-"     syntax on
-"     set background=dark
-"     " colorscheme vim-material
-"     colorscheme onedark
-"     " colorscheme gruvbox
-"
-"     set hlsearch
-"     set ai
-"     set ruler
-"     set bs=2
-"     set guioptions=egmrt
-"     set linespace=2
-"
-"     set macligatures
-"     set guifont=FuraCode\ Nerd\ Font:h13
-" else
-"     " colorscheme base16-railscasts
-"     " colorscheme solarized
-"     " colorscheme monokai
-"     " colorscheme vim-material
-"     colorscheme onedark
-"     " colorscheme gruvbox
-" endif
-"
-" " after a re-source, fix syntax matching issues (concealing brackets):
-" " has to be triggered after `syntax on`
-" if exists('g:loaded_webdevicons')
-"     call webdevicons#refresh()
-" endif

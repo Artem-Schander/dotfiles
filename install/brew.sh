@@ -60,6 +60,10 @@ formulas=(
     z
     markdown
     diff-so-fancy
+    ccls
+    cmake
+    clang
+    llvm
     # docker
     # docker-compose
     # docker-machine

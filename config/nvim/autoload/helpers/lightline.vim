@@ -33,8 +33,13 @@ function! helpers#lightline#whitespace()
 endfunction
 
 function! helpers#lightline#gitBranch()
-    " TODO: check if current projet is a git repo
-    return "\uF402" . (exists('*FugitiveHead') ? ' ' . FugitiveHead() : '')
+    let git_dir = substitute(system("git rev-parse --show-toplevel 2>&1 | grep -v fatal:"),'\n','','g')
+    if  git_dir != '' && isdirectory(git_dir) && index(split(&path, ","), git_dir) < 0
+        return "\uF402" . (exists('*FugitiveHead') ? ' ' . FugitiveHead() : '')
+    else
+        " return "\uf114 "
+        return ""
+    endif
 endfunction
 
 function! helpers#lightline#currentFunction()
