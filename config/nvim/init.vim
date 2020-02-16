@@ -1194,6 +1194,14 @@ call plug#begin('~/.config/nvim/plugged')
         " autocmd FileType cpp nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
     " }}}
 
+    " Python {{{
+        " linter
+        " manualy install flake8 -> "python3 -m pip install flake8"
+        " see -> http://flake8.pycqa.org/en/latest/index.html#quickstart
+        Plug 'nvie/vim-flake8', {'for': ['python']}
+    " }}}
+
+
     " JavaScript {{{
         " Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
         " Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
