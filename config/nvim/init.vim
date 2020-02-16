@@ -819,7 +819,7 @@ call plug#begin('~/.config/nvim/plugged')
         " \  { 'type': function('helpers#startify#listsessions'), 'header': [ 'Global Sessions' ] },
         let g:startify_lists = [
         \  { 'type': function('helpers#startify#listallsessions'), 'header': [ 'Sessions' ] },
-        \  { 'type': function('helpers#startify#startsession'), 'header': [ 'Start Session' ] },
+        \  { 'type': function('helpers#startify#startsession'), 'header': [ 'New Session' ] },
         \  { 'type': 'dir', 'header': [ 'Files '. getcwd() ] },
         \  { 'type': function('helpers#startify#listcommits'), 'header': [ 'Recent Commits' ] },
         \  { 'type': 'bookmarks', 'header': [ 'Bookmarks' ] },
@@ -1017,7 +1017,8 @@ call plug#begin('~/.config/nvim/plugged')
         " an intellisense engine for Vim/Neovim.
         Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
-         " ccls need to be installed separately. see https://github.com/MaskRay/ccls/wiki
+        " ccls need to be installed separately. see https://github.com/MaskRay/ccls/wiki
+        " vetur need to be installed separately. `yarn global add vue-language-server` see https://github.com/neoclide/coc-vetur
         let g:coc_global_extensions = [
         \ 'coc-ccls',
         \ 'coc-python',
@@ -1038,6 +1039,10 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'coc-ultisnips',
         \ 'coc-explorer'
         \ ]
+
+        let g:LanguageClient_serverCommands = {
+        \ 'vue': ['vls']
+        \ }
 
         let g:coc_status_error_sign = 'X'
         let g:coc_status_warning_sign = 'X'
@@ -1155,13 +1160,13 @@ call plug#begin('~/.config/nvim/plugged')
         Plug 'alvan/vim-closetag', { 'for': ['html', 'phtml', 'xml'] }
 
         " html5 support
-        Plug 'othree/html5.vim', { 'for': 'html' }
+        " Plug 'othree/html5.vim', { 'for': 'html' }
 
         " mustache support
-        Plug 'mustache/vim-mustache-handlebars'
+        " Plug 'mustache/vim-mustache-handlebars'
 
         " pug / jade support
-        Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug', 'vue'] }
+        " Plug 'digitaltoad/vim-pug', { 'for': ['jade', 'pug', 'vue'] }
 
         " nunjucks support
         " Plug 'niftylettuce/vim-jinja', { 'for': 'njk' }
@@ -1194,36 +1199,36 @@ call plug#begin('~/.config/nvim/plugged')
     " }}}
 
     " JavaScript {{{
-        Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
+        " Plug 'othree/yajs.vim', { 'for': [ 'javascript', 'javascript.jsx', 'html' ] }
         " Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html'] }
-        Plug 'moll/vim-node', { 'for': 'javascript' }
+        " Plug 'moll/vim-node', { 'for': 'javascript' }
         " Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
-        Plug 'MaxMEllon/vim-jsx-pretty'
-        let g:vim_jsx_pretty_highlight_close_tag = 1
+        " Plug 'MaxMEllon/vim-jsx-pretty'
+        " let g:vim_jsx_pretty_highlight_close_tag = 1
 
-        Plug 'posva/vim-vue', { 'for': 'vue' }
-        let g:vue_pre_processors = ['pug', 'scss', 'sass']
-        let g:vue_pre_processors = 'detect_on_enter'
+        " Plug 'posva/vim-vue', { 'for': 'vue' }
+        " let g:vue_pre_processors = ['pug', 'scss', 'sass']
+        " let g:vue_pre_processors = 'detect_on_enter'
     " }}}
 
     " TypeScript {{{
-        Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
+        " Plug 'leafgarland/typescript-vim', { 'for': ['typescript', 'typescript.tsx'] }
         " Plug 'Shougo/vimproc.vim', { 'do': 'make' } TODO what still needs this?
     " }}}
 
     " PHP {{{
-        Plug 'StanAngeloff/php.vim', { 'for': 'php' } " Up-to-date PHP syntax file
+        " Plug 'StanAngeloff/php.vim', { 'for': 'php' } " Up-to-date PHP syntax file
         " Plug 'arnaud-lb/vim-php-namespace' " plugin for inserting 'use' statements automatically
         " Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' } " psr-2 formating
         " Plug 'captbaritone/better-indent-support-for-php-with-html' " This script allows you to indent HTML sections in PHP files
     " }}}
 
     " Styles {{{
-        Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] }
-        Plug 'groenewege/vim-less', { 'for': 'less' }
-        Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
-        Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'sass'] }
-        Plug 'stephenway/postcss.vim', { 'for': 'css' }
+        " Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] }
+        " Plug 'groenewege/vim-less', { 'for': 'less' }
+        " Plug 'hail2u/vim-css3-syntax', { 'for': 'css' }
+        " Plug 'cakebaker/scss-syntax.vim', { 'for': ['scss', 'sass'] }
+        " Plug 'stephenway/postcss.vim', { 'for': 'css' }
     " }}}
 
     " markdown {{{
@@ -1238,16 +1243,16 @@ call plug#begin('~/.config/nvim/plugged')
     " }}}
 
     " GraphQL {{{
-        Plug 'jparise/vim-graphql', { 'for': ['gql', 'graphql'] }
+        " Plug 'jparise/vim-graphql', { 'for': ['gql', 'graphql'] }
     " }}}
 
     " JSON {{{
-        Plug 'elzr/vim-json', { 'for': 'json' }
-        let g:vim_json_syntax_conceal = 0
+        " Plug 'elzr/vim-json', { 'for': 'json' }
+        " let g:vim_json_syntax_conceal = 0
     " }}}
 
     " Docker {{{
-        Plug 'ekalinin/Dockerfile.vim'
+        " Plug 'ekalinin/Dockerfile.vim'
     " }}}
 " }}}
 
@@ -1386,11 +1391,11 @@ call plug#end()
 
     endif
 
-    " after a re-source, fix syntax matching issues (concealing brackets):
-    " has to be triggered after `syntax on`
-    if exists('g:loaded_webdevicons')
-        call webdevicons#refresh()
-    endif
+    " " after a re-source, fix syntax matching issues (concealing brackets):
+    " " has to be triggered after `syntax on`
+    " if exists('g:loaded_webdevicons')
+    "     call webdevicons#refresh()
+    " endif
 " }}}
 
 " vim:set foldmethod=marker foldlevel=0

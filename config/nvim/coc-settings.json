@@ -50,6 +50,8 @@
             }
         }
     },
+    "vetur.format.options.tabSize": 4,
+    "vetur.dev.vlsPath": "/Users/artemschander/.config/yarn/global/node_modules/vue-language-server",
     "python.jediEnabled": false,
     "codeLens.enable": true,
     "git.addedSign.text": "┃",
