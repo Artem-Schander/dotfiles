@@ -9,9 +9,14 @@ config/nvim/spell
 config/nvim/shada
 config/nvim/plugged
 config/nvim/session
+config/nvim/coc-settings.json
+
 config/rofi/themes
+
 vim/vim.symlink/spell/
 vim/vim.symlink/plugged/
+
 zsh/.oh-my-zsh/
+
 tags.*
 tags
