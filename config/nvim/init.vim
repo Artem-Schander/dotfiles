@@ -1040,10 +1040,6 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'coc-explorer'
         \ ]
 
-        let g:LanguageClient_serverCommands = {
-        \ 'vue': ['vls']
-        \ }
-
         let g:coc_status_error_sign = 'X'
         let g:coc_status_warning_sign = 'X'
 
@@ -1093,7 +1089,7 @@ call plug#begin('~/.config/nvim/plugged')
             endif
         endfunction
 
-        "tab completion
+        " tab completion
         inoremap <silent><expr> <TAB>
             \ pumvisible() ? "\<C-n>" :
             \ <SID>check_back_space() ? "\<TAB>" :
