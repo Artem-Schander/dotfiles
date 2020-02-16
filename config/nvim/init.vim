@@ -712,7 +712,6 @@ call plug#begin('~/.config/nvim/plugged')
     " Session Management {{{
         Plug 'tpope/vim-obsession'
         Plug 'dhruvasagar/vim-prosession'
-
         let g:prosession_on_startup = 0
         let g:prosession_tmux_title = 1
         let g:prosession_last_session_dir = '~/.vim/session'
@@ -809,15 +808,17 @@ call plug#begin('~/.config/nvim/plugged')
         Plug 'mhinz/vim-startify'
 
         " Don't change to directory when selecting a file
-        let g:startify_files_number = 5
         let g:startify_change_to_dir = 0
+        let g:startify_files_number = 5
         let g:startify_custom_header = helpers#startify#header()
         let g:startify_relative_path = 1
         let g:startify_use_env = 1
+        let g:startify_session_dir = '~/.vim/session'
 
+        " \  { 'type': function('helpers#startify#listprosessions'), 'header': [ 'Location Related Sessions' ] },
+        " \  { 'type': function('helpers#startify#listsessions'), 'header': [ 'Global Sessions' ] },
         let g:startify_lists = [
-        \  { 'type': function('helpers#startify#listprosessions'), 'header': [ 'Location Related Sessions' ] },
-        \  { 'type': function('helpers#startify#listsessions'), 'header': [ 'Global Sessions' ] },
+        \  { 'type': function('helpers#startify#listallsessions'), 'header': [ 'Sessions' ] },
         \  { 'type': function('helpers#startify#startsession'), 'header': [ 'Start Session' ] },
         \  { 'type': 'dir', 'header': [ 'Files '. getcwd() ] },
         \  { 'type': function('helpers#startify#listcommits'), 'header': [ 'Recent Commits' ] },

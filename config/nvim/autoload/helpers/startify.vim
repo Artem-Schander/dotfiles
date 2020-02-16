@@ -9,59 +9,76 @@ function! helpers#startify#listcommits()
 endfunction
 
 function! helpers#startify#listprosessions()
-    let session_dir = get(g:, 'prosession_dir')
-    if session_dir != '0' && isdirectory(session_dir) && strlen(getcwd()) > strlen($HOME)
-        let lead = "%" . join(split(getcwd(), "/"), "%")
-        let files = map(split(globpath(session_dir, lead.'*'), '\n'), 'fnamemodify(v:val, ":t")')
+    let sessions = []
 
-        let sessions = []
+    let local_session_dir = get(g:, 'prosession_dir')
+    if local_session_dir != '0' && isdirectory(local_session_dir) && strlen(getcwd()) > strlen($HOME)
+        let lead = "%" . join(split(getcwd(), "/"), "%")
+        let files = map(split(globpath(local_session_dir, lead.'*'), '\n'), 'fnamemodify(v:val, ":t")')
+
         for session in reverse(files)
             let path = join(split(session, "%"), "/")
-            if path[strlen(path)-3:] == 'vim'
+            if path[strlen(path)-3:] == 'vim' && isdirectory("/" . path[:-5]) == 1
                 let sessions = add(sessions, { "line": "~/" . path[strlen($HOME):][:-5], "cmd": ":Prosession /" . path[:-5] })
             endif
         endfor
-        return sessions
     endif
-endfunction
-
-function! helpers#startify#startsession()
-    let sessions = []
-
-    let session_dir = get(g:, 'prosession_dir')
-    if session_dir != '0' && isdirectory(session_dir) && strlen(getcwd()) > strlen($HOME)
-        let local_session_name = "~" . getcwd()[strlen($HOME):]
-        let local_session_file_name = "\\%" . join(split(getcwd(), "/"), "\\%") . ".vim"
-
-        let filename = "%" . join(split(getcwd(), "/"), "%") . ".vim"
-        let files = split(globpath(session_dir, filename), '\n')
-
-        if len(files) == 0
-            let sessions = add(sessions, { "line": "\uf07b " . local_session_name, "cmd": ":silent Obsession " . session_dir . local_session_file_name . " | :enew" })
-        endif
-    endif
-
-    let global_session_name = split(getcwd(), "/")[-1]
-    let global_session_file_name = global_session_name . ".vim"
-
-    let existing_global_sessions = startify#session_list(global_session_file_name)
-    if len(existing_global_sessions) == 0
-        let sessions = add(sessions, { "line": "\uf484 " . global_session_name, "cmd": ":silent SSave " . global_session_file_name . " | :enew" })
-    endif
-
     return sessions
 endfunction
 
 function! helpers#startify#listsessions()
     let sessions = []
-    for session in reverse(startify#session_list('*'))
-        let path = join(split(session, "%"), "/")
-        let beginning = path[:strlen($HOME)-2]
-        if path[strlen(path)-3:] == 'vim' && beginning != $HOME[1:]
-            " let sessions = add(sessions, { "line": join(split(session, "%"), "/")[strlen($HOME):][:-5], "cmd": ":SLoad " . session })
-            let sessions = add(sessions, { "line": join(split(session, "%"), "/")[:-5], "cmd": ":SLoad " . session })
-        endif
+
+    let global_session_dir = get(g:, 'startify_session_dir')
+    if global_session_dir != '0' && isdirectory(expand(global_session_dir))
+        for session in reverse(startify#session_list('*'))
+            let path_list = split(session, "%")
+            if session != 'last_session.vim' && session[strlen(session)-3:] == 'vim' && isdirectory("/" . split(session, "%")[0]) == 0
+                " let sessions = add(sessions, { "line": join(split(session, "%"), "/")[strlen($HOME):][:-5], "cmd": ":SLoad " . session })
+                let sessions = add(sessions, { "line": join(split(session, "%"), "/")[:-5], "cmd": ":SLoad " . session })
+            endif
+        endfor
+    endif
+    return sessions
+endfunction
+
+function! helpers#startify#listallsessions()
+    let sessions = []
+    for session in helpers#startify#listprosessions()
+        let session.line = "\uf07b " . session.line
+        let session = add(sessions, session)
     endfor
+    for session in helpers#startify#listsessions()
+        let session.line = "\uf484 " . session.line
+        let session = add(sessions, session)
+    endfor
+    return sessions
+endfunction
+
+function! helpers#startify#startsession()
+    let sessions = []
+
+    let local_session_dir = get(g:, 'prosession_dir')
+    if local_session_dir != '0' && isdirectory(local_session_dir) && strlen(getcwd()) > strlen($HOME)
+        let s:dir = local_session_dir[strlen(local_session_dir)-1:] != '/' ? expand(local_session_dir) . '/' : expand(local_session_dir)
+        let s:name = "~" . getcwd()[strlen($HOME):]
+        let s:filename = "%" . join(split(getcwd(), "/"), "%") . ".vim"
+        if filereadable(s:dir . s:filename) == 0
+            let s:filename = "\\%" . join(split(getcwd(), "/"), "\\%") . ".vim"
+            let sessions = add(sessions, { "line": "\uf07b " . s:name, "cmd": ":silent Obsession " . s:dir . s:filename . " | :enew" })
+        endif
+    endif
+
+    let global_session_dir = get(g:, 'startify_session_dir')
+    if global_session_dir != '0' && isdirectory(expand(global_session_dir))
+        let s:dir = global_session_dir[strlen(global_session_dir)-1:] != '/' ? expand(global_session_dir) . '/' : expand(global_session_dir)
+        let s:name = split(getcwd(), "/")[-1]
+        let s:filename = s:name . ".vim"
+        if filereadable(s:dir . s:filename) == 0
+            let sessions = add(sessions, { "line": "\uf484 " . s:name, "cmd": ":silent SSave " . s:filename . " | :enew" })
+        endif
+    endif
+
     return sessions
 endfunction
 
