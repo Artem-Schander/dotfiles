@@ -1372,6 +1372,8 @@ call plug#end()
         execute "hi! CocInfoSign guifg=" one_dark_colors.cyan.gui
         execute "hi! CocWarningSign guifg=" one_dark_colors.dark_yellow.gui
         execute "hi! CocFloating guibg=" one_dark_colors.cursor_grey.gui " guifg=" one_dark_colors.comment_grey.gui
+        " execute "hi! CocHighlightText guibg=#131519 gui=underline"
+        execute "hi! CocHighlightText guibg=" one_dark_colors.special_grey.gui " guifg=" one_dark_colors.yellow.gui
 
         " execute "hi! StartifyBracket guifg=" one_dark_colors.white.gui
         " execute "hi! StartifyPath guifg=" one_dark_colors.red.gui
