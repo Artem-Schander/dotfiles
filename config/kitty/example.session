@@ -1,0 +1,29 @@
+# Set the window layout for the current tab
+layout fat
+# Set the working directory for windows in the current tab
+cd ~
+# Create a window run zsh in it
+launch zsh
+# Create a window run htop in it
+launch htop
+# Create a window run ll in it
+launch ll
+
+# Create a new tab (the part after new_tab is the optional tab
+# name which will be displayed in the tab bar, if omitted, the
+# title of the active window will be used instead)
+new_tab some stuff
+cd ~/Code
+# Set the layouts allowed in this tab
+enabled_layouts horizontal, grid, stack
+# Set the current layout
+layout horizontal
+launch zsh
+
+# Create a new OS window
+new_os_window
+# set new window size to 80x25 cells
+os_window_size 80c 25c
+# Make the current window the active (focused) window
+focus
+launch htop
