@@ -92,7 +92,6 @@ elif [[ -f /etc/lsb-release ]]; then
 fi
 
 # alias homestead=~/.composer/vendor/bin/homestead
-alias sublime=sbl
 alias artisan='php artisan'
 
 # git status

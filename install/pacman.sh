@@ -47,24 +47,28 @@ do
     fi
 done
 
-for P in \
-    git-ftp \
-    gitflow-avh \
-    universal-ctags \
-    google-chrome \
-    slack-desktop \
-    earlyoom \
-    teamviewer \
-    anydesk \
-    dust \
-    nvm
+if (pacman -Q | grep yay > /dev/null)
+then
+    for P in \
+        git-ftp \
+        gitflow-avh \
+        universal-ctags \
+        google-chrome \
+        slack-desktop \
+        visual-studio-code-bin \
+        earlyoom \
+        teamviewer \
+        anydesk \
+        dust \
+        nvm
 
-do
-    if ! (pacman -Q | grep ${P} > /dev/null)
-    then
-        yay -Sy ${P} --noconfirm
-    fi
-done
+    do
+        if ! (yay -Q | grep ${P} > /dev/null)
+        then
+            yay -Sy ${P} --noconfirm
+        fi
+    done
+fi
 
 if ! (systemctl is-active --quiet docker)
 then

@@ -440,14 +440,14 @@ class ${2:`!p snip.rv = snip.basename`} extends Seeder
 }
 endsnippet
 
-snippet gqlType "Folklore/GraphQL - Type" b
+snippet gqlType "Rebing/GraphQL - Type" b
 <?php
 
 namespace `!p snip.rv = namespace()`;
 
 use GraphQL;
 use GraphQL\Type\Definition\Type;
-use Folklore\GraphQL\Support\Type as BaseType;
+use Rebing\GraphQL\Support\Type as BaseType;
 
 class ${1:`!p snip.rv = snip.basename`} extends BaseType
 {
@@ -455,7 +455,7 @@ class ${1:`!p snip.rv = snip.basename`} extends BaseType
         'name' => '$1',
     ];
 
-    public function fields()
+    public function fields(): array
     {
         return [
             'id' => [
@@ -470,12 +470,12 @@ class ${1:`!p snip.rv = snip.basename`} extends BaseType
 }
 endsnippet
 
-snippet gqlQuery "Folklore/GraphQL - Query" b
+snippet gqlQuery "Rebing/GraphQL - Query" b
 <?php
 
 namespace `!p snip.rv = namespace()`;
 
-use Folklore\GraphQL\Support\Query;
+use Rebing\GraphQL\Support\Query;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use GraphQL;
@@ -486,12 +486,12 @@ class ${1:`!p snip.rv = snip.basename`} extends Query
         'name' => '$1',
     ];
 
-    public function type()
+    public function type(): Type
     {
         return GraphQL::type('$1');
     }
 
-    public function args()
+    public function args(): array
     {
         return [
             'id' => [

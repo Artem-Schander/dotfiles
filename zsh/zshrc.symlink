@@ -157,7 +157,7 @@ SPACESHIP_PROMPT_PREFIXES_SHOW=false
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-flow sublime osx common-aliases fasd httpie history tmux fzf)
+plugins=(git git-flow osx common-aliases fasd httpie history tmux fzf)
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
