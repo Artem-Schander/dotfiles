@@ -621,6 +621,12 @@ call plug#begin('~/.config/nvim/plugged')
     " Vim motion on speed
     Plug 'easymotion/vim-easymotion'
 
+    " show search count
+    Plug 'osyo-manga/vim-anzu'
+
+    " devicons to be used by different other plugins
+    Plug 'ryanoasis/vim-devicons'
+
     " Debugging {{{
         " Multi-language DBGP debugger client for Vim
         Plug 'vim-vdebug/vdebug', { 'for': ['php', 'python'] }
@@ -656,7 +662,7 @@ call plug#begin('~/.config/nvim/plugged')
 
         nmap <silent> t<C-n> :TestNearest<CR> " t Ctrl+n
         nmap <silent> t<C-f> :TestFile<CR>    " t Ctrl+f
-        nmap <silent> t<C-s> :TestSuite<CR>   " t Ctrl+s
+        nmap <silent> t<C-t> :TestSuite<CR>   " t Ctrl+s
         nmap <silent> t<C-l> :TestLast<CR>    " t Ctrl+l
         nmap <silent> t<C-g> :TestVisit<CR>   " t Ctrl+g
     " }}}
@@ -684,9 +690,6 @@ call plug#begin('~/.config/nvim/plugged')
         let g:AnyFoldActivate=1
         let g:anyfold_fold_comments=1
     " }}}
-
-    " show search count
-    Plug 'osyo-manga/vim-anzu'
 
     " Better Whitespace {{{
         " Better whitespace highlighting for Vim
@@ -865,58 +868,58 @@ call plug#begin('~/.config/nvim/plugged')
         nmap <leader>ig :IndentLinesToggle<cr>
     " }}}
 
-    " NERDTree {{{
-        Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
-        " Plug 'Xuyuanp/nerdtree-git-plugin'
-        " Plug 'tsony-tsonev/nerdtree-git-plugin'
-        Plug 'ryanoasis/vim-devicons'
-        Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-
-        let g:WebDevIconsOS = 'Darwin'
-        let g:WebDevIconsUnicodeDecorateFolderNodes = 1 " enable folder/directory glyph flag (disabled by default with 0)
-        let g:DevIconsEnableFoldersOpenClose = 1 " enable open and close folder/directory glyph flags
-        let g:DevIconsEnableFolderExtensionPatternMatching = 1 " enable pattern matching glyphs on folder/directory
-        let NERDTreeDirArrowExpandable = "\u00a0" " make arrows invisible
-        " let NERDTreeDirArrowExpandable = '+'
-        let NERDTreeDirArrowCollapsible = "\u00a0" " make arrows invisible
-        " let NERDTreeDirArrowCollapsible = '-'
-        let NERDTreeNodeDelimiter = "\u263a" " smiley face
-
-        augroup nerdtree
-            autocmd!
-            autocmd FileType nerdtree setlocal nolist " turn off whitespace characters
-            autocmd FileType nerdtree setlocal nocursorline " turn off line highlighting for performance
-        augroup END
-
-        " Toggle NERDTree
-        function! ToggleNerdTree()
-            if @% != "" && @% !~ "Startify" && (!exists("g:NERDTree") || (g:NERDTree.ExistsForTab() && !g:NERDTree.IsOpen()))
-                :NERDTreeFind
-            else
-                :NERDTreeToggle
-            endif
-        endfunction
-        " toggle nerd tree
-        " nmap <silent> <leader>n :call ToggleNerdTree()<cr>
-        nmap <silent> <leader>k :call ToggleNerdTree()<cr>
-        " find the current file in nerdtree without needing to reload the drawer
-        nmap <silent> <leader>y :NERDTreeFind<cr>
-
-        " let NERDTreeDirArrowExpandable = '▷'
-        " let NERDTreeDirArrowCollapsible = '▼'
-        let g:NERDTreeIndicatorMapCustom = {
-        \ "Modified"  : "",
-        \ "Staged"    : "✚",
-        \ "Untracked" : "✭",
-        \ "Renamed"   : "➜",
-        \ "Unmerged"  : "═",
-        \ "Deleted"   : "✖",
-        \ "Dirty"     : "✗",
-        \ "Clean"     : "✔︎",
-        \ 'Ignored'   : '☒',
-        \ "Unknown"   : "?"
-        \ }
-    " }}}
+    " " NERDTree {{{
+    "     Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] }
+    "     " Plug 'Xuyuanp/nerdtree-git-plugin'
+    "     " Plug 'tsony-tsonev/nerdtree-git-plugin'
+    "     Plug 'ryanoasis/vim-devicons'
+    "     Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+    "
+    "     let g:WebDevIconsOS = 'Darwin'
+    "     let g:WebDevIconsUnicodeDecorateFolderNodes = 1 " enable folder/directory glyph flag (disabled by default with 0)
+    "     let g:DevIconsEnableFoldersOpenClose = 1 " enable open and close folder/directory glyph flags
+    "     let g:DevIconsEnableFolderExtensionPatternMatching = 1 " enable pattern matching glyphs on folder/directory
+    "     let NERDTreeDirArrowExpandable = "\u00a0" " make arrows invisible
+    "     " let NERDTreeDirArrowExpandable = '+'
+    "     let NERDTreeDirArrowCollapsible = "\u00a0" " make arrows invisible
+    "     " let NERDTreeDirArrowCollapsible = '-'
+    "     let NERDTreeNodeDelimiter = "\u263a" " smiley face
+    "
+    "     augroup nerdtree
+    "         autocmd!
+    "         autocmd FileType nerdtree setlocal nolist " turn off whitespace characters
+    "         autocmd FileType nerdtree setlocal nocursorline " turn off line highlighting for performance
+    "     augroup END
+    "
+    "     " Toggle NERDTree
+    "     function! ToggleNerdTree()
+    "         if @% != "" && @% !~ "Startify" && (!exists("g:NERDTree") || (g:NERDTree.ExistsForTab() && !g:NERDTree.IsOpen()))
+    "             :NERDTreeFind
+    "         else
+    "             :NERDTreeToggle
+    "         endif
+    "     endfunction
+    "     " toggle nerd tree
+    "     " nmap <silent> <leader>n :call ToggleNerdTree()<cr>
+    "     nmap <silent> <leader>k :call ToggleNerdTree()<cr>
+    "     " find the current file in nerdtree without needing to reload the drawer
+    "     nmap <silent> <leader>y :NERDTreeFind<cr>
+    "
+    "     " let NERDTreeDirArrowExpandable = '▷'
+    "     " let NERDTreeDirArrowCollapsible = '▼'
+    "     let g:NERDTreeIndicatorMapCustom = {
+    "     \ "Modified"  : "",
+    "     \ "Staged"    : "✚",
+    "     \ "Untracked" : "✭",
+    "     \ "Renamed"   : "➜",
+    "     \ "Unmerged"  : "═",
+    "     \ "Deleted"   : "✖",
+    "     \ "Dirty"     : "✗",
+    "     \ "Clean"     : "✔︎",
+    "     \ 'Ignored'   : '☒',
+    "     \ "Unknown"   : "?"
+    "     \ }
+    " " }}}
 
     " FZF {{{
         " Plug '/usr/local/opt/fzf' " fuzzy file finder and so much more
@@ -1004,6 +1007,7 @@ call plug#begin('~/.config/nvim/plugged')
     " UltiSnips {{{
         Plug 'SirVer/ultisnips' " Snippets plugin
         Plug 'honza/vim-snippets' " snippet manager
+        let g:snips_author = "Artem Schander"
         " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
         let g:UltiSnipsExpandTrigger = '<C-Right>'
         let g:UltiSnipsJumpForwardTrigger = '<C-Right>'
@@ -1373,8 +1377,8 @@ call plug#end()
         execute "hi! CocInfoSign guifg=" one_dark_colors.cyan.gui
         execute "hi! CocWarningSign guifg=" one_dark_colors.dark_yellow.gui
         execute "hi! CocFloating guibg=" one_dark_colors.cursor_grey.gui " guifg=" one_dark_colors.comment_grey.gui
-        " execute "hi! CocHighlightText guibg=#131519 gui=underline"
-        execute "hi! CocHighlightText guibg=" one_dark_colors.special_grey.gui " guifg=" one_dark_colors.yellow.gui
+        execute "hi! CocHighlightText guibg=#131519"
+        " execute "hi! CocHighlightText guibg=" one_dark_colors.special_grey.gui " guifg=" one_dark_colors.yellow.gui
 
         " execute "hi! StartifyBracket guifg=" one_dark_colors.white.gui
         " execute "hi! StartifyPath guifg=" one_dark_colors.red.gui

@@ -2,8 +2,7 @@ global !p
 def namespace():
     namespace = ''
     for entry in path.split('/'):
-        if entry != fn:
-            namespace += capitalize(entry) + '\\'
+        namespace += capitalize(entry) + '\\'
     return namespace.rstrip('\\')
 
 def convertToSnakeCase(name):
@@ -88,7 +87,7 @@ Schema::table('${1:items}', function (Blueprint $table) {
 endsnippet
 
 snippet l_mfk "Laravel migration - foreign key" b
-$table->integer('${1:relation}_id')->${2:required}()->unsigned();
+$table->bigInteger('${1:relation}_id')->${2:required}()->unsigned();
 $table->foreign('$1_id')->references('id')->on('`!p snip.rv = convertToSnakeCase(convertToPlural(t[1])) `');
 endsnippet
 
