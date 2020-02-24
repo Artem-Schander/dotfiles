@@ -206,7 +206,8 @@ call plug#begin('~/.config/nvim/plugged')
 " Appearance {{{
     set number " show line numbers
     set relativenumber " show relative line numbers
-    set wrap " turn on line wrapping
+    set nowrap " turn on line wrapping
+    set formatoptions-=tc " don't break long lines
     set wrapmargin=8 " wrap lines when coming within n characters from side
     set linebreak " set soft wrapping
     set autoindent " automatically set indent of new line
