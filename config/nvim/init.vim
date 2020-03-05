@@ -819,6 +819,8 @@ call plug#begin('~/.config/nvim/plugged')
         let g:startify_relative_path = 1
         let g:startify_use_env = 1
         let g:startify_session_dir = '~/.vim/session'
+        let g:startify_session_autoload = 0
+        let g:startify_session_persistence = 0
 
         " \  { 'type': function('helpers#startify#listprosessions'), 'header': [ 'Location Related Sessions' ] },
         " \  { 'type': function('helpers#startify#listsessions'), 'header': [ 'Global Sessions' ] },
