@@ -7,6 +7,7 @@ for P in \
     xsel \
     xorg-xwininfo \
     perl-anyevent-i3 \
+    firefox-developer-edition \
     thunderbird \
     docker \
     docker-compose \

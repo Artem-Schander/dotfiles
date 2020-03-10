@@ -98,7 +98,7 @@ bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 # bindsym $mod+KP_Page_Up exec $myTerm -e 'sh ./scripts/tig-script.sh'
 
 # Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 1-9>
-bindsym $mod+Shift+KP_2 workspace 2; layout tabbed; exec 'google-chrome-stable'
+bindsym $mod+Shift+KP_2 workspace 2; layout tabbed; exec 'firefox-developer-edition'
 bindsym $mod+Shift+KP_3 workspace 3; layout tabbed; exec 'thunderbird'
 bindsym $mod+Shift+KP_4 workspace 4; exec 'Slack'
 # bindsym $mod+Shift+KP_3 exec $myTerm -e 'cmus'
@@ -274,6 +274,8 @@ bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 assign [class="google-chrome"] $ws2
 assign [class="google-chrome-stable"] $ws2
 assign [class="firefox"] $ws2
+assign [class="firefox-developer-edition"] $ws2
+assign [class="firefox"] $ws2
 assign [class="Evolution"] $ws3
 assign [class="Thunderbird"] $ws3
 assign [class="Slack"] $ws4
@@ -397,8 +399,10 @@ exec_always --no-startup-id $HOME/.dotfiles/resources/i3/launch-polybar.sh
 exec --no-startup-id i3-msg "workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec thunderbird"
 exec --no-startup-id i3-msg "workspace 4; append_layout ~/.dotfiles/config/i3/layouts/workspace-4.json; exec slack"
 # exec --no-startup-id i3-msg "workspace 7; append_layout ~/.dotfiles/config/i3/layouts/workspace-7.json; exec $myTerm -e htop; exec $myTerm -e earlyoom"
+exec --no-startup-id i3-msg "workspace 8; append_layout ~/.dotfiles/config/i3/layouts/workspace-8.json; exec pcmanfm; exec pcmanfm; exec $myTerm -e ranger"
 # exec --no-startup-id i3-msg "workspace 5; append_layout ~/.dotfiles/config/i3/layouts/workspace-5.json; exec minetime"
-exec --no-startup-id i3-msg "workspace 2; append_layout ~/.dotfiles/config/i3/layouts/workspace-2.json; exec google-chrome-stable --restore-last-session"
+# exec --no-startup-id i3-msg "workspace 2; append_layout ~/.dotfiles/config/i3/layouts/workspace-2.json; exec google-chrome-stable --restore-last-session"
+exec --no-startup-id i3-msg "workspace 2; append_layout ~/.dotfiles/config/i3/layouts/workspace-2.json; exec firefox-developer-edition"
 exec --no-startup-id i3-msg "workspace 1; append_layout ~/.dotfiles/config/i3/layouts/workspace-1.json; exec $myTerm"
 exec --no-startup-id i3-msg "workspace 2; workspace 1;"
 

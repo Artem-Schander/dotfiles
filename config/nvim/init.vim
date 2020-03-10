@@ -1023,7 +1023,11 @@ call plug#begin('~/.config/nvim/plugged')
 
     " coc {{{
         " an intellisense engine for Vim/Neovim.
-        Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+        Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['php', 'javascript', 'vue', 'py', 'cpp', 'vim' ]}
+
+        autocmd BufNew,BufEnter *.php,*.js,*.vue,*.py,*.cpp,*.vim execute "silent! CocEnable"
+        autocmd BufLeave *.php,*.js,*.vue,*.py,*.cpp,*.vim execute "silent! CocDisable"
+        autocmd CursorHold *.php,*.js,*.vue,*.py,*.cpp,*.vim silent call CocActionAsync('highlight')
 
         " ccls need to be installed separately. see https://github.com/MaskRay/ccls/wiki
         " vetur need to be installed separately. `yarn global add vue-language-server` see https://github.com/neoclide/coc-vetur
@@ -1050,8 +1054,6 @@ call plug#begin('~/.config/nvim/plugged')
 
         let g:coc_status_error_sign = 'X'
         let g:coc_status_warning_sign = 'X'
-
-        autocmd CursorHold * silent call CocActionAsync('highlight')
 
         " coc-prettier
         command! -nargs=0 Prettier :CocCommand prettier.formatFile
