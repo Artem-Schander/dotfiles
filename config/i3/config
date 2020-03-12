@@ -399,12 +399,12 @@ exec_always --no-startup-id $HOME/.dotfiles/resources/i3/launch-polybar.sh
 exec --no-startup-id i3-msg "workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec thunderbird"
 exec --no-startup-id i3-msg "workspace 4; append_layout ~/.dotfiles/config/i3/layouts/workspace-4.json; exec slack"
 # exec --no-startup-id i3-msg "workspace 7; append_layout ~/.dotfiles/config/i3/layouts/workspace-7.json; exec $myTerm -e htop; exec $myTerm -e earlyoom"
-exec --no-startup-id i3-msg "workspace 8; append_layout ~/.dotfiles/config/i3/layouts/workspace-8.json; exec pcmanfm; exec pcmanfm; exec $myTerm -e ranger"
+exec --no-startup-id i3-msg "workspace 8; append_layout ~/.dotfiles/config/i3/layouts/workspace-8.json; exec pcmanfm Code; exec $myTerm -e ranger"
 # exec --no-startup-id i3-msg "workspace 5; append_layout ~/.dotfiles/config/i3/layouts/workspace-5.json; exec minetime"
 # exec --no-startup-id i3-msg "workspace 2; append_layout ~/.dotfiles/config/i3/layouts/workspace-2.json; exec google-chrome-stable --restore-last-session"
 exec --no-startup-id i3-msg "workspace 2; append_layout ~/.dotfiles/config/i3/layouts/workspace-2.json; exec firefox-developer-edition"
-exec --no-startup-id i3-msg "workspace 1; append_layout ~/.dotfiles/config/i3/layouts/workspace-1.json; exec $myTerm"
-exec --no-startup-id i3-msg "workspace 2; workspace 1;"
+exec --no-startup-id i3-msg "workspace 1; append_layout ~/.dotfiles/config/i3/layouts/workspace-1.json"
+exec --no-startup-id i3-msg "workspace 2; workspace 1; exec $myTerm"
 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # exec_always --no-startup-id compton -b --config $HOME/.config/compton/compton.conf

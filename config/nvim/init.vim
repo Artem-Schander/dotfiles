@@ -1023,11 +1023,14 @@ call plug#begin('~/.config/nvim/plugged')
 
     " coc {{{
         " an intellisense engine for Vim/Neovim.
-        Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['php', 'javascript', 'vue', 'py', 'cpp', 'vim' ]}
+        " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile', 'for': ['php', 'javascript', 'vue', 'py', 'cpp', 'vim' ]}
+        Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
-        autocmd BufNew,BufEnter *.php,*.js,*.vue,*.py,*.cpp,*.vim execute "silent! CocEnable"
-        autocmd BufLeave *.php,*.js,*.vue,*.py,*.cpp,*.vim execute "silent! CocDisable"
-        autocmd CursorHold *.php,*.js,*.vue,*.py,*.cpp,*.vim silent call CocActionAsync('highlight')
+        " autocmd BufNew,BufEnter *.php,*.js,*.vue,*.py,*.cpp,*.vim execute "silent! CocEnable"
+        " autocmd BufLeave *.php,*.js,*.vue,*.py,*.cpp,*.vim execute "silent! CocDisable"
+        " autocmd CursorHold *.php,*.js,*.vue,*.py,*.cpp,*.vim silent call CocActionAsync('highlight')
+
+        autocmd CursorHold * silent call CocActionAsync('highlight')
 
         " ccls need to be installed separately. see https://github.com/MaskRay/ccls/wiki
         " vetur need to be installed separately. `yarn global add vue-language-server` see https://github.com/neoclide/coc-vetur
