@@ -179,6 +179,6 @@ function! functions#DeleteEmptyBuffers()
         let i += 1
     endwhile
     if len(empty) > 0
-        exe 'bdelete' join(empty)
+        exe 'bdelete!' join(empty)
     endif
 endfunction

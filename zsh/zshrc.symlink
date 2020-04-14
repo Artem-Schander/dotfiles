@@ -132,7 +132,7 @@ SPACESHIP_PROMPT_PREFIXES_SHOW=false
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -230,6 +230,7 @@ export PATH=$DOTFILES/bin:$PATH
 if [[ -d ~/.composer/vendor/bin ]]; then
     export PATH=~/.composer/vendor/bin:$PATH
 fi
+export PATH=./vendor/bin:$PATH
 
 # check for custom bin directory and add to path
 if [[ -d /usr/local/Cellar/python@2 ]]; then

@@ -10,8 +10,8 @@
 " " <leader><leader>f " find any letter, get them highlighted and move to the desired location --> easymotion/vim-easymotion
 " " <C-f>f " search in multiple files (entire project). Results can be changed --> dyng/ctrlsf.vim
 " " zt / zz / zb " top / center / bottom the line where the cursor is located
+" " gt or gT " navigate through tabs
 " " <leader>t " open and go to new tab
-" " öä or äö " navigate through tabs
 " " <leader>. " switch to the last used buffer
 " " <leader>p " search file by name --> junegunn/fzf.vim
 " " <leader>b " search file in open buffers --> junegunn/fzf.vim
@@ -206,7 +206,9 @@ call plug#begin('~/.config/nvim/plugged')
 " Appearance {{{
     set number " show line numbers
     set relativenumber " show relative line numbers
-    set nowrap " turn on line wrapping
+    set wrap " turn on line wrapping
+    set breakindent " enable indentation for line wrapping
+    set showbreak=>>
     set formatoptions-=tc " don't break long lines
     set wrapmargin=8 " wrap lines when coming within n characters from side
     set linebreak " set soft wrapping
@@ -286,6 +288,7 @@ call plug#begin('~/.config/nvim/plugged')
     " Plug 'flazz/vim-colorschemes'
     " Plug 'chriskempson/base16-vim'
     Plug 'joshdick/onedark.vim'
+    Plug 'bluz71/vim-nightfly-guicolors'
     " Plug 'morhetz/gruvbox'
     " Plug 'nightsense/carbonized'
     " Plug 'romainl/flattened'
@@ -717,7 +720,7 @@ call plug#begin('~/.config/nvim/plugged')
     " Session Management {{{
         Plug 'tpope/vim-obsession'
         Plug 'dhruvasagar/vim-prosession'
-        let g:prosession_on_startup = 0
+        let g:prosession_on_startup = 1
         let g:prosession_tmux_title = 1
         let g:prosession_last_session_dir = '~/.vim/session'
     " }}}
@@ -810,43 +813,43 @@ call plug#begin('~/.config/nvim/plugged')
     " " }}}
 
     " Startify: Fancy startup screen for vim {{{
-        Plug 'mhinz/vim-startify'
-
-        " Don't change to directory when selecting a file
-        let g:startify_change_to_dir = 0
-        let g:startify_files_number = 5
-        let g:startify_custom_header = helpers#startify#header()
-        let g:startify_relative_path = 1
-        let g:startify_use_env = 1
-        let g:startify_session_dir = '~/.vim/session'
-        let g:startify_session_autoload = 0
-        let g:startify_session_persistence = 0
-
-        " \  { 'type': function('helpers#startify#listprosessions'), 'header': [ 'Location Related Sessions' ] },
-        " \  { 'type': function('helpers#startify#listsessions'), 'header': [ 'Global Sessions' ] },
-        let g:startify_lists = [
-        \  { 'type': function('helpers#startify#listallsessions'), 'header': [ 'Sessions' ] },
-        \  { 'type': function('helpers#startify#startsession'), 'header': [ 'New Session' ] },
-        \  { 'type': 'dir', 'header': [ 'Files '. getcwd() ] },
-        \  { 'type': function('helpers#startify#listcommits'), 'header': [ 'Recent Commits' ] },
-        \  { 'type': 'bookmarks', 'header': [ 'Bookmarks' ] },
-        \  { 'type': 'commands', 'header': [ 'Commands' ] },
-        \ ]
-
-
-        let g:startify_commands = [
-        \   { 'up': [ 'Update Plugins', ':PlugUpdate' ] },
-        \   { 'ug': [ 'Upgrade Plugin Manager', ':PlugUpgrade' ] },
-        \ ]
-
-        let g:startify_bookmarks = [
-            \ { 'c': '~/.config/nvim/init.vim' },
-            \ { 'g': '~/.gitconfig' },
-            \ { 'z': '~/.zshrc' }
-        \ ]
-
-        autocmd User Startified setlocal cursorline
-        nmap <leader>st :Startify<cr>
+        " Plug 'mhinz/vim-startify'
+        "
+        " " Don't change to directory when selecting a file
+        " let g:startify_change_to_dir = 0
+        " let g:startify_files_number = 5
+        " let g:startify_custom_header = helpers#startify#header()
+        " let g:startify_relative_path = 1
+        " let g:startify_use_env = 1
+        " let g:startify_session_dir = '~/.vim/session'
+        " let g:startify_session_autoload = 0
+        " let g:startify_session_persistence = 0
+        "
+        " " \  { 'type': function('helpers#startify#listprosessions'), 'header': [ 'Location Related Sessions' ] },
+        " " \  { 'type': function('helpers#startify#listsessions'), 'header': [ 'Global Sessions' ] },
+        " let g:startify_lists = [
+        " \  { 'type': function('helpers#startify#listallsessions'), 'header': [ 'Sessions' ] },
+        " \  { 'type': function('helpers#startify#startsession'), 'header': [ 'New Session' ] },
+        " \  { 'type': 'dir', 'header': [ 'Files '. getcwd() ] },
+        " \  { 'type': function('helpers#startify#listcommits'), 'header': [ 'Recent Commits' ] },
+        " \  { 'type': 'bookmarks', 'header': [ 'Bookmarks' ] },
+        " \  { 'type': 'commands', 'header': [ 'Commands' ] },
+        " \ ]
+        "
+        "
+        " let g:startify_commands = [
+        " \   { 'up': [ 'Update Plugins', ':PlugUpdate' ] },
+        " \   { 'ug': [ 'Upgrade Plugin Manager', ':PlugUpgrade' ] },
+        " \ ]
+        "
+        " let g:startify_bookmarks = [
+        "     \ { 'c': '~/.config/nvim/init.vim' },
+        "     \ { 'g': '~/.gitconfig' },
+        "     \ { 'z': '~/.zshrc' }
+        " \ ]
+        "
+        " autocmd User Startified setlocal cursorline
+        " nmap <leader>st :Startify<cr>
     " }}}
 
     " Splits {{{
@@ -1038,7 +1041,6 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'coc-ccls',
         \ 'coc-python',
         \ 'coc-phpls',
-        \ 'coc-vetur',
         \ 'coc-css',
         \ 'coc-json',
         \ 'coc-tsserver',
@@ -1047,13 +1049,15 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'coc-tslint-plugin',
         \ 'coc-pairs',
         \ 'coc-sh',
-        \ 'coc-vimlsp',
         \ 'coc-emmet',
         \ 'coc-highlight',
         \ 'coc-prettier',
         \ 'coc-ultisnips',
         \ 'coc-explorer'
         \ ]
+
+        " \ 'coc-fetur',
+        " \ 'coc-vimlsp',
 
         let g:coc_status_error_sign = 'X'
         let g:coc_status_warning_sign = 'X'
@@ -1296,6 +1300,7 @@ call plug#end()
         let g:onedark_termcolors=16
         let g:onedark_terminal_italics=1
 
+        " colorscheme onedark
         colorscheme onedark
         " colorscheme base16-railscasts
         " colorscheme solarized
@@ -1319,7 +1324,7 @@ call plug#end()
     hi! xmlAttrib cterm=italic term=italic gui=italic
     " hi! Type cterm=italic term=italic gui=italic
     hi! Normal ctermbg=none
-    hi! Normal guibg=none
+    " hi! Normal guibg=none
 
     if (has("gui_running"))
         set ai
@@ -1408,6 +1413,36 @@ call plug#end()
         "     \ "Ignored"   : one_dark_colors.comment_grey.gui
         "     \ }
 
+    endif
+
+    if (g:colors_name == 'nightfly')
+        " | Name       | Value    |
+        " | ---------- |----------|
+        " | Red        | `#fc514e` |
+        " | Green      | `#a1cd5e` |
+        " | Yellow     | `#e3d18a` |
+        " | Blue       | `#82aaff` |
+        " | Violet     | `#c792ea` |
+        " | Orange     | `#f78c6c` |
+        " | Watermelon | `#ff5874` |
+        " | Emerald    | `#21c7a8` |
+        " | Tan        | `#ecc48d` |
+        " | Purple     | `#ae81ff` |
+        " | Turquoise  | `#7fdbca` |
+        " | Peach      | `#ffcb8b` |
+        " | ---------- |----------|
+        " | Background | `#011627` |
+        " | Foreground | `#c3ccdc` |
+        " | Black Blue | `#081e2f` |
+        " | Dark Blue  | `#092236` |
+        " | Deep Blue  | `#0e293f` |
+        " | Slate Blue | `#2c3043` |
+        " | Regal Blue | `#1d3b53` |
+        " | Cyan Blue  | `#296596` |
+        " | Steel Blue | `#4b6479` |
+        " | Grey Blue  | `#7c8f8f` |
+        " | Cadet Blue | `#a1aab8` |
+        " | White Blue | `#d6deeb` |
     endif
 
     " " after a re-source, fix syntax matching issues (concealing brackets):
