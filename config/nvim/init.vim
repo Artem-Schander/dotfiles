@@ -1038,7 +1038,6 @@ call plug#begin('~/.config/nvim/plugged')
         " ccls need to be installed separately. see https://github.com/MaskRay/ccls/wiki
         " vetur need to be installed separately. `yarn global add vue-language-server` see https://github.com/neoclide/coc-vetur
         let g:coc_global_extensions = [
-        \ 'coc-ccls',
         \ 'coc-python',
         \ 'coc-phpls',
         \ 'coc-css',
