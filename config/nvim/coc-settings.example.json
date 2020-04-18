@@ -103,7 +103,6 @@
     "explorer.file.column.git.icon.modified": "",
     "explorer.file.column.git.icon.ignored": "☒",
     "explorer.previewAction.onHover": false,
-    "explorer.openAction.changeDirectory": false,
     "explorer.contentWidth": 70,
     "explorer.width": 70,
     "explorer.position": "floating",
@@ -112,5 +111,7 @@
     "explorer.floating.contentWidth": 70,
     "explorer.floating.height": 0,
     "eslint.enable": false,
+    "typescript.referencesCodeLens.enable": false,
+    "javascript.referencesCodeLens.enable": false,
     "tslint.autoFixOnSave": false
 }

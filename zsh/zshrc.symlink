@@ -232,6 +232,9 @@ if [[ -d ~/.composer/vendor/bin ]]; then
 fi
 export PATH=./vendor/bin:$PATH
 
+# add local composer bin to PATH
+export PATH="./vendor/bin:$PATH"
+
 # check for custom bin directory and add to path
 if [[ -d /usr/local/Cellar/python@2 ]]; then
     python2_dir=$(find /usr/local/Cellar/python@2 -maxdepth 1 -type d -name '2.*' -print | head -n1)
@@ -271,7 +274,7 @@ if command_exists rbenv; then
 fi
 
 if [[ -d ~/.rvm ]]; then
-    PATH=$HOME/.rvm/bin:$PATH # Add RVM to PATH for scripting
+    export PATH=$HOME/.rvm/bin:$PATH # Add RVM to PATH for scripting
     source ~/.rvm/scripts/rvm
 fi
 
@@ -304,7 +307,6 @@ if hash brew 2>/dev/null; then
     # when sourcing, check and ensure that the correct Node version is set
     load-nvmrc
 fi
-
 
 export PATH="$HOME/.yarn/bin:$PATH"
 

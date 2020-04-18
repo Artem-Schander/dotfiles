@@ -50,3 +50,33 @@ function! helpers#lightline#gitBlame()
     return winwidth(0) > 100 ? strpart(substitute(get(b:, 'coc_git_blame', ''), '[\(\)]', '', 'g'), 0, 50) : ''
     " return winwidth(0) > 100 ? strpart(get(b:, 'coc_git_blame', ''), 0, 20) : ''
 endfunction
+
+function! helpers#lightline#noexpandtab()
+    let fname = expand('%:t')
+    if winwidth(0) < 90
+            \ || &expandtab
+            \ || fname == 'ControlP'
+        return ''
+    endif
+    if &shiftwidth == &tabstop
+        return '↹ '.&tabstop.' e̶t̶'
+    elseif &shiftwidth == 0
+      return '↹ '.&tabstop.' e̶t̶'
+    else
+      return '⇆ '.&shiftwidth.' ↹ '.&tabstop.' e̶t̶'
+    endif
+endfunction
+
+function! helpers#lightline#shiftwidth()
+    let fname = expand('%:t')
+    if winwidth(0) < 90
+            \ || ! &expandtab
+            \ || fname == 'ControlP'
+        return ''
+    endif
+    if &shiftwidth == 0
+        return '⇆ '.&tabstop
+    else
+        return '⇆ '.&shiftwidth
+    endif
+endfunction
