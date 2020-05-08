@@ -103,6 +103,7 @@
     "explorer.file.column.git.icon.modified": "",
     "explorer.file.column.git.icon.ignored": "☒",
     "explorer.previewAction.onHover": false,
+    "explorer.openAction.for.directory": "expandOrCollapse",
     "explorer.contentWidth": 70,
     "explorer.width": 70,
     "explorer.position": "floating",
