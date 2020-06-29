@@ -13,9 +13,10 @@ sudo apt install -y \
     curl \
     software-properties-common \
     flatpak \
+    bat \
     # gir1.2-clutter-1.0 \ # dependencies for clutter / blyr
-    	# gir1.2-clutter-gst-3.0 \ # dependencies for clutter / blyr
-    	# gir1.2-gtkclutter-1.0 \ # dependencies for clutter / blyr
+    # gir1.2-clutter-gst-3.0 \ # dependencies for clutter / blyr
+    # gir1.2-gtkclutter-1.0 \ # dependencies for clutter / blyr
     gnome-software-plugin-flatpak
 
 
@@ -24,6 +25,7 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 sudo add-apt-repository -y ppa:hnakamur/universal-ctags ppa:ondrej/php \
+    ppa:lazygit-team/release \
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
 sudo apt update

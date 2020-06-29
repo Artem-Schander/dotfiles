@@ -633,6 +633,29 @@ call plug#begin('~/.config/nvim/plugged')
     " devicons to be used by different other plugins
     Plug 'ryanoasis/vim-devicons'
 
+    " Floating Windows {{{
+
+        " Use nvim/vim's builtin terminal in the floating/popup window
+        Plug 'voldikss/vim-floaterm'
+
+        let g:floaterm_keymap_toggle = '<F1>'
+        let g:floaterm_keymap_next   = '<F2>'
+        let g:floaterm_keymap_prev   = '<F3>'
+        let g:floaterm_keymap_new    = '<F4>'
+
+        " Floaterm
+        let g:floaterm_gitcommit     = 'floaterm'
+        let g:floaterm_autoinsert    = 1
+        let g:floaterm_width         = 0.886
+        let g:floaterm_height        = 0.886
+        let g:floaterm_wintitle      = 0
+        let g:floaterm_autoclose     = 1
+
+        let g:floaterm_wintype       = 'floating'
+        let g:floaterm_position      = 'top'
+
+    " }}}
+
     " Debugging {{{
         " Multi-language DBGP debugger client for Vim
         Plug 'vim-vdebug/vdebug', { 'for': ['php', 'python'] }
@@ -933,6 +956,24 @@ call plug#begin('~/.config/nvim/plugged')
         " Plug '/usr/local/opt/fzf' " fuzzy file finder and so much more
         Plug 'junegunn/fzf', { 'do': './install --bin' }
         Plug 'junegunn/fzf.vim'
+        Plug 'yuki-ycino/fzf-preview.vim'
+
+        " floating window winblend value
+        let g:fzf_preview_floating_window_winblend = 0
+
+        " floating window size ratio
+        let g:fzf_preview_floating_window_rate = 0.9
+
+        " Use vim-devicons
+        let g:fzf_preview_use_dev_icons = 0
+
+        " devicons character width
+        let g:fzf_preview_dev_icon_prefix_length = 1
+
+        " Commands used for fzf preview.
+        " The file name selected by fzf becomes {}
+        " let g:fzf_preview_command = 'head -100 {-1}' " Not installed bat
+        let g:fzf_preview_command = 'bat --color=always --style=grid {-1}' " Installed bat
 
         " let g:fzf_layout = { 'down': '~25%' }
         let g:fzf_layout = { 'up': '~35%' }
@@ -943,30 +984,36 @@ call plug#begin('~/.config/nvim/plugged')
         " [Buffers] Jump to the existing window if possible
         let g:fzf_buffers_jump = 1
 
-        if isdirectory(".git")
-            " if in a git project, use :GFiles
-            " nmap <silent> <leader>p :GFiles --cached --others --exclude-standard<cr>
-            nmap <silent> <leader>p :GitFiles --cached --others --exclude-standard<cr>
-        else
-            " otherwise, use :FZF
-            nmap <silent> <leader>p :FZF<cr>
-        endif
+        " Border style (rounded / sharp / horizontal)
+        " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'yoffset': 0.2 }}
+        let g:fzf_layout = { 'window': 'call fzf_preview#window#create_centered_floating_window()'}
 
+        " if isdirectory(".git")
+        "     " if in a git project, use :GFiles
+        "     " nmap <silent> <leader>p :GFiles --cached --others --exclude-standard<cr>
+        "     nmap <silent> <leader>p :GitFiles --cached --others --exclude-standard<cr>
+        " else
+        "     " otherwise, use :FZF
+        "     nmap <silent> <leader>p :FZF<cr>
+        " endif
 
-        nmap <silent> <leader>s :GFiles?<cr>
-        nmap <silent> <leader>b :Buffers<cr>
-        nmap <silent> <leader>e :FZF<cr>
-        nmap <silent> <leader>r :BTags<cr>
+        nmap <silent> <leader>p :FzfPreviewProjectFiles<cr>
+        " nmap <silent> <leader>s :FzfPreviewGitStatus<cr>
+        " nmap <silent> <leader>c :FzfPreviewChanges<cr>
+        nmap <silent> <leader>b :FzfPreviewBuffers<cr>
+        nmap <silent> <leader>a :Files<cr>
+        nmap <silent> <leader>g :FloatermNew lazygit<cr>
+        nmap <silent> <leader>r :FzfPreviewBufferTags<cr>
 
-        nmap <leader><tab> <plug>(fzf-maps-n)
-        xmap <leader><tab> <plug>(fzf-maps-x)
-        omap <leader><tab> <plug>(fzf-maps-o)
+        " nmap <leader><tab> <plug>(fzf-maps-n)
+        " xmap <leader><tab> <plug>(fzf-maps-x)
+        " omap <leader><tab> <plug>(fzf-maps-o)
 
         " Insert mode completion
-        imap <c-x><c-k> <plug>(fzf-complete-word)
-        imap <c-x><c-f> <plug>(fzf-complete-path)
-        imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-        imap <c-x><c-l> <plug>(fzf-complete-line)
+        " imap <c-x><c-k> <plug>(fzf-complete-word)
+        " imap <c-x><c-f> <plug>(fzf-complete-path)
+        " imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+        " imap <c-x><c-l> <plug>(fzf-complete-line)
 
         nnoremap <silent> <Leader>C :call fzf#run({
         \   'source':
@@ -996,14 +1043,16 @@ call plug#begin('~/.config/nvim/plugged')
 
         command! -bang BTags
             \ call fzf#vim#buffer_tags(<q-args>, {'top': '30%'}, <bang>0)
+
+        command! -bang -nargs=* Grep FzfPreviewProjectGrep <q-args>
     " }}}
 
     " vim-fugitive {{{
         Plug 'tpope/vim-fugitive'
-        nmap <silent> <leader>gs :Gstatus<cr>
-        nmap <leader>ge :Gedit<cr>
-        nmap <silent><leader>gr :Gread<cr>
-        nmap <silent><leader>gb :Gblame<cr>
+        " nmap <silent> <leader>gs :Gstatus<cr>
+        " nmap <leader>ge :Gedit<cr>
+        " nmap <silent><leader>gr :Gread<cr>
+        " nmap <silent><leader>gb :Gblame<cr>
         " nmap <leader>m :MarkedOpen!<cr>
         " nmap <leader>mq :MarkedQuit<cr>
         " nmap <leader>* *<c-o>:%s///gn<cr>
