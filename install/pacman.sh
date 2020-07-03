@@ -26,7 +26,7 @@ for P in \
     fasd \
     htop \
     zsh \
-    bat \
+    # bat \
     highlight \
     yarn \
     xclip \

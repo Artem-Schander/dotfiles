@@ -66,7 +66,6 @@ formulas=(
     cmake
     clang
     llvm
-    bat
     # docker
     # docker-compose
     # docker-machine
@@ -79,6 +78,7 @@ formulas=(
     # ripgrep
     # git-standup
     # entr
+    # bat
 )
 
 for formula in "${formulas[@]}"; do

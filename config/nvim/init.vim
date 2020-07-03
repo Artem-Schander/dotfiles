@@ -454,7 +454,7 @@ call plug#begin('~/.config/nvim/plugged')
     nmap ;s :set invspell spelllang=en<cr>
 
     " markdown to html
-    nmap <leader>md :%!markdown --html4tags <cr>
+    " nmap <leader>md :%!markdown --html4tags <cr>
 
     " remove extra whitespace
     " nmap <leader><space> :%s/\s\+$<cr>
@@ -956,27 +956,6 @@ call plug#begin('~/.config/nvim/plugged')
         " Plug '/usr/local/opt/fzf' " fuzzy file finder and so much more
         Plug 'junegunn/fzf', { 'do': './install --bin' }
         Plug 'junegunn/fzf.vim'
-        Plug 'yuki-ycino/fzf-preview.vim'
-
-        " floating window winblend value
-        let g:fzf_preview_floating_window_winblend = 0
-
-        " floating window size ratio
-        let g:fzf_preview_floating_window_rate = 0.9
-
-        " Use vim-devicons
-        let g:fzf_preview_use_dev_icons = 0
-
-        " devicons character width
-        let g:fzf_preview_dev_icon_prefix_length = 1
-
-        " Commands used for fzf preview.
-        " The file name selected by fzf becomes {}
-        " let g:fzf_preview_command = 'head -100 {-1}' " Not installed bat
-        let g:fzf_preview_command = 'bat --color=always --style=grid {-1}' " Installed bat
-
-        " let g:fzf_layout = { 'down': '~25%' }
-        let g:fzf_layout = { 'up': '~35%' }
 
         " [Tags] Command to generate tags file
         let g:fzf_tags_command = 'ctags -R --exclude=node_modules --exclude=dist'
@@ -984,26 +963,23 @@ call plug#begin('~/.config/nvim/plugged')
         " [Buffers] Jump to the existing window if possible
         let g:fzf_buffers_jump = 1
 
-        " Border style (rounded / sharp / horizontal)
-        " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'yoffset': 0.2 }}
-        let g:fzf_layout = { 'window': 'call fzf_preview#window#create_centered_floating_window()'}
+        let g:fzf_layout = { 'up': '~35%' }
+        let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'yoffset': 0.2 }}
+        " let g:fzf_layout = { 'window': 'call fzf_preview#window#create_centered_floating_window()'}
 
-        " if isdirectory(".git")
-        "     " if in a git project, use :GFiles
-        "     " nmap <silent> <leader>p :GFiles --cached --others --exclude-standard<cr>
-        "     nmap <silent> <leader>p :GitFiles --cached --others --exclude-standard<cr>
-        " else
-        "     " otherwise, use :FZF
-        "     nmap <silent> <leader>p :FZF<cr>
-        " endif
+        if isdirectory(".git")
+            " if in a git project, use :GFiles
+            " nmap <silent> <leader>p :GFiles --cached --others --exclude-standard<cr>
+            nmap <silent> <leader>p :GitFiles --cached --others --exclude-standard<cr>
+        else
+            " otherwise, use :FZF
+            nmap <silent> <leader>p :FZF<cr>
+        endif
 
-        nmap <silent> <leader>p :FzfPreviewProjectFiles<cr>
-        " nmap <silent> <leader>s :FzfPreviewGitStatus<cr>
-        " nmap <silent> <leader>c :FzfPreviewChanges<cr>
-        nmap <silent> <leader>b :FzfPreviewBuffers<cr>
+        nmap <silent> <leader>b :Buffers<cr>
         nmap <silent> <leader>a :Files<cr>
         nmap <silent> <leader>g :FloatermNew lazygit<cr>
-        nmap <silent> <leader>r :FzfPreviewBufferTags<cr>
+        nmap <silent> <leader>r :BTags<cr>
 
         " nmap <leader><tab> <plug>(fzf-maps-n)
         " xmap <leader><tab> <plug>(fzf-maps-x)
@@ -1043,8 +1019,6 @@ call plug#begin('~/.config/nvim/plugged')
 
         command! -bang BTags
             \ call fzf#vim#buffer_tags(<q-args>, {'top': '30%'}, <bang>0)
-
-        command! -bang -nargs=* Grep FzfPreviewProjectGrep <q-args>
     " }}}
 
     " vim-fugitive {{{

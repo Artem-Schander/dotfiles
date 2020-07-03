@@ -13,7 +13,7 @@ sudo apt install -y \
     curl \
     software-properties-common \
     flatpak \
-    bat \
+    # bat \
     # gir1.2-clutter-1.0 \ # dependencies for clutter / blyr
     # gir1.2-clutter-gst-3.0 \ # dependencies for clutter / blyr
     # gir1.2-gtkclutter-1.0 \ # dependencies for clutter / blyr
