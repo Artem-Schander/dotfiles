@@ -34,7 +34,7 @@ SPACESHIP_DOCKER_SYMBOL=" " # "\uf308"
 
 # GIT
 # change git symbol
-SPACESHIP_GIT_SYMBOL=" " #  
+SPACESHIP_GIT_SYMBOL=" " #  
 # remove git prefix
 # SPACESHIP_GIT_PREFIX=""
 # # Wrap git status to `[...]`
@@ -46,7 +46,7 @@ SPACESHIP_GIT_SYMBOL=" " #  
 # SPACESHIP_GIT_STATUS_ADDED="樂 " # "\uf914" # +
 # SPACESHIP_GIT_STATUS_MODIFIED=" " # "\uf704 " # !
 # SPACESHIP_GIT_STATUS_RENAMED=" " # "\uf553 " # »
-# SPACESHIP_GIT_STATUS_DELETED=" " # "\uf655 " # ✘
+SPACESHIP_GIT_STATUS_DELETED="X" # "\uf655 " #  ✘
 # SPACESHIP_GIT_STATUS_STASHED="碑" # "\ufa4b" # $
 # SPACESHIP_GIT_STATUS_UNMERGED="שּׁ " # "\ufb2c " # =
 # SPACESHIP_GIT_STATUS_AHEAD=" " # "\uf55c " # ⇡
@@ -329,3 +329,9 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # fi
 
 source $ZSH/oh-my-zsh.sh
+
+# unbold spaceship
+() {
+  local z=$'\0'
+  PROMPT='${${${$(spaceship_prompt)//\%\%/'$z'}//\%B}//'$z'/%%}'
+}

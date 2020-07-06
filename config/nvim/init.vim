@@ -47,6 +47,7 @@
 " " cat " like ciw but takes the tag also
 " " :%retab " fixes wrong indent type. FA tabs to spaces
 " " <leader><space> " removes trailing spaces --> ntpeters/vim-better-whitespace
+" " :%!python -m json.tool " format current json buffer
 "
 " find and replace in multiple files: --> junegunn/fzf.vim
 " 1. " :Ag foo " then enter
