@@ -26,6 +26,7 @@ for P in \
     fasd \
     htop \
     zsh \
+    # bat \
     highlight \
     yarn \
     xclip \
@@ -61,8 +62,8 @@ then
         teamviewer \
         anydesk \
         dust \
-        nvm
-
+        nvm \
+        lazydocker
     do
         if ! (yay -Q | grep ${P} > /dev/null)
         then

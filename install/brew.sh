@@ -24,6 +24,7 @@ formulas=(
     # flags should pass through the the `brew list check`
     bash
     docker-machine-nfs
+    lazydocker
     brew-cask
     unison
     eugenmayer/dockersync/unox
@@ -48,6 +49,7 @@ formulas=(
     git
     git-ftp
     git-flow-avh
+    lazygit
     hub
     macvim
     # 'brew install php71-mcrypt php71-imagick php71-intl php71-redis'
@@ -76,6 +78,7 @@ formulas=(
     # ripgrep
     # git-standup
     # entr
+    # bat
 )
 
 for formula in "${formulas[@]}"; do

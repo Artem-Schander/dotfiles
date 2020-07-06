@@ -5,6 +5,8 @@ command_exists() {
     type "$1" > /dev/null 2>&1
 }
 
+COLORTERM="truecolor"
+
 SPACESHIP_ROOT="$ZSH/custom/themes/spaceship-prompt"
 
 # PHP
@@ -327,6 +329,8 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 # if [[ -x "$(command -v keychain)" ]]; then
 #     eval $(keychain --eval --quiet id_rsa)
 # fi
+
+export BAT_CONFIG_PATH=$HOME/.config/bat/bat.conf
 
 source $ZSH/oh-my-zsh.sh
 

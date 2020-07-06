@@ -6,12 +6,19 @@
 #: individual font faces and even specify special fonts for particular
 #: characters.
 
-+font_family      FiraCode Nerd Font Mono
+<<<<<<< HEAD
+font_family      Fira Code Nerd Font
+bold_font        Fira Code Nerd Font Bold
+# italic_font      Fira Code Nerd Font Mono
+# bold_italic_font Fira Code Nerd Font Mono Bold
+=======
+font_family      FiraCode Nerd Font Mono
 
 # font_family      Fira Code
 # bold_font        Fira Code Bold
 # italic_font      Fira Code
 # bold_italic_font Fira Code Bold
+>>>>>>> e22aebc876ba0dae055167ae44653e1e9e604d09
 
 #: You can specify different fonts for the bold/italic/bold-italic
 #: variants. By default they are derived automatically, by the OSes
