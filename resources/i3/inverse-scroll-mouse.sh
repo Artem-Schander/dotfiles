@@ -5,8 +5,8 @@ id=`xinput list | grep "Mouse" | cut -d'=' -f2 | cut -d'[' -f1`
 
 if [ ${id} ]; then
     natural_scrolling_id=`xinput list-props $id | \
-                        grep "Natural Scrolling Enabled (" \
-                        | cut -d'(' -f2 | cut -d')' -f1`
+        grep "Natural Scrolling Enabled (" \
+        | cut -d'(' -f2 | cut -d')' -f1`
 
     # Set the property to true
     xinput --set-prop $id $natural_scrolling_id 1
