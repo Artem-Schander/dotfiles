@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Get id of touchpad and the id of the field corresponding to natural scrolling
-id=`xinput list | grep "Touchpad" | cut -d'=' -f2 | cut -d'[' -f1`
+id=`xinput list | grep -i "touchpad" | cut -d'=' -f2 | cut -d'[' -f1`
 
 if [ ${id} ]; then
     natural_scrolling_id=`xinput list-props $id | \

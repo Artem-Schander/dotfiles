@@ -19,7 +19,8 @@ conky.config = {
 }
 conky.text = [[
 ${color2}open new terminal ${color}mod+Enter
-${color2}open file browser ${color}mod+Shift+8
+${color2}open internet browser ${color}mod+F2
+${color2}open file browser ${color}mod+F8
 
 ${color2}kill focused ${color}mod+q
 ${color2}toggle split direction ${color}mod+e
@@ -27,9 +28,9 @@ ${color2}toggle floating ${color}mod+Shift+Space
 ${color2}rofi ${color}mod+space
 ${color2}bmenu ${color}mod+Ctrl+b
 ${color2}morc_menu ${color}mod+m
-${color2}switch to workspace 1-8 ${color}mod+1-8
-${color2}send to workspace 1-8 ${color}mod+Ctrl+1-8
-${color2}move to workspace 1-8 ${color}mod+Shift+1-8
+${color2}switch to workspace 1-9 ${color}mod+1-9
+${color2}send to workspace 1-9 ${color}mod+Ctrl+1-9
+${color2}move to workspace 1-9 ${color}mod+Shift+1-9
 ${color2}navigate workspaces ${color}mod+Ctrl+arrowkeys
 ${color2}navigate windows ${color}mod+arrowkeys
 ${color2}exit ${color}mod+Escape
