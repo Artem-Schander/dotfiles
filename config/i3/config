@@ -35,7 +35,7 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
-set $myTerm kitty
+set $myTerm kitty -o allow_remote_control=yes --listen-on unix:/tmp/mykitty
 bindsym $mod+Return exec $myTerm
 
 # kill focused window

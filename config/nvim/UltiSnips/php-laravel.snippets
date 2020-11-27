@@ -174,7 +174,7 @@ snippet morphOne "one2one polymorphic relationship" b
  */
 public function ${1:address}()
 {
-    // morphMany(MorphedModel, morphableName, type = `!p snip.rv = convertToSnakeCase(t[1])`able_type, relatedKeyName = `!p snip.rv = convertToSnakeCase(t[1])`able_id, localKey = id)
+    // morphOne(MorphedModel, morphableName, type = `!p snip.rv = convertToSnakeCase(t[1])`able_type, relatedKeyName = `!p snip.rv = convertToSnakeCase(t[1])`able_id, localKey = id)
     return $this->morphOne(`!p snip.rv = capitalize(t[1])`::class, '`!p snip.rv = convertToSnakeCase(t[1])`able');
 }
 endsnippet
@@ -192,6 +192,19 @@ public function ${1:images}()
 }
 endsnippet
 
+snippet morphToMany "many2many polymorphic relationship" b
+/**
+ * `!p snip.rv = capitalize(snip.basename)` morphs to many `!p snip.rv = capitalize(t[1])`.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+ */
+public function ${1:images}()
+{
+    // morphToMany(MorphedModel, morphableName, type = `!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`able_type, relatedKeyName = `!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`able_id, localKey = id)
+    return $this->morphToMany(`!p snip.rv = capitalize(convertToSingular(t[1]))`::class, '`!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`able');
+}
+endsnippet
+
 snippet morphTo "morphable model" b
 /**
  * `!p snip.rv = capitalize(snip.basename)` morphs to models in `!p snip.rv = convertToSnakeCase(t[1])`able_type.
@@ -203,6 +216,20 @@ public function ${1:`!p snip.rv = decapitalize(snip.basename)`}able()
     // morphTo($name = `!p snip.rv = convertToSnakeCase(t[1])`able, $type = `!p snip.rv = convertToSnakeCase(t[1])`able_type, $id = `!p snip.rv = convertToSnakeCase(t[1])`able_id)
     // requires `!p snip.rv = convertToSnakeCase(t[1])`able_type and `!p snip.rv = convertToSnakeCase(t[1])`able_id fields on $this->table
     return $this->morphTo($2);
+}
+endsnippet
+
+snippet morphedByMany "morphable model" b
+/**
+ * `!p snip.rv = capitalize(snip.basename)` gets morphed by many `!p snip.rv = capitalize(t[1])`.
+ *
+ * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+ */
+public function ${1:tags}()
+{
+    // morphedByMany($related = `!p snip.rv = convertToSingular(capitalize(t[1]))`::class, $name = `!p snip.rv = convertToSnakeCase(decapitalize(snip.basename))`able, $table = `!p snip.rv = convertToSnakeCase(decapitalize(snip.basename))`able)
+    // requires `!p snip.rv = convertToSnakeCase(decapitalize(snip.basename))`_id, `!p snip.rv = convertToSnakeCase(decapitalize(snip.basename))`able_type and `!p snip.rv = convertToSnakeCase(decapitalize(snip.basename))`able_id fields in `!p snip.rv = convertToSnakeCase(decapitalize(snip.basename))`able table
+    return $this->morphedByMany(`!p snip.rv = convertToSingular(capitalize(t[1]))`::class, '`!p snip.rv = convertToSnakeCase(decapitalize(snip.basename))`able');
 }
 endsnippet
 
@@ -417,6 +444,76 @@ public function testRelationTo`!p snip.rv = capitalize(t[1])`ableModel()
 
     $msg = 'wrong morph type field name --- $1able relation';
     $this->assertTrue($type === '`!p snip.rv = convertToSnakeCase(t[1])`able_type', $msg);
+}
+endsnippet
+
+snippet testRelationMorphedByMany "Laravel test case - tests eloquent model morphedByMany relation" b
+/**
+ * this method tests the
+ * MorphedByMany relation between this Model (`!p snip.rv = capitalize(t[2])`)
+ * and the `!p snip.rv = convertToSingular(capitalize(t[1]))` Eloquent model
+ * 1 -> ${1:posts} (foreign model - plural)
+ * 2 -> ${2:tag} (current model - singular)
+ */
+public function testRelationTo`!p snip.rv = convertToSingular(capitalize(t[1]))`Model()
+{
+    \$`!p snip.rv = capitalize(t[2])` = new `!p snip.rv = capitalize(t[2])`;
+
+    \$msg = 'wrong relationship type --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = decapitalize(t[1])`() instanceof MorphToMany, \$msg);
+
+    \$msg = 'wrong relationship model --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = decapitalize(t[1])`()->getModel() instanceof `!p snip.rv = convertToSingular(capitalize(t[1]))`, \$msg);
+
+    \$msg = 'wrong morph class --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = decapitalize(t[1])`()->getMorphClass() === `!p snip.rv = convertToSingular(capitalize(t[1]))`::class);
+
+    \$msg = 'wrong morph table';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = decapitalize(t[1])`()->getTable() === '`!p snip.rv = convertToSnakeCase(t[2])`ables', \$msg);
+
+    \$msg = 'wrong foreign key in morph table';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = decapitalize(t[1])`()->getForeignPivotKeyName() === '`!p snip.rv = convertToSnakeCase(t[2])`_id', \$msg);
+
+    \$msg = 'wrong morph type';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = decapitalize(t[1])`()->getMorphType() === '`!p snip.rv = convertToSnakeCase(t[2])`able_type', \$msg);
+
+    \$msg = 'wrong morph key';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = decapitalize(t[1])`()->getRelatedPivotKeyName() === '`!p snip.rv = convertToSnakeCase(t[2])`able_id', \$msg);
+}
+endsnippet
+
+snippet testRelationMorphToMany "Laravel test case - tests eloquent model morphToMany relation" b
+/**
+ * this method tests the
+ * MorphToMany relation between this Model (`!p snip.rv = capitalize(t[2])`)
+ * and the `!p snip.rv = convertToSingular(capitalize(t[1]))` Eloquent model
+ * 1 -> ${1:tags} (foreign model - plural)
+ * 2 -> ${2:post} (current model - singular)
+ */
+public function testRelationTo`!p snip.rv = convertToSingular(capitalize(t[1]))`Model()
+{
+    \$`!p snip.rv = capitalize(t[2])` = new `!p snip.rv = capitalize(t[2])`;
+
+    \$msg = 'wrong relationship type --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = decapitalize(t[1])`() instanceof MorphToMany, \$msg);
+
+    \$msg = 'wrong relationship model --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = decapitalize(t[1])`()->getModel() instanceof `!p snip.rv = convertToSingular(capitalize(t[1]))`, \$msg);
+
+    \$msg = 'wrong morph class --- `!p snip.rv = t[1]` relation';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = decapitalize(t[1])`()->getMorphClass() === `!p snip.rv = convertToSingular(capitalize(t[2]))`::class);
+
+    \$msg = 'wrong morph table';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = decapitalize(t[1])`()->getTable() === '`!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`ables', \$msg);
+
+    \$msg = 'wrong foreign key in morph table';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = decapitalize(t[1])`()->getRelatedPivotKeyName() === '`!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`_id', \$msg);
+
+    \$msg = 'wrong morph type';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = decapitalize(t[1])`()->getMorphType() === '`!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`able_type', \$msg);
+
+    \$msg = 'wrong morph key';
+    \$this->assertTrue(\$`!p snip.rv = capitalize(t[2])`->`!p snip.rv = decapitalize(t[1])`()->getForeignPivotKeyName() === '`!p snip.rv = convertToSingular(convertToSnakeCase(t[1]))`able_id', \$msg);
 }
 endsnippet
 
