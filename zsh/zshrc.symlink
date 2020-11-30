@@ -342,3 +342,8 @@ source $ZSH/oh-my-zsh.sh
 
 # allow kitty to be controlled remotely
 export KITTY_LISTEN_ON=unix:/tmp/mykitty
+
+# set locale
+export LC_CTYPE=en_US.UTF-8
+export LC_MESSAGES=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
