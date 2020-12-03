@@ -75,7 +75,6 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 
 # Start Applications
 bindsym $mod+Ctrl+b exec $myTerm -e 'bmenu'
-bindsym $mod+Shift+F3 exec gksu pcmanfm
 # bindsym $mod+F5 exec terminal -e 'mocp'
 bindsym $mod+t exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+t exec --no-startup-id compton -b
@@ -98,7 +97,7 @@ bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 # bindsym $mod+KP_Page_Up exec $myTerm -e 'sh ./scripts/tig-script.sh'
 
 # Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 1-9>
-bindsym $mod+Shift+KP_2 workspace 2; layout tabbed; exec 'firefox-developer-edition'
+bindsym $mod+Shift+KP_2 workspace 2; layout tabbed; exec 'google-chrome-stable'
 bindsym $mod+Shift+KP_3 workspace 3; layout tabbed; exec 'thunderbird'
 bindsym $mod+Shift+KP_4 workspace 4; exec 'Slack'
 # bindsym $mod+Shift+KP_3 exec $myTerm -e 'cmus'
@@ -111,6 +110,14 @@ bindsym $mod+Shift+KP_7 exec $myTerm -e 'htop'
 # bindsym $mod+Shift+KP_8 exec $myTerm -e 'ranger'
 bindsym $mod+Shift+KP_8 exec pcmanfm
 # bindsym $mod+Shift+KP_9 exec $myTerm -e 'vim /home/dt/.i3/config'
+
+# Apps Launched with <SUPER> + <F1-F12>
+bindsym $mod+F2 layout tabbed; exec 'google-chrome-stable'
+bindsym $mod+F7 exec $myTerm -e 'htop'
+bindsym $mod+F8 exec pcmanfm
+
+# Apps Launched with <SUPER> + <SHIFT> + <F1-F12>
+bindsym $mod+Shift+F8 exec gksu pcmanfm
 
 # # Apps Launched with <SUPER> + <CTRL> + <KEYPAD 1-9>
 # bindsym $mod+Ctrl+KP_End exec $myTerm -e 'htop'
@@ -183,7 +190,7 @@ bindsym $mod+Shift+space floating toggle
 
 # toggle sticky
 # bindsym $mod+Shift+s sticky toggle
-bindsym $mod+Shift+s exec ~/.dotfiles/config/i3/i3-display-swap.sh
+# bindsym $mod+Shift+s exec ~/.dotfiles/config/i3/i3-display-swap.sh
 
 # focus the parent container
 bindsym $mod+a focus parent
@@ -219,8 +226,10 @@ set $ws9 9
 set $ws10 10
 
 # set the connected monitors
-set $monitor1 HDMI2
-set $monitor2 DP2
+# set $monitor1 HDMI2
+set $monitor1 LVDS-1
+# set $monitor2 DP2
+set $monitor2 DP-1-3
 
 # Bind the workspaces for monitor one
 workspace $ws1 output $monitor1
@@ -280,6 +289,7 @@ assign [class="Evolution"] $ws3
 assign [class="Thunderbird"] $ws3
 assign [class="Slack"] $ws4
 assign [class="MineTime"] $ws5
+assign [class="pcmanfm"] $ws8
 
 # Open specific applications in tabbed mode
 for_window [class="google-chrome"] layout tabbed
@@ -336,18 +346,18 @@ bindsym $mod+Escape mode "$mode_system"
 # set $mode_system (l)ock, (e)xit, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 mode "$mode_system" {
-    # bindsym l exec --no-startup-id i3exit lock, mode "default"
-    bindsym l exec --no-startup-id i3exit lock && sleep 600 && xset dpms force off, mode "default"
-    bindsym s exec --no-startup-id i3exit suspend, mode "default"
-    bindsym u exec --no-startup-id i3exit switch_user, mode "default"
-    bindsym e exec --no-startup-id i3exit logout, mode "default"
-    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
-    bindsym r exec --no-startup-id i3exit reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+        # bindsym l exec --no-startup-id i3exit lock, mode "default"
+        bindsym l exec --no-startup-id i3exit lock && sleep 600 && xset dpms force off, mode "default"
+        bindsym s exec --no-startup-id i3exit suspend, mode "default"
+        bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+        bindsym e exec --no-startup-id i3exit logout, mode "default"
+        bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+        bindsym r exec --no-startup-id i3exit reboot, mode "default"
+        bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
 
-    # exit system mode: "Enter" or "Escape"
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+        # exit system mode: "Enter" or "Escape"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
 }
 
 # Resize window (you can also use the mouse for that)
@@ -384,16 +394,14 @@ mode "resize" {
 
 # enable natural-scrolling and tap-to-click
 exec --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-touchpad.sh
+exec --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-trackpoint.sh
 exec --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-mouse.sh
 exec --no-startup-id $HOME/.dotfiles/resources/i3/tap-to-click.sh
 
 exec --no-startup-id numlockx off
 # exec_always --no-startup-id xset r rate 250 30
 exec_always --no-startup-id setxkbmap -option 'ctrl:nocaps,shift:both_capslock_cancel'
-exec_always --no-startup-id setxkbmap -option compose:ralt
-
-# polybar
-exec_always --no-startup-id $HOME/.dotfiles/resources/i3/launch-polybar.sh
+# exec_always --no-startup-id setxkbmap -option compose:ralt
 
 # restore layouts
 exec --no-startup-id i3-msg "workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec thunderbird"
@@ -402,18 +410,12 @@ exec --no-startup-id i3-msg "workspace 4; append_layout ~/.dotfiles/config/i3/la
 exec --no-startup-id i3-msg "workspace 8; append_layout ~/.dotfiles/config/i3/layouts/workspace-8.json; exec pcmanfm Code; exec $myTerm -e ranger"
 # exec --no-startup-id i3-msg "workspace 5; append_layout ~/.dotfiles/config/i3/layouts/workspace-5.json; exec minetime"
 # exec --no-startup-id i3-msg "workspace 2; append_layout ~/.dotfiles/config/i3/layouts/workspace-2.json; exec google-chrome-stable --restore-last-session"
-exec --no-startup-id i3-msg "workspace 2; append_layout ~/.dotfiles/config/i3/layouts/workspace-2.json; exec firefox-developer-edition"
+# exec --no-startup-id i3-msg "workspace 2; append_layout ~/.dotfiles/config/i3/layouts/workspace-2.json; exec firefox-developer-edition"
 exec --no-startup-id i3-msg "workspace 1; append_layout ~/.dotfiles/config/i3/layouts/workspace-1.json"
 exec --no-startup-id i3-msg "workspace 2; workspace 1; exec $myTerm"
 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # exec_always --no-startup-id compton -b --config $HOME/.config/compton/compton.conf
-exec --no-startup-id nitrogen --restore; sleep 1; compton -b
-# exec --no-startup-id feh --randomize --bg-fill $HOME/.dotfiles/resources/wallpapers/*
-# exec --no-startup-id i3-msg 'workspace 1; exec kitty;'
-# exec --no-startup-id i3-msg 'workspace 2; layout tabbed; exec google-chrome-stable'
-# exec --no-startup-id i3-msg 'workspace 3; exec evolution'
-# exec --no-startup-id i3-msg 'workspace 4; exec slack'
 exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
@@ -421,14 +423,43 @@ exec --no-startup-id clipit
 exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
 # exec --no-startup-id start_conky_maia
-exec --no-startup-id $HOME/.dotfiles/resources/i3/launch-conky-one-dark.sh
 exec --no-startup-id xautolock -time 10 -locker blurlock
+exec --no-startup-id redshift -P -t 5000:4000
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
-exec_always --no-startup-id export DISPLAY=:0; xset r rate 250 30
+
+# KEYBOARD
+exec_always --no-startup-id xset r rate 250 30
+
+# DISPLAY
+exec_always --no-startup-id export DISPLAY=:0
+exec_always --no-startup-id $HOME/.dotfiles/resources/i3/initialize-multimonitor-setup.sh
+
+# polybar
+exec_always --no-startup-id sleep 0.5 && $HOME/.dotfiles/resources/i3/launch-polybar.sh
+
+exec_always --no-startup-id sleep 0.5 && $HOME/.dotfiles/resources/i3/launch-conky-one-dark.sh
+# exec --no-startup-id feh --randomize --bg-fill $HOME/.dotfiles/resources/wallpapers/*
+exec_always --no-startup-id sleep 0.5 && nitrogen --restore
 
 exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
 
+# redshift modes
+bindsym $mod+n mode "$mode_redshift"
+set $mode_redshift Set colour temperature: (a)uto, (r)eset, (2)500K, (3)000K, (4)000K, (5)000K
+set $kill_redshift pkill -9 redshift;
+mode "$mode_redshift" {
+    bindsym a exec --no-startup-id "$kill_redshift redshift -P -t 5000:4000", mode "default"
+    bindsym r exec --no-startup-id "$kill_redshift redshift -x", mode "default"
+    bindsym 2 exec --no-startup-id "$kill_redshift redshift -P -O 2500", mode "default"
+    bindsym 3 exec --no-startup-id "$kill_redshift redshift -P -O 3000", mode "default"
+    bindsym 4 exec --no-startup-id "$kill_redshift redshift -P -O 4000", mode "default"
+    bindsym 5 exec --no-startup-id "$kill_redshift redshift -P -O 5000", mode "default"
+
+    # exit mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
 
 # Color palette used for the terminal ( ~/.Xresources file )
 # Colors are gathered based on the documentation:xsetroot -solid "#000000"
