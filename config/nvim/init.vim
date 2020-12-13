@@ -1052,6 +1052,7 @@ call plug#begin('~/.config/nvim/plugged')
         let g:UltiSnipsJumpForwardTrigger = '<C-Right>'
         let g:UltiSnipsJumpBackwardTrigger = '<C-Left>'
         " let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/UltiSnips', '~/.config/nvim/snippets', '~/.config/nvim/plugged/vim-snippets/UltiSnips', '~/.config/nvim/plugged/vim-snippets/snippets']
+        " let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/nvim/plugged/vim-snippets/UltiSnips']
 
         " If you want :UltiSnipsEdit to split your window.
         " let g:UltiSnipsEditSplit="vertical"
