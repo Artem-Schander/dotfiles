@@ -11,6 +11,7 @@ for P in \
     perl-anyevent-i3 \
     firefox-developer-edition \
     thunderbird \
+    geary \
     docker \
     docker-compose \
     neovim \

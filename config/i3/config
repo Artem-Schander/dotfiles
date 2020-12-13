@@ -98,7 +98,8 @@ bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
 
 # Apps Launched with <SUPER> + <SHIFT> + <KEYPAD 1-9>
 bindsym $mod+Shift+KP_2 workspace 2; layout tabbed; exec 'google-chrome-stable'
-bindsym $mod+Shift+KP_3 workspace 3; layout tabbed; exec 'thunderbird'
+# bindsym $mod+Shift+KP_3 workspace 3; layout tabbed; exec 'thunderbird'
+bindsym $mod+Shift+KP_3 workspace 3; layout tabbed; exec 'geary'
 bindsym $mod+Shift+KP_4 workspace 4; exec 'Slack'
 # bindsym $mod+Shift+KP_3 exec $myTerm -e 'cmus'
 # bindsym $mod+Shift+KP_4 exec $myTerm -e 'irssi'
@@ -113,6 +114,7 @@ bindsym $mod+Shift+KP_8 exec pcmanfm
 
 # Apps Launched with <SUPER> + <F1-F12>
 bindsym $mod+F2 layout tabbed; exec 'google-chrome-stable'
+bindsym $mod+F3 layout tabbed; exec 'geary'
 bindsym $mod+F7 exec $myTerm -e 'htop'
 bindsym $mod+F8 exec pcmanfm
 
@@ -275,7 +277,7 @@ bindsym $mod+Shift+7 move container to workspace $ws7; workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8; workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9; workspace $ws9
 
-# save and restore alyouts
+# save and restore lyouts
 # bindsym $mod+s exec $HOME/.dotfiles/config/i3/save-layouts.sh
 
 # Open applications on specific workspaces
@@ -287,6 +289,7 @@ assign [class="firefox-developer-edition"] $ws2
 assign [class="firefox"] $ws2
 assign [class="Evolution"] $ws3
 assign [class="Thunderbird"] $ws3
+assign [class="Geary"] $ws3
 assign [class="Slack"] $ws4
 assign [class="MineTime"] $ws5
 assign [class="pcmanfm"] $ws8
@@ -297,6 +300,7 @@ for_window [class="google-chrome-stable"] layout tabbed
 for_window [class="firefox"] layout tabbed
 for_window [title="Evolution"] layout tabbed
 for_window [title="Thunderbird"] layout tabbed
+for_window [title="Geary"] layout tabbed
 
 # Open specific applications in floating mode
 for_window [title="teamviewer"] floating enable border pixel 1
@@ -404,7 +408,8 @@ exec_always --no-startup-id setxkbmap -option 'ctrl:nocaps,shift:both_capslock_c
 # exec_always --no-startup-id setxkbmap -option compose:ralt
 
 # restore layouts
-exec --no-startup-id i3-msg "workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec thunderbird"
+# exec --no-startup-id i3-msg "workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec thunderbird"
+exec --no-startup-id i3-msg "workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec geary"
 exec --no-startup-id i3-msg "workspace 4; append_layout ~/.dotfiles/config/i3/layouts/workspace-4.json; exec slack"
 # exec --no-startup-id i3-msg "workspace 7; append_layout ~/.dotfiles/config/i3/layouts/workspace-7.json; exec $myTerm -e htop; exec $myTerm -e earlyoom"
 exec --no-startup-id i3-msg "workspace 8; append_layout ~/.dotfiles/config/i3/layouts/workspace-8.json; exec pcmanfm Code; exec $myTerm -e ranger"
