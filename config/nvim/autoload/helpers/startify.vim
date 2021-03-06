@@ -87,7 +87,6 @@ function! helpers#startify#stopsession()
     if prosession != '0'
         unlet g:this_obsession
     endif
-    " call startify#session_close()
     execute 'SClose'
 endfunction
 
