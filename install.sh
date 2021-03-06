@@ -104,7 +104,11 @@ elif [ "$OS" == "Manjaro Linux" ]; then
     mkdir -p ~/.local/share/fonts/
     cp ~/.dotfiles/resources/fonts/Hasklig/* ~/.local/share/fonts/
     cp ~/.dotfiles/resources/fonts/FiraCode/otf/* ~/.local/share/fonts/
-    cp ~/.dotfiles/resources/fonts/NerdFonts/FiraCode/OTF/* ~/.local/share/fonts/
+
+    # install fonts
+    source install/fonts.sh
+
+    # cp ~/.dotfiles/resources/fonts/NerdFonts/FiraCode/OTF/* ~/.local/share/fonts/
     # cp ~/.dotfiles/resources/fonts/NerdFonts/Hasklig/* ~/.local/share/fonts/
 
     # pillow is needed to render images in kitty terminal

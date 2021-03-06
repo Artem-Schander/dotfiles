@@ -1,7 +1,7 @@
 # gitconfig
 [user]
 	name = Artem Schander
-	email = a.schander@vanameland.de
+	email = schander.artem@gmail.com
 [github]
 	user = artem-schander
 [init]

@@ -5,6 +5,8 @@ sudo pacman -Syu --noconfirm
 for P in \
     xclip \
     xsel \
+    gcc \
+    unzip \
     xorg-xwininfo \
     perl-anyevent-i3 \
     firefox-developer-edition \
@@ -26,7 +28,9 @@ for P in \
     fasd \
     htop \
     zsh \
-    # bat \
+    nvm \
+    redshift \
+    blueman \
     highlight \
     yarn \
     xclip \
@@ -62,7 +66,6 @@ then
         teamviewer \
         anydesk \
         dust \
-        nvm \
         lazydocker
     do
         if ! (yay -Q | grep ${P} > /dev/null)

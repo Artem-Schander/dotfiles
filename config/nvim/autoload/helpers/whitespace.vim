@@ -15,7 +15,7 @@ function! helpers#whitespace#DetectMixedIndent()
         let spaces = search('^ ', 'nw') != 0
 
         if tabs && spaces
-            let b:mixed_indent_warning =  '[mixed-indent]'
+            let b:mixed_indent_warning = '[mixed-indent]'
         elseif (spaces && !&et) || (tabs && &et)
             let b:mixed_indent_warning = '[&et]'
         else

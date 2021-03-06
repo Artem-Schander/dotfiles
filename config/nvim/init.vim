@@ -47,6 +47,8 @@
 " " cat " like ciw but takes the tag also
 " " :%retab " fixes wrong indent type. FA tabs to spaces
 " " <leader><space> " removes trailing spaces --> ntpeters/vim-better-whitespace
+" " :%!python -m json.tool " format current json buffer
+" " :%ArrangeColumn " format current csv buffer --> csv.vim
 "
 " find and replace in multiple files: --> junegunn/fzf.vim
 " 1. " :Ag foo " then enter
@@ -237,9 +239,9 @@ call plug#begin('~/.config/nvim/plugged')
 
     " Tab control
     set smarttab " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
-    set tabstop=4 " the visible width of tabs
-    set softtabstop=4 " edit as if the tabs are 4 characters wide
-    set shiftwidth=4 " number of spaces to use for indent and unindent
+    set tabstop=2 " the visible width of tabs
+    set softtabstop=2 " edit as if the tabs are 4 characters wide
+    set shiftwidth=2 " number of spaces to use for indent and unindent
     set shiftround " round indent to a multiple of 'shiftwidth'
     set expandtab " expand tabs to spaces
     " set noexpandtab " insert tabs rather than spaces for <Tab>
@@ -633,6 +635,9 @@ call plug#begin('~/.config/nvim/plugged')
     " devicons to be used by different other plugins
     Plug 'ryanoasis/vim-devicons'
 
+    " multi cursor
+    " Plug 'mg979/vim-visual-multi'
+
     " Floating Windows {{{
 
         " Use nvim/vim's builtin terminal in the floating/popup window
@@ -688,6 +693,9 @@ call plug#begin('~/.config/nvim/plugged')
 
         " make test commands execute using neovim
         let test#strategy = "neovim"
+        " let test#strategy = "floaterm"
+        " let test#strategy = "kitty"
+        " let test#strategy = "vimux"
 
         nmap <silent> t<C-n> :TestNearest<CR> " t Ctrl+n
         nmap <silent> t<C-f> :TestFile<CR>    " t Ctrl+f
@@ -887,12 +895,12 @@ call plug#begin('~/.config/nvim/plugged')
         nmap <leader>b :Bdelete<cr>
     " }}}
 
-    " " Writing in vim {{{{
-    "     Plug 'junegunn/goyo.vim'
+    " Writing in vim {{{{
+        Plug 'junegunn/goyo.vim'
 
-    "     autocmd! User GoyoEnter nested call helpers#goyo#enter()
-    "     autocmd! User GoyoLeave nested call helpers#goyo#leave()
-    " " }}}
+        autocmd! User GoyoEnter nested call helpers#goyo#enter()
+        autocmd! User GoyoLeave nested call helpers#goyo#leave()
+    " }}}
 
     " Indent Lines {{{{
         Plug 'Yggdroot/indentLine' " A vim plugin to display the indention levels with thin vertical lines
@@ -1048,6 +1056,7 @@ call plug#begin('~/.config/nvim/plugged')
         let g:UltiSnipsJumpForwardTrigger = '<C-Right>'
         let g:UltiSnipsJumpBackwardTrigger = '<C-Left>'
         " let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/UltiSnips', '~/.config/nvim/snippets', '~/.config/nvim/plugged/vim-snippets/UltiSnips', '~/.config/nvim/plugged/vim-snippets/snippets']
+        " let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/nvim/plugged/vim-snippets/UltiSnips']
 
         " If you want :UltiSnipsEdit to split your window.
         " let g:UltiSnipsEditSplit="vertical"
@@ -1081,7 +1090,8 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'coc-highlight',
         \ 'coc-prettier',
         \ 'coc-ultisnips',
-        \ 'coc-explorer'
+        \ 'coc-explorer',
+        \ 'coc-vetur'
         \ ]
 
         " \ 'coc-fetur',
@@ -1182,7 +1192,7 @@ call plug#begin('~/.config/nvim/plugged')
 " }}}
 
 " Language-Specific Configuration {{{
-"
+
     " A solid language pack for Vim
     Plug 'sheerun/vim-polyglot'
 
