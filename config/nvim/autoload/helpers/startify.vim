@@ -82,6 +82,23 @@ function! helpers#startify#startsession()
     return sessions
 endfunction
 
+function! helpers#startify#stopsession()
+    let prosession = get(g:, 'this_obsession')
+    if prosession != '0'
+        unlet g:this_obsession
+    endif
+    " call startify#session_close()
+    execute 'SClose'
+endfunction
+
+function! helpers#startify#deletesession()
+    let prosession = get(g:, 'this_obsession')
+    if prosession != '0'
+        unlet g:this_obsession
+    endif
+    execute 'SDelete'
+endfunction
+
 function! helpers#startify#header()
     " TODO
     " generate dynamic header by projet path
