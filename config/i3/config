@@ -401,7 +401,7 @@ exec --no-startup-id $HOME/.dotfiles/resources/i3/tap-to-click.sh
 exec --no-startup-id numlockx off
 # exec_always --no-startup-id xset r rate 250 30
 exec_always --no-startup-id setxkbmap -option 'ctrl:nocaps,shift:both_capslock_cancel'
-# exec_always --no-startup-id setxkbmap -option compose:ralt
+exec_always --no-startup-id setxkbmap -option compose:ralt
 
 # restore layouts
 exec --no-startup-id i3-msg "workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec thunderbird"
