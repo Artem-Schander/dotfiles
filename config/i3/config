@@ -70,15 +70,23 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 ################################################################################################
 
 # Screen brightness controls
-# bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
-# bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
+bindsym XF86MonBrightnessUp exec "brightnessctl s +10%; notify-send 'brightness up'"
+bindsym XF86MonBrightnessDown exec "brightnessctl s 10%-; notify-send 'brightness down'"
+
+# Media/Volume controls
+bindsym XF86AudioRaiseVolume exec "amixer -q set Master 5%+ unmute; notify-send 'volume up'"
+bindsym XF86AudioLowerVolume exec "amixer -q set Master 5%- unmute; notify-send 'volume down'"
+bindsym XF86AudioMute exec "amixer -q set Master toggle; notify-send 'toggle sound'"
+bindsym XF86AudioMicMute exec "amixer set Capture toggle; notify-send 'toggle mic'"
+bindsym XF86Launch1 exec terminal -e 'alsamixer'
+
 
 # Start Applications
 bindsym $mod+Ctrl+b exec $myTerm -e 'bmenu'
 # bindsym $mod+F5 exec terminal -e 'mocp'
 bindsym $mod+t exec --no-startup-id pkill compton
 bindsym $mod+Ctrl+t exec --no-startup-id compton -b
-bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
+bindsym $mod+Shift+d --release exec "systemctl --user restart dunst; exec notify-send 'restart dunst'"
 bindsym Print exec --no-startup-id i3-scrot
 bindsym $mod+Print --release exec --no-startup-id i3-scrot -w
 bindsym $mod+Shift+Print --release exec --no-startup-id i3-scrot -s
@@ -332,6 +340,7 @@ for_window [class="Xfburn"] floating enable
 for_window [class="Slack"] floating enable border normal
 for_window [class="Viewnior"] floating enable border normal
 for_window [class="feh"] floating enable border normal
+for_window [class="Toggl Desktop"] floating enable border normal
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -397,15 +406,15 @@ mode "resize" {
 ################################################################################################
 
 # enable natural-scrolling and tap-to-click
-exec --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-touchpad.sh
-exec --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-trackpoint.sh
-exec --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-mouse.sh
-exec --no-startup-id $HOME/.dotfiles/resources/i3/tap-to-click.sh
+exec_always --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-touchpad.sh
+exec_always --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-trackpoint.sh
+exec_always --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-mouse.sh
+exec_always --no-startup-id $HOME/.dotfiles/resources/i3/tap-to-click.sh
 
 exec --no-startup-id numlockx off
 # exec_always --no-startup-id xset r rate 250 30
 exec_always --no-startup-id setxkbmap -option 'ctrl:nocaps,shift:both_capslock_cancel'
-# exec_always --no-startup-id setxkbmap -option compose:ralt
+exec_always --no-startup-id setxkbmap -option compose:ralt
 
 # restore layouts
 # exec --no-startup-id i3-msg "workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec thunderbird"
@@ -432,9 +441,35 @@ exec --no-startup-id xautolock -time 10 -locker blurlock
 exec --no-startup-id redshift -P -t 5000:4000
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
+exec_always --no-startup-id "systemctl --user restart dunst"
 
 # KEYBOARD
 exec_always --no-startup-id xset r rate 250 30
+
+# switch keybpoard layout / language
+# ALT + k
+bindsym Mod1+k mode "$switch_keyboard_layout"
+set $switch_keyboard_layout Set keyboard layout: (U)S, (G)B, (D)E, (F)R, (E)S
+mode "$switch_keyboard_layout" {
+    bindsym u exec --no-startup-id "$HOME/.dotfiles/config/i3/switch-keyboard-layout.sh set us; notify-send 'Keyboard layout set to US'", mode "default"
+    bindsym Shift+u exec --no-startup-id "$HOME/.dotfiles/config/i3/switch-keyboard-layout.sh set us; notify-send 'Keyboard layout set to US'", mode "default"
+
+    bindsym g exec --no-startup-id "$HOME/.dotfiles/config/i3/switch-keyboard-layout.sh set gb; notify-send 'Keyboard layout set to GB'", mode "default"
+    bindsym Shift+g exec --no-startup-id "$HOME/.dotfiles/config/i3/switch-keyboard-layout.sh set gb; notify-send 'Keyboard layout set to GB'", mode "default"
+
+    bindsym d exec --no-startup-id "$HOME/.dotfiles/config/i3/switch-keyboard-layout.sh set de; notify-send 'Keyboard layout set to DE'", mode "default"
+    bindsym Shift+d exec --no-startup-id "$HOME/.dotfiles/config/i3/switch-keyboard-layout.sh set de; notify-send 'Keyboard layout set to DE'", mode "default"
+
+    bindsym f exec --no-startup-id "$HOME/.dotfiles/config/i3/switch-keyboard-layout.sh set fr; notify-send 'Keyboard layout set to FR'", mode "default"
+    bindsym Shift+f exec --no-startup-id "$HOME/.dotfiles/config/i3/switch-keyboard-layout.sh set fr; notify-send 'Keyboard layout set to FR'", mode "default"
+
+    bindsym e exec --no-startup-id "$HOME/.dotfiles/config/i3/switch-keyboard-layout.sh set es; notify-send 'Keyboard layout set to ES'", mode "default"
+    bindsym Shift+e exec --no-startup-id "$HOME/.dotfiles/config/i3/switch-keyboard-layout.sh set es; notify-send 'Keyboard layout set to ES'", mode "default"
+
+    # exit mode: "Enter" or "Escape"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
 
 # DISPLAY
 exec_always --no-startup-id export DISPLAY=:0
@@ -443,7 +478,7 @@ exec_always --no-startup-id $HOME/.dotfiles/resources/i3/initialize-multimonitor
 # polybar
 exec_always --no-startup-id sleep 0.5 && $HOME/.dotfiles/resources/i3/launch-polybar.sh
 
-exec_always --no-startup-id sleep 0.5 && $HOME/.dotfiles/resources/i3/launch-conky-one-dark.sh
+exec_always --no-startup-id sleep 0.1 && $HOME/.dotfiles/resources/i3/launch-conky-one-dark.sh
 # exec --no-startup-id feh --randomize --bg-fill $HOME/.dotfiles/resources/wallpapers/*
 exec_always --no-startup-id sleep 0.5 && nitrogen --restore
 
