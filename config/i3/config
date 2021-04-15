@@ -393,10 +393,10 @@ mode "resize" {
 ################################################################################################
 
 # enable natural-scrolling and tap-to-click
-exec --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-touchpad.sh
-exec --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-trackpoint.sh
-exec --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-mouse.sh
-exec --no-startup-id $HOME/.dotfiles/resources/i3/tap-to-click.sh
+exec_always --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-touchpad.sh
+exec_always --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-trackpoint.sh
+exec_always --no-startup-id $HOME/.dotfiles/resources/i3/inverse-scroll-mouse.sh
+exec_always --no-startup-id $HOME/.dotfiles/resources/i3/tap-to-click.sh
 
 exec --no-startup-id numlockx off
 # exec_always --no-startup-id xset r rate 250 30
@@ -438,7 +438,7 @@ exec_always --no-startup-id $HOME/.dotfiles/resources/i3/initialize-multimonitor
 # polybar
 exec_always --no-startup-id sleep 0.5 && $HOME/.dotfiles/resources/i3/launch-polybar.sh
 
-exec_always --no-startup-id sleep 0.5 && $HOME/.dotfiles/resources/i3/launch-conky-one-dark.sh
+exec_always --no-startup-id killall conky && sleep 0.1 && $HOME/.dotfiles/resources/i3/launch-conky-one-dark.sh
 # exec --no-startup-id feh --randomize --bg-fill $HOME/.dotfiles/resources/wallpapers/*
 exec_always --no-startup-id sleep 0.5 && nitrogen --restore
 

@@ -54,12 +54,10 @@
 "
 "   AUTOCOMPLETE / SNIPPETS / SYNTAX
 "
-" " <C-y><leader> " (ctrl+y ,) render emmet-string to html--> mattn/emmet-vim
+" " <C-y><leader> " (ctrl+y ,) render emmet-string to html --> mattn/emmet-vim
 " " <C-y>n " (ctrl+y n) go to next edit point --> mattn/emmet-vim
-" " <C-o> or <C-i> " snippet - navigate between edit points
-" " <C-w> E " toggle syntastic mode {passive|active} default => passive --> vim-syntastic/syntastic
-" " <leader>n " Automatically adds the corresponding use statement for the name under the cursor --> arnaud-lb/vim-php-namespace
-" " <C-n> " Autocomplete string --> native
+" " <C-Right> or <C-Left> " snippet - navigate between edit points --> SirVer/ultisnips
+" " <C-Right> " Autocomplete string --> native
 "
 "
 "   VISUALS
@@ -582,6 +580,9 @@ call plug#begin('~/.config/nvim/plugged')
         " autocmd BufEnter *.vue :syntax sync fromstart
 
         " autocmd BufRead,BufNewFile *.conf set filetype=dosini | set filetype=nginx
+
+        autocmd VimLeave * wshada!
+
     augroup END
 " }}}
 
@@ -598,6 +599,9 @@ call plug#begin('~/.config/nvim/plugged')
 
     " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
     Plug 'tpope/vim-surround'
+
+    " Insert or delete brackets, parens, quotes in pair.
+    Plug 'jiangmiao/auto-pairs'
 
     " tmux integration for vim
     Plug 'benmills/vimux'
@@ -883,6 +887,12 @@ call plug#begin('~/.config/nvim/plugged')
         nmap <leader>st :Startify<cr>
     " }}}
 
+    " Marks {{{
+        " Place, toggle and display marks.
+        Plug 'kshenoy/vim-signature'
+        g:SignatureForceRemoveGlobal = 1
+    " }}}
+
     " Splits {{{
         " Close buffers but keep splits
         Plug 'moll/vim-bbye'
@@ -1044,6 +1054,7 @@ call plug#begin('~/.config/nvim/plugged')
     " UltiSnips {{{
         Plug 'SirVer/ultisnips' " Snippets plugin
         Plug 'honza/vim-snippets' " snippet manager
+
         let g:snips_author = "Artem Schander"
         " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
         let g:UltiSnipsExpandTrigger = '<C-Right>'
@@ -1078,7 +1089,6 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'coc-git',
         \ 'coc-eslint',
         \ 'coc-tslint-plugin',
-        \ 'coc-pairs',
         \ 'coc-sh',
         \ 'coc-emmet',
         \ 'coc-highlight',
@@ -1088,6 +1098,7 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'coc-vetur'
         \ ]
 
+        " \ 'coc-pairs', " breaks macros
         " \ 'coc-fetur',
         " \ 'coc-vimlsp',
 
@@ -1444,6 +1455,8 @@ call plug#end()
         " execute "hi! StartifyNumber guifg=" one_dark_colors.dark_yellow.gui
         execute "hi! StartifySection guifg=" one_dark_colors.dark_yellow.gui
         execute "hi! StartifySpecial guifg=" one_dark_colors.purple.gui
+
+        execute "hi! SignatureMarkText guifg=" one_dark_colors.white.gui
 
         " " add matching colors to "NREDTree" git color highlighting
         " let g:NERDTreeColorMapCustom = {
