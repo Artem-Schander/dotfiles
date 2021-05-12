@@ -437,7 +437,8 @@ exec --no-startup-id clipit
 exec --no-startup-id blueman-applet
 # exec_always --no-startup-id sbxkb
 # exec --no-startup-id start_conky_maia
-exec --no-startup-id xautolock -time 10 -locker blurlock
+# exec --no-startup-id xautolock -time 10 -locker blurlock
+exec --no-startup-id xautolock -time 15 -corners 0-0- -cornersize 1000 -locker blurlock
 exec --no-startup-id redshift -P -t 5000:4000
 exec_always --no-startup-id ff-theme-util
 exec_always --no-startup-id fix_xcursor
