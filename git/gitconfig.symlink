@@ -6,6 +6,7 @@
 	user = artem-schander
 [init]
     templatedir = ~/.dotfiles/git/templates
+	defaultBranch = master
 [alias]
     # list all aliases
     la = "!git config -l | grep alias | cut -c 7-"
@@ -168,3 +169,5 @@
 [mergetool "smerge"]
 	cmd = smerge mergetool \"$BASE\" \"$LOCAL\" \"$REMOTE\" -o \"$MERGED\"
 	trustExitCode = true
+[pull]
+	rebase = false

@@ -479,7 +479,7 @@ exec_always --no-startup-id $HOME/.dotfiles/resources/i3/initialize-multimonitor
 # polybar
 exec_always --no-startup-id sleep 0.5 && $HOME/.dotfiles/resources/i3/launch-polybar.sh
 
-exec_always --no-startup-id sleep 0.1 && $HOME/.dotfiles/resources/i3/launch-conky-one-dark.sh
+exec_always --no-startup-id killall conky && sleep 0.1 && $HOME/.dotfiles/resources/i3/launch-conky-one-dark.sh
 # exec --no-startup-id feh --randomize --bg-fill $HOME/.dotfiles/resources/wallpapers/*
 exec_always --no-startup-id sleep 0.5 && nitrogen --restore
 

@@ -82,6 +82,22 @@ function! helpers#startify#startsession()
     return sessions
 endfunction
 
+function! helpers#startify#stopsession()
+    let prosession = get(g:, 'this_obsession')
+    if prosession != '0'
+        unlet g:this_obsession
+    endif
+    execute 'SClose'
+endfunction
+
+function! helpers#startify#deletesession()
+    let prosession = get(g:, 'this_obsession')
+    if prosession != '0'
+        unlet g:this_obsession
+    endif
+    execute 'SDelete'
+endfunction
+
 function! helpers#startify#header()
     " TODO
     " generate dynamic header by projet path
@@ -100,31 +116,31 @@ function! helpers#startify#header()
         \ '   ' . folder,
         \ ]
     elseif winwidth('%') > 67
-        " let header = [
-        " \ '   ╻ ╻╻╺┳╸╻ ╻  ┏━╸┏━┓┏━╸┏━┓╺┳╸  ┏━┓┏━┓╻ ╻┏━╸┏━┓  ┏━╸┏━┓┏┳┓┏━╸┏━┓ ',
-        " \ '   ┃╻┃┃ ┃ ┣━┫  ┃╺┓┣┳┛┣╸ ┣━┫ ┃   ┣━┛┃ ┃┃╻┃┣╸ ┣┳┛  ┃  ┃ ┃┃┃┃┣╸ ┗━┓ ',
-        " \ '   ┗┻┛╹ ╹ ╹ ╹  ┗━┛╹┗╸┗━╸╹ ╹ ╹   ╹  ┗━┛┗┻┛┗━╸╹┗╸  ┗━╸┗━┛╹ ╹┗━╸┗━┛ ',
-        " \ '   ┏━╸┏━┓┏━╸┏━┓╺┳╸  ┏━┓┏━╸┏━┓┏━┓┏━┓┏┓╻┏━┓╻┏┓ ╻╻  ╻╺┳╸╻ ╻         ',
-        " \ '   ┃╺┓┣┳┛┣╸ ┣━┫ ┃   ┣┳┛┣╸ ┗━┓┣━┛┃ ┃┃┗┫┗━┓┃┣┻┓┃┃  ┃ ┃ ┗┳┛         ',
-        " \ '   ┗━┛╹┗╸┗━╸╹ ╹ ╹   ╹┗╸┗━╸┗━┛╹  ┗━┛╹ ╹┗━┛╹┗━┛╹┗━╸╹ ╹  ╹          ',
-        " \ '   ' . folder,
-        " \ ]
-        " http://patorjk.com/software/taag/#p=display&f=Calvin%20S&t=WITH%20GREAT%20POWER%20COMES%20GREAT%20RESPONSIBILITY%0A
         let header = [
-        \ '   ╦ ╦╦╔╦╗╦ ╦  ╔═╗╦═╗╔═╗╔═╗╔╦╗  ╔═╗╔═╗╦ ╦╔═╗╦═╗  ╔═╗╔═╗╔╦╗╔═╗╔═╗ ',
-        \ '   ║║║║ ║ ╠═╣  ║ ╦╠╦╝║╣ ╠═╣ ║   ╠═╝║ ║║║║║╣ ╠╦╝  ║  ║ ║║║║║╣ ╚═╗ ',
-        \ '   ╚╩╝╩ ╩ ╩ ╩  ╚═╝╩╚═╚═╝╩ ╩ ╩   ╩  ╚═╝╚╩╝╚═╝╩╚═  ╚═╝╚═╝╩ ╩╚═╝╚═╝ ',
-        \ '   ╔═╗╦═╗╔═╗╔═╗╔╦╗  ╦═╗╔═╗╔═╗╔═╗╔═╗╔╗╔╔═╗╦╔╗ ╦╦  ╦╔╦╗╦ ╦         ',
-        \ '   ║ ╦╠╦╝║╣ ╠═╣ ║   ╠╦╝║╣ ╚═╗╠═╝║ ║║║║╚═╗║╠╩╗║║  ║ ║ ╚╦╝         ',
-        \ '   ╚═╝╩╚═╚═╝╩ ╩ ╩   ╩╚═╚═╝╚═╝╩  ╚═╝╝╚╝╚═╝╩╚═╝╩╩═╝╩ ╩  ╩          ',
+        \ '   ╻ ╻╻╺┳╸╻ ╻  ┏━╸┏━┓┏━╸┏━┓╺┳╸  ┏━┓┏━┓╻ ╻┏━╸┏━┓  ┏━╸┏━┓┏┳┓┏━╸┏━┓ ',
+        \ '   ┃╻┃┃ ┃ ┣━┫  ┃╺┓┣┳┛┣╸ ┣━┫ ┃   ┣━┛┃ ┃┃╻┃┣╸ ┣┳┛  ┃  ┃ ┃┃┃┃┣╸ ┗━┓ ',
+        \ '   ┗┻┛╹ ╹ ╹ ╹  ┗━┛╹┗╸┗━╸╹ ╹ ╹   ╹  ┗━┛┗┻┛┗━╸╹┗╸  ┗━╸┗━┛╹ ╹┗━╸┗━┛ ',
+        \ '   ┏━╸┏━┓┏━╸┏━┓╺┳╸  ┏━┓┏━╸┏━┓┏━┓┏━┓┏┓╻┏━┓╻┏┓ ╻╻  ╻╺┳╸╻ ╻         ',
+        \ '   ┃╺┓┣┳┛┣╸ ┣━┫ ┃   ┣┳┛┣╸ ┗━┓┣━┛┃ ┃┃┗┫┗━┓┃┣┻┓┃┃  ┃ ┃ ┗┳┛         ',
+        \ '   ┗━┛╹┗╸┗━╸╹ ╹ ╹   ╹┗╸┗━╸┗━┛╹  ┗━┛╹ ╹┗━┛╹┗━┛╹┗━╸╹ ╹  ╹          ',
         \ '   ' . folder,
         \ ]
+        " http://patorjk.com/software/taag/#p=display&f=Calvin%20S&t=WITH%20GREAT%20POWER%20COMES%20GREAT%20RESPONSIBILITY%0A
+        " let header = [
+        " \ '   ╦ ╦╦╔╦╗╦ ╦  ╔═╗╦═╗╔═╗╔═╗╔╦╗  ╔═╗╔═╗╦ ╦╔═╗╦═╗  ╔═╗╔═╗╔╦╗╔═╗╔═╗ ',
+        " \ '   ║║║║ ║ ╠═╣  ║ ╦╠╦╝║╣ ╠═╣ ║   ╠═╝║ ║║║║║╣ ╠╦╝  ║  ║ ║║║║║╣ ╚═╗ ',
+        " \ '   ╚╩╝╩ ╩ ╩ ╩  ╚═╝╩╚═╚═╝╩ ╩ ╩   ╩  ╚═╝╚╩╝╚═╝╩╚═  ╚═╝╚═╝╩ ╩╚═╝╚═╝ ',
+        " \ '   ╔═╗╦═╗╔═╗╔═╗╔╦╗  ╦═╗╔═╗╔═╗╔═╗╔═╗╔╗╔╔═╗╦╔╗ ╦╦  ╦╔╦╗╦ ╦         ',
+        " \ '   ║ ╦╠╦╝║╣ ╠═╣ ║   ╠╦╝║╣ ╚═╗╠═╝║ ║║║║╚═╗║╠╩╗║║  ║ ║ ╚╦╝         ',
+        " \ '   ╚═╝╩╚═╚═╝╩ ╩ ╩   ╩╚═╚═╝╚═╝╩  ╚═╝╝╚╝╚═╝╩╚═╝╩╩═╝╩ ╩  ╩          ',
+        " \ '   ' . folder,
+        " \ ]
     elseif winwidth('%') > 35
         " http://patorjk.com/software/taag/#p=display&f=Calvin%20S&t=BE%20AWESOME
         let header = [
-        \ '   ╔╗ ╔═╗  ╔═╗╦ ╦╔═╗╔═╗╔═╗╔╦╗╔═╗ ',
-        \ '   ╠╩╗║╣   ╠═╣║║║║╣ ╚═╗║ ║║║║║╣  ',
-        \ '   ╚═╝╚═╝  ╩ ╩╚╩╝╚═╝╚═╝╚═╝╩ ╩╚═╝ ',
+        \ '   ┏┓ ┏━╸  ┏━┓╻ ╻┏━╸╔═╗┏━┓┏┳┓┏━╸ ',
+        \ '   ┣┻┓┣╸   ┣━┫┃╻┃┣╸ ╚═╗┃ ┃┃┃┃┣╸  ',
+        \ '   ┗━┛┗━╸  ╹ ╹┗┻┛┗━╸╚═╝┗━┛╹ ╹┗━╸ ',
         \ '   ' . folder,
         \ ]
     else

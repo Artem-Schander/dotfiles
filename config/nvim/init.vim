@@ -8,24 +8,18 @@
 " " :344 " go to line number 344
 " " ]} or [{ " go to the start and end of a code block
 " " <leader><leader>f " find any letter, get them highlighted and move to the desired location --> easymotion/vim-easymotion
-" " <C-f>f " search in multiple files (entire project). Results can be changed --> dyng/ctrlsf.vim
 " " zt / zz / zb " top / center / bottom the line where the cursor is located
 " " gt or gT " navigate through tabs
-" " <leader>t " open and go to new tab
 " " <leader>. " switch to the last used buffer
 " " <leader>p " search file by name --> junegunn/fzf.vim
 " " <leader>b " search file in open buffers --> junegunn/fzf.vim
 " " <leader>r " search tag in current buffer --> junegunn/fzf.vim
-" " <leader>k " toggle NERDTree --> scrooloose/nerdtree
-" " <leader>y " reveal current file in NERDTree --> scrooloose/nerdtree
+" " <leader>k " toggle file tree --> coc-explorer
 "
-" " <leader>1 " highlights all occurrences of the word under the cursor (different colors 1 - 6)
-" " <C-c> " (ctrl+c) like buffer delete but keeps the split open
+" " <leader>1 " highlights all occurrences of the word under the cursor (different colors 1 - 9)
 "
 " " :!ctags -R --exclude=node_modules --exclude=dist " create a tags index --> ctags
-" " <C-]> " (ctrl+alt+6) go to declaration of whatever is under the cursor --> ctags
 " " :tabonly " close all tabs except for the active one
-"
 "
 "   EDIT / COPY & PASTE
 "
@@ -39,7 +33,6 @@
 " " S " add surroundings to selection in visual mode --> tpope/vim-surround
 " " dst " delete surrounding tag --> tpope/vim-surround
 " " cst " change surrounding tag --> tpope/vim-surround
-" " <leader><f " format php file (psr-2) --> stephpy/vim-php-cs-fixer
 " " crs " convert to snake_case --> tpope/vim-abolish
 " " crc " convert to camelCase --> tpope/vim-abolish
 " " vipga= or gaip= " aligns a paragraph by the = symbol --> junegunn/vim-easy-align
@@ -61,12 +54,10 @@
 "
 "   AUTOCOMPLETE / SNIPPETS / SYNTAX
 "
-" " <C-y><leader> " (ctrl+y ,) render emmet-string to html--> mattn/emmet-vim
+" " <C-y><leader> " (ctrl+y ,) render emmet-string to html --> mattn/emmet-vim
 " " <C-y>n " (ctrl+y n) go to next edit point --> mattn/emmet-vim
-" " <C-o> or <C-i> " snippet - navigate between edit points
-" " <C-w> E " toggle syntastic mode {passive|active} default => passive --> vim-syntastic/syntastic
-" " <leader>n " Automatically adds the corresponding use statement for the name under the cursor --> arnaud-lb/vim-php-namespace
-" " <C-n> " Autocomplete string --> native
+" " <C-Right> or <C-Left> " snippet - navigate between edit points --> SirVer/ultisnips
+" " <C-Right> " Autocomplete string --> native
 "
 "
 "   VISUALS
@@ -79,6 +70,7 @@
 " " zm " close one more level
 " " zM " close all levels
 " " zf<Motion> " zfa} -> folds all incl. parent curly brackets - only in manual mode " :setlocal foldmethod=manual "
+" " :syntax sync fromstart " fix syntax highlight loss (occurs in large files)
 "
 "
 "   RECOMMENDATIONS
@@ -327,7 +319,7 @@ call plug#begin('~/.config/nvim/plugged')
             \           [ 'percent' ],
             \           [ 'lineinfo' ],
             \           [ 'noexpandtab', 'shiftwidth', 'fileformat', 'fileencoding', 'whitespace' ],
-            \           [ 'gitblame', 'currentfunction',  'cocstatus', 'linter_errors', 'linter_warnings' ]
+            \           [ 'gitblame', 'currentfunction', 'cocstatus', 'linter_errors', 'linter_warnings' ]
             \       ]
             \   },
             \   'component_expand': {
@@ -588,6 +580,9 @@ call plug#begin('~/.config/nvim/plugged')
         " autocmd BufEnter *.vue :syntax sync fromstart
 
         " autocmd BufRead,BufNewFile *.conf set filetype=dosini | set filetype=nginx
+
+        autocmd VimLeave * wshada!
+
     augroup END
 " }}}
 
@@ -604,6 +599,9 @@ call plug#begin('~/.config/nvim/plugged')
 
     " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
     Plug 'tpope/vim-surround'
+
+    " Insert or delete brackets, parens, quotes in pair.
+    Plug 'jiangmiao/auto-pairs'
 
     " tmux integration for vim
     Plug 'benmills/vimux'
@@ -753,7 +751,7 @@ call plug#begin('~/.config/nvim/plugged')
     " Session Management {{{
         Plug 'tpope/vim-obsession'
         Plug 'dhruvasagar/vim-prosession'
-        let g:prosession_on_startup = 1
+        let g:prosession_on_startup = 0
         let g:prosession_tmux_title = 1
         let g:prosession_last_session_dir = '~/.vim/session'
     " }}}
@@ -846,43 +844,53 @@ call plug#begin('~/.config/nvim/plugged')
     " " }}}
 
     " Startify: Fancy startup screen for vim {{{
-        " Plug 'mhinz/vim-startify'
-        "
-        " " Don't change to directory when selecting a file
-        " let g:startify_change_to_dir = 0
-        " let g:startify_files_number = 5
-        " let g:startify_custom_header = helpers#startify#header()
-        " let g:startify_relative_path = 1
-        " let g:startify_use_env = 1
-        " let g:startify_session_dir = '~/.vim/session'
-        " let g:startify_session_autoload = 0
-        " let g:startify_session_persistence = 0
-        "
-        " " \  { 'type': function('helpers#startify#listprosessions'), 'header': [ 'Location Related Sessions' ] },
-        " " \  { 'type': function('helpers#startify#listsessions'), 'header': [ 'Global Sessions' ] },
-        " let g:startify_lists = [
-        " \  { 'type': function('helpers#startify#listallsessions'), 'header': [ 'Sessions' ] },
-        " \  { 'type': function('helpers#startify#startsession'), 'header': [ 'New Session' ] },
-        " \  { 'type': 'dir', 'header': [ 'Files '. getcwd() ] },
-        " \  { 'type': function('helpers#startify#listcommits'), 'header': [ 'Recent Commits' ] },
-        " \  { 'type': 'bookmarks', 'header': [ 'Bookmarks' ] },
-        " \  { 'type': 'commands', 'header': [ 'Commands' ] },
-        " \ ]
-        "
-        "
-        " let g:startify_commands = [
-        " \   { 'up': [ 'Update Plugins', ':PlugUpdate' ] },
-        " \   { 'ug': [ 'Upgrade Plugin Manager', ':PlugUpgrade' ] },
-        " \ ]
-        "
-        " let g:startify_bookmarks = [
-        "     \ { 'c': '~/.config/nvim/init.vim' },
-        "     \ { 'g': '~/.gitconfig' },
-        "     \ { 'z': '~/.zshrc' }
-        " \ ]
-        "
-        " autocmd User Startified setlocal cursorline
-        " nmap <leader>st :Startify<cr>
+        Plug 'mhinz/vim-startify'
+
+        " Don't change to directory when selecting a file
+        let g:startify_change_to_dir = 0
+        let g:startify_files_number = 5
+        let g:startify_custom_header = helpers#startify#header()
+        let g:startify_relative_path = 1
+        let g:startify_use_env = 1
+        let g:startify_session_dir = '~/.vim/session'
+        let g:startify_session_autoload = 0
+        let g:startify_session_persistence = 0
+
+        " \  { 'type': function('helpers#startify#listprosessions'), 'header': [ 'Location Related Sessions' ] },
+        " \  { 'type': function('helpers#startify#listsessions'), 'header': [ 'Global Sessions' ] },
+        let g:startify_lists = [
+        \  { 'type': function('helpers#startify#listallsessions'), 'header': [ 'Sessions' ] },
+        \  { 'type': function('helpers#startify#startsession'), 'header': [ 'New Session' ] },
+        \  { 'type': 'dir', 'header': [ 'Files '. getcwd() ] },
+        \  { 'type': function('helpers#startify#listcommits'), 'header': [ 'Recent Commits' ] },
+        \  { 'type': 'bookmarks', 'header': [ 'Bookmarks' ] },
+        \  { 'type': 'commands', 'header': [ 'Commands' ] },
+        \ ]
+
+
+        let g:startify_commands = [
+        \   { 'up': [ 'Update Plugins', ':PlugUpdate' ] },
+        \   { 'ug': [ 'Upgrade Plugin Manager', ':PlugUpgrade' ] },
+        \ ]
+
+        let g:startify_bookmarks = [
+            \ { 'c': '~/.config/nvim/init.vim' },
+            \ { 'g': '~/.gitconfig' },
+            \ { 'z': '~/.zshrc' }
+        \ ]
+
+        autocmd User Startified setlocal cursorline
+
+        cabbrev SClose call helpers#startify#stopsession()
+        cabbrev SDelete call helpers#startify#deletesession()
+
+        nmap <leader>st :Startify<cr>
+    " }}}
+
+    " Marks {{{
+        " Place, toggle and display marks.
+        Plug 'kshenoy/vim-signature'
+        g:SignatureForceRemoveGlobal = 1
     " }}}
 
     " Splits {{{
@@ -1046,6 +1054,7 @@ call plug#begin('~/.config/nvim/plugged')
     " UltiSnips {{{
         Plug 'SirVer/ultisnips' " Snippets plugin
         Plug 'honza/vim-snippets' " snippet manager
+
         let g:snips_author = "Artem Schander"
         " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
         let g:UltiSnipsExpandTrigger = '<C-Right>'
@@ -1080,7 +1089,6 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'coc-git',
         \ 'coc-eslint',
         \ 'coc-tslint-plugin',
-        \ 'coc-pairs',
         \ 'coc-sh',
         \ 'coc-emmet',
         \ 'coc-highlight',
@@ -1090,6 +1098,7 @@ call plug#begin('~/.config/nvim/plugged')
         \ 'coc-vetur'
         \ ]
 
+        " \ 'coc-pairs', " breaks macros
         " \ 'coc-fetur',
         " \ 'coc-vimlsp',
 
@@ -1185,6 +1194,19 @@ call plug#begin('~/.config/nvim/plugged')
 
         nn xx x
     " }}}
+    " toggle line numbers (hybrid/absolute) {{{
+        for mapmode in ["n", "x", "o"]
+            exe mapmode . "noremap <expr> <Leader>; ToggleNumberDisplay()"
+        endfor
+
+        function! ToggleNumberDisplay()
+            if &rnu == 1
+                set nu nornu
+            else
+                set nu rnu
+            endif
+        endfunction
+    " }}}
 " }}}
 
 " Language-Specific Configuration {{{
@@ -1274,7 +1296,6 @@ call plug#begin('~/.config/nvim/plugged')
     " PHP {{{
         " Plug 'StanAngeloff/php.vim', { 'for': 'php' } " Up-to-date PHP syntax file
         " Plug 'arnaud-lb/vim-php-namespace' " plugin for inserting 'use' statements automatically
-        " Plug 'stephpy/vim-php-cs-fixer', { 'for': 'php' } " psr-2 formating
         " Plug 'captbaritone/better-indent-support-for-php-with-html' " This script allows you to indent HTML sections in PHP files
     " }}}
 
@@ -1434,6 +1455,8 @@ call plug#end()
         " execute "hi! StartifyNumber guifg=" one_dark_colors.dark_yellow.gui
         execute "hi! StartifySection guifg=" one_dark_colors.dark_yellow.gui
         execute "hi! StartifySpecial guifg=" one_dark_colors.purple.gui
+
+        execute "hi! SignatureMarkText guifg=" one_dark_colors.white.gui
 
         " " add matching colors to "NREDTree" git color highlighting
         " let g:NERDTreeColorMapCustom = {

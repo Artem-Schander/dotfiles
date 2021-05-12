@@ -45,7 +45,7 @@ XTerm*selectToClipboard: true
 
 ! blue
 *.color4:       #61AFEF
-*.color12:      #61AFEF
+*.color12:      #58AAED
 
 ! magenta
 *.color5:       #C678DD
@@ -59,7 +59,7 @@ XTerm*selectToClipboard: true
 *.color7:       #ABB2BF
 *.color15:      #5C6370
 
-Xcursor.theme: xcursor-breeze
+Xcursor.theme: Adwaita
 Xcursor.size:                     0
 
 URxvt.font:                       9x15,xft:TerminessTTFNerdFontMono
