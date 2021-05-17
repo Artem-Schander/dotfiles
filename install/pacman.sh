@@ -8,9 +8,11 @@ for P in \
     gcc \
     unzip \
     xorg-xwininfo \
+    xfce4-settings-manager \
     perl-anyevent-i3 \
     firefox-developer-edition \
     thunderbird \
+    geary \
     docker \
     docker-compose \
     neovim \
@@ -29,11 +31,15 @@ for P in \
     htop \
     zsh \
     nvm \
+    brightnessctl \
     redshift \
     blueman \
     highlight \
+    ranger \
+    python-pillow \
     yarn \
     xclip \
+    xarchiver \
     neofetch \
     net-tools \
     unclutter \
@@ -90,3 +96,5 @@ fi
 # sudo usermod -aG docker ${USER}
 # su - ${USER}
 # id -nG
+
+source /usr/share/nvm/init-nvm.sh
