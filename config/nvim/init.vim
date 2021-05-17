@@ -6,6 +6,7 @@
 "   SEARCH AND MOVEMENTS
 "
 " " :344 " go to line number 344
+" " } or { " go to the start and end of a paragraph block
 " " ]} or [{ " go to the start and end of a code block
 " " <leader><leader>f " find any letter, get them highlighted and move to the desired location --> easymotion/vim-easymotion
 " " zt / zz / zb " top / center / bottom the line where the cursor is located
@@ -1062,6 +1063,7 @@ call plug#begin('~/.config/nvim/plugged')
         let g:UltiSnipsJumpBackwardTrigger = '<C-Left>'
         " let g:UltiSnipsSnippetDirectories = ['~/.config/nvim/UltiSnips', '~/.config/nvim/snippets', '~/.config/nvim/plugged/vim-snippets/UltiSnips', '~/.config/nvim/plugged/vim-snippets/snippets']
         " let g:UltiSnipsSnippetDirectories = [$HOME.'/.config/nvim/plugged/vim-snippets/UltiSnips']
+        " let g:UltiSnipsSnippetStorageDirectoryForUltiSnipsEdit = "~/.config/nvim/plugged/vim-snippets/snippets"
 
         " If you want :UltiSnipsEdit to split your window.
         " let g:UltiSnipsEditSplit="vertical"
