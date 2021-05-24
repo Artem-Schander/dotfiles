@@ -41,7 +41,7 @@ tmux_conf_new_session_prompt=false
 # -- display -------------------------------------------------------------------
 
 # onedark
-custom_black="#282c34"
+custom_black="#1e2127"
 custom_white="#abb2bf"
 custom_red="#be5046"
 custom_green="#98c379"
