@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
@@ -42,6 +42,7 @@ sudo apt install -y \
     php7.2-zip \
     php7.2-xml \
     silversearcher-ag \
+    ripgrep \
     ack \
     tree \
     fasd \

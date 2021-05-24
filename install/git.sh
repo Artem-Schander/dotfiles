@@ -1,10 +1,7 @@
-#!/bin/sh
-
-GREEN="$(tput setaf 2)"
-NORMAL="$(tput sgr0)"
+#!/bin/bash
 
 echo -e "\n\n${GREEN}Setting up Git"
-echo "==============================${NORMAL}"
+echo -e "==============================${NORMAL}"
 
 defaultName=$( git config --global user.name )
 defaultEmail=$( git config --global user.email )
@@ -18,7 +15,7 @@ git config --global user.name "${name:-$defaultName}"
 git config --global user.email "${email:-$defaultEmail}"
 git config --global github.user "${github:-$defaultGithub}"
 
-if [[ "$( uname )" == "Darwin" ]]; then
+if [ "$OS" == "Darwin" ]; then
     git config --global credential.helper "osxkeychain"
 else
     read -n 1 -p "Save user and password to an unencrypted file to avoid writing? [y/N] " save

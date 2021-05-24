@@ -1,7 +1,4 @@
-#!/bin/sh
-
-GREEN="$(tput setaf 2)"
-NORMAL="$(tput sgr0)"
+#!/bin/bash
 
 if test ! $(which brew); then
     echo -e "\n\n${GREEN}Installing homebrew"

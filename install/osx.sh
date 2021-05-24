@@ -1,7 +1,4 @@
-#!/usr/bin/env sh
-
-GREEN="$(tput setaf 2)"
-NORMAL="$(tput sgr0)"
+#!/bin/bash
 
 echo -e "\n\n${GREEN}Setting OS X settings"
 echo "==============================${NORMAL}"

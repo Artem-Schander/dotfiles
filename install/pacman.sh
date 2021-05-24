@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 sudo pacman -Syu --noconfirm
 
@@ -15,8 +15,6 @@ for P in \
     geary \
     docker \
     docker-compose \
-    neovim \
-    python-neovim \
     kitty \
     tmux \
     polybar \
@@ -25,6 +23,7 @@ for P in \
     numlockx \
     curl \
     the_silver_searcher \
+    ripgrep \
     ack \
     tree \
     fasd \
@@ -50,7 +49,11 @@ for P in \
     feh \
     rust \
     php \
-    yay
+    yay \
+    base-devel \
+    cmake \
+    ninja \
+    tree-sitter
 
 do
     if ! (pacman -Q | grep ${P} > /dev/null)
@@ -72,7 +75,8 @@ then
         teamviewer \
         anydesk \
         dust \
-        lazydocker
+        lazydocker \
+        neovim-git
     do
         if ! (yay -Q | grep ${P} > /dev/null)
         then
