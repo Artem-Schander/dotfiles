@@ -15,7 +15,7 @@
 " " <leader>p " search file by name --> junegunn/fzf.vim
 " " <leader>b " search file in open buffers --> junegunn/fzf.vim
 " " <leader>r " search tag in current buffer --> junegunn/fzf.vim
-" " <leader>k " toggle file tree --> coc-explorer
+" " <leader>e " toggle file tree --> coc-explorer
 "
 " " <leader>1 " highlights all occurrences of the word under the cursor (different colors 1 - 9)
 "
@@ -424,8 +424,9 @@ call plug#begin('~/.config/nvim/plugged')
 
 " General Mappings {{{
     " set a map leader for more key combos
-    let mapleader = ','
-    let g:mapleader = ','
+    nnoremap <SPACE> <Nop>
+    let mapleader = ' '
+    let g:mapleader = ' '
 
     " remap esc
     inoremap jk <esc>
@@ -1117,7 +1118,7 @@ call plug#begin('~/.config/nvim/plugged')
         nmap gs <Plug>(coc-git-chunkinfo)
         nmap gu :CocCommand git.chunkUndo<cr>
 
-        nmap <silent> <leader>k :CocCommand explorer<cr>
+        nmap <silent> <leader>e :CocCommand explorer<cr>
 
         "remap keys for gotos
         nmap <silent> gd <Plug>(coc-definition)
