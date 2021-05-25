@@ -30,7 +30,7 @@ compositing-border = over
 
 ; Define fallback values used by all module formats
 format-foreground = #abb2bf
-format-background = #282c34
+format-background = #1e2127
 format-underline =
 format-overline =
 format-spacing =
@@ -40,7 +40,7 @@ format-offset =
 
 [colors]
 ; One Dark theme ==========
-background = #282c34
+background = #1e2127
 foreground = #abb2bf
 alert = #d19a66
 volume-min = #56b6c2
