@@ -17,6 +17,8 @@ vim.api.nvim_set_keymap('n', '<Leader>e', ':NvimTreeToggle<CR>', {noremap = true
 vim.api.nvim_set_keymap('n', '<Leader>a', ':Telescope find_files<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>b', ':Telescope buffers show_all_buffers=true<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>p', ':Telescope git_files<CR>', {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('n', '<Leader>r', ':Telescope lsp_document_symbols<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Leader>r', ':Telescope treesitter<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>f', ':Telescope live_grep<CR>', {noremap = true, silent = true})
 
 -- dashboard
@@ -29,6 +31,11 @@ vim.api.nvim_set_keymap("v", "<leader>/", ":CommentToggle<CR>", {noremap = true,
 -- close buffer
 vim.api.nvim_set_keymap("n", "<leader>c", ":BufferClose<CR>", {noremap = true, silent = true})
 
+-- relative line numbers
+local modes = {'n', 'x', 'o'}
+for i,mode in ipairs(modes) do
+    vim.api.nvim_set_keymap(mode, "<leader>;", ":ToggleRelativeLineNumbers<CR>", {noremap = true, silent = true})
+end
 
 -- better window movement
 vim.api.nvim_set_keymap('n', '<C-h>', '<C-w>h', {silent = true})

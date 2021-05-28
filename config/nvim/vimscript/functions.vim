@@ -1,3 +1,12 @@
+function! functions#ToggleNumberDisplay()
+    if &rnu == 1
+        set nu nornu
+    else
+        set nu rnu
+    endif
+endfunction
+command! ToggleRelativeLineNumbers call functions#ToggleNumberDisplay()
+
 " delete all empty buffers
 function! functions#DeleteEmptyBuffers()
     let [i, n; empty] = [1, bufnr('$')]
@@ -33,31 +42,31 @@ command! -nargs=? Spaces call functions#FixIndentation('spaces', <args>)
 " -- vim.api.nvim_set_keymap('n', '\\s', ':set ts=4 sts=4 sw=4 et<cr>', {noremap = true, silent = true})
 
 " Lsp
-command! LspCodeAction lua require 'lv-utils'.code_action()
-command! LspDeclaration lua require 'lv-utils'.declaration()
-command! LspDefinition lua require 'lv-utils'.definition()
-command! LspDocumentSymbol lua require 'lv-utils'.document_symbol()
-command! LspFormatting lua require 'lv-utils'.formatting()
-command! LspFormattingSync lua require 'lv-utils'.formatting_sync()
-command! LspHover lua require 'lv-utils'.hover()
-command! LspImplementation lua require 'lv-utils'.implementation()
-command! LspRangeCodeAction lua require 'lv-utils'.range_code_action()
-command! LspRangeFormatting lua require 'lv-utils'.range_formatting()
-command! LspReferences lua require 'lv-utils'.references()
-command! LspRename lua require 'lv-utils'.rename()
-command! LspTypeDefinition lua require 'lv-utils'.type_definition()
-command! LspWorkspaceSymbol lua require 'lv-utils'.workspace_symbol()
-command! LspGotoNext lua require 'lv-utils'.goto_next()
-command! LspGotoPrev lua require 'lv-utils'.goto_prev()
-command! LspShowLineDiagnostics lua require 'lv-utils'.show_line_diagnostics()
-command! NextHunk lua require 'lv-utils'.next_hunk()
-command! PrevHunk lua require 'lv-utils'.prev_hunk()
-command! StageHunk lua require 'lv-utils'.stage_hunk()
-command! UndoStageHunk lua require 'lv-utils'.undo_stage_hunk()
-command! ResetHunk lua require 'lv-utils'.reset_hunk()
-command! ResetBuffer lua require 'lv-utils'.reset_buffer()
-command! PreviewHunk lua require 'lv-utils'.preview_hunk()
-command! BlameLine lua require 'lv-utils'.blame_line()
+command! LspCodeAction lua require 'utils'.code_action()
+command! LspDeclaration lua require 'utils'.declaration()
+command! LspDefinition lua require 'utils'.definition()
+command! LspDocumentSymbol lua require 'utils'.document_symbol()
+command! LspFormatting lua require 'utils'.formatting()
+command! LspFormattingSync lua require 'utils'.formatting_sync()
+command! LspHover lua require 'utils'.hover()
+command! LspImplementation lua require 'utils'.implementation()
+command! LspRangeCodeAction lua require 'utils'.range_code_action()
+command! LspRangeFormatting lua require 'utils'.range_formatting()
+command! LspReferences lua require 'utils'.references()
+command! LspRename lua require 'utils'.rename()
+command! LspTypeDefinition lua require 'utils'.type_definition()
+command! LspWorkspaceSymbol lua require 'utils'.workspace_symbol()
+command! LspGotoNext lua require 'utils'.goto_next()
+command! LspGotoPrev lua require 'utils'.goto_prev()
+command! LspShowLineDiagnostics lua require 'utils'.show_line_diagnostics()
+command! NextHunk lua require 'utils'.next_hunk()
+command! PrevHunk lua require 'utils'.prev_hunk()
+command! StageHunk lua require 'utils'.stage_hunk()
+command! UndoStageHunk lua require 'utils'.undo_stage_hunk()
+command! ResetHunk lua require 'utils'.reset_hunk()
+command! ResetBuffer lua require 'utils'.reset_buffer()
+command! PreviewHunk lua require 'utils'.preview_hunk()
+command! BlameLine lua require 'utils'.blame_line()
 command! W noa w
 
 " Debugging

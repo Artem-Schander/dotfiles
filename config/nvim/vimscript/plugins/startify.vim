@@ -30,7 +30,7 @@ let g:startify_commands = [
 \ ]
 
 let g:startify_bookmarks = [
-    \ { 's': '~/.config/nvim/lv-settings.lua' },
+    \ { 's': '~/.config/nvim/settings.lua' },
     \ { 'g': '~/.gitconfig' },
     \ { 'z': '~/.zshrc' }
 \ ]
