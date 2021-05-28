@@ -81,6 +81,10 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/home/artem/.local/share/nvim/site/pack/packer/opt/dashboard-nvim"
   },
+  ["editorconfig-vim"] = {
+    loaded = true,
+    path = "/home/artem/.local/share/nvim/site/pack/packer/start/editorconfig-vim"
+  },
   ["friendly-snippets"] = {
     loaded = false,
     needs_bufread = false,
@@ -132,7 +136,7 @@ _G.packer_plugins = {
     path = "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-comment"
   },
   ["nvim-compe"] = {
-    after_files = { "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_buffer.vim", "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_calc.vim", "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_emoji.vim", "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_luasnip.vim", "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_nvim_lsp.vim", "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_nvim_lua.vim", "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_omni.vim", "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_path.vim", "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_snippets_nvim.vim", "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_spell.vim", "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_tags.vim", "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_treesitter.vim", "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_ultisnips.vim", "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_vim_lsc.vim", "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_vim_lsp.vim", "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe_vsnip.vim" },
+    after_files = { "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe.vim" },
     loaded = false,
     needs_bufread = false,
     path = "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe"
@@ -210,15 +214,34 @@ _G.packer_plugins = {
     needs_bufread = true,
     path = "/home/artem/.local/share/nvim/site/pack/packer/opt/vim-graphql"
   },
+  ["vim-interestingwords"] = {
+    loaded = true,
+    path = "/home/artem/.local/share/nvim/site/pack/packer/start/vim-interestingwords"
+  },
+  ["vim-obsession"] = {
+    loaded = true,
+    path = "/home/artem/.local/share/nvim/site/pack/packer/start/vim-obsession"
+  },
+  ["vim-prosession"] = {
+    loaded = true,
+    path = "/home/artem/.local/share/nvim/site/pack/packer/start/vim-prosession"
+  },
   ["vim-pug"] = {
     loaded = false,
     needs_bufread = true,
     path = "/home/artem/.local/share/nvim/site/pack/packer/opt/vim-pug"
   },
+  ["vim-repeat"] = {
+    loaded = true,
+    path = "/home/artem/.local/share/nvim/site/pack/packer/start/vim-repeat"
+  },
+  ["vim-startify"] = {
+    loaded = true,
+    path = "/home/artem/.local/share/nvim/site/pack/packer/start/vim-startify"
+  },
   ["vim-surround"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/vim-surround"
+    loaded = true,
+    path = "/home/artem/.local/share/nvim/site/pack/packer/start/vim-surround"
   },
   ["vim-vsnip"] = {
     loaded = false,

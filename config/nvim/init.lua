@@ -13,7 +13,7 @@ require('lv-treesitter')
 require('lv-nvimtree')
 require('lv-indent-blankline')
 require('lv-gitsigns')
-require('lv-dashboard')
+-- require('lv-dashboard')
 require('lv-autopairs')
 require('lv-comment')
 require('lv-galaxyline')
@@ -27,6 +27,8 @@ require('lv-autocommands')
 -- TODO is there a way to do this without vimscript
 vim.cmd('source ~/.config/nvim/vimscript/functions.vim')
 vim.cmd('source ~/.config/nvim/vimscript/filetypes.vim')
+vim.cmd('source ~/.config/nvim/vimscript/obsession.vim')
+vim.cmd('source ~/.config/nvim/vimscript/startify.vim')
 
 -- LSP
 require('lsp')

@@ -91,6 +91,9 @@ return require("packer").startup(
         use {"tpope/vim-repeat"}
         use {"editorconfig/editorconfig-vim"}
         use {"lfv89/vim-interestingwords"}
+        use {"mhinz/vim-startify"}
+        use {"tpope/vim-obsession"}
+        use {"dhruvasagar/vim-prosession"}
 
         -- TODO remove when treesitter supports corresponding languages
         use {"cakebaker/scss-syntax.vim", ft = {'sass', 'scss', 'html', 'phtml', 'vue'}}
@@ -114,7 +117,7 @@ return require("packer").startup(
         require_plugin("indent-blankline.nvim")
         require_plugin("gitsigns.nvim")
         -- require_plugin("which-key.nvim")
-        require_plugin("dashboard-nvim")
+        -- require_plugin("dashboard-nvim")
         require_plugin("nvim-autopairs")
         require_plugin("nvim-comment")
         require_plugin("nvim-ts-context-commentstring")
