@@ -6,6 +6,7 @@ local colors = {
     gutter_gray = '#4b5263',
     comment_gray = '#5c6370',
     light_gray = '#abb2bf',
+    bright = '#dbdfe6',
     white = '#c3ccdc',
     red = '#e06c75',
     dark_red = '#be5046',
@@ -42,6 +43,10 @@ vim.cmd('highlight LspDiagnosticsDefaultHint guifg=' .. colors.comment_gray)
 -- vim.cmd('highlight LspDiagnosticsSignWarning guifg=' .. colors.dark_yellow)
 -- vim.cmd('highlight LspDiagnosticsSignInformation guifg=' .. colors.light_gray)
 -- vim.cmd('highlight LspDiagnosticsSignHint guifg=' .. colors.comment_gray)
+
+-- barbar
+-- vim.cmd('highlight BufferCurrent guifg=' .. colors.white)
+vim.cmd('highlight BufferCurrent guifg=' .. colors.bright)
 
 -- git gutter
 vim.cmd('highlight DiffAdd guifg=' .. colors.black .. ' ctermfg=234 guibg=' .. colors.green .. ' ctermbg=114 gui=NONE cterm=NONE')
