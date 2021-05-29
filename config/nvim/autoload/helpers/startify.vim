@@ -120,9 +120,9 @@ function! helpers#startify#header()
     elseif winwidth('%') > 35
         " http://patorjk.com/software/taag/#p=display&f=Calvin%20S&t=BE%20AWESOME
         let header = [
-        \ '   ┏┓ ┏━╸  ┏━┓╻ ╻┏━╸╔═╗┏━┓┏┳┓┏━╸ ',
-        \ '   ┣┻┓┣╸   ┣━┫┃╻┃┣╸ ╚═╗┃ ┃┃┃┃┣╸  ',
-        \ '   ┗━┛┗━╸  ╹ ╹┗┻┛┗━╸╚═╝┗━┛╹ ╹┗━╸ ',
+        \ '   ┏┓ ┏━╸  ┏━┓╻ ╻┏━╸┏━┓┏━┓┏┳┓┏━╸ ',
+        \ '   ┣┻┓┣╸   ┣━┫┃╻┃┣╸ ┗━┓┃ ┃┃┃┃┣╸  ',
+        \ '   ┗━┛┗━╸  ╹ ╹┗┻┛┗━╸┗━┛┗━┛╹ ╹┗━╸ ',
         \ '   ' . folder,
         \ ]
     else

@@ -63,6 +63,14 @@ vim.cmd('highlight TelescopeBorder guifg=' .. colors.comment_gray)
 vim.cmd('highlight TelescopeSelectionCaret guifg=' .. colors.green)
 vim.cmd('highlight TelescopeSelection guifg=' .. colors.green)
 
+-- easymotion
+vim.cmd('highlight EasyMotionTarget ctermbg=none ctermfg=green guifg=' .. colors.yellow)
+vim.cmd('highlight EasyMotionShade ctermbg=none ctermfg=blue guifg=' .. colors.comment_gray)
+vim.cmd('highlight EasyMotionTarget2First ctermbg=none ctermfg=red guifg=' .. colors.yellow)
+vim.cmd('highlight EasyMotionTarget2Second ctermbg=none ctermfg=lightred guifg=' .. colors.dark_yellow)
+-- hi EasyMotionMoveHL ctermbg=green ctermfg=black
+-- hi EasyMotionIncSearch ctermbg=green ctermfg=black
+
 -- which key
 vim.cmd('highlight WhichKeyGroup guifg=' .. colors.magenta)
 -- TODO: remove black border from which key floating window

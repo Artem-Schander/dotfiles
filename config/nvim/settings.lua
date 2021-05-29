@@ -9,7 +9,7 @@ an executable
 globals.auto_complete = true
 globals.colorscheme = 'onedark'
 globals.auto_close_tree = 1
-globals.wrap_lines = false
+globals.wrap_lines = true
 globals.timeoutlen = 500
 
 -- dashboard 
