@@ -30,8 +30,11 @@ vim.cmd('highlight LspDiagnosticsDefaultHint guifg=' .. globals.colors.comment_g
 -- vim.cmd('highlight LspDiagnosticsSignHint guifg=' .. globals.colors.comment_gray)
 
 -- barbar
--- vim.cmd('highlight BufferCurrent guifg=' .. globals.colors.white)
-vim.cmd('highlight BufferCurrent guifg=' .. globals.colors.bright)
+vim.cmd('highlight BufferCurrent guifg=' .. globals.colors.white)
+-- vim.cmd('highlight BufferInactive guifg=' .. globals.colors.gray .. ' guibg=' .. globals.colors.dark_gray)
+-- vim.cmd('highlight BufferInactiveSign guifg=' .. globals.colors.black .. ' guibg=' .. globals.colors.dark_gray)
+vim.cmd('highlight BufferInactive guifg=' .. globals.colors.comment_gray)
+-- vim.cmd('highlight BufferInactiveSign guifg=' .. globals.colors.dark_gray)
 
 -- git gutter
 vim.cmd('highlight DiffAdd guifg=' .. globals.colors.black .. ' ctermfg=234 guibg=' .. globals.colors.green .. ' ctermbg=114 gui=NONE cterm=NONE')
