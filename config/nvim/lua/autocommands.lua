@@ -59,10 +59,15 @@ utils.define_augroups({
         {'BufWinEnter', '.gmi', 'setlocal filetype=markdown'}, {'BufRead', '*.gmi', 'setlocal filetype=markdown'},
         {'BufNewFile', '*.gmi', 'setlocal filetype=markdown'}
     },
+    _graphql = {
+        {'BufRead', '*.gql', 'setfiletype graphql'}, {'BufNewFile', '*.gql', 'setfiletype graphql'},
+        {'BufRead', '*.graphql', 'setfiletype graphql'}, {'BufNewFile', '*.graphql', 'setfiletype graphql'}
+    },
     _buffer_bindings = {
         {'FileType', 'dashboard', 'nnoremap <silent> <buffer> q :q<CR>'},
         {'FileType', 'lspinfo', 'nnoremap <silent> <buffer> q :q<CR>'},
         {'FileType', 'floaterm', 'nnoremap <silent> <buffer> q :q<CR>'},
+        {'FileType', 'startify', 'setlocal nowrap'},
     },
     _auto_formatters = auto_formatters
 })

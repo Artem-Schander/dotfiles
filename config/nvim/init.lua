@@ -26,7 +26,6 @@ require('autocommands')
 
 -- TODO is there a way to do this without vimscript
 vim.cmd('source ~/.config/nvim/vimscript/functions.vim')
-vim.cmd('source ~/.config/nvim/vimscript/filetypes.vim')
 vim.cmd('source ~/.config/nvim/vimscript/plugins/obsession.vim')
 vim.cmd('source ~/.config/nvim/vimscript/plugins/startify.vim')
 vim.cmd('source ~/.config/nvim/vimscript/plugins/test.vim')
