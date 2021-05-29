@@ -9,6 +9,28 @@ globals = {
     shell = 'bash',
     timeoutlen = 200,
 
+    colors = {
+        bg = '#1e2127',
+        black = '#1e2127',
+        gray = '#8f96a5',
+        white = '#c3ccdc',
+        bright = '#dbdfe6',
+        dark_gray = '#282c34',
+        gutter_gray = '#4b5263',
+        comment_gray = '#5c6370',
+        light_gray = '#abb2bf',
+        red = '#e06c75',
+        dark_red = '#be5046',
+        green = '#98c379',
+        blue = '#61afef',
+        magenta = '#c678dd',
+        purple = '#9556ff',
+        cyan = '#56b6c2',
+        yellow = '#e5c07b',
+        orange = '#d19a66',
+    },
+
+
     -- @usage pass a table with your desired languages
     treesitter = {
         ensure_installed = "all",

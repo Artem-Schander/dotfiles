@@ -97,6 +97,7 @@ return require("packer").startup(
         use {"janko-m/vim-test"}
         use {"embear/vim-localvimrc"}
         use {"easymotion/vim-easymotion"}
+        use {"ntpeters/vim-better-whitespace"}
 
         -- TODO remove when treesitter supports corresponding languages
         use {"cakebaker/scss-syntax.vim", ft = {'sass', 'scss', 'html', 'phtml', 'vue'}}

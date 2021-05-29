@@ -7,6 +7,9 @@ require('gitsigns').setup {
         topdelete    = {hl = 'GitSignsDelete', text = '契', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
         changedelete = {hl = 'GitSignsChange', text = '▎', numhl='GitSignsChangeNr' , linehl='GitSignsChangeLn'},
     },
+    preview_config = {
+        border = 'none',
+    },
     numhl = false,
     linehl = false,
     keymaps = {
@@ -20,5 +23,6 @@ require('gitsigns').setup {
     sign_priority = 6,
     update_debounce = 200,
     status_formatter = nil, -- Use default
-    use_decoration_api = false
+    use_decoration_api = false,
+    current_line_blame = true,
 }

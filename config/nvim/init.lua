@@ -5,14 +5,14 @@ require('settings')
 require('keybindings')
 require('plugins')
 
+require('plugins/nvimtree') -- must be placed before colorscheme
 require('colorscheme')
 
 require('plugins/telescope')
 require('plugins/compe')
 require('plugins/treesitter')
-require('plugins/nvimtree')
 require('plugins/indent-blankline')
-require('plugins/gitsigns')
+require('plugins/gitsigns') -- must be placed after colorscheme
 -- require('plugins/dashboard')
 require('plugins/autopairs')
 require('plugins/comment')
@@ -30,6 +30,7 @@ vim.cmd('source ~/.config/nvim/vimscript/plugins/obsession.vim')
 vim.cmd('source ~/.config/nvim/vimscript/plugins/startify.vim')
 vim.cmd('source ~/.config/nvim/vimscript/plugins/test.vim')
 vim.cmd('source ~/.config/nvim/vimscript/plugins/localvimrc.vim')
+vim.cmd('source ~/.config/nvim/vimscript/plugins/better-whitespace.vim')
 
 -- LSP
 require('lsp')
