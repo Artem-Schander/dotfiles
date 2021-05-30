@@ -68,7 +68,13 @@ return require("packer").startup(
         use {"JoosepAlviste/nvim-ts-context-commentstring", opt = true}
 
         -- Color
-        use {"christianchiarulli/nvcode-color-schemes.vim", opt = true}
+        -- use {"christianchiarulli/nvcode-color-schemes.vim", opt = true}
+        use {"tomasiser/vim-code-dark", opt = true}
+        use {"navarasu/onedark.nvim", opt = true}
+        use {"tiagovla/tokyodark.nvim", opt = true}
+        use {"marko-cerovac/material.nvim", opt = true}
+        use {"bluz71/vim-nightfly-guicolors", opt = true}
+
         use {"norcalli/nvim-colorizer.lua", opt = true}
 
         -- Icons
@@ -126,7 +132,12 @@ return require("packer").startup(
         require_plugin("nvim-comment")
         require_plugin("nvim-ts-context-commentstring")
         require_plugin("nvim-bqf")
-        require_plugin("nvcode-color-schemes.vim")
+        -- require_plugin("nvcode-color-schemes.vim")
+        require_plugin("vim-code-dark")
+        require_plugin("onedark.nvim")
+        require_plugin("tokyodark.nvim")
+        require_plugin("material.nvim")
+        require_plugin("vim-nightfly-guicolors")
         require_plugin("nvim-colorizer.lua")
         require_plugin("nvim-web-devicons")
         require_plugin("galaxyline.nvim")

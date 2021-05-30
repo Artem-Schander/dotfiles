@@ -6,32 +6,33 @@ local condition = require('galaxyline.condition')
 local gls = gl.section
 gl.short_line_list = {'NvimTree', 'vista', 'dbui', 'packer'}
 
+local mode_color = {
+    n = globals.colors.blue,
+    i = globals.colors.green,
+    v = globals.colors.purple,
+    [''] = globals.colors.purple,
+    V = globals.colors.purple,
+    c = globals.colors.magenta,
+    no = globals.colors.blue,
+    s = globals.colors.orange,
+    S = globals.colors.orange,
+    [''] = globals.colors.orange,
+    ic = globals.colors.yellow,
+    R = globals.colors.red,
+    Rv = globals.colors.red,
+    cv = globals.colors.blue,
+    ce = globals.colors.blue,
+    r = globals.colors.cyan,
+    rm = globals.colors.cyan,
+    ['r?'] = globals.colors.cyan,
+    ['!'] = globals.colors.blue,
+    t = globals.colors.blue
+}
+
 gls.left[1] = {
     ViMode = {
         provider = function()
             -- auto change color according the vim mode
-            local mode_color = {
-                n = globals.colors.blue,
-                i = globals.colors.green,
-                v = globals.colors.purple,
-                [''] = globals.colors.purple,
-                V = globals.colors.purple,
-                c = globals.colors.magenta,
-                no = globals.colors.blue,
-                s = globals.colors.orange,
-                S = globals.colors.orange,
-                [''] = globals.colors.orange,
-                ic = globals.colors.yellow,
-                R = globals.colors.red,
-                Rv = globals.colors.red,
-                cv = globals.colors.blue,
-                ce = globals.colors.blue,
-                r = globals.colors.cyan,
-                rm = globals.colors.cyan,
-                ['r?'] = globals.colors.cyan,
-                ['!'] = globals.colors.blue,
-                t = globals.colors.blue
-            }
             vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()])
             return '▊ '
         end,
@@ -88,10 +89,24 @@ gls.left[6] = {
     }
 }
 
-gls.left[7] = {
+-- gls.left[7] = {
+--     RelativePath = {
+--         provider = function()
+--             local path = vim.fn.fnamemodify(vim.fn.expand '%:p:h', ':~:.')
+--             local file = vim.fn.fnamemodify(vim.fn.expand '%:t', ':~:.')
+--             if vim.fn.empty(file) == 1 then return '' end
+--             if vim.bo.filetype == 'startify' then return '' end
+--             vim.api.nvim_command('hi GalaxyRelativePath guifg=' .. mode_color[vim.fn.mode()])
+--             return path .. '/'
+--         end
+--     }
+-- }
+
+gls.left[8] = {
     FileName = {
         provider = function(modified_icon, readonly_icon)
             local file = vim.fn.fnamemodify(vim.fn.expand '%', ':~:.')
+            -- local file = vim.fn.fnamemodify(vim.fn.expand '%:t', ':~:.')
             if vim.fn.empty(file) == 1 then return '' end
             if vim.bo.filetype == 'startify' then return '' end
 
@@ -107,16 +122,18 @@ gls.left[7] = {
                 file = readonly_icon .. ' ' .. file
             end
 
-            -- vim.api.nvim_command('hi GalaxyFileName guifg=' .. globals.colors.white)
+            -- local is_modified = vim.api.nvim_buf_get_option(vim.fn.bufnr, 'modified')
             if vim.bo.modifiable and vim.bo.modified then
                 file = file .. ' ' .. modified_icon
                 vim.api.nvim_command('hi GalaxyFileName guifg=' .. globals.colors.orange)
+            else
+                vim.api.nvim_command('hi GalaxyFileName guifg=' .. globals.colors.white)
             end
 
-            return ' ' .. file .. ' '
+            return file .. ' '
         end,
         condition = condition.hide_in_width,
-        icon = '  ',
+        icon = ' @ ',
         highlight = {globals.colors.white, globals.colors.bg}
     }
 }

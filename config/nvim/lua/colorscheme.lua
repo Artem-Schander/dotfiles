@@ -1,7 +1,9 @@
+vim.g.onedark_style = 'darker'
 vim.cmd('colorscheme ' .. globals.colorscheme)
 
 -- TODO change php dollar sign color
 
+vim.cmd('highlight Normal guibg=' .. globals.colors.bg)
 vim.cmd('highlight NormalFloat guibg=' .. globals.colors.dark_gray)
 vim.cmd('highlight FloatBorder guibg=' .. globals.colors.dark_gray .. ' guifg=' .. globals.colors.dark_gray)
 
@@ -30,17 +32,20 @@ vim.cmd('highlight LspDiagnosticsDefaultHint guifg=' .. globals.colors.comment_g
 -- vim.cmd('highlight LspDiagnosticsSignHint guifg=' .. globals.colors.comment_gray)
 
 -- barbar
-vim.cmd('highlight BufferCurrent guifg=' .. globals.colors.white)
--- vim.cmd('highlight BufferInactive guifg=' .. globals.colors.gray .. ' guibg=' .. globals.colors.dark_gray)
--- vim.cmd('highlight BufferInactiveSign guifg=' .. globals.colors.black .. ' guibg=' .. globals.colors.dark_gray)
-vim.cmd('highlight BufferInactive guifg=' .. globals.colors.comment_gray)
--- vim.cmd('highlight BufferInactiveSign guifg=' .. globals.colors.dark_gray)
+vim.cmd('highlight BufferCurrent guifg=' .. globals.colors.white .. ' guibg=NONE')
+vim.cmd('highlight BufferInactive guifg=' .. globals.colors.comment_gray .. ' guibg=NONE')
+vim.cmd('highlight BufferCurrentSign guifg=' .. globals.colors.blue .. ' guibg=NONE')
+vim.cmd('highlight BufferVisible guifg=' .. globals.colors.light_gray .. ' guibg=NONE')
+vim.cmd('highlight BufferVisibleIndex guibg=NONE')
+vim.cmd('highlight BufferVisibleMod guibg=NONE')
+vim.cmd('highlight BufferVisibleSign guifg=' .. globals.colors.gray .. ' guibg=NONE')
+vim.cmd('highlight BufferVisibleTarget guibg=NONE')
 
 -- git gutter
 vim.cmd('highlight DiffAdd guifg=' .. globals.colors.black .. ' ctermfg=234 guibg=' .. globals.colors.green .. ' ctermbg=114 gui=NONE cterm=NONE')
 vim.cmd('highlight DiffDelete guifg=' .. globals.colors.black .. ' ctermfg=234 guibg=' .. globals.colors.red .. ' ctermbg=168 gui=NONE cterm=NONE')
 vim.cmd('highlight DiffChange guifg=' .. globals.colors.black .. ' ctermfg=234 guibg=' .. globals.colors.orange .. ' ctermbg=180 gui=NONE cterm=NONE')
-vim.cmd('highlight GitSignsCurrentLineBlame guifg=' .. globals.colors.gray)
+vim.cmd('highlight GitSignsCurrentLineBlame guifg=' .. globals.colors.comment_gray)
 
 -- indent lines
 vim.cmd('highlight IndentBlanklineChar guifg=' .. globals.colors.dark_gray .. ' guibg=NONE')

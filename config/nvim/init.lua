@@ -31,6 +31,7 @@ vim.cmd('source ~/.config/nvim/vimscript/plugins/startify.vim')
 vim.cmd('source ~/.config/nvim/vimscript/plugins/test.vim')
 vim.cmd('source ~/.config/nvim/vimscript/plugins/localvimrc.vim')
 vim.cmd('source ~/.config/nvim/vimscript/plugins/better-whitespace.vim')
+vim.cmd('source ~/.config/nvim/vimscript/plugins/interestingwords.vim')
 
 -- LSP
 require('lsp')

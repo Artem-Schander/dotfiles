@@ -1,4 +1,5 @@
-vim.cmd('set iskeyword+=-') -- treat dash separated words as a word text object"
+-- vim.cmd('set iskeyword+=-') -- treat dash separated words as a word text object"
+vim.cmd('set iskeyword+=$') -- treat dollar sign in words as a word text object"
 vim.cmd('set shortmess+=c') -- Don't pass messages to |ins-completion-menu|.
 vim.cmd('set inccommand=split') -- Make substitution work in realtime
 vim.o.hidden = globals.hidden_files -- Required to keep multiple buffers open multiple buffers
