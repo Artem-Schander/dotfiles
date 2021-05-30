@@ -1,12 +1,17 @@
-vim.g.onedark_style = 'darker'
+-- vim.g.onedark_style = 'darker'
 vim.cmd('colorscheme ' .. globals.colorscheme)
 
 -- TODO change php dollar sign color
 
+-- colorscheme fixes
+vim.cmd('highlight SignColumn guibg=' .. globals.colors.bg)
 vim.cmd('highlight Normal guibg=' .. globals.colors.bg)
 vim.cmd('highlight EndOfBuffer guibg=' .. globals.colors.bg)
+vim.cmd('highlight SignColumn guibg=' .. globals.colors.bg)
 vim.cmd('highlight NormalFloat guibg=' .. globals.colors.dark_gray)
-vim.cmd('highlight FloatBorder guibg=' .. globals.colors.dark_gray .. ' guifg=' .. globals.colors.dark_gray)
+vim.cmd('highlight FloatBorder guifg=' .. globals.colors.dark_gray .. ' guibg=' .. globals.colors.dark_gray)
+vim.cmd('highlight CursorLine guibg=' .. globals.colors.dark_gray)
+vim.cmd('highlight MatchParen gui=NONE,bold guifg=' .. globals.colors.blue .. ' guibg=NONE')
 
 -- treesitter
 -- vim.cmd('highlight TSKeywordOperator guifg=#ABB2BF')
@@ -32,10 +37,16 @@ vim.cmd('highlight LspDiagnosticsDefaultHint guifg=' .. globals.colors.comment_g
 -- vim.cmd('highlight LspDiagnosticsSignInformation guifg=' .. globals.colors.light_gray)
 -- vim.cmd('highlight LspDiagnosticsSignHint guifg=' .. globals.colors.comment_gray)
 
+-- not working
+-- vim.cmd('highlight LspReferenceText guibg=' .. globals.colors.dark)
+-- vim.cmd('highlight LspReferenceRead guibg=' .. globals.colors.dark)
+-- vim.cmd('highlight LspReferenceWrite guibg=' .. globals.colors.dark)
+
 -- barbar
 vim.cmd('highlight BufferCurrent guifg=' .. globals.colors.white .. ' guibg=NONE')
-vim.cmd('highlight BufferInactive guifg=' .. globals.colors.comment_gray .. ' guibg=NONE')
 vim.cmd('highlight BufferCurrentSign guifg=' .. globals.colors.blue .. ' guibg=NONE')
+vim.cmd('highlight BufferInactive guifg=' .. globals.colors.comment_gray .. ' guibg=NONE')
+vim.cmd('highlight BufferInactiveSign guibg=NONE')
 vim.cmd('highlight BufferVisible guifg=' .. globals.colors.light_gray .. ' guibg=NONE')
 vim.cmd('highlight BufferVisibleIndex guibg=NONE')
 vim.cmd('highlight BufferVisibleMod guibg=NONE')
@@ -60,8 +71,8 @@ vim.cmd('highlight NvimTreeFileDirty guifg=' .. globals.colors.orange .. ' guibg
 
 -- telescope
 vim.cmd('highlight TelescopeBorder guifg=' .. globals.colors.comment_gray)
-vim.cmd('highlight TelescopeSelectionCaret guifg=' .. globals.colors.green)
-vim.cmd('highlight TelescopeSelection guifg=' .. globals.colors.green)
+vim.cmd('highlight TelescopeSelectionCaret guifg=' .. globals.colors.green .. ' guibg=NONE')
+vim.cmd('highlight TelescopeSelection guifg=' .. globals.colors.green .. ' guibg=NONE')
 
 -- easymotion
 vim.cmd('highlight EasyMotionTarget ctermbg=none ctermfg=green guifg=' .. globals.colors.yellow)
