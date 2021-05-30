@@ -63,6 +63,9 @@ utils.define_augroups({
         {'BufRead', '*.gql', 'setfiletype graphql'}, {'BufNewFile', '*.gql', 'setfiletype graphql'},
         {'BufRead', '*.graphql', 'setfiletype graphql'}, {'BufNewFile', '*.graphql', 'setfiletype graphql'}
     },
+    _env = {
+        {'BufRead', '*.env.*', 'setfiletype sh'}, {'BufNewFile', '*.env.*', 'setfiletype sh'},
+    },
     _buffer_bindings = {
         {'FileType', 'dashboard', 'nnoremap <silent> <buffer> q :q<CR>'},
         {'FileType', 'lspinfo', 'nnoremap <silent> <buffer> q :q<CR>'},

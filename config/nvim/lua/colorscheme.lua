@@ -4,6 +4,7 @@ vim.cmd('colorscheme ' .. globals.colorscheme)
 -- TODO change php dollar sign color
 
 vim.cmd('highlight Normal guibg=' .. globals.colors.bg)
+vim.cmd('highlight EndOfBuffer guibg=' .. globals.colors.bg)
 vim.cmd('highlight NormalFloat guibg=' .. globals.colors.dark_gray)
 vim.cmd('highlight FloatBorder guibg=' .. globals.colors.dark_gray .. ' guifg=' .. globals.colors.dark_gray)
 

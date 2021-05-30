@@ -14,12 +14,14 @@ vim.api.nvim_set_keymap('n', '<Leader>h', ':set hlsearch!<CR>', {noremap = true,
 vim.api.nvim_set_keymap('n', '<Leader>e', ':NvimTreeToggle<CR>', {noremap = true, silent = true})
 
 -- telescope
-vim.api.nvim_set_keymap('n', '<Leader>a', ':Telescope find_files<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Leader>a', ':Telescope find_files find_command=rg,--smart-case,--files,--follow,--no-ignore,--hidden<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>b', ':Telescope buffers show_all_buffers=true<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>p', ':Telescope git_files<CR>', {noremap = true, silent = true})
+-- vim.api.nvim_set_keymap('n', '<Leader>p', ':Telescope git_files<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Leader>p', ':Telescope find_files hidden=true<CR>', {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('n', '<Leader>r', ':Telescope lsp_document_symbols<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>r', ':Telescope treesitter<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>f', ':Telescope live_grep<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Leader>g', ':Telescope grep_string<CR>', {noremap = true, silent = true})
 
 -- dashboard
 vim.api.nvim_set_keymap('n', '<Leader>;', ':Dashboard<CR>', {noremap = true, silent = true})

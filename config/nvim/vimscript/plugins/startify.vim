@@ -20,8 +20,8 @@ let g:startify_lists = [
 \ ]
 
 let g:startify_commands = [
-    \ { 'p': [ 'Find File In Project', ':Telescope git_files' ] },
-    \ { 'a': [ 'Find File In Directory', ':Telescope find_files' ] },
+    \ { 'p': [ 'Find File In Project', ':Telescope find_files hidden=true' ] },
+    \ { 'a': [ 'Find File In Directory', ':Telescope find_files find_command=rg,--smart-case,--files,--follow,--no-ignore,--hidden' ] },
     \ { 'f': [ 'Find Word', ':Telescope live_grep' ] },
     \ { 'gs': [ 'Git Status', ':Telescope git_status' ] },
     \ { 'gc': [ 'Checkout Commit', ':Telescope git_commits' ] },

@@ -10,6 +10,7 @@ globals = {
     timeoutlen = 200,
 
     colors = {
+        dark = '#001001',
         bg = '#1e2127',
         black = '#1e2127',
         gray = '#8f96a5',
