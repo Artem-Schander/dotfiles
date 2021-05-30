@@ -1,4 +1,4 @@
-vim.g.onedark_style = 'darker'
+-- vim.g.onedark_style = 'darker'
 vim.cmd('colorscheme ' .. globals.colorscheme)
 
 -- TODO change php dollar sign color
