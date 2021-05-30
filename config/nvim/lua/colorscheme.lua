@@ -58,7 +58,7 @@ vim.cmd('highlight BufferVisibleTarget guibg=NONE')
 vim.cmd('highlight GitSignsAdd guifg=' .. globals.colors.green .. ' guibg=NONE')
 vim.cmd('highlight GitSignsChange guifg=' .. globals.colors.orange .. ' guibg=NONE')
 vim.cmd('highlight GitSignsDelete guifg=' .. globals.colors.red .. ' guibg=NONE')
-vim.cmd('highlight GitSignsCurrentLineBlame guifg=' .. globals.colors.comment_gray)
+vim.cmd('highlight GitSignsCurrentLineBlame guifg=' .. globals.colors.diff_blue)
 
 -- vim.cmd('highlight DiffAdd guifg=' .. globals.colors.bg .. ' ctermfg=234 guibg=' .. globals.colors.green .. ' ctermbg=114 gui=NONE cterm=NONE')
 -- vim.cmd('highlight DiffDelete guifg=' .. globals.colors.bg .. ' ctermfg=234 guibg=' .. globals.colors.red .. ' ctermbg=168 gui=NONE cterm=NONE')
