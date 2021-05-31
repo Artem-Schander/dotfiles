@@ -17,8 +17,8 @@ vim.cmd('highlight MatchParen gui=NONE,bold guifg=' .. globals.colors.blue .. ' 
 -- vim.cmd('highlight TSKeywordOperator guifg=#ABB2BF')
 
 -- lsp
-vim.cmd('highlight LspDiagnosticsDefaultError guifg=' .. globals.colors.red)
-vim.cmd('highlight LspDiagnosticsDefaultWarning guifg=' .. globals.colors.orange)
+vim.cmd('highlight LspDiagnosticsDefaultError guifg=' .. globals.colors.dark_red)
+vim.cmd('highlight LspDiagnosticsDefaultWarning guifg=' .. globals.colors.dark_yellow)
 vim.cmd('highlight LspDiagnosticsDefaultInformation guifg=' .. globals.colors.fg)
 vim.cmd('highlight LspDiagnosticsDefaultHint guifg=' .. globals.colors.comment_gray)
 
