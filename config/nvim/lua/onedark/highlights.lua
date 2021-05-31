@@ -196,7 +196,9 @@ hl.treesitter = {
   TSType = colors.Yellow,
   TSTypeBuiltin = colors.Fg,
   TSVariable = colors.Red,
-  TSVariableBuiltin = colors.Purple
+  TSVariableBuiltin = colors.Purple,
+
+  commentTSConstant = colors.Fg,
 }
 
 hl.plugins.lsp = {
