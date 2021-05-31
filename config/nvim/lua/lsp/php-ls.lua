@@ -15,6 +15,4 @@ require'lspconfig'.intelephense.setup {
     -- }
 }
 
-require'lspconfig'.phpactor.setup{
-
-}
+-- require'lspconfig'.phpactor.setup{}
