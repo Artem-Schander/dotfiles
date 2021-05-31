@@ -301,28 +301,28 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time("Defining lazy-load filetype autocommands", true)
-vim.cmd [[au FileType vue ++once lua require("packer.load")({'scss-syntax.vim', 'vim-pug'}, { ft = "vue" }, _G.packer_plugins)]]
-vim.cmd [[au FileType jade ++once lua require("packer.load")({'vim-pug'}, { ft = "jade" }, _G.packer_plugins)]]
-vim.cmd [[au FileType pug ++once lua require("packer.load")({'vim-pug'}, { ft = "pug" }, _G.packer_plugins)]]
-vim.cmd [[au FileType html ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "html" }, _G.packer_plugins)]]
-vim.cmd [[au FileType gql ++once lua require("packer.load")({'vim-graphql'}, { ft = "gql" }, _G.packer_plugins)]]
-vim.cmd [[au FileType scss ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "scss" }, _G.packer_plugins)]]
-vim.cmd [[au FileType graphqls ++once lua require("packer.load")({'vim-graphql'}, { ft = "graphqls" }, _G.packer_plugins)]]
-vim.cmd [[au FileType graphql ++once lua require("packer.load")({'vim-graphql'}, { ft = "graphql" }, _G.packer_plugins)]]
 vim.cmd [[au FileType sass ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "sass" }, _G.packer_plugins)]]
 vim.cmd [[au FileType phtml ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "phtml" }, _G.packer_plugins)]]
+vim.cmd [[au FileType vue ++once lua require("packer.load")({'scss-syntax.vim', 'vim-pug'}, { ft = "vue" }, _G.packer_plugins)]]
+vim.cmd [[au FileType gql ++once lua require("packer.load")({'vim-graphql'}, { ft = "gql" }, _G.packer_plugins)]]
+vim.cmd [[au FileType html ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "html" }, _G.packer_plugins)]]
+vim.cmd [[au FileType graphqls ++once lua require("packer.load")({'vim-graphql'}, { ft = "graphqls" }, _G.packer_plugins)]]
+vim.cmd [[au FileType scss ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "scss" }, _G.packer_plugins)]]
+vim.cmd [[au FileType pug ++once lua require("packer.load")({'vim-pug'}, { ft = "pug" }, _G.packer_plugins)]]
+vim.cmd [[au FileType jade ++once lua require("packer.load")({'vim-pug'}, { ft = "jade" }, _G.packer_plugins)]]
+vim.cmd [[au FileType graphql ++once lua require("packer.load")({'vim-graphql'}, { ft = "graphql" }, _G.packer_plugins)]]
 time("Defining lazy-load filetype autocommands", false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]
+time("Sourcing ftdetect script at: /home/artem/.local/share/nvim/site/pack/packer/opt/vim-graphql/ftdetect/graphql.vim", true)
+vim.cmd [[source /home/artem/.local/share/nvim/site/pack/packer/opt/vim-graphql/ftdetect/graphql.vim]]
+time("Sourcing ftdetect script at: /home/artem/.local/share/nvim/site/pack/packer/opt/vim-graphql/ftdetect/graphql.vim", false)
 time("Sourcing ftdetect script at: /home/artem/.local/share/nvim/site/pack/packer/opt/scss-syntax.vim/ftdetect/scss.vim", true)
 vim.cmd [[source /home/artem/.local/share/nvim/site/pack/packer/opt/scss-syntax.vim/ftdetect/scss.vim]]
 time("Sourcing ftdetect script at: /home/artem/.local/share/nvim/site/pack/packer/opt/scss-syntax.vim/ftdetect/scss.vim", false)
 time("Sourcing ftdetect script at: /home/artem/.local/share/nvim/site/pack/packer/opt/vim-pug/ftdetect/pug.vim", true)
 vim.cmd [[source /home/artem/.local/share/nvim/site/pack/packer/opt/vim-pug/ftdetect/pug.vim]]
 time("Sourcing ftdetect script at: /home/artem/.local/share/nvim/site/pack/packer/opt/vim-pug/ftdetect/pug.vim", false)
-time("Sourcing ftdetect script at: /home/artem/.local/share/nvim/site/pack/packer/opt/vim-graphql/ftdetect/graphql.vim", true)
-vim.cmd [[source /home/artem/.local/share/nvim/site/pack/packer/opt/vim-graphql/ftdetect/graphql.vim]]
-time("Sourcing ftdetect script at: /home/artem/.local/share/nvim/site/pack/packer/opt/vim-graphql/ftdetect/graphql.vim", false)
 vim.cmd("augroup END")
 if should_profile then save_profiles() end
 

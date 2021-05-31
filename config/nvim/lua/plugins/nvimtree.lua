@@ -10,11 +10,6 @@ vim.g.nvim_tree_auto_ignore_ft = 'startify' -- empty by default, don't auto open
 vim.g.nvim_tree_git_hl = 1 -- Highlight nodes in the file tree that are ignored by git
 vim.g.nvim_tree_width = 50 -- 30 by default
 
--- fix desappearing galaxyline
-if pcall(require, 'galaxyline') then
-    vim.cmd('command! NvimTreeToggle lua require("galaxyline").load_galaxyline(); require"nvim-tree".toggle()')
-end
-
 local tree_cb = require'nvim-tree.config'.nvim_tree_callback
     vim.g.nvim_tree_bindings = {
       -- ["<CR>"] = ":YourVimFunction()<cr>",
