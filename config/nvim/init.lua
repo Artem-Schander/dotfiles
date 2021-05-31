@@ -1,5 +1,5 @@
 require('globals')
-vim.cmd('luafile ~/.config/nvim/settings.lua')
+vim.cmd('luafile ~/.config/nvim/config.lua')
 
 require('settings')
 require('keybindings')
