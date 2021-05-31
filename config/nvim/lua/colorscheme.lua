@@ -43,11 +43,19 @@ vim.cmd('highlight LspDiagnosticsDefaultHint guifg=' .. globals.colors.comment_g
 -- vim.cmd('highlight LspReferenceWrite guibg=' .. globals.colors.dark)
 
 -- barbar
+vim.cmd('highlight BufferTabpageFill guifg=' .. globals.colors.bg0 .. ' guibg=NONE')
+vim.cmd('highlight BufferOffset guibg=NONE')
 vim.cmd('highlight BufferCurrent guifg=' .. globals.colors.white .. ' guibg=NONE')
+vim.cmd('highlight BufferCurrentMod guifg=' .. globals.colors.yellow .. ' guibg=NONE')
+
 vim.cmd('highlight BufferCurrentSign guifg=' .. globals.colors.blue .. ' guibg=NONE')
 vim.cmd('highlight BufferInactive guibg=NONE')
+vim.cmd('highlight BufferInactiveMod guifg=' .. globals.colors.orange .. ' guibg=NONE')
+
+vim.cmd('highlight BufferInactiveSign guifg=#282c3')
 -- vim.cmd('highlight BufferInactive guifg=' .. globals.colors.comment_gray .. ' guibg=NONE')
-vim.cmd('highlight BufferInactiveSign guibg=NONE')
+vim.cmd('highlight BufferInactiveSign guifg=' .. globals.colors.bg0 .. ' guibg=NONE')
+
 vim.cmd('highlight BufferVisible guifg=' .. globals.colors.fg .. ' guibg=NONE')
 vim.cmd('highlight BufferVisibleIndex guibg=NONE')
 vim.cmd('highlight BufferVisibleMod guibg=NONE')
@@ -56,13 +64,13 @@ vim.cmd('highlight BufferVisibleTarget guibg=NONE')
 
 -- git gutter
 vim.cmd('highlight GitSignsAdd guifg=' .. globals.colors.green .. ' guibg=NONE')
-vim.cmd('highlight GitSignsChange guifg=' .. globals.colors.orange .. ' guibg=NONE')
+vim.cmd('highlight GitSignsChange guifg=' .. globals.colors.yellow .. ' guibg=NONE')
 vim.cmd('highlight GitSignsDelete guifg=' .. globals.colors.red .. ' guibg=NONE')
 vim.cmd('highlight GitSignsCurrentLineBlame guifg=' .. globals.colors.diff_blue)
 
 -- vim.cmd('highlight DiffAdd guifg=' .. globals.colors.bg .. ' ctermfg=234 guibg=' .. globals.colors.green .. ' ctermbg=114 gui=NONE cterm=NONE')
 -- vim.cmd('highlight DiffDelete guifg=' .. globals.colors.bg .. ' ctermfg=234 guibg=' .. globals.colors.red .. ' ctermbg=168 gui=NONE cterm=NONE')
--- vim.cmd('highlight DiffChange guifg=' .. globals.colors.bg .. ' ctermfg=234 guibg=' .. globals.colors.orange .. ' ctermbg=180 gui=NONE cterm=NONE')
+-- vim.cmd('highlight DiffChange guifg=' .. globals.colors.bg .. ' ctermfg=234 guibg=' .. globals.colors.yellow .. ' ctermbg=180 gui=NONE cterm=NONE')
 
 -- indent lines
 vim.cmd('highlight IndentBlanklineChar guifg=' .. globals.colors.bg0 .. ' guibg=NONE')
@@ -71,8 +79,8 @@ vim.cmd('highlight IndentBlanklineChar guifg=' .. globals.colors.bg0 .. ' guibg=
 vim.cmd('highlight NvimTreeIndentMarker guifg=' .. globals.colors.bg0 .. ' guibg=NONE')
 vim.cmd('highlight NvimTreeGitNew guifg=' .. globals.colors.green .. ' guibg=NONE')
 vim.cmd('highlight NvimTreeFileNew guifg=' .. globals.colors.green .. ' guibg=NONE')
-vim.cmd('highlight NvimTreeGitDirty guifg=' .. globals.colors.orange .. ' guibg=NONE')
-vim.cmd('highlight NvimTreeFileDirty guifg=' .. globals.colors.orange .. ' guibg=NONE')
+vim.cmd('highlight NvimTreeGitDirty guifg=' .. globals.colors.yellow .. ' guibg=NONE')
+vim.cmd('highlight NvimTreeFileDirty guifg=' .. globals.colors.yellow .. ' guibg=NONE')
 vim.cmd('highlight NvimTreeNormal guibg=' .. globals.colors.bg)
 vim.cmd('highlight NvimTreeEndOfBuffer guibg=' .. globals.colors.bg)
 

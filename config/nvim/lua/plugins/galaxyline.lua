@@ -14,7 +14,7 @@ local mode_color = {
     V = globals.colors.purple,
     c = globals.colors.magenta,
     no = globals.colors.blue,
-    s = globals.colors.orange,
+    s = globals.colors.yellow,
     S = globals.colors.orange,
     [''] = globals.colors.orange,
     ic = globals.colors.yellow,
@@ -125,7 +125,7 @@ gls.left[8] = {
             -- local is_modified = vim.api.nvim_buf_get_option(vim.fn.bufnr, 'modified')
             if vim.bo.modifiable and vim.bo.modified then
                 file = file .. ' ' .. modified_icon
-                vim.api.nvim_command('hi GalaxyFileName guifg=' .. globals.colors.orange)
+                vim.api.nvim_command('hi GalaxyFileName guifg=' .. globals.colors.yellow)
             else
                 vim.api.nvim_command('hi GalaxyFileName guifg=' .. globals.colors.white)
             end
@@ -265,7 +265,7 @@ gls.right[12] = {
         provider = function()
             local trail = vim.fn.search('\\s$', 'nw')
             if trail ~= 0 then
-                return ' ' -- · 
+                return ' ' -- ·
             else
                 return nil
             end

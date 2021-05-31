@@ -47,8 +47,8 @@ local function save_profiles(threshold)
 end
 
 time("Luarocks path setup", true)
-local package_path_str = "/home/artem/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/home/artem/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/home/artem/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/home/artem/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
-local install_cpath_pattern = "/home/artem/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
+local package_path_str = "/home/va-artem/.cache/nvim/packer_hererocks/2.0.5/share/lua/5.1/?.lua;/home/va-artem/.cache/nvim/packer_hererocks/2.0.5/share/lua/5.1/?/init.lua;/home/va-artem/.cache/nvim/packer_hererocks/2.0.5/lib/luarocks/rocks-5.1/?.lua;/home/va-artem/.cache/nvim/packer_hererocks/2.0.5/lib/luarocks/rocks-5.1/?/init.lua"
+local install_cpath_pattern = "/home/va-artem/.cache/nvim/packer_hererocks/2.0.5/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
   package.path = package.path .. ';' .. package_path_str
 end
@@ -74,225 +74,220 @@ _G.packer_plugins = {
   ["barbar.nvim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/barbar.nvim"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/barbar.nvim"
   },
   ["dashboard-nvim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/dashboard-nvim"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/dashboard-nvim"
   },
   ["editorconfig-vim"] = {
     loaded = true,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/start/editorconfig-vim"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/editorconfig-vim"
   },
   ["friendly-snippets"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/friendly-snippets"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/friendly-snippets"
   },
   ["galaxyline.nvim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/galaxyline.nvim"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/galaxyline.nvim"
   },
   ["gitsigns.nvim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/gitsigns.nvim"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/gitsigns.nvim"
   },
   ["indent-blankline.nvim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/indent-blankline.nvim"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/indent-blankline.nvim"
   },
   ["lspsaga.nvim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/lspsaga.nvim"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/lspsaga.nvim"
   },
   ["material.nvim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/material.nvim"
-  },
-  ["nvcode-color-schemes.vim"] = {
-    loaded = false,
-    needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/nvcode-color-schemes.vim"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/material.nvim"
   },
   ["nvim-autopairs"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-autopairs"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/nvim-autopairs"
   },
   ["nvim-bqf"] = {
     loaded = false,
     needs_bufread = true,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-bqf"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/nvim-bqf"
   },
   ["nvim-colorizer.lua"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-colorizer.lua"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/nvim-colorizer.lua"
   },
   ["nvim-comment"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-comment"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/nvim-comment"
   },
   ["nvim-compe"] = {
-    after_files = { "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe.vim" },
+    after_files = { "/home/va-artem/.local/share/nvim/site/pack/packer/opt/nvim-compe/after/plugin/compe.vim" },
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-compe"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/nvim-compe"
   },
   ["nvim-dap"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-dap"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/nvim-dap"
   },
   ["nvim-lspconfig"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-lspconfig"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/nvim-lspconfig"
   },
   ["nvim-lspinstall"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-lspinstall"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/nvim-lspinstall"
   },
   ["nvim-tree.lua"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-tree.lua"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
     loaded = true,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
   },
   ["nvim-ts-autotag"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-ts-autotag"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/nvim-ts-autotag"
   },
   ["nvim-ts-context-commentstring"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-ts-context-commentstring"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/nvim-ts-context-commentstring"
   },
   ["nvim-web-devicons"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/nvim-web-devicons"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/nvim-web-devicons"
   },
   ["packer.nvim"] = {
     loaded = true,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/start/packer.nvim"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/packer.nvim"
   },
   ["plenary.nvim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/plenary.nvim"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/plenary.nvim"
   },
   ["popup.nvim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/popup.nvim"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/popup.nvim"
   },
   ["scss-syntax.vim"] = {
     loaded = false,
     needs_bufread = true,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/scss-syntax.vim"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/scss-syntax.vim"
   },
   ["telescope-fzf-native.nvim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/telescope-fzf-native.nvim"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/telescope-fzf-native.nvim"
   },
   ["telescope.nvim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/telescope.nvim"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/telescope.nvim"
   },
   ["tokyodark.nvim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/tokyodark.nvim"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/tokyodark.nvim"
   },
   ["vim-better-whitespace"] = {
     loaded = true,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/start/vim-better-whitespace"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/vim-better-whitespace"
   },
   ["vim-code-dark"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/vim-code-dark"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-code-dark"
   },
   ["vim-easymotion"] = {
     loaded = true,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/start/vim-easymotion"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/vim-easymotion"
   },
   ["vim-graphql"] = {
     loaded = false,
     needs_bufread = true,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/vim-graphql"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-graphql"
   },
   ["vim-interestingwords"] = {
     loaded = true,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/start/vim-interestingwords"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/vim-interestingwords"
   },
   ["vim-localvimrc"] = {
     loaded = true,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/start/vim-localvimrc"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/vim-localvimrc"
   },
   ["vim-nightfly-guicolors"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/vim-nightfly-guicolors"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-nightfly-guicolors"
   },
   ["vim-obsession"] = {
     loaded = true,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/start/vim-obsession"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/vim-obsession"
   },
   ["vim-prosession"] = {
     loaded = true,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/start/vim-prosession"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/vim-prosession"
   },
   ["vim-pug"] = {
     loaded = false,
     needs_bufread = true,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/vim-pug"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-pug"
   },
   ["vim-repeat"] = {
     loaded = true,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/start/vim-repeat"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/vim-repeat"
   },
   ["vim-startify"] = {
     loaded = true,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/start/vim-startify"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/vim-startify"
   },
   ["vim-surround"] = {
     loaded = true,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/start/vim-surround"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/vim-surround"
   },
   ["vim-test"] = {
     loaded = true,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/start/vim-test"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/vim-test"
   },
   ["vim-vsnip"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/vim-vsnip"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-vsnip"
   },
   ["which-key.nvim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/which-key.nvim"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/which-key.nvim"
   },
   ["zephyr-nvim"] = {
     loaded = false,
     needs_bufread = false,
-    path = "/home/artem/.local/share/nvim/site/pack/packer/opt/zephyr-nvim"
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/zephyr-nvim"
   }
 }
 
@@ -301,28 +296,28 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time("Defining lazy-load filetype autocommands", true)
-vim.cmd [[au FileType gql ++once lua require("packer.load")({'vim-graphql'}, { ft = "gql" }, _G.packer_plugins)]]
-vim.cmd [[au FileType graphql ++once lua require("packer.load")({'vim-graphql'}, { ft = "graphql" }, _G.packer_plugins)]]
-vim.cmd [[au FileType graphqls ++once lua require("packer.load")({'vim-graphql'}, { ft = "graphqls" }, _G.packer_plugins)]]
-vim.cmd [[au FileType html ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "html" }, _G.packer_plugins)]]
-vim.cmd [[au FileType scss ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "scss" }, _G.packer_plugins)]]
-vim.cmd [[au FileType sass ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "sass" }, _G.packer_plugins)]]
-vim.cmd [[au FileType phtml ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "phtml" }, _G.packer_plugins)]]
-vim.cmd [[au FileType vue ++once lua require("packer.load")({'vim-pug', 'scss-syntax.vim'}, { ft = "vue" }, _G.packer_plugins)]]
 vim.cmd [[au FileType jade ++once lua require("packer.load")({'vim-pug'}, { ft = "jade" }, _G.packer_plugins)]]
+vim.cmd [[au FileType html ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "html" }, _G.packer_plugins)]]
+vim.cmd [[au FileType vue ++once lua require("packer.load")({'vim-pug', 'scss-syntax.vim'}, { ft = "vue" }, _G.packer_plugins)]]
+vim.cmd [[au FileType phtml ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "phtml" }, _G.packer_plugins)]]
+vim.cmd [[au FileType sass ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "sass" }, _G.packer_plugins)]]
+vim.cmd [[au FileType scss ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "scss" }, _G.packer_plugins)]]
+vim.cmd [[au FileType gql ++once lua require("packer.load")({'vim-graphql'}, { ft = "gql" }, _G.packer_plugins)]]
+vim.cmd [[au FileType graphqls ++once lua require("packer.load")({'vim-graphql'}, { ft = "graphqls" }, _G.packer_plugins)]]
+vim.cmd [[au FileType graphql ++once lua require("packer.load")({'vim-graphql'}, { ft = "graphql" }, _G.packer_plugins)]]
 vim.cmd [[au FileType pug ++once lua require("packer.load")({'vim-pug'}, { ft = "pug" }, _G.packer_plugins)]]
 time("Defining lazy-load filetype autocommands", false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]
-time("Sourcing ftdetect script at: /home/artem/.local/share/nvim/site/pack/packer/opt/vim-graphql/ftdetect/graphql.vim", true)
-vim.cmd [[source /home/artem/.local/share/nvim/site/pack/packer/opt/vim-graphql/ftdetect/graphql.vim]]
-time("Sourcing ftdetect script at: /home/artem/.local/share/nvim/site/pack/packer/opt/vim-graphql/ftdetect/graphql.vim", false)
-time("Sourcing ftdetect script at: /home/artem/.local/share/nvim/site/pack/packer/opt/vim-pug/ftdetect/pug.vim", true)
-vim.cmd [[source /home/artem/.local/share/nvim/site/pack/packer/opt/vim-pug/ftdetect/pug.vim]]
-time("Sourcing ftdetect script at: /home/artem/.local/share/nvim/site/pack/packer/opt/vim-pug/ftdetect/pug.vim", false)
-time("Sourcing ftdetect script at: /home/artem/.local/share/nvim/site/pack/packer/opt/scss-syntax.vim/ftdetect/scss.vim", true)
-vim.cmd [[source /home/artem/.local/share/nvim/site/pack/packer/opt/scss-syntax.vim/ftdetect/scss.vim]]
-time("Sourcing ftdetect script at: /home/artem/.local/share/nvim/site/pack/packer/opt/scss-syntax.vim/ftdetect/scss.vim", false)
+time("Sourcing ftdetect script at: /home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-pug/ftdetect/pug.vim", true)
+vim.cmd [[source /home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-pug/ftdetect/pug.vim]]
+time("Sourcing ftdetect script at: /home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-pug/ftdetect/pug.vim", false)
+time("Sourcing ftdetect script at: /home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-graphql/ftdetect/graphql.vim", true)
+vim.cmd [[source /home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-graphql/ftdetect/graphql.vim]]
+time("Sourcing ftdetect script at: /home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-graphql/ftdetect/graphql.vim", false)
+time("Sourcing ftdetect script at: /home/va-artem/.local/share/nvim/site/pack/packer/opt/scss-syntax.vim/ftdetect/scss.vim", true)
+vim.cmd [[source /home/va-artem/.local/share/nvim/site/pack/packer/opt/scss-syntax.vim/ftdetect/scss.vim]]
+time("Sourcing ftdetect script at: /home/va-artem/.local/share/nvim/site/pack/packer/opt/scss-syntax.vim/ftdetect/scss.vim", false)
 vim.cmd("augroup END")
 if should_profile then save_profiles() end
 

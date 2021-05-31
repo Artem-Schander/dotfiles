@@ -66,6 +66,10 @@ utils.define_augroups({
     _env = {
         {'BufRead', '*.env.*', 'setfiletype sh'}, {'BufNewFile', '*.env.*', 'setfiletype sh'},
     },
+    _tmux = {
+        {'BufRead', 'tmux*.conf', 'setfiletype tmux'}, {'BufNewFile', '.tmux*.conf', 'setfiletype tmux'},
+        {'BufRead', 'tmux*.conf.*', 'setfiletype tmux'}, {'BufNewFile', '.tmux*.conf.*', 'setfiletype tmux'},
+    },
     _buffer_bindings = {
         {'FileType', 'dashboard', 'nnoremap <silent> <buffer> q :q<CR>'},
         {'FileType', 'lspinfo', 'nnoremap <silent> <buffer> q :q<CR>'},
