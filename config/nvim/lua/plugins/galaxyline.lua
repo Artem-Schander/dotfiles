@@ -4,7 +4,7 @@ local gl = require('galaxyline')
 
 local condition = require('galaxyline.condition')
 local gls = gl.section
-gl.short_line_list = {'NvimTree', 'vista', 'dbui', 'packer'}
+gl.short_line_list = {'NvimTree', 'vista', 'dbui', 'packer', 'startify'}
 
 local mode_color = {
     n = globals.colors.blue,
@@ -60,7 +60,7 @@ gls.left[3] = {
         condition = condition.check_git_workspace,
         separator = ' ',
         separator_highlight = {'NONE', globals.colors.bg},
-        highlight = {globals.colors.grey, globals.colors.bg}
+        highlight = {globals.colors.gray, globals.colors.bg}
     }
 }
 
@@ -142,7 +142,7 @@ gls.right[1] = {
     DiagnosticError = {
         provider = 'DiagnosticError',
         icon = '  ',
-        highlight = {globals.colors.error_red, globals.colors.bg}
+        highlight = {globals.colors.red, globals.colors.bg}
     }
 }
 gls.right[2] = {
@@ -157,7 +157,7 @@ gls.right[3] = {
     DiagnosticHint = {
         provider = 'DiagnosticHint',
         icon = '  ',
-        highlight = {globals.colors.vivid_blue, globals.colors.bg}
+        highlight = {globals.colors.blue, globals.colors.bg}
     }
 }
 
@@ -165,7 +165,7 @@ gls.right[4] = {
     DiagnosticInfo = {
         provider = 'DiagnosticInfo',
         icon = '  ',
-        highlight = {globals.colors.info_yellow, globals.colors.bg}
+        highlight = {globals.colors.yellow, globals.colors.bg}
     }
 }
 
@@ -178,7 +178,7 @@ gls.right[5] = {
             return true
         end,
         icon = '  ',
-        highlight = {globals.colors.grey, globals.colors.bg}
+        highlight = {globals.colors.gray, globals.colors.bg}
     }
 }
 
@@ -187,7 +187,7 @@ gls.right[6] = {
         provider = 'LineColumn',
         separator = '  ',
         separator_highlight = {'NONE', globals.colors.bg},
-        highlight = {globals.colors.grey, globals.colors.bg}
+        highlight = {globals.colors.gray, globals.colors.bg}
     }
 }
 
@@ -196,7 +196,7 @@ gls.right[7] = {
         provider = 'LinePercent',
         separator = ' ',
         separator_highlight = {'NONE', globals.colors.bg},
-        highlight = {globals.colors.grey, globals.colors.bg}
+        highlight = {globals.colors.gray, globals.colors.bg}
     }
 }
 
@@ -218,7 +218,7 @@ gls.right[8] = {
         condition = condition.hide_in_width,
         separator = ' ',
         separator_highlight = {'NONE', globals.colors.bg},
-        highlight = {globals.colors.grey, globals.colors.bg}
+        highlight = {globals.colors.gray, globals.colors.bg}
     }
 }
 
@@ -228,7 +228,7 @@ gls.right[9] = {
         condition = condition.hide_in_width,
         separator = ' ',
         separator_highlight = {'NONE', globals.colors.bg},
-        highlight = {globals.colors.grey, globals.colors.bg}
+        highlight = {globals.colors.gray, globals.colors.bg}
     }
 }
 
@@ -238,7 +238,7 @@ gls.right[10] = {
         condition = condition.hide_in_width,
         separator = ' ',
         separator_highlight = {'NONE', globals.colors.bg},
-        highlight = {globals.colors.grey, globals.colors.bg}
+        highlight = {globals.colors.gray, globals.colors.bg}
     }
 }
 
@@ -279,7 +279,7 @@ gls.short_line_left[1] = {
         provider = 'FileTypeName',
         separator = ' ',
         separator_highlight = {'NONE', globals.colors.bg},
-        highlight = {globals.colors.grey, globals.colors.bg}
+        highlight = {globals.colors.gray, globals.colors.bg}
     }
 }
 
@@ -287,13 +287,13 @@ gls.short_line_left[2] = {
     SFileName = {
         provider = 'SFileName',
         condition = condition.buffer_not_empty,
-        highlight = {globals.colors.grey, globals.colors.bg}
+        highlight = {globals.colors.gray, globals.colors.bg}
     }
 }
 
 gls.short_line_right[1] = {
     BufferIcon = {
         provider = 'BufferIcon',
-        highlight = {globals.colors.grey, globals.colors.bg}
+        highlight = {globals.colors.gray, globals.colors.bg}
     }
 }
