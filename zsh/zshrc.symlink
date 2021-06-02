@@ -205,7 +205,7 @@ for config ($DOTFILES/zsh/settings/**/*completion.sh) source $config
 
 export VISUAL='nvim'
 
-export EDITOR='nvim'
+export EDITOR='vim'
 export GIT_EDITOR='nvim'
 
 export PATH=/usr/local/bin:$PATH
