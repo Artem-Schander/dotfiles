@@ -44,7 +44,7 @@ return require("packer").startup(
         use {"nvim-lua/popup.nvim", opt = true}
         use {"nvim-lua/plenary.nvim", opt = true}
         use {"nvim-telescope/telescope.nvim", opt = true}
-        use {"nvim-telescope/telescope-fzf-native.nvim", run = 'make', opt = true}
+        use {"nvim-telescope/telescope-fzf-native.nvim", run = "make", opt = true}
 
         -- Debugging
         use {"mfussenegger/nvim-dap", opt = true}
@@ -72,6 +72,7 @@ return require("packer").startup(
         -- use {"christianchiarulli/nvcode-color-schemes.vim", opt = true}
         use {"tomasiser/vim-code-dark", opt = true}
         -- use {"navarasu/onedark.nvim", opt = true}
+        -- use {"ful1e5/onedark.nvim", opt = true}
         use {"tiagovla/tokyodark.nvim", opt = true}
         use {"marko-cerovac/material.nvim", opt = true}
         use {"bluz71/vim-nightfly-guicolors", opt = true}
@@ -93,6 +94,7 @@ return require("packer").startup(
         use {"glepnir/dashboard-nvim", opt = true}
         use {"windwp/nvim-autopairs", opt = true}
         use {"kevinhwang91/nvim-bqf", opt = true}
+        use {"junegunn/fzf", opt = true, run = ":call fzf#install()"}
 
         -- TODO remove when found a lua implementation
         use {"tpope/vim-surround"}
@@ -101,6 +103,7 @@ return require("packer").startup(
         use {"lfv89/vim-interestingwords"}
         use {"mhinz/vim-startify"}
         use {"tpope/vim-obsession"}
+        use {"tpope/vim-abolish"}
         use {"dhruvasagar/vim-prosession"}
         use {"janko-m/vim-test"}
         use {"embear/vim-localvimrc"}
@@ -108,9 +111,11 @@ return require("packer").startup(
         use {"ntpeters/vim-better-whitespace"}
 
         -- TODO remove when treesitter supports corresponding languages
-        use {"cakebaker/scss-syntax.vim", ft = {'sass', 'scss', 'html', 'phtml', 'vue'}}
-        use {"digitaltoad/vim-pug", ft = {'jade', 'pug', 'vue'}}
-        use {"jparise/vim-graphql", ft = {'gql', 'graphql', 'graphqls'}}
+        -- use {"cakebaker/scss-syntax.vim", ft = {'sass', 'scss', 'html', 'phtml', 'vue'}}
+        -- use {"digitaltoad/vim-pug", ft = {'jade', 'pug', 'vue'}}
+        -- use {"jparise/vim-graphql", ft = {'gql', 'graphql', 'graphqls'}}
+        -- use {"sheerun/vim-polyglot", ft = {'blade', 'graphql', 'pug', 'sass'}}
+        use {"sheerun/vim-polyglot"}
 
         require_plugin("nvim-lspconfig")
         require_plugin("lspsaga.nvim")
@@ -134,6 +139,7 @@ return require("packer").startup(
         require_plugin("nvim-autopairs")
         require_plugin("nvim-comment")
         require_plugin("nvim-ts-context-commentstring")
+        require_plugin("fzf")
         require_plugin("nvim-bqf")
         -- require_plugin("nvcode-color-schemes.vim")
         require_plugin("vim-code-dark")

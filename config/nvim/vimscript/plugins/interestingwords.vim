@@ -3,4 +3,4 @@ let g:interestingWordsGUIColors = ['#8CCBEA', '#A4E57E', '#FFDB72', '#E06C75', '
 " let g:interestingWordsRandomiseColors = 1
 
 nnoremap <silent> n :call WordNavigation(1)<cr>
-nnoremap <silent> b :call WordNavigation(0)<cr>
+nnoremap <silent> N :call WordNavigation(0)<cr>

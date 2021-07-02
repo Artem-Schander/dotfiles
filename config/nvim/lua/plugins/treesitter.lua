@@ -4,9 +4,10 @@ require('nvim-treesitter.configs').setup {
     highlight = {
         enable = globals.treesitter.highlight.enabled -- false will disable the whole extension
     },
-    -- indent = {enable = true, disable = {"python", "html", "javascript"}},
     -- TODO seems to be broken
-    indent = {enable = {"javascriptreact"}},
+    -- indent = {enable = true, disable = {"python", "html", "javascript"}},
+    -- indent = {enable = {"javascriptreact"}},
+    indent = {enable = true},
     autotag = {enable = true},
 }
 

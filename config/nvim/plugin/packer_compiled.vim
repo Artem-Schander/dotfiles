@@ -46,7 +46,7 @@ local function save_profiles(threshold)
   _G._packer.profile_output = results
 end
 
-time("Luarocks path setup", true)
+time([[Luarocks path setup]], true)
 local package_path_str = "/home/va-artem/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?.lua;/home/va-artem/.cache/nvim/packer_hererocks/2.1.0-beta3/share/lua/5.1/?/init.lua;/home/va-artem/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?.lua;/home/va-artem/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/luarocks/rocks-5.1/?/init.lua"
 local install_cpath_pattern = "/home/va-artem/.cache/nvim/packer_hererocks/2.1.0-beta3/lib/lua/5.1/?.so"
 if not string.find(package.path, package_path_str, 1, true) then
@@ -57,19 +57,20 @@ if not string.find(package.cpath, install_cpath_pattern, 1, true) then
   package.cpath = package.cpath .. ';' .. install_cpath_pattern
 end
 
-time("Luarocks path setup", false)
-time("try_loadstring definition", true)
+time([[Luarocks path setup]], false)
+time([[try_loadstring definition]], true)
 local function try_loadstring(s, component, name)
   local success, result = pcall(loadstring(s))
   if not success then
-    print('Error running ' .. component .. ' for ' .. name)
-    error(result)
+    vim.schedule(function()
+      vim.api.nvim_notify('packer.nvim: Error running ' .. component .. ' for ' .. name .. ': ' .. result, vim.log.levels.ERROR, {})
+    end)
   end
   return result
 end
 
-time("try_loadstring definition", false)
-time("Defining packer_plugins", true)
+time([[try_loadstring definition]], false)
+time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
   ["barbar.nvim"] = {
     loaded = false,
@@ -89,6 +90,11 @@ _G.packer_plugins = {
     loaded = false,
     needs_bufread = false,
     path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/friendly-snippets"
+  },
+  fzf = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/fzf"
   },
   ["galaxyline.nvim"] = {
     loaded = false,
@@ -180,6 +186,11 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/nvim-web-devicons"
   },
+  ["onedark.nvim"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/onedark.nvim"
+  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/packer.nvim"
@@ -199,11 +210,6 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/popup.nvim"
   },
-  ["scss-syntax.vim"] = {
-    loaded = false,
-    needs_bufread = true,
-    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/scss-syntax.vim"
-  },
   ["telescope-fzf-native.nvim"] = {
     loaded = false,
     needs_bufread = false,
@@ -219,6 +225,10 @@ _G.packer_plugins = {
     needs_bufread = false,
     path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/tokyodark.nvim"
   },
+  ["vim-abolish"] = {
+    loaded = true,
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/vim-abolish"
+  },
   ["vim-better-whitespace"] = {
     loaded = true,
     path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/vim-better-whitespace"
@@ -231,11 +241,6 @@ _G.packer_plugins = {
   ["vim-easymotion"] = {
     loaded = true,
     path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/vim-easymotion"
-  },
-  ["vim-graphql"] = {
-    loaded = false,
-    needs_bufread = true,
-    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-graphql"
   },
   ["vim-interestingwords"] = {
     loaded = true,
@@ -254,14 +259,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/vim-obsession"
   },
+  ["vim-polyglot"] = {
+    loaded = true,
+    path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/vim-polyglot"
+  },
   ["vim-prosession"] = {
     loaded = true,
     path = "/home/va-artem/.local/share/nvim/site/pack/packer/start/vim-prosession"
-  },
-  ["vim-pug"] = {
-    loaded = false,
-    needs_bufread = true,
-    path = "/home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-pug"
   },
   ["vim-repeat"] = {
     loaded = true,
@@ -296,34 +300,7 @@ _G.packer_plugins = {
   }
 }
 
-time("Defining packer_plugins", false)
-vim.cmd [[augroup packer_load_aucmds]]
-vim.cmd [[au!]]
-  -- Filetype lazy-loads
-time("Defining lazy-load filetype autocommands", true)
-vim.cmd [[au FileType html ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "html" }, _G.packer_plugins)]]
-vim.cmd [[au FileType scss ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "scss" }, _G.packer_plugins)]]
-vim.cmd [[au FileType sass ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "sass" }, _G.packer_plugins)]]
-vim.cmd [[au FileType phtml ++once lua require("packer.load")({'scss-syntax.vim'}, { ft = "phtml" }, _G.packer_plugins)]]
-vim.cmd [[au FileType vue ++once lua require("packer.load")({'scss-syntax.vim', 'vim-pug'}, { ft = "vue" }, _G.packer_plugins)]]
-vim.cmd [[au FileType jade ++once lua require("packer.load")({'vim-pug'}, { ft = "jade" }, _G.packer_plugins)]]
-vim.cmd [[au FileType pug ++once lua require("packer.load")({'vim-pug'}, { ft = "pug" }, _G.packer_plugins)]]
-vim.cmd [[au FileType gql ++once lua require("packer.load")({'vim-graphql'}, { ft = "gql" }, _G.packer_plugins)]]
-vim.cmd [[au FileType graphql ++once lua require("packer.load")({'vim-graphql'}, { ft = "graphql" }, _G.packer_plugins)]]
-vim.cmd [[au FileType graphqls ++once lua require("packer.load")({'vim-graphql'}, { ft = "graphqls" }, _G.packer_plugins)]]
-time("Defining lazy-load filetype autocommands", false)
-vim.cmd("augroup END")
-vim.cmd [[augroup filetypedetect]]
-time("Sourcing ftdetect script at: /home/va-artem/.local/share/nvim/site/pack/packer/opt/scss-syntax.vim/ftdetect/scss.vim", true)
-vim.cmd [[source /home/va-artem/.local/share/nvim/site/pack/packer/opt/scss-syntax.vim/ftdetect/scss.vim]]
-time("Sourcing ftdetect script at: /home/va-artem/.local/share/nvim/site/pack/packer/opt/scss-syntax.vim/ftdetect/scss.vim", false)
-time("Sourcing ftdetect script at: /home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-pug/ftdetect/pug.vim", true)
-vim.cmd [[source /home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-pug/ftdetect/pug.vim]]
-time("Sourcing ftdetect script at: /home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-pug/ftdetect/pug.vim", false)
-time("Sourcing ftdetect script at: /home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-graphql/ftdetect/graphql.vim", true)
-vim.cmd [[source /home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-graphql/ftdetect/graphql.vim]]
-time("Sourcing ftdetect script at: /home/va-artem/.local/share/nvim/site/pack/packer/opt/vim-graphql/ftdetect/graphql.vim", false)
-vim.cmd("augroup END")
+time([[Defining packer_plugins]], false)
 if should_profile then save_profiles() end
 
 END

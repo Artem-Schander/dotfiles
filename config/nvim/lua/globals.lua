@@ -33,6 +33,7 @@ globals = {
         -- red = '#e86671',
         gray = '#8f96a5',
         comment_gray = '#5c6370',
+        dark_blue = '#274964',
         dark_cyan = '#2b6f77',
         dark_red = '#993939',
         dark_yellow = '#93691d',

@@ -253,7 +253,7 @@ gls.right[11] = {
     }
 }
 
--- gls.right[12] = {
+-- gls.right[115] = {
 --     ScrollBar = {
 --         provider = 'ScrollBar',
 --         highlight = {globals.colors.yellow,globals.colors.purple},

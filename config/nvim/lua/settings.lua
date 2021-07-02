@@ -29,6 +29,7 @@ vim.wo.relativenumber = globals.relative_number -- set relative number
 vim.wo.cursorline = true -- Enable highlighting of the current line
 vim.o.showtabline = 2 -- Always show tabs
 vim.o.showmode = false -- We don't need to see things like -- INSERT -- anymore
+vim.o.scrolloff = 3 -- lines of text around cursor
 vim.o.backup = false -- This is recommended by coc
 vim.o.writebackup = false -- This is recommended by coc
 vim.wo.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
@@ -36,6 +37,10 @@ vim.o.updatetime = 300 -- Faster completion
 vim.o.timeoutlen = globals.timeoutlen -- By default timeoutlen is 1000 ms
 vim.o.clipboard = "unnamedplus" -- Copy paste between vim and everything else
 vim.o.guifont = "FiraCode Nerd Font:h17"
+
+-- these two must be set bedore `packadd ...`
+vim.g.nvim_tree_disable_netrw = 0 -- "1 by default, disables netrw
+vim.g.nvim_tree_hijack_netrw = 0 --"1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
 
 vim.cmd('set ignorecase') -- case insensitive searching
 vim.cmd('set smartcase') -- case-sensitive if expresson contains a capital letter

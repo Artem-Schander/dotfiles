@@ -65,6 +65,7 @@ bind C-f command-prompt -p find-session 'switch-client -t %%'
 bind - split-window -v
 # split current window vertically
 bind _ split-window -h
+bind | split-window -h
 
 # pane navigation
 bind -r h select-pane -L  # move left
@@ -143,8 +144,9 @@ run -b 'tmux bind -t vi-copy L end-of-line 2> /dev/null || true'
 run -b 'tmux bind -T copy-mode-vi L send -X end-of-line 2> /dev/null || true'
 
 # copy to X11 clipboard
-if -b 'command -v xsel > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | xsel -i -b"'
-if -b '! command -v xsel > /dev/null 2>&1 && command -v xclip > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | xclip -i -selection clipboard >/dev/null 2>&1"'
+# if -b 'command -v xsel > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | xsel -i -b"'
+# if -b '! command -v xsel > /dev/null 2>&1 && command -v xclip > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | xclip -i -selection clipboard >/dev/null 2>&1"'
+if -b 'command -v xclip > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | xclip -i -selection clipboard >/dev/null 2>&1"'
 # copy to macOS clipboard
 if -b 'command -v pbcopy > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | pbcopy"'
 if -b 'command -v reattach-to-user-namespace > /dev/null 2>&1' 'bind y run -b "tmux save-buffer - | reattach-to-user-namespace pbcopy"'

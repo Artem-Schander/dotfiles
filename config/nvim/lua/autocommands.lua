@@ -36,6 +36,9 @@ utils.define_augroups({
         -- {'User', 'GoyoLeave', 'lua require(\'galaxyline\').disable_galaxyline()'},
         -- {'User', 'GoyoEnter', 'lua require(\'galaxyline\').galaxyline_augroup()'},
     },
+    _blankline = {
+        {'CursorMoved', '*', 'silent! IndentBlanklineRefresh'},
+    },
     -- _java = {
     --     {'FileType', 'java', 'luafile ~/.config/nvim/lua/lsp/java-ls.lua'},
     --     {'FileType', 'java', 'nnoremap ca <Cmd>lua require(\'jdtls\').code_action()<CR>'}
@@ -62,6 +65,9 @@ utils.define_augroups({
     _graphql = {
         {'BufRead', '*.gql', 'setfiletype graphql'}, {'BufNewFile', '*.gql', 'setfiletype graphql'},
         {'BufRead', '*.graphql', 'setfiletype graphql'}, {'BufNewFile', '*.graphql', 'setfiletype graphql'}
+    },
+    _blade = {
+        {'BufRead', '*.blade.php', 'setfiletype blade'}, {'BufNewFile', '*.blade.php', 'setfiletype blade'},
     },
     _env = {
         {'BufRead', '*.env.*', 'setfiletype sh'}, {'BufNewFile', '*.env.*', 'setfiletype sh'},

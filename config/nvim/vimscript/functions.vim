@@ -32,7 +32,7 @@ function! functions#FixIndentation(...)
     endif
     if (exists('a:2'))
         let chars = a:2
-        exe 'set ts='.chars.' sts='.chars.' sw='.chars.' noet'
+        exe 'set ts='.chars.' sts='.chars.' sw='.chars
     endif
     exe '%retab!'
 endfunction

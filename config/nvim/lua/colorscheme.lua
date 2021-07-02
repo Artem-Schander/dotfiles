@@ -1,7 +1,7 @@
 -- vim.g.onedark_style = 'darker'
 vim.cmd('colorscheme ' .. globals.colorscheme)
 
--- TODO change php dollar sign color
+-- TODO move fixes to custom theme
 
 -- colorscheme fixes
 vim.cmd('highlight SignColumn guibg=' .. globals.colors.bg)
@@ -16,11 +16,11 @@ vim.cmd('highlight MatchParen gui=NONE,bold guifg=' .. globals.colors.blue .. ' 
 -- treesitter
 -- vim.cmd('highlight TSKeywordOperator guifg=#ABB2BF')
 
--- lsp
-vim.cmd('highlight LspDiagnosticsDefaultError guifg=' .. globals.colors.dark_red)
-vim.cmd('highlight LspDiagnosticsDefaultWarning guifg=' .. globals.colors.dark_yellow)
-vim.cmd('highlight LspDiagnosticsDefaultInformation guifg=' .. globals.colors.fg)
-vim.cmd('highlight LspDiagnosticsDefaultHint guifg=' .. globals.colors.comment_gray)
+-- -- lsp
+-- vim.cmd('highlight LspDiagnosticsDefaultError guifg=' .. globals.colors.dark_red)
+-- vim.cmd('highlight LspDiagnosticsDefaultWarning guifg=' .. globals.colors.dark_yellow)
+-- vim.cmd('highlight LspDiagnosticsDefaultInformation guifg=' .. globals.colors.fg)
+-- vim.cmd('highlight LspDiagnosticsDefaultHint guifg=' .. globals.colors.comment_gray)
 
 -- vim.cmd('highlight LspDiagnosticsVirtualTextError guifg=' .. globals.colors.red)
 -- vim.cmd('highlight LspDiagnosticsVirtualTextWarning guifg=' .. globals.colors.orange)
@@ -37,10 +37,9 @@ vim.cmd('highlight LspDiagnosticsDefaultHint guifg=' .. globals.colors.comment_g
 -- vim.cmd('highlight LspDiagnosticsSignInformation guifg=' .. globals.colors.fg)
 -- vim.cmd('highlight LspDiagnosticsSignHint guifg=' .. globals.colors.comment_gray)
 
--- not working
--- vim.cmd('highlight LspReferenceText guibg=' .. globals.colors.dark)
--- vim.cmd('highlight LspReferenceRead guibg=' .. globals.colors.dark)
--- vim.cmd('highlight LspReferenceWrite guibg=' .. globals.colors.dark)
+-- vim.cmd('highlight LspReferenceText guibg=' .. globals.colors.black)
+-- vim.cmd('highlight LspReferenceRead guibg=' .. globals.colors.black)
+-- vim.cmd('highlight LspReferenceWrite guibg=' .. globals.colors.black)
 
 -- barbar
 vim.cmd('highlight BufferTabpageFill guifg=' .. globals.colors.bg0 .. ' guibg=NONE')
@@ -74,6 +73,7 @@ vim.cmd('highlight GitSignsCurrentLineBlame guifg=' .. globals.colors.diff_blue)
 
 -- indent lines
 vim.cmd('highlight IndentBlanklineChar guifg=' .. globals.colors.bg0 .. ' guibg=NONE')
+vim.cmd('highlight IndentBlanklineContextChar guifg=' .. globals.colors.bg3 .. ' guibg=NONE')
 
 -- file tree
 vim.cmd('highlight NvimTreeIndentMarker guifg=' .. globals.colors.bg0 .. ' guibg=NONE')
