@@ -111,6 +111,8 @@ utils.define_augroups {
     -- },
 }
 
+vim.cmd('source ~/.config/nvim/vimscript/functions.vim')
+
 return utils
 
 -- TODO find a new home for these autocommands

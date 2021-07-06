@@ -1,8 +1,13 @@
 -- vim.api.nvim_set_keymap('n', '-', ':RnvimrToggle<CR>', {noremap = true, silent = true})
 
 -- Set leader
-vim.api.nvim_set_keymap('n', '<Space>', '<NOP>', {noremap = true, silent = true})
-vim.g.mapleader = ' '
+if Globals.leader_key == " " or Globals.leader_key == "space" then
+    vim.api.nvim_set_keymap("n", "<Space>", "<NOP>", { noremap = true, silent = true })
+    vim.g.mapleader = " "
+else
+    vim.api.nvim_set_keymap("n", Globals.leader_key, "<NOP>", { noremap = true, silent = true })
+    vim.g.mapleader = Globals.leader_key
+end
 
 -- switch between current and last buffer
 vim.api.nvim_set_keymap('n', '<Leader>.', '<c-^>', {noremap = true, silent = true})
@@ -15,12 +20,12 @@ vim.api.nvim_set_keymap('n', '<Leader>e', ':NvimTreeToggle<CR>', {noremap = true
 
 -- telescope
 vim.api.nvim_set_keymap('n', '<Leader>a', ':Telescope find_files find_command=rg,--smart-case,--files,--follow,--no-ignore,--hidden<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>b', ':Telescope buffers show_all_buffers=true<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>p', ':Telescope git_files<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Leader>bf', ':Telescope buffers<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Leader>f', ':Telescope git_files<CR>', {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('n', '<Leader>p', ':Telescope find_files hidden=true<CR>', {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('n', '<Leader>r', ':Telescope lsp_document_symbols<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>r', ':Telescope treesitter<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>f', ':Telescope live_grep<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Leader>w', ':Telescope live_grep<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>g', ':Telescope grep_string<CR>', {noremap = true, silent = true})
 
 -- dashboard

@@ -1,12 +1,12 @@
 local M = {}
 
 M.config = function()
-local actions = require "telescope.actions"
--- if Globals.plugin.trouble.active then
---     local trouble = require("trouble.providers.telescope")
--- end
--- Global remapping
-------------------------------
+    local actions = require "telescope.actions"
+    -- if Globals.plugin.trouble.active then
+    --     local trouble = require("trouble.providers.telescope")
+    -- end
+    -- Global remapping
+    ------------------------------
     -- '--color=never',
     require("telescope").setup {
         defaults = {
@@ -24,7 +24,7 @@ local actions = require "telescope.actions"
                 '--column',
                 '--color',
                 '--color-line-number',
-                '--smart-case'
+                '--smart-case',
             },
             prompt_prefix = "> ",
             selection_caret = "> ",
@@ -40,7 +40,7 @@ local actions = require "telescope.actions"
                 horizontal = { mirror = false },
                 vertical = { mirror = false },
             },
-            file_sorter = require("telescope.sorters").get_fzy_sorter,
+            file_sorter = require("telescope.sorters").get_fzf_sorter,
             file_ignore_patterns = {},
             generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
             shorten_path = true,
@@ -87,14 +87,21 @@ local actions = require "telescope.actions"
             },
         },
         extensions = {
-            fzy_native = {
-                override_generic_sorter = false,
-                override_file_sorter = true,
-            },
+            -- fzy_native = {
+            --     override_generic_sorter = false,
+            --     override_file_sorter = true,
+            -- },
+            fzf = {
+                override_generic_sorter = true, -- override the generic sorter
+                override_file_sorter = true,     -- override the file sorter
+                case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                -- the default case_mode is "smart_case"
+            }
         },
     }
 
     -- require'telescope'.load_extension('project')
+    require('telescope').load_extension('fzf')
 end
 
 return M

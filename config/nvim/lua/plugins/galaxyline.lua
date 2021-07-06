@@ -7,7 +7,7 @@ M.config = function()
 
     local condition = require('galaxyline.condition')
     local gls = gl.section
-    gl.short_line_list = {'NvimTree', 'vista', 'dbui', 'packer', 'startify'}
+    gl.short_line_list = {'NvimTree', 'vista', 'dbui', 'packer', 'startify', 'Outline'}
 
     table.insert(gls.left, {
         ViMode = {

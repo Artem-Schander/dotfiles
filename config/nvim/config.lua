@@ -9,8 +9,8 @@ an executable
 -- general
 Globals.format_on_save = true
 Globals.auto_complete = true
--- Globals.colorscheme = 'onedark'
-Globals.colorscheme = 'spacegray'
+Globals.colorscheme = 'onedark'
+-- Globals.colorscheme = 'spacegray'
 Globals.auto_close_tree = 1
 Globals.wrap_lines = true
 Globals.timeoutlen = 500
@@ -25,14 +25,23 @@ Globals.transparent_window = false
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 Globals.plugin.hop.active = false
 Globals.plugin.dial.active = false
-Globals.plugin.dashboard.active = true
+Globals.plugin.dashboard.active = false
+Globals.plugin.startify.active = true
 Globals.plugin.matchup.active = false
 Globals.plugin.colorizer.active = true
-Globals.plugin.numb.active = false
+Globals.plugin.numb.active = true
 Globals.plugin.ts_playground.active = false
 Globals.plugin.indent_line.active = true
 Globals.plugin.gitlinker.active = false
+Globals.plugin.git_blame.active = true
 Globals.plugin.zen.active = false
+Globals.plugin.which_key.active = true
+Globals.plugin.symbol_outline.active = true
+Globals.plugin.test.active = true
+Globals.plugin.whitespace.active = true
+Globals.plugin.localvimrc.active = true
+Globals.plugin.interestingwords.active = true
+Globals.plugin.polyglot.active = true
 
 -- dashboard
 -- Globals.dashboard.custom_header = {""}

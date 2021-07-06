@@ -200,7 +200,7 @@ return lsp_config
 -- vim.fn.sign_define(
 --     "LspDiagnosticsSignInformation",
 --     {texthl = "LspDiagnosticsSignInformation", text = "", numhl = "LspDiagnosticsSignInformation"}
-    -- )
+-- )
 
 -- vim.cmd("nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>")
 -- vim.cmd("nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>")
@@ -212,12 +212,12 @@ return lsp_config
 -- -- vim.cmd("nnoremap <silent> D :Lspsaga preview_definition<CR>")
 -- -- vim.cmd('nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>')
 -- vim.cmd("nnoremap <silent> <C-p> :Lspsaga diagnostic_jump_prev<CR>")
-    -- vim.cmd("nnoremap <silent> <C-n> :Lspsaga diagnostic_jump_next<CR>")
+-- vim.cmd("nnoremap <silent> <C-n> :Lspsaga diagnostic_jump_next<CR>")
 
 -- -- scroll down hover doc or scroll in definition preview
 -- vim.cmd("nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>")
 -- -- scroll up hover doc
-    -- vim.cmd("nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>")
+-- vim.cmd("nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>")
 
 -- -- scroll down hover doc or scroll in definition preview
 -- vim.cmd("nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>")
@@ -236,7 +236,7 @@ return lsp_config
 --         signs = true,
 --         underline = true,
 --     }
-    -- )
+-- )
 
 -- -- symbols for autocomplete
 -- vim.lsp.protocol.CompletionItemKind = {
@@ -265,14 +265,14 @@ return lsp_config
 --     "   (Event)",
 --     "   (Operator)",
 --     "   (TypeParameter)"
-    -- }
+-- }
 
 -- --[[ " autoformat
 -- autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 100)
 -- autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 100)
 -- autocmd BufWritePre *.lua lua vim.lsp.buf.formatting_sync(nil, 100) ]]
 -- -- Java
-    -- -- autocmd FileType java nnoremap ca <Cmd>lua require('jdtls').code_action()<CR>
+-- -- autocmd FileType java nnoremap ca <Cmd>lua require('jdtls').code_action()<CR>
 
 -- local function documentHighlight(client, bufnr)
 --     -- Set autocommands conditional on server_capabilities
@@ -292,16 +292,16 @@ return lsp_config
 --         )
 --     end
 -- end
-    -- local lsp_config = {}
+-- local lsp_config = {}
 
 -- function lsp_config.common_on_attach(client, bufnr)
 --     -- documentHighlight(client, bufnr)
-    -- end
+-- end
 
 -- function lsp_config.tsserver_on_attach(client, bufnr)
 --     lsp_config.common_on_attach(client, bufnr)
 --     client.resolved_capabilities.document_formatting = false
-    -- end
+-- end
 
 -- -- Use a loop to conveniently both setup defined servers
 -- -- and map buffer local keybindings when the language server attaches

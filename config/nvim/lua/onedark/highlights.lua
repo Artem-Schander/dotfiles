@@ -42,12 +42,12 @@ colors = {
     Purple = {fg = c.purple}
 }
 hl.common = {
-    Normal = {fg = c.fg, bg = c.bg0},
-    Terminal = {fg = c.fg, bg = c.bg0},
-    EndOfBuffer = {fg = c.bg2, bg = c.bg0},
+    Normal = {fg = c.fg, bg = c.bg},
+    Terminal = {fg = c.fg, bg = c.bg},
+    EndOfBuffer = {fg = c.bg2, bg = c.bg},
     FoldColumn = {fg = c.fg, bg = c.bg1},
     Folded = {fg = c.fg, bg = c.bg1},
-    SignColumn = {fg = c.fg, bg = c.bg0},
+    SignColumn = {fg = c.fg, bg = c.bg},
     ToolbarLine = {fg = c.fg},
     Cursor = {reverse = true},
     vCursor = {reverse = true},
@@ -55,7 +55,7 @@ hl.common = {
     lCursor = {reverse = true},
     CursorIM = {reverse = true},
     CursorColumn = {bg = c.bg1},
-    CursorLine = {bg = c.bg1},
+    CursorLine = {bg = c.bg0},
     ColorColumn = {bg = c.bg1},
     CursorLineNr = {fg = c.fg},
     LineNr = {fg = c.grey},
@@ -68,16 +68,16 @@ hl.common = {
     ErrorMsg = {fg = c.red, bold = true, underline = true},
     WarningMsg = {fg = c.yellow, bold = true},
     MoreMsg = {fg = c.blue, bold = true},
-    IncSearch = {fg = c.bg0, bg = c.orange},
-    Search = {fg = c.bg0, bg = c.bg_yellow},
-    MatchParen = {fg = c.none, bg = c.grey},
+    IncSearch = {fg = c.bg, bg = c.orange},
+    Search = {fg = c.bg, bg = c.bg_yellow},
+    MatchParen = {fg = c.blue, bold = true, bg = c.none},
     NonText = {fg = c.grey},
     Whitespace = {fg = c.grey},
     SpecialKey = {fg = c.grey},
     Pmenu = {fg = c.fg, bg = c.bg1},
     PmenuSbar = {fg = c.none, bg = c.bg1},
-    PmenuSel = {fg = c.bg0, bg = c.bg_blue},
-    WildMenu = {fg = c.bg0, bg = c.blue},
+    PmenuSel = {fg = c.bg, bg = c.bg_blue},
+    WildMenu = {fg = c.bg, bg = c.blue},
     PmenuThumb = {fg = c.none, bg = c.grey},
     Question = {fg = c.yellow},
     SpellBad = {fg = c.red, underline = true, sp = c.red},
@@ -90,15 +90,18 @@ hl.common = {
     StatusLineTermNC = {fg = c.grey, bg = c.bg1},
     TabLine = {fg = c.fg, bg = c.bg1},
     TabLineFill = {fg = c.grey, bg = c.bg1},
-    TabLineSel =  {fg = c.bg0, bg = c.fg},
-    VertSplit = {fg = c.bg1},
+    TabLineSel =  {fg = c.bg, bg = c.fg},
+    VertSplit = {fg = c.bg_d},
     Visual = {bg = c.bg3},
     VisualNOS = {fg = c.none, bg = c.bg2, underline = true},
     QuickFixLine = {fg = c.blue, underline = true},
     Debug = {fg = c.yellow},
-    debugPC = {fg = c.bg0, bg = c.green},
-    debugBreakpoint = {fg = c.bg0, bg = c.red},
-    ToolbarButton = {fg = c.bg0, bg = c.bg_blue},
+    debugPC = {fg = c.bg, bg = c.green},
+    debugBreakpoint = {fg = c.bg, bg = c.red},
+    ToolbarButton = {fg = c.bg, bg = c.bg_blue},
+
+    NormalFloat = {fg = c.bg0, bg = c.bg0},
+    FloatBorder = {fg = c.bg0, bg = c.bg0},
 }
 
 hl.syntax = {
@@ -209,7 +212,7 @@ hl.plugins.lsp = {
     LspCxxHlSkippedRegion = colors.Grey,
     LspCxxHlSkippedRegionBeginEnd = colors.Red,
     LspDiagnosticsDefaultError = {fg = c.dark_red},
-    LspDiagnosticsDefaultHint = {fg = c.dark_purple}, -- comment_gray
+    LspDiagnosticsDefaultHint = {fg = c.dark_purple}, -- comment_grey
     LspDiagnosticsDefaultInformation = {fg = c.dark_cyan}, -- fg
     LspDiagnosticsDefaultWarning = {fg = c.dark_yellow},
     LspDiagnosticsUnderlineError = {underline = true, sp = c.red},
@@ -225,14 +228,21 @@ hl.plugins.lsp = {
 hl.plugins.whichkey = {
     WhichKey = colors.Red,
     WhichKeyDesc = colors.Blue,
-    WhichKeyGroup = colors.Orange,
+    WhichKeyGroup = colors.Purple,
     WhichKeySeperator = colors.Green
 }
 
 hl.plugins.gitgutter = {
     GitGutterAdd = {fg = c.green},
-    GitGutterChange = {fg = c.blue},
+    GitGutterChange = {fg = c.yellow},
     GitGutterDelete = {fg = c.red},
+    GitSignsCurrentLineBlame = {fg = c.diff_blue},
+}
+
+
+hl.plugins.indent_blankline = {
+    IndentBlanklineChar = {fg = c.bg0, bg = c.none},
+    IndentBlanklineContextChar = {fg = c.bg3, bg = c.none}
 }
 
 hl.plugins.diffview = {
@@ -275,24 +285,27 @@ hl.plugins.gitsigns = {
 }
 
 hl.plugins.nvim_tree = {
-    NvimTreeNormal = { fg = c.fg, bg = c.bg_d },
-    NvimTreeEndOfBuffer = { fg = c.bg2, bg = c.bg_d },
-    NvimTreeRootFolder = { fg = c.yellow, bold =true},
+    NvimTreeNormal = { fg = c.fg, bg = c.bg },
+    NvimTreeEndOfBuffer = { fg = c.bg2, bg = c.bg },
+    NvimTreeRootFolder = { fg = c.yellow, bold = true},
     NvimTreeGitDirty = colors.Yellow,
+    NvimTreeFileDirty = colors.Yellow,
     NvimTreeGitNew = colors.Green,
+    NvimTreeFileNew = colors.Green,
     NvimTreeGitDeleted = colors.Red,
-    NvimTreeSpecialFile = { fg = c.yellow, underline=true },
-    NvimTreeIndentMarker = colors.Fg,
+    NvimTreeSpecialFile = { fg = c.yellow, underline = true },
+    NvimTreeIndentMarker = {fg = c.bg0, bg = c.none},
     NvimTreeImageFile = { fg = c.dark_purple },
     NvimTreeSymlink = colors.Purple,
     NvimTreeFolderName= colors.Blue
 }
+
 hl.plugins.telescope = {
-    TelescopeBorder = colors.Green,
+    TelescopeBorder = colors.Grey,
     TelescopeMatching = colors.Yellow,
     TelescopePromptPrefix = colors.Blue,
-    TelescopeSelection =  { bg =c.bg2 },
-    TelescopeSelectionCaret = colors.Blue
+    TelescopeSelection = colors.Green,
+    TelescopeSelectionCaret = colors.Green
 }
 
 hl.plugins.dashboard = {
@@ -300,6 +313,18 @@ hl.plugins.dashboard = {
     DashboardHeader = colors.Green,
     DashboardCenter = colors.Blue,
     DashboardFooter = { fg = c.cyan, italic = true}
+}
+
+hl.plugins.startify = {
+    StartifyHeader = colors.Grey,
+    StartifyFooter = colors.White,
+    StartifySection = colors.Orange,
+    StartifySpecial = colors.Purple,
+    SignatureMarkText = colors.White,
+}
+
+hl.plugins.whitespace = {
+    ExtraWhitespace = { bg = c.dark_red },
 }
 
 hl.langs.markdown = {
@@ -341,9 +366,30 @@ hl.langs.scala = {
     scalaKeywordModifier = colors.Red
 }
 
+hl.langs.barbar = {
+    BufferTabpageFill = { fg = c.bg0, bg = c.bg },
+    BufferOffset = { bg = c.bg },
+    BufferCurrent = { fg = c.white, bg = c.bg },
+    BufferCurrentMod = { fg = c.yellow, bg = c.bg },
+
+    BufferCurrentSign = { fg = c.blue, bg = c.bg },
+    BufferInactiveMod = { fg = c.orange, bg = c.bg },
+
+    -- BufferInactiveSign guifg=#282c3'
+
+    BufferInactive = { fg = c.grey, bg = c.bg },
+    BufferInactiveSign = { fg = c.bg0, bg = c.bg },
+
+    BufferVisible = { fg = c.fg, bg = c.bg },
+    BufferVisibleIndex = { bg = c.bg },
+    BufferVisibleMod = { bg = c.bg },
+    BufferVisibleSign = { fg = c.light_grey, bg = c.bg },
+    BufferVisibleTarget = { bg = c.bg },
+}
+
 function M.setup()
-		vim_highlights(hl.common)
-		vim_highlights(hl.syntax)
+    vim_highlights(hl.common)
+    vim_highlights(hl.syntax)
     local ns = create_namespace("onedark")
     load_highlights(ns, hl.treesitter)
     set_hl_ns(ns)

@@ -35,9 +35,6 @@ M.config = function()
         'case',
     }
     vim.g.indent_blankline_show_trailing_blankline_indent = false
-
-    vim.cmd('highlight IndentBlanklineChar guifg=' .. Globals.colors.bg0 .. ' guibg=NONE')
-    vim.cmd('highlight IndentBlanklineContextChar guifg=' .. Globals.colors.bg3 .. ' guibg=NONE')
 end
 
 return M

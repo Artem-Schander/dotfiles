@@ -41,15 +41,6 @@ M.config = function()
         show_help = true, -- show help message on the command line when the popup is visible
     }
 
-    -- Set leader
-    if Globals.leader_key == " " or Globals.leader_key == "space" then
-        vim.api.nvim_set_keymap("n", "<Space>", "<NOP>", { noremap = true, silent = true })
-        vim.g.mapleader = " "
-    else
-        vim.api.nvim_set_keymap("n", Globals.leader_key, "<NOP>", { noremap = true, silent = true })
-        vim.g.mapleader = Globals.leader_key
-    end
-
     local opts = {
         mode = "n", -- NORMAL mode
         prefix = "<leader>",
@@ -75,12 +66,8 @@ M.config = function()
     --                         ":NvimTreeToggle<CR>",
     --                         {noremap = true, silent = true})
 
-    -- telescope or snap
-    if Globals.plugin.snap.active then
-        vim.api.nvim_set_keymap("n", "<Leader>f", ":Snap find_files<CR>", { noremap = true, silent = true })
-    else
-        vim.api.nvim_set_keymap("n", "<Leader>f", ":Telescope find_files<CR>", { noremap = true, silent = true })
-    end
+    -- telescope
+    vim.api.nvim_set_keymap("n", "<Leader>f", ":Telescope find_files<CR>", { noremap = true, silent = true })
 
     -- dashboard
     vim.api.nvim_set_keymap("n", "<Leader>;", ":Dashboard<CR>", { noremap = true, silent = true })
@@ -104,7 +91,7 @@ M.config = function()
         b = {
             name = "Buffers",
             j = { "<cmd>BufferPick<cr>", "jump to buffer" },
-            f = { Globals.plugin.snap.active and "<cmd>Snap buffers<cr>" or "<cmd>Telescope buffers<cr>", "Find buffer" },
+            f = { "<cmd>Telescope buffers<cr>", "Find buffer" },
             w = { "<cmd>BufferWipeout<cr>", "wipeout buffer" },
             e = {
                 "<cmd>BufferCloseAllButCurrent<cr>",
@@ -124,7 +111,7 @@ M.config = function()
                 "sort BufferLines automatically by language",
             },
         },
-        p = {
+        P = {
             name = "Packer",
             c = { "<cmd>PackerCompile<cr>", "Compile" },
             i = { "<cmd>PackerInstall<cr>", "Install" },
@@ -160,7 +147,7 @@ M.config = function()
         -- " Debug Adapter protocol:
         -- "   https://microsoft.github.io/debug-adapter-protocol/
         -- " Debugging
-        d = {
+        D = {
             name = "Debug",
             t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
             b = { "<cmd>lua require'dap'.step_back()<cr>", "Step Back" },
@@ -176,7 +163,7 @@ M.config = function()
             s = { "<cmd>lua require'dap'.continue()<cr>", "Start" },
             q = { "<cmd>lua require'dap'.stop()<cr>", "Quit" },
         },
-        g = {
+        G = {
             name = "Git",
             j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
             k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
@@ -197,7 +184,7 @@ M.config = function()
                 "Checkout commit(for current file)",
             },
         },
-        l = {
+        L = {
             name = "LSP",
             a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
             d = {
@@ -235,13 +222,15 @@ M.config = function()
             --     "<cmd>Telescope lsp_workspace_diagnostics<cr>",
             --     "Workspace Diagnostics"
             -- },
-            f = { Globals.plugin.snap.active and "<cmd>Snap find_files<cr>" or "<cmd>Telescope find_files<cr>", "Find File" },
+            f = { "<cmd>Telescope find_files<cr>", "Find File" },
+            w = { "<cmd>Telescope live_grep<cr>", "Find Word" },
+            g = { "<cmd>Telescope grep_string<cr>", "Find String Under Cursor" },
             h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
             -- m = {"<cmd>Telescope marks<cr>", "Marks"},
             M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
-            r = { Globals.plugin.snap.active and "<cmd>Snap oldfiles<cr>" or "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+            r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
             R = { "<cmd>Telescope registers<cr>", "Registers" },
-            t = { Globals.plugin.snap.active and "<cmd>Snap live_grep<cr>" or "<cmd>Telescope live_grep<cr>", "Text" },
+            t = { "<cmd>Telescope live_grep<cr>", "Text" },
         },
         S = {
             name = "Session",

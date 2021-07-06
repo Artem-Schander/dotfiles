@@ -44,15 +44,15 @@ return require("packer").startup(function(use)
         end,
         cmd = "Telescope",
     }
-    -- Snap TODO disable for now, need to only install fzy when user specifies they want to use snap
-    -- use {
-    -- "camspiers/snap",
-    -- rocks = "fzy",
-    -- config = function()
-    --    require("snap").config()
-    -- end,
-    -- disable = not Globals.plugin.snap.active
-    -- }
+    use {
+        "nvim-telescope/telescope-fzf-native.nvim",
+        run = "make"
+    }
+    use {
+        "junegunn/fzf",
+        run = ":call fzf#install()"
+    }
+
     -- Autocomplete
     use {
         "hrsh7th/nvim-compe",
@@ -100,6 +100,7 @@ return require("packer").startup(function(use)
         config = function()
             require("plugins/which-key").config()
         end,
+        disable = not Globals.plugin.which_key.active,
     }
 
     -- Autopairs
@@ -182,6 +183,13 @@ return require("packer").startup(function(use)
         end,
         disable = not Globals.plugin.dashboard.active,
         opt = true,
+    }
+    use {
+        "mhinz/vim-startify",
+        config = function()
+            vim.cmd('source ~/.config/nvim/vimscript/plugins/startify.vim')
+        end,
+        disable = not Globals.plugin.startify.active,
     }
 
     -- Zen Mode
@@ -405,8 +413,8 @@ return require("packer").startup(function(use)
                 },
             }
         end,
-        disable = not Globals.plugin.gitlinker.active,
         requires = "nvim-lua/plenary.nvim",
+        disable = not Globals.plugin.gitlinker.active,
     }
 
     -- Lazygit
@@ -434,8 +442,8 @@ return require("packer").startup(function(use)
     use {
         "mattn/vim-gist",
         event = "BufRead",
-        disable = not Globals.plugin.gist.active,
         requires = "mattn/webapi-vim",
+        disable = not Globals.plugin.gist.active,
     }
 
     -- Lush Create Color Schemes
@@ -546,26 +554,59 @@ return require("packer").startup(function(use)
         disable = not Globals.plugin.ts_hintobjects.active,
     }
 
---     -- TODO remove when found a lua implementation
---     use {"tpope/vim-surround"}
---     use {"tpope/vim-repeat"}
---     use {"editorconfig/editorconfig-vim"}
---     use {"lfv89/vim-interestingwords"}
---     use {"mhinz/vim-startify"}
---     use {"tpope/vim-obsession"}
---     use {"tpope/vim-abolish"}
---     use {"dhruvasagar/vim-prosession"}
---     use {"janko-m/vim-test"}
---     use {"embear/vim-localvimrc"}
---     use {"easymotion/vim-easymotion"}
---     use {"ntpeters/vim-better-whitespace"}
+    -- TODO remove when found a lua implementation
+    use {"tpope/vim-surround"}
+    use {"tpope/vim-repeat"}
+    use {"editorconfig/editorconfig-vim"}
+    use {
+        "lfv89/vim-interestingwords",
+        config = function()
+            vim.cmd('source ~/.config/nvim/vimscript/plugins/interestingwords.vim')
+        end,
+        disable = not Globals.plugin.interestingwords.active,
+    }
+    use {"tpope/vim-abolish"}
+    use {
+        "tpope/vim-obsession",
+        config = function()
+            vim.cmd('source ~/.config/nvim/vimscript/plugins/obsession.vim')
+        end,
+    }
+    use {"dhruvasagar/vim-prosession"}
+    use {
+        "janko-m/vim-test",
+        config = function()
+            vim.cmd('source ~/.config/nvim/vimscript/plugins/test.vim')
+        end,
+        disable = not Globals.plugin.test.active,
+    }
+    use {
+        "embear/vim-localvimrc",
+        config = function()
+            vim.cmd('source ~/.config/nvim/vimscript/plugins/localvimrc.vim')
+        end,
+        disable = not Globals.plugin.localvimrc.active,
+    }
+    use {
+        "ntpeters/vim-better-whitespace",
+        config = function()
+            vim.cmd('source ~/.config/nvim/vimscript/plugins/better-whitespace.vim')
+        end,
+        disable = not Globals.plugin.whitespace.active,
+    }
 
---     -- TODO remove when treesitter supports corresponding languages
---     -- use {"cakebaker/scss-syntax.vim", ft = {'sass', 'scss', 'html', 'phtml', 'vue'}}
---     -- use {"digitaltoad/vim-pug", ft = {'jade', 'pug', 'vue'}}
---     -- use {"jparise/vim-graphql", ft = {'gql', 'graphql', 'graphqls'}}
---     -- use {"sheerun/vim-polyglot", ft = {'blade', 'graphql', 'pug', 'sass'}}
---     use {"sheerun/vim-polyglot"}
+    -- TODO remove when treesitter supports corresponding languages
+    -- use {"cakebaker/scss-syntax.vim", ft = {'sass', 'scss', 'html', 'phtml', 'vue'}}
+    -- use {"digitaltoad/vim-pug", ft = {'jade', 'pug', 'vue'}}
+    -- use {"jparise/vim-graphql", ft = {'gql', 'graphql', 'graphqls'}}
+    -- use {"sheerun/vim-polyglot", ft = {'blade', 'graphql', 'pug', 'sass'}}
+    use {
+        "sheerun/vim-polyglot",
+        config = function()
+            vim.cmd('source ~/.config/nvim/vimscript/plugins/polyglot.vim')
+        end,
+        disable = not Globals.plugin.polyglot.active,
+    }
 
     for _, plugin in pairs(Globals.custom_plugins) do
         packer.use(plugin)
