@@ -78,6 +78,7 @@ M.config = function()
             condition = condition.hide_in_width,
             icon = "  ",
             -- highlight = "StatusLineGitAdd",
+            separator_highlight = {'NONE', Globals.colors.bg},
             highlight = {Globals.colors.green, Globals.colors.bg}
         },
     })
@@ -88,6 +89,7 @@ M.config = function()
             condition = condition.hide_in_width,
             icon = " 柳",
             -- highlight = "StatusLineGitChange",
+            separator_highlight = {'NONE', Globals.colors.bg},
             highlight = {Globals.colors.blue, Globals.colors.bg}
         },
     })
@@ -98,6 +100,7 @@ M.config = function()
             condition = condition.hide_in_width,
             icon = "  ",
             -- highlight = "StatusLineGitDelete",
+            separator_highlight = {'NONE', Globals.colors.bg},
             highlight = {Globals.colors.red, Globals.colors.bg}
         },
     })
@@ -147,6 +150,7 @@ M.config = function()
             end,
             condition = condition.hide_in_width,
             icon = ' @ ',
+            separator_highlight = {'NONE', Globals.colors.bg},
             highlight = {Globals.colors.white, Globals.colors.bg}
         }
     })
@@ -158,6 +162,7 @@ M.config = function()
             provider = "DiagnosticError",
             icon = "  ",
             -- highlight = "StatusLineLspDiagnosticsError",
+            separator_highlight = {'NONE', Globals.colors.bg},
             highlight = {Globals.colors.red, Globals.colors.bg}
         },
     })
@@ -168,6 +173,7 @@ M.config = function()
             icon = "  ",
 
             -- highlight = "StatusLineLspDiagnosticsWarning",
+            separator_highlight = {'NONE', Globals.colors.bg},
             highlight = {Globals.colors.orange, Globals.colors.bg}
         },
     })
@@ -178,6 +184,7 @@ M.config = function()
             icon = "  ",
 
             -- highlight = "StatusLineLspDiagnosticsInformation",
+            separator_highlight = {'NONE', Globals.colors.bg},
             highlight = {Globals.colors.yellow, Globals.colors.bg}
         },
     })
@@ -188,6 +195,7 @@ M.config = function()
             icon = "  ",
 
             -- highlight = "StatusLineLspDiagnosticsHint",
+            separator_highlight = {'NONE', Globals.colors.bg},
             highlight = {Globals.colors.blue, Globals.colors.bg}
         },
     })
@@ -201,8 +209,10 @@ M.config = function()
                 return ""
             end,
             separator = " ",
-            separator_highlight = "StatusLineSeparator",
-            highlight = "StatusLineTreeSitter",
+            -- separator_highlight = "StatusLineSeparator",
+            -- highlight = "StatusLineTreeSitter",
+            separator_highlight = {'NONE', Globals.colors.bg},
+            highlight = {Globals.colors.green, Globals.colors.bg}
         },
     })
 
@@ -246,6 +256,7 @@ M.config = function()
             end,
             icon = "  ",
             -- highlight = "StatusLineNC",
+            separator_highlight = {'NONE', Globals.colors.bg},
             highlight = {Globals.colors.gray, Globals.colors.bg}
         },
     })
@@ -254,8 +265,9 @@ M.config = function()
         LineInfo = {
             provider = "LineColumn",
             separator = "  ",
-            separator_highlight = "StatusLineSeparator",
+            -- separator_highlight = "StatusLineSeparator",
             -- highlight = "StatusLineNC",
+            separator_highlight = {'NONE', Globals.colors.bg},
             highlight = {Globals.colors.gray, Globals.colors.bg}
         },
     })
@@ -264,8 +276,9 @@ M.config = function()
         PerCent = {
             provider = "LinePercent",
             separator = " ",
-            separator_highlight = "StatusLineSeparator",
+            -- separator_highlight = "StatusLineSeparator",
             -- highlight = "StatusLineNC",
+            separator_highlight = {'NONE', Globals.colors.bg},
             highlight = {Globals.colors.gray, Globals.colors.bg}
         },
     })
@@ -360,6 +373,7 @@ M.config = function()
             condition = condition.buffer_not_empty,
 
             -- highlight = "StatusLineNC",
+            separator_highlight = {'NONE', Globals.colors.bg},
             highlight = {Globals.colors.gray, Globals.colors.bg}
         },
     })
