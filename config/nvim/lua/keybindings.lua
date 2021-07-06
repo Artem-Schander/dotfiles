@@ -98,9 +98,27 @@ vim.api.nvim_set_keymap('n', '<Leader>l', ':set list!<cr>:IndentBlanklineToggle<
 vim.api.nvim_set_keymap('x', 'K', ':move \'<-2<CR>gv-gv', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('x', 'J', ':move \'>+1<CR>gv-gv', {noremap = true, silent = true})
 
+-- Move current line / block with Alt-j/k ala vscode.
+vim.api.nvim_set_keymap("n", "<A-j>", ":m .+1<CR>==", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "<A-k>", ":m .-2<CR>==", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("x", "<A-j>", ":m '>+1<CR>gv-gv", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("x", "<A-k>", ":m '<-2<CR>gv-gv", { noremap = true, silent = true })
+
+-- QuickFix
+vim.api.nvim_set_keymap("n", "]q", ":cnext<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "[q", ":cprev<CR>", { noremap = true, silent = true })
+
 -- Better nav for omnicomplete
-vim.cmd('inoremap <expr> <c-j> (\"\\<C-n>\")')
-vim.cmd('inoremap <expr> <c-k> (\"\\<C-p>\")')
+vim.cmd 'inoremap <expr> <c-j> ("\\<C-n>")'
+vim.cmd 'inoremap <expr> <c-k> ("\\<C-p>")'
+
+vim.cmd 'vnoremap p "0p'
+vim.cmd 'vnoremap P "0P'
+-- vim.api.nvim_set_keymap('v', 'p', '"0p', {silent = true})
+-- vim.api.nvim_set_keymap('v', 'P', '"0P', {silent = true})
+
 -- vim.cmd('inoremap <expr> <TAB> (\"\\<C-n>\")')
 -- vim.cmd('inoremap <expr> <S-TAB> (\"\\<C-p>\")')
 
@@ -112,3 +130,7 @@ vim.cmd('inoremap <expr> <c-k> (\"\\<C-p>\")')
 -- map <leader>n <Plug>(miniyank-cycle)
 -- map <leader>N <Plug>(miniyank-cycleback)
 -- ]])
+
+-- Toggle the QuickFix window
+vim.api.nvim_set_keymap("", "<C-q>", ":call QuickFixToggle()<CR>", { noremap = true, silent = true })
+

@@ -1,121 +1,472 @@
-require("which-key").setup {
-    plugins = {
-        marks = true, -- shows a list of your marks on ' and `
-        registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
-        -- the presets plugin, adds help for a bunch of default keybindings in Neovim
-        -- No actual key bindings are created
-        presets = {
-            operators = true, -- adds help for operators like d, y, ...
-            motions = true, -- adds help for motions
-            text_objects = true, -- help for text objects triggered after entering an operator
-            windows = true, -- default bindings on <c-w>
-            nav = true, -- misc bindings to work with windows
-            z = true, -- bindings for folds, spelling and others prefixed with z
-            g = true -- bindings for prefixed with g
+local M = {}
+
+M.config = function()
+    -- if not package.loaded['which-key'] then
+    --  return
+    -- end
+
+    require("which-key").setup {
+        plugins = {
+            marks = true, -- shows a list of your marks on ' and `
+            registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+            -- the presets plugin, adds help for a bunch of default keybindings in Neovim
+            -- No actual key bindings are created
+            presets = {
+                operators = false, -- adds help for operators like d, y, ...
+                motions = false, -- adds help for motions
+                text_objects = false, -- help for text objects triggered after entering an operator
+                windows = true, -- default bindings on <c-w>
+                nav = true, -- misc bindings to work with windows
+                z = true, -- bindings for folds, spelling and others prefixed with z
+                g = true, -- bindings for prefixed with g
+            },
+        },
+        icons = {
+            breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
+            separator = "➜", -- symbol used between a key and it's label
+            group = "+", -- symbol prepended to a group
+        },
+        window = {
+            border = "single", -- none, single, double, shadow
+            position = "bottom", -- bottom, top
+            margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
+            padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+        },
+        layout = {
+            height = { min = 4, max = 25 }, -- min and max height of the columns
+            width = { min = 20, max = 50 }, -- min and max width of the columns
+            spacing = 3, -- spacing between columns
+        },
+        hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
+        show_help = true, -- show help message on the command line when the popup is visible
+    }
+
+    -- Set leader
+    if Globals.leader_key == " " or Globals.leader_key == "space" then
+        vim.api.nvim_set_keymap("n", "<Space>", "<NOP>", { noremap = true, silent = true })
+        vim.g.mapleader = " "
+    else
+        vim.api.nvim_set_keymap("n", Globals.leader_key, "<NOP>", { noremap = true, silent = true })
+        vim.g.mapleader = Globals.leader_key
+    end
+
+    local opts = {
+        mode = "n", -- NORMAL mode
+        prefix = "<leader>",
+        buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+        silent = true, -- use `silent` when creating keymaps
+        noremap = true, -- use `noremap` when creating keymaps
+        nowait = false, -- use `nowait` when creating keymaps
+    }
+
+    -- no hl
+    vim.api.nvim_set_keymap("n", "<Leader>h", ':let @/=""<CR>', { noremap = true, silent = true })
+
+    -- explorer
+
+    -- TODO this introduces some bugs unfortunately
+    vim.api.nvim_set_keymap(
+        "n",
+        "<Leader>e",
+        ":lua require'plugins/nvimtree'.toggle_tree()<CR>",
+        { noremap = true, silent = true }
+    )
+    -- vim.api.nvim_set_keymap('n', '<Leader>e',
+    --                         ":NvimTreeToggle<CR>",
+    --                         {noremap = true, silent = true})
+
+    -- telescope or snap
+    if Globals.plugin.snap.active then
+        vim.api.nvim_set_keymap("n", "<Leader>f", ":Snap find_files<CR>", { noremap = true, silent = true })
+    else
+        vim.api.nvim_set_keymap("n", "<Leader>f", ":Telescope find_files<CR>", { noremap = true, silent = true })
+    end
+
+    -- dashboard
+    vim.api.nvim_set_keymap("n", "<Leader>;", ":Dashboard<CR>", { noremap = true, silent = true })
+
+    -- Comments
+    vim.api.nvim_set_keymap("n", "<leader>/", ":CommentToggle<CR>", { noremap = true, silent = true })
+    vim.api.nvim_set_keymap("v", "<leader>/", ":CommentToggle<CR>", { noremap = true, silent = true })
+
+    -- close buffer
+    vim.api.nvim_set_keymap("n", "<leader>c", ":BufferClose<CR>", { noremap = true, silent = true })
+
+    -- TODO create entire treesitter section
+
+    local mappings = {
+
+        ["/"] = "Comment",
+        ["c"] = "Close Buffer",
+        ["e"] = "Explorer",
+        ["f"] = "Find File",
+        ["h"] = "No Highlight",
+        b = {
+            name = "Buffers",
+            j = { "<cmd>BufferPick<cr>", "jump to buffer" },
+            f = { Globals.plugin.snap.active and "<cmd>Snap buffers<cr>" or "<cmd>Telescope buffers<cr>", "Find buffer" },
+            w = { "<cmd>BufferWipeout<cr>", "wipeout buffer" },
+            e = {
+                "<cmd>BufferCloseAllButCurrent<cr>",
+                "close all but current buffer",
+            },
+            h = { "<cmd>BufferCloseBuffersLeft<cr>", "close all buffers to the left" },
+            l = {
+                "<cmd>BufferCloseBuffersRight<cr>",
+                "close all BufferLines to the right",
+            },
+            D = {
+                "<cmd>BufferOrderByDirectory<cr>",
+                "sort BufferLines automatically by directory",
+            },
+            L = {
+                "<cmd>BufferOrderByLanguage<cr>",
+                "sort BufferLines automatically by language",
+            },
+        },
+        p = {
+            name = "Packer",
+            c = { "<cmd>PackerCompile<cr>", "Compile" },
+            i = { "<cmd>PackerInstall<cr>", "Install" },
+            r = { ":luafile %<cr>", "Reload" },
+            s = { "<cmd>PackerSync<cr>", "Sync" },
+            u = { "<cmd>PackerUpdate<cr>", "Update" },
+        },
+        -- diagnostics vanilla nvim
+        -- -- diagnostic
+        -- function lv_utils.get_all()
+        --     vim.lsp.diagnostic.get_all()
+        -- end
+        -- function lv_utils.get_next()
+        --     vim.lsp.diagnostic.get_next()
+        -- end
+        -- function lv_utils.get_prev()
+        --     vim.lsp.diagnostic.get_prev()
+        -- end
+        -- function lv_utils.goto_next()
+        --     vim.lsp.diagnostic.goto_next()
+        -- end
+        -- function lv_utils.goto_prev()
+        --     vim.lsp.diagnostic.goto_prev()
+        -- end
+        -- function lv_utils.show_line_diagnostics()
+        --     vim.lsp.diagnostic.show_line_diagnostics()
+        -- end
+
+        -- " Available Debug Adapters:
+        -- "   https://microsoft.github.io/debug-adapter-protocol/implementors/adapters/
+        -- " Adapter configuration and installation instructions:
+        -- "   https://github.com/mfussenegger/nvim-dap/wiki/Debug-Adapter-installation
+        -- " Debug Adapter protocol:
+        -- "   https://microsoft.github.io/debug-adapter-protocol/
+        -- " Debugging
+        d = {
+            name = "Debug",
+            t = { "<cmd>lua require'dap'.toggle_breakpoint()<cr>", "Toggle Breakpoint" },
+            b = { "<cmd>lua require'dap'.step_back()<cr>", "Step Back" },
+            c = { "<cmd>lua require'dap'.continue()<cr>", "Continue" },
+            C = { "<cmd>lua require'dap'.run_to_cursor()<cr>", "Run To Cursor" },
+            d = { "<cmd>lua require'dap'.disconnect()<cr>", "Disconnect" },
+            g = { "<cmd>lua require'dap'.session()<cr>", "Get Session" },
+            i = { "<cmd>lua require'dap'.step_into()<cr>", "Step Into" },
+            o = { "<cmd>lua require'dap'.step_over()<cr>", "Step Over" },
+            u = { "<cmd>lua require'dap'.step_out()<cr>", "Step Out" },
+            p = { "<cmd>lua require'dap'.pause.toggle()<cr>", "Pause" },
+            r = { "<cmd>lua require'dap'.repl.toggle()<cr>", "Toggle Repl" },
+            s = { "<cmd>lua require'dap'.continue()<cr>", "Start" },
+            q = { "<cmd>lua require'dap'.stop()<cr>", "Quit" },
+        },
+        g = {
+            name = "Git",
+            j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
+            k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
+            l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
+            p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
+            r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
+            R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
+            s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
+            u = {
+                "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>",
+                "Undo Stage Hunk",
+            },
+            o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
+            b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+            c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
+            C = {
+                "<cmd>Telescope git_bcommits<cr>",
+                "Checkout commit(for current file)",
+            },
+        },
+        l = {
+            name = "LSP",
+            a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
+            d = {
+                "<cmd>Telescope lsp_document_diagnostics<cr>",
+                "Document Diagnostics",
+            },
+            w = {
+                "<cmd>Telescope lsp_workspace_diagnostics<cr>",
+                "Workspace Diagnostics",
+            },
+            f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
+            i = { "<cmd>LspInfo<cr>", "Info" },
+            j = { "<cmd>lua vim.lsp.diagnostic.goto_next({popup_opts = {border = Globals.lsp.popup_border}})<cr>", "Next Diagnostic" },
+            k = { "<cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts = {border = Globals.lsp.popup_border}})<cr>", "Prev Diagnostic" },
+            q = { "<cmd>Telescope quickfix<cr>", "Quickfix" },
+            r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+            s = {
+                Globals.plugin.symbol_outline.active and "<cmd>SymbolsOutline<cr>" or "<cmd> Telescope lsp_document_symbols<cr>",
+                "Document Symbols",
+            },
+            S = {
+                "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
+                "Workspace Symbols",
+            },
+        },
+        s = {
+            name = "Search",
+            b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+            c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
+            -- d = {
+            --     "<cmd>Telescope lsp_document_diagnostics<cr>",
+            --     "Document Diagnostics"
+            -- },
+            -- D = {
+            --     "<cmd>Telescope lsp_workspace_diagnostics<cr>",
+            --     "Workspace Diagnostics"
+            -- },
+            f = { Globals.plugin.snap.active and "<cmd>Snap find_files<cr>" or "<cmd>Telescope find_files<cr>", "Find File" },
+            h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
+            -- m = {"<cmd>Telescope marks<cr>", "Marks"},
+            M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
+            r = { Globals.plugin.snap.active and "<cmd>Snap oldfiles<cr>" or "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+            R = { "<cmd>Telescope registers<cr>", "Registers" },
+            t = { Globals.plugin.snap.active and "<cmd>Snap live_grep<cr>" or "<cmd>Telescope live_grep<cr>", "Text" },
+        },
+        S = {
+            name = "Session",
+            s = { "<cmd>SessionSave<cr>", "Save Session" },
+            l = { "<cmd>SessionLoad<cr>", "Load Session" },
+        },
+        T = {
+            name = "Treesitter",
+            i = { ":TSConfigInfo<cr>", "Info" },
+        },
+    }
+
+    if Globals.plugin.spectre.active then
+        mappings["r"] = {
+            name = "Replace",
+            f = {
+                "<cmd>lua require('spectre').open_file_search()<cr>",
+                "Current File",
+            },
+            p = { "<cmd>lua require('spectre').open()<cr>", "Project" },
         }
-    },
-    icons = {
-        breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
-        separator = "➜", -- symbol used between a key and it's label
-        group = "+" -- symbol prepended to a group
-    },
-    window = {
-        border = "single", -- none, single, double, shadow
-        position = "bottom", -- bottom, top
-        margin = {1, 0, 1, 0}, -- extra window margin [top, right, bottom, left]
-        padding = {2, 2, 2, 2} -- extra window padding [top, right, bottom, left]
-    },
-    layout = {
-        height = {min = 4, max = 25}, -- min and max height of the columns
-        width = {min = 20, max = 50}, -- min and max width of the columns
-        spacing = 3 -- spacing between columns
-    },
-    hidden = {"<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ "}, -- hide mapping boilerplate
-    show_help = true, -- show help message on the command line when the popup is visible
-}
+    end
 
-local presets = require("which-key.plugins.presets")
-presets.operators["<"] = nil
-presets.operators[">"] = nil
+    -- if Globals.plugin.trouble.active then
+    --   mappings["d"] = {
+    --     name = "Diagnostics",
+    --     t = { "<cmd>TroubleToggle<cr>", "trouble" },
+    --     w = { "<cmd>TroubleToggle lsp_workspace_diagnostics<cr>", "workspace" },
+    --     d = { "<cmd>TroubleToggle lsp_document_diagnostics<cr>", "document" },
+    --     q = { "<cmd>TroubleToggle quickfix<cr>", "quickfix" },
+    --     l = { "<cmd>TroubleToggle loclist<cr>", "loclist" },
+    --     r = { "<cmd>TroubleToggle lsp_references<cr>", "references" },
+    --   }
+    -- end
 
-local opts = {
-    mode = "n", -- NORMAL mode
-    prefix = "<leader>",
-    buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
-    silent = true, -- use `silent` when creating keymaps
-    noremap = true, -- use `noremap` when creating keymaps
-    nowait = false, -- use `nowait` when creating keymaps
-}
+    if Globals.plugin.gitlinker.active then
+        mappings["gy"] = "Gitlink"
+    end
 
--- TODO create entire treesitter section
+    if Globals.plugin.ts_playground.active then
+        vim.api.nvim_set_keymap("n", "<leader>Th", ":TSHighlightCapturesUnderCursor<CR>", { noremap = true, silent = true })
+        mappings[""] = "Highlight Capture"
+    end
 
-local mappings = {
-    ["."] = "Switch To Last Buffer",
-    ["/"] = "Comment",
-    ["a"] = "Find Any File",
-    ["b"] = "Find Buffer",
-    ["c"] = "Close Buffer",
-    ["e"] = "Explorer",
-    ["f"] = "Find String In File",
-    ["h"] = "No Highlight",
-    ["p"] = "Find Project File",
-    d = {
-        name = "+Debug",
-        b = {"<cmd>DebugToggleBreakpoint<cr>", "Toggle Breakpoint"},
-        c = {"<cmd>DebugContinue<cr>", "Continue"},
-        i = {"<cmd>DebugStepInto<cr>", "Step Into"},
-        o = {"<cmd>DebugStepOver<cr>", "Step Over"},
-        r = {"<cmd>DebugToggleRepl<cr>", "Toggle Repl"},
-        s = {"<cmd>DebugStart<cr>", "Start"}
-    },
-    g = {
-        name = "+Git",
-        j = {"<cmd>NextHunk<cr>", "Next Hunk"},
-        k = {"<cmd>PrevHunk<cr>", "Prev Hunk"},
-        p = {"<cmd>PreviewHunk<cr>", "Preview Hunk"},
-        r = {"<cmd>ResetHunk<cr>", "Reset Hunk"},
-        R = {"<cmd>ResetBuffer<cr>", "Reset Buffer"},
-        s = {"<cmd>StageHunk<cr>", "Stage Hunk"},
-        u = {"<cmd>UndoStageHunk<cr>", "Undo Stage Hunk"},
-        o = {"<cmd>Telescope git_status<cr>", "Open changed file"},
-        b = {"<cmd>Telescope git_branches<cr>", "Checkout branch"},
-        c = {"<cmd>Telescope git_commits<cr>", "Checkout commit"},
-        C = {"<cmd>Telescope git_bcommits<cr>", "Checkout commit(for current file)"},
-    },
-    l = {
-        name = "+LSP",
-        a = {"<cmd>Lspsaga code_action<cr>", "Code Action"},
-        A = {"<cmd>Lspsaga range_code_action<cr>", "Selected Action"},
-        d = {"<cmd>Telescope lsp_document_diagnostics<cr>", "Document Diagnostics"},
-        D = {"<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics"},
-        f = {"<cmd>LspFormatting<cr>", "Format"},
-        i = {"<cmd>LspInfo<cr>", "Info"},
-        l = {"<cmd>Lspsaga lsp_finder<cr>", "LSP Finder"},
-        L = {"<cmd>Lspsaga show_line_diagnostics<cr>", "Line Diagnostics"},
-        p = {"<cmd>Lspsaga preview_definition<cr>", "Preview Definition"},
-        q = {"<cmd>Telescope quickfix<cr>", "Quickfix"},
-        r = {"<cmd>Lspsaga rename<cr>", "Rename"},
-        t = {"<cmd>LspTypeDefinition<cr>", "Type Definition"},
-        x = {"<cmd>cclose<cr>", "Close Quickfix"},
-        s = {"<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols"},
-        S = {"<cmd>Telescope lsp_workspace_symbols<cr>", "Workspace Symbols"}
-    },
+    if Globals.plugin.zen.active then
+        vim.api.nvim_set_keymap("n", "<leader>z", ":ZenMode<CR>", { noremap = true, silent = true })
+        mappings["z"] = "Zen"
+    end
+    if Globals.plugin.lazygit.active then
+        vim.api.nvim_set_keymap("n", "<leader>gg", ":LazyGit<CR>", { noremap = true, silent = true })
+        mappings["gg"] = "LazyGit"
+    end
+    if Globals.plugin.telescope_project.active then
+        -- open projects
+        vim.api.nvim_set_keymap(
+            "n",
+            "<leader>P",
+            ":lua require'telescope'.extensions.project.project{}<CR>",
+            { noremap = true, silent = true }
+        )
+        mappings["P"] = "Projects"
+    end
 
-    s = {
-        name = "+Search",
-        b = {"<cmd>Telescope git_branches<cr>", "Checkout branch"},
-        c = {"<cmd>Telescope colorscheme<cr>", "Colorscheme"},
-        d = {"<cmd>Telescope lsp_document_diagnostics<cr>", "Document Diagnostics"},
-        D = {"<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics"},
-        f = {"<cmd>Telescope find_files<cr>", "Find File"},
-        m = {"<cmd>Telescope marks<cr>", "Marks"},
-        M = {"<cmd>Telescope man_pages<cr>", "Man Pages"},
-        r = {"<cmd>Telescope oldfiles<cr>", "Open Recent File"},
-        R = {"<cmd>Telescope registers<cr>", "Registers"},
-        t = {"<cmd>Telescope live_grep<cr>", "Text"}
-    },
-    S = {name = "+Session", s = {"<cmd>SessionSave<cr>", "Save Session"}, l = {"<cmd>SessionLoad<cr>", "Load Session"}}
-}
+    -- [";"] = "Dashboard",
 
-local wk = require("which-key")
-wk.register(mappings, opts)
+    if Globals.lang.latex.active then
+        mappings["L"] = {
+            name = "+Latex",
+            c = { "<cmd>VimtexCompile<cr>", "Toggle Compilation Mode" },
+            f = { "<cmd>call vimtex#fzf#run()<cr>", "Fzf Find" },
+            i = { "<cmd>VimtexInfo<cr>", "Project Information" },
+            s = { "<cmd>VimtexStop<cr>", "Stop Project Compilation" },
+            t = { "<cmd>VimtexTocToggle<cr>", "Toggle Table Of Content" },
+            v = { "<cmd>VimtexView<cr>", "View PDF" },
+        }
+    end
+
+    if Globals.lushmode then
+        mappings["L"] = {
+            name = "+Lush",
+            l = { ":Lushify<cr>", "Lushify" },
+            x = { ":lua require('lush').export_to_buffer(require('lush_theme.cool_name'))", "Lush Export" },
+            t = { ":LushRunTutorial<cr>", "Lush Tutorial" },
+            q = { ":LushRunQuickstart<cr>", "Lush Quickstart" },
+        }
+    end
+
+    local wk = require "which-key"
+    wk.register(mappings, opts)
+end
+
+return M
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- require("which-key").setup {
+--     plugins = {
+--         marks = true, -- shows a list of your marks on ' and `
+--         registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+--         -- the presets plugin, adds help for a bunch of default keybindings in Neovim
+--         -- No actual key bindings are created
+--         presets = {
+--             operators = true, -- adds help for operators like d, y, ...
+--             motions = true, -- adds help for motions
+--             text_objects = true, -- help for text objects triggered after entering an operator
+--             windows = true, -- default bindings on <c-w>
+--             nav = true, -- misc bindings to work with windows
+--             z = true, -- bindings for folds, spelling and others prefixed with z
+--             g = true -- bindings for prefixed with g
+--         }
+--     },
+--     icons = {
+--         breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
+--         separator = "➜", -- symbol used between a key and it's label
+--         group = "+" -- symbol prepended to a group
+--     },
+--     window = {
+--         border = "single", -- none, single, double, shadow
+--         position = "bottom", -- bottom, top
+--         margin = {1, 0, 1, 0}, -- extra window margin [top, right, bottom, left]
+--         padding = {2, 2, 2, 2} -- extra window padding [top, right, bottom, left]
+--     },
+--     layout = {
+--         height = {min = 4, max = 25}, -- min and max height of the columns
+--         width = {min = 20, max = 50}, -- min and max width of the columns
+--         spacing = 3 -- spacing between columns
+--     },
+--     hidden = {"<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ "}, -- hide mapping boilerplate
+--     show_help = true, -- show help message on the command line when the popup is visible
+-- }
+
+-- local presets = require("which-key.plugins.presets")
+-- presets.operators["<"] = nil
+-- presets.operators[">"] = nil
+
+-- local opts = {
+--     mode = "n", -- NORMAL mode
+--     prefix = "<leader>",
+--     buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+--     silent = true, -- use `silent` when creating keymaps
+--     noremap = true, -- use `noremap` when creating keymaps
+--     nowait = false, -- use `nowait` when creating keymaps
+-- }
+
+-- -- TODO create entire treesitter section
+
+-- local mappings = {
+--     ["."] = "Switch To Last Buffer",
+--     ["/"] = "Comment",
+--     ["a"] = "Find Any File",
+--     ["b"] = "Find Buffer",
+--     ["c"] = "Close Buffer",
+--     ["e"] = "Explorer",
+--     ["f"] = "Find String In File",
+--     ["h"] = "No Highlight",
+--     ["p"] = "Find Project File",
+--     d = {
+--         name = "+Debug",
+--         b = {"<cmd>DebugToggleBreakpoint<cr>", "Toggle Breakpoint"},
+--         c = {"<cmd>DebugContinue<cr>", "Continue"},
+--         i = {"<cmd>DebugStepInto<cr>", "Step Into"},
+--         o = {"<cmd>DebugStepOver<cr>", "Step Over"},
+--         r = {"<cmd>DebugToggleRepl<cr>", "Toggle Repl"},
+--         s = {"<cmd>DebugStart<cr>", "Start"}
+--     },
+--     g = {
+--         name = "+Git",
+--         j = {"<cmd>NextHunk<cr>", "Next Hunk"},
+--         k = {"<cmd>PrevHunk<cr>", "Prev Hunk"},
+--         p = {"<cmd>PreviewHunk<cr>", "Preview Hunk"},
+--         r = {"<cmd>ResetHunk<cr>", "Reset Hunk"},
+--         R = {"<cmd>ResetBuffer<cr>", "Reset Buffer"},
+--         s = {"<cmd>StageHunk<cr>", "Stage Hunk"},
+--         u = {"<cmd>UndoStageHunk<cr>", "Undo Stage Hunk"},
+--         o = {"<cmd>Telescope git_status<cr>", "Open changed file"},
+--         b = {"<cmd>Telescope git_branches<cr>", "Checkout branch"},
+--         c = {"<cmd>Telescope git_commits<cr>", "Checkout commit"},
+--         C = {"<cmd>Telescope git_bcommits<cr>", "Checkout commit(for current file)"},
+--     },
+--     l = {
+--         name = "+LSP",
+--         a = {"<cmd>Lspsaga code_action<cr>", "Code Action"},
+--         A = {"<cmd>Lspsaga range_code_action<cr>", "Selected Action"},
+--         d = {"<cmd>Telescope lsp_document_diagnostics<cr>", "Document Diagnostics"},
+--         D = {"<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics"},
+--         f = {"<cmd>LspFormatting<cr>", "Format"},
+--         i = {"<cmd>LspInfo<cr>", "Info"},
+--         l = {"<cmd>Lspsaga lsp_finder<cr>", "LSP Finder"},
+--         L = {"<cmd>Lspsaga show_line_diagnostics<cr>", "Line Diagnostics"},
+--         p = {"<cmd>Lspsaga preview_definition<cr>", "Preview Definition"},
+--         q = {"<cmd>Telescope quickfix<cr>", "Quickfix"},
+--         r = {"<cmd>Lspsaga rename<cr>", "Rename"},
+--         t = {"<cmd>LspTypeDefinition<cr>", "Type Definition"},
+--         x = {"<cmd>cclose<cr>", "Close Quickfix"},
+--         s = {"<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols"},
+--         S = {"<cmd>Telescope lsp_workspace_symbols<cr>", "Workspace Symbols"}
+--     },
+
+--     s = {
+--         name = "+Search",
+--         b = {"<cmd>Telescope git_branches<cr>", "Checkout branch"},
+--         c = {"<cmd>Telescope colorscheme<cr>", "Colorscheme"},
+--         d = {"<cmd>Telescope lsp_document_diagnostics<cr>", "Document Diagnostics"},
+--         D = {"<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics"},
+--         f = {"<cmd>Telescope find_files<cr>", "Find File"},
+--         m = {"<cmd>Telescope marks<cr>", "Marks"},
+--         M = {"<cmd>Telescope man_pages<cr>", "Man Pages"},
+--         r = {"<cmd>Telescope oldfiles<cr>", "Open Recent File"},
+--         R = {"<cmd>Telescope registers<cr>", "Registers"},
+--         t = {"<cmd>Telescope live_grep<cr>", "Text"}
+--     },
+--     S = {name = "+Session", s = {"<cmd>SessionSave<cr>", "Save Session"}, l = {"<cmd>SessionLoad<cr>", "Load Session"}}
+-- }
+
+-- local wk = require("which-key")
+-- wk.register(mappings, opts)
