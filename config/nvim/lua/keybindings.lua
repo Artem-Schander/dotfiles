@@ -96,8 +96,8 @@ vim.api.nvim_set_keymap('n', '<C-y>', '3<C-y>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>l', ':set list!<cr>:IndentBlanklineToggle<cr>', {noremap = true, silent = true})
 
 -- Deal with other peoples code
--- vim.api.nvim_set_keymap('n', '\\t', ':set ts=4 sts=4 sw=4 noet<cr>', {noremap = true, silent = true})
--- vim.api.nvim_set_keymap('n', '\\s', ':set ts=4 sts=4 sw=4 et<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '\\t', ':set ts=4 sts=4 sw=4 noet<cr>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '\\s', ':set ts=4 sts=4 sw=4 et<cr>', {noremap = true, silent = true})
 
 -- Move selected line / block of text in visual mode
 vim.api.nvim_set_keymap('x', 'K', ':move \'<-2<CR>gv-gv', {noremap = true, silent = true})
@@ -119,8 +119,9 @@ vim.api.nvim_set_keymap("n", "[q", ":cprev<CR>", { noremap = true, silent = true
 vim.cmd 'inoremap <expr> <c-j> ("\\<C-n>")'
 vim.cmd 'inoremap <expr> <c-k> ("\\<C-p>")'
 
-vim.cmd 'vnoremap p "0p'
-vim.cmd 'vnoremap P "0P'
+-- vim.cmd 'vnoremap p "0p'
+-- vim.cmd 'vnoremap P "0P'
+
 -- vim.api.nvim_set_keymap('v', 'p', '"0p', {silent = true})
 -- vim.api.nvim_set_keymap('v', 'P', '"0P', {silent = true})
 

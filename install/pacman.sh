@@ -76,7 +76,7 @@ then
         anydesk \
         dust \
         lazydocker \
-        neovim-git
+        neovim
     do
         if ! (yay -Q | grep ${P} > /dev/null)
         then

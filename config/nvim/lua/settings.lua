@@ -26,6 +26,8 @@ end
 --- COLORSCHEME ---
 
 vim.g.colors_name = Globals.colorscheme
+vim.g.material_style = "deep ocean" -- deep ocean, oceanic, palenight, lighter, darker
+vim.g.onedark_style = "dark" --  dark, darker, cool, deep, warm, warmer
 
 ---  SETTINGS  ---
 

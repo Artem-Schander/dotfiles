@@ -5,7 +5,7 @@ TERMINAL = vim.fn.expand "$TERMINAL"
 
 Globals = {
     format_on_save = true,
-    auto_close_tree = 0,
+    auto_close_tree = 1,
     auto_complete = true,
     colorscheme = "lunar",
     hidden_files = true,
@@ -23,8 +23,6 @@ Globals = {
     transparent_window = false,
     leader_key = "space",
     vnsip_dir = vim.fn.stdpath "config" .. "/snippets",
-
-    onedark_style = "dark", --  dark, darker, cool, deep, warm, warmer
     colors = {
         black = '#17191e',
         bg = '#1e2127',

@@ -7,8 +7,9 @@ an executable
 ]]
 
 -- general
-Globals.format_on_save = true
+Globals.format_on_save = false
 Globals.auto_complete = true
+-- Globals.colorscheme = 'material'
 Globals.colorscheme = 'onedark'
 -- Globals.colorscheme = 'spacegray'
 Globals.auto_close_tree = 1
@@ -30,7 +31,7 @@ Globals.plugin.startify.active = true
 Globals.plugin.matchup.active = false
 Globals.plugin.colorizer.active = true
 Globals.plugin.numb.active = true
-Globals.plugin.ts_playground.active = false
+Globals.plugin.ts_playground.active = true
 Globals.plugin.indent_line.active = true
 Globals.plugin.gitlinker.active = false
 Globals.plugin.git_blame.active = true

@@ -124,6 +124,7 @@ return require("packer").startup(function(use)
 
     -- -- Color
     -- use { "christianchiarulli/nvcode-color-schemes.vim", opt = true }
+    use { "marko-cerovac/material.nvim" }
 
     -- Icons
     use { "kyazdani42/nvim-web-devicons" }
@@ -142,6 +143,7 @@ return require("packer").startup(function(use)
             require("plugins/barbar").config()
         end,
         -- event = "BufRead",
+        event = "BufWinEnter",
     }
 
     -- use {
@@ -248,7 +250,7 @@ return require("packer").startup(function(use)
     -- Treesitter playground
     use {
         "nvim-treesitter/playground",
-        event = "BufRead",
+        -- event = "BufRead",
         disable = not Globals.plugin.ts_playground.active,
     }
 
@@ -553,6 +555,13 @@ return require("packer").startup(function(use)
         event = "BufRead",
         disable = not Globals.plugin.ts_hintobjects.active,
     }
+
+    -- use {
+    --     "blackCauldron7/surround.nvim",
+    --     config = function()
+    --         require("surround").setup({})
+    --     end
+    -- }
 
     -- TODO remove when found a lua implementation
     use {"tpope/vim-surround"}

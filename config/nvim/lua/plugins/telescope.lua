@@ -1,6 +1,10 @@
 local M = {}
 
 M.config = function()
+    local status_ok, telescope = pcall(require, "telescope")
+    if not status_ok then
+        return
+    end
     local actions = require "telescope.actions"
     -- if Globals.plugin.trouble.active then
     --     local trouble = require("trouble.providers.telescope")
@@ -8,7 +12,7 @@ M.config = function()
     -- Global remapping
     ------------------------------
     -- '--color=never',
-    require("telescope").setup {
+    telescope.setup {
         defaults = {
             find_command = {
                 -- "rg",
@@ -43,7 +47,8 @@ M.config = function()
             file_sorter = require("telescope.sorters").get_fzf_sorter,
             file_ignore_patterns = {},
             generic_sorter = require("telescope.sorters").get_generic_fuzzy_sorter,
-            shorten_path = true,
+            -- path_display = true,
+            -- shorten_path = true,
             winblend = 0,
             border = {},
             borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
