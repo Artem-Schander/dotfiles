@@ -24,7 +24,7 @@ vim.api.nvim_set_keymap('n', '<Leader>bf', ':Telescope buffers<CR>', {noremap = 
 vim.api.nvim_set_keymap('n', '<Leader>f', ':Telescope git_files<CR>', {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('n', '<Leader>p', ':Telescope find_files hidden=true<CR>', {noremap = true, silent = true})
 -- vim.api.nvim_set_keymap('n', '<Leader>r', ':Telescope lsp_document_symbols<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<Leader>r', ':Telescope treesitter<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<Leader>r', ':Telescope lsp_document_symbols<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>w', ':Telescope live_grep<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<Leader>g', ':Telescope grep_string<CR>', {noremap = true, silent = true})
 

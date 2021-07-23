@@ -26,7 +26,7 @@ let g:startify_commands = [
     \ { 'gs': [ 'Git Status', ':Telescope git_status' ] },
     \ { 'gc': [ 'Checkout Commit', ':Telescope git_commits' ] },
     \ { 'gb': [ 'Checkout Branch', ':Telescope git_branches' ] },
-    \ { 'up': [ 'Update Plugins', ':PackerSync' ] },
+    \ { 'up': [ 'Update Plugins', ':call helpers#startify#updateplugins()' ] },
 \ ]
 
 let g:startify_bookmarks = [

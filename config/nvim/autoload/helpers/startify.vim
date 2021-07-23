@@ -98,6 +98,12 @@ function! helpers#startify#deletesession()
     execute 'SDelete'
 endfunction
 
+function! helpers#startify#updateplugins()
+    execute 'PackerCompile'
+    execute 'PackerInstall'
+    execute 'PackerSync'
+endfunction
+
 function! helpers#startify#header()
     " TODO
     " generate dynamic header by projet path

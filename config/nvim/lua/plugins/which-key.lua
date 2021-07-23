@@ -56,15 +56,13 @@ M.config = function()
     -- explorer
 
     -- TODO this introduces some bugs unfortunately
-    vim.api.nvim_set_keymap(
-        "n",
-        "<Leader>e",
-        ":lua require'plugins/nvimtree'.toggle_tree()<CR>",
-        { noremap = true, silent = true }
-    )
-    -- vim.api.nvim_set_keymap('n', '<Leader>e',
-    --                         ":NvimTreeToggle<CR>",
-    --                         {noremap = true, silent = true})
+    -- vim.api.nvim_set_keymap(
+    --     "n",
+    --     "<Leader>e",
+    --     ":lua require'plugins/nvimtree'.toggle_tree()<CR>",
+    --     { noremap = true, silent = true }
+    -- )
+    vim.api.nvim_set_keymap('n', '<Leader>e', ":NvimTreeToggle<CR>", {noremap = true, silent = true})
 
     -- telescope
     vim.api.nvim_set_keymap("n", "<Leader>f", ":Telescope find_files<CR>", { noremap = true, silent = true })
@@ -201,6 +199,7 @@ M.config = function()
             k = { "<cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts = {border = Globals.lsp.popup_border}})<cr>", "Prev Diagnostic" },
             q = { "<cmd>Telescope quickfix<cr>", "Quickfix" },
             r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+            R = { "<cmd>Telescope lsp_references<cr>", "References" },
             s = {
                 Globals.plugin.symbol_outline.active and "<cmd>SymbolsOutline<cr>" or "<cmd> Telescope lsp_document_symbols<cr>",
                 "Document Symbols",

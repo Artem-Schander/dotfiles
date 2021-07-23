@@ -276,9 +276,9 @@ hl.plugins.gitsigns = {
     GitSignsAdd = colors.Green,
     GitSignsAddLn = colors.Green,
     GitSignsAddNr = colors.Green,
-    GitSignsChange = colors.Blue,
-    GitSignsChangeLn = colors.Blue,
-    GitSignsChangeNr = colors.Blue,
+    GitSignsChange = colors.Purple,
+    GitSignsChangeLn = colors.Purple,
+    GitSignsChangeNr = colors.Purple,
     GitSignsDelete = colors.Red,
     GitSignsDeleteLn = colors.Red,
     GitSignsDeleteNr = colors.Red
@@ -325,6 +325,10 @@ hl.plugins.startify = {
 
 hl.plugins.whitespace = {
     ExtraWhitespace = { bg = c.dark_red },
+}
+
+hl.plugins.symbols_outline = {
+    FocusedSymbol = colors.Blue
 }
 
 hl.langs.markdown = {

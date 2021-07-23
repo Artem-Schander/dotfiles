@@ -7,7 +7,7 @@ an executable
 ]]
 
 -- general
-Globals.format_on_save = false
+Globals.format_on_save = true
 Globals.auto_complete = true
 -- Globals.colorscheme = 'material'
 Globals.colorscheme = 'onedark'
@@ -23,8 +23,8 @@ Globals.lushmode = false
 Globals.transparent_window = false
 
 -- TODO User Config for predefined plugins
--- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
-Globals.plugin.hop.active = false
+-- After changing plugin config exit and reopen vim, Run :PackerInstall :PackerCompile
+Globals.plugin.hop.active = true
 Globals.plugin.dial.active = false
 Globals.plugin.dashboard.active = false
 Globals.plugin.startify.active = true
@@ -43,6 +43,7 @@ Globals.plugin.whitespace.active = true
 Globals.plugin.localvimrc.active = true
 Globals.plugin.interestingwords.active = true
 Globals.plugin.polyglot.active = true
+Globals.plugin.bqf.active = true
 
 -- dashboard
 -- Globals.dashboard.custom_header = {""}

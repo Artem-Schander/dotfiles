@@ -62,8 +62,17 @@ return require("packer").startup(function(use)
         end,
     }
 
-    use { "hrsh7th/vim-vsnip", event = "InsertEnter" }
-    use { "rafamadriz/friendly-snippets", event = "InsertEnter" }
+    use {
+        "hrsh7th/vim-vsnip",
+        event = "InsertEnter",
+        config = function()
+            require("plugins/vsnip").config()
+        end,
+    }
+    use {
+        "rafamadriz/friendly-snippets",
+        event = "InsertEnter"
+    }
 
     -- Treesitter
     use {
@@ -75,7 +84,11 @@ return require("packer").startup(function(use)
     }
 
     -- Neoformat
-    use { "sbdchd/neoformat", event = "BufEnter" }
+    use {
+        "sbdchd/neoformat",
+        run = "npm install --g prettier",
+        event = "BufEnter"
+    }
 
     use {
         "kyazdani42/nvim-tree.lua",
@@ -87,7 +100,6 @@ return require("packer").startup(function(use)
 
     use {
         "lewis6991/gitsigns.nvim",
-
         config = function()
             require("plugins/gitsigns").config()
         end,
@@ -142,7 +154,6 @@ return require("packer").startup(function(use)
         config = function()
             require("plugins/barbar").config()
         end,
-        -- event = "BufRead",
         event = "BufWinEnter",
     }
 
@@ -198,7 +209,7 @@ return require("packer").startup(function(use)
     use {
         "folke/zen-mode.nvim",
         cmd = "ZenMode",
-        -- event = "BufRead",
+        event = "BufRead",
         config = function()
             require("plugins/zen").config()
         end,
@@ -229,7 +240,7 @@ return require("packer").startup(function(use)
         "norcalli/nvim-colorizer.lua",
         event = "BufRead",
         config = function()
-            require("plugins/colorizer").setup()
+            require("plugins/colorizer").config()
             vim.cmd "ColorizerReloadAllBuffers"
         end,
         disable = not Globals.plugin.colorizer.active,
@@ -250,7 +261,7 @@ return require("packer").startup(function(use)
     -- Treesitter playground
     use {
         "nvim-treesitter/playground",
-        -- event = "BufRead",
+        event = "BufRead",
         disable = not Globals.plugin.ts_playground.active,
     }
 
@@ -273,7 +284,10 @@ return require("packer").startup(function(use)
     -- Symbol Outline
     use {
         "simrat39/symbols-outline.nvim",
-        cmd = "SymbolsOutline",
+        -- cmd = "SymbolsOutline",
+        setup = function()
+            require("plugins/symbols-outline").config()
+        end,
         disable = not Globals.plugin.symbol_outline.active,
     }
 
@@ -466,7 +480,7 @@ return require("packer").startup(function(use)
     -- Debugger management
     use {
         "Pocco81/DAPInstall.nvim",
-        -- event = "BufRead",
+        event = "BufRead",
         disable = not Globals.plugin.dap_install.active,
     }
 

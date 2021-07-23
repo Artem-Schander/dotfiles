@@ -10,7 +10,8 @@ let g:better_whitespace_filetypes_blacklist = [
     \ 'help',
     \ 'markdown',
     \ 'coc-explorer',
-    \ 'startify'
+    \ 'startify',
+    \ 'TelescopePrompt'
 \ ]
 let g:show_spaces_that_precede_tabs = 1
 let g:better_whitespace_skip_empty_lines = 0
