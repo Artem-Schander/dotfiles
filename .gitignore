@@ -2,6 +2,7 @@
 *.log
 
 plug.vim.old
+packer_compiled.vim
 
 config/i3/layouts
 
