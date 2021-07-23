@@ -373,7 +373,7 @@ hl.langs.scala = {
 hl.langs.barbar = {
     BufferTabpageFill = { fg = c.bg0, bg = c.bg },
     BufferOffset = { bg = c.bg },
-    BufferCurrent = { fg = c.white, bg = c.bg },
+    BufferCurrent = { fg = c.blue, bg = c.bg },
     BufferCurrentMod = { fg = c.yellow, bg = c.bg },
 
     BufferCurrentSign = { fg = c.blue, bg = c.bg },
