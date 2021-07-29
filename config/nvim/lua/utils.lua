@@ -82,18 +82,21 @@ utils.define_augroups {
         {'BufNewFile', '*.gmi', 'setlocal filetype=markdown'}
     },
     _graphql = {
-        {'BufRead', '*.gql', 'setfiletype graphql'}, {'BufNewFile', '*.gql', 'setfiletype graphql'},
-        {'BufRead', '*.graphql', 'setfiletype graphql'}, {'BufNewFile', '*.graphql', 'setfiletype graphql'}
+        {'BufRead', '*.gql', 'setlocal filetype=graphql'}, {'BufNewFile', '*.gql', 'setlocal filetype=graphql'},
+        {'BufRead', '*.graphql', 'setlocal filetype=graphql'}, {'BufNewFile', '*.graphql', 'setlocal filetype=graphql'}
     },
     _blade = {
-        {'BufRead', '*.blade.php', 'setfiletype blade'}, {'BufNewFile', '*.blade.php', 'setfiletype blade'},
+        {'BufRead', '*.blade.php', 'setlocal filetype=blade'}, {'BufNewFile', '*.blade.php', 'setlocal filetype=blade'},
+    },
+    _html = {
+        {'BufRead', '*.htm', 'setlocal filetype=html'}, {'BufNewFile', '*.htm', 'setlocal filetype=html'},
     },
     _env = {
-        {'BufRead', '*.env.*', 'setfiletype sh'}, {'BufNewFile', '*.env.*', 'setfiletype sh'},
+        {'BufRead', '*.env.*', 'setlocal filetype=sh'}, {'BufNewFile', '*.env.*', 'setlocal filetype=sh'},
     },
     _tmux = {
-        {'BufRead', 'tmux*.conf', 'setfiletype tmux'}, {'BufNewFile', '.tmux*.conf', 'setfiletype tmux'},
-        {'BufRead', 'tmux*.conf.*', 'setfiletype tmux'}, {'BufNewFile', '.tmux*.conf.*', 'setfiletype tmux'},
+        {'BufRead', 'tmux*.conf', 'setlocal filetype=tmux'}, {'BufNewFile', '.tmux*.conf', 'setlocal filetype=tmux'},
+        {'BufRead', 'tmux*.conf.*', 'setlocal filetype=tmux'}, {'BufNewFile', '.tmux*.conf.*', 'setlocal filetype=tmux'},
     },
     _buffer_bindings = {
         { "FileType", "floaterm", "nnoremap <silent> <buffer> q :q<CR>" },
