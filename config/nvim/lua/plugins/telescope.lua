@@ -30,8 +30,8 @@ M.config = function()
                 '--color-line-number',
                 '--smart-case',
             },
-            prompt_prefix = "> ",
-            selection_caret = "> ",
+            prompt_prefix = " ", --  
+            selection_caret = "契",
             entry_prefix = "  ",
             initial_mode = "insert",
             selection_strategy = "reset",

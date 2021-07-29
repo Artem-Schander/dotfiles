@@ -580,6 +580,7 @@ return require("packer").startup(function(use)
     -- TODO remove when found a lua implementation
     use {"tpope/vim-surround"}
     use {"tpope/vim-repeat"}
+    use {"chrisbra/csv.vim"}
     use {"editorconfig/editorconfig-vim"}
     use {
         "lfv89/vim-interestingwords",
