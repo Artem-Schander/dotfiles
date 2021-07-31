@@ -146,6 +146,17 @@ return {
         end,
     },
 
+    -- vim-rooter
+    {
+        "airblade/vim-rooter",
+        config = function()
+            vim.g.rooter_silent_chdir = 1
+            if lvim.builtin.rooter.on_config_done then
+                lvim.builtin.rooter.on_config_done()
+            end
+        end,
+    },
+
     -- Icons
     { "kyazdani42/nvim-web-devicons" },
 

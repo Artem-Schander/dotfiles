@@ -62,6 +62,7 @@ function! Startsession()
     if local_session_dir != '0' && isdirectory(local_session_dir) && strlen(getcwd()) > strlen($HOME)
         let s:dir = local_session_dir[strlen(local_session_dir)-1:] != '/' ? expand(local_session_dir) . '/' : expand(local_session_dir)
         let s:name = "~" . getcwd()[strlen($HOME):]
+
         let s:filename = "%" . join(split(getcwd(), "/"), "%") . ".vim"
         if filereadable(s:dir . s:filename) == 0
             let s:filename = "\\%" . join(split(getcwd(), "/"), "\\%") . ".vim"
@@ -98,7 +99,7 @@ function! Deletesession()
     execute 'SDelete'
 endfunction
 
-function! Updateplugins()
+function! UpdatePlugins()
     execute 'PackerCompile'
     execute 'PackerInstall'
     execute 'PackerSync'
@@ -170,7 +171,7 @@ let g:startify_commands = [
     \ { 'gs': [ 'Git Status', ':Telescope git_status' ] },
     \ { 'gc': [ 'Checkout Commit', ':Telescope git_commits' ] },
     \ { 'gb': [ 'Checkout Branch', ':Telescope git_branches' ] },
-    \ { 'up': [ 'Update Plugins', ':call Updateplugins()' ] },
+    \ { 'up': [ 'Update Plugins', 'call UpdatePlugins()' ] },
 \ ]
 
 let g:startify_bookmarks = [

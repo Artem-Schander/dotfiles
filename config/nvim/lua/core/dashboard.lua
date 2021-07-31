@@ -61,8 +61,8 @@ M.setup = function()
 
   vim.api.nvim_exec(
     [[
-    let g:dashboard_custom_footer = ['LunarVim loaded '..packages..' plugins ']
-]],
+      let g:dashboard_custom_footer = ['LunarVim loaded '..packages..' plugins ']
+    ]],
     false
   )
 

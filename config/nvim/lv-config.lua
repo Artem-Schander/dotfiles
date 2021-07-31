@@ -238,7 +238,8 @@ lvim.plugins = {
         "sheerun/vim-polyglot",
         config = function()
             vim.cmd('source ~/.config/nvim/vimscript/plugins/polyglot.vim')
-        end
+        end,
+        disable = true,
     },
     -- {
     --     "ray-x/lsp_signature.nvim",
