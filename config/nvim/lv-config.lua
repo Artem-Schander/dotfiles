@@ -260,12 +260,13 @@ vim.cmd "set inccommand=split"
 -- vim.cmd "set iskeyword+=-"
 vim.cmd "set iskeyword+=$"
 vim.cmd "set whichwrap+=<,>,[,],h,l"
-vim.cmd 'set incsearch' -- set incremental search, like modern browsers
-vim.cmd 'set magic' -- Set magic on, for regex
+vim.cmd "set incsearch" -- set incremental search, like modern browsers
+vim.cmd "set magic" -- Set magic on, for regex
 
-vim.cmd 'set nolist' -- hide invisible chars
-vim.cmd 'set listchars=tab:> ,space:·,eol:¬,trail:-,extends:❯,precedes:❮' -- ⚬ ● • ¤ » ø Θ 0 O ⟶  ⟼  ⏤ ⤚
-vim.cmd 'set showbreak=↪' -- ↩︎  …
+vim.cmd "set nolist" -- hide invisible chars
+vim.cmd "set listchars=tab:> ,space:·,eol:¬,trail:-,extends:❯,precedes:❮" -- ⚬ ● • ¤ » ø Θ 0 O ⟶  ⟼  ⏤ ⤚
+vim.cmd "set showbreak=↪" -- ↩︎  …
+vim.cmd "set number relativenumber"
 
 vim.opt.wrap = true
 
@@ -273,7 +274,7 @@ vim.opt.wrap = true
 vim.g.nvim_tree_disable_netrw = 0 -- "1 by default, disables netrw
 vim.g.nvim_tree_hijack_netrw = 0 --"1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
 
-lvim.builtin.nvimtree.width = 40
+vim.g.rooter_manual_only = 1
 
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
@@ -287,12 +288,14 @@ lvim.builtin.which_key.mappings["."] = { "<c-^>", "Previous Buffer" }
 lvim.builtin.which_key.mappings[";"] = { ":ToggleRelativeLineNumbers<cr>", "Toggle Linenumbers" }
 lvim.builtin.which_key.mappings[">"] = { ":set list!<cr>:IndentBlanklineToggle<cr>", "Toggle Invisible Characters" }
 
-lvim.builtin.which_key.mappings["r"] = { ":Telescope lsp_document_symbols<CR>", "Find Symbol (cur. file)" }
+lvim.builtin.which_key.mappings["r"] = { ":Telescope lsp_document_symbols<CR>", "Find Symbol (current file)" }
 lvim.builtin.which_key.mappings["t"] = { ":Telescope live_grep<CR>", "Find Text" }
 lvim.builtin.which_key.mappings["a"] = { ":Telescope find_files find_command=rg,--smart-case,--files,--follow,--no-ignore,--hidden<cr>", "Find File (w. hidden)" }
 lvim.builtin.which_key.mappings["s"]["s"] = { ":Telescope grep_string<cr>", "Find String Under Cursor" }
 
 lvim.builtin.which_key.mappings["q"] = { ":call Stopsession()<cr>", "Quit" }
+-- lvim.builtin.which_key.mappings["h"] = { ":set hlsearch! hlsearch?<cr>", "Toggle Search Highlight" }
+
 
 -- lvim.builtin.which_key.mappings["h"] = { '<cmd>let @/=""<CR>', "Remove Search Highlight" }
 lvim.builtin.which_key.mappings["k"] = "Interesting Word"
@@ -309,17 +312,17 @@ lvim.builtin.which_key.mappings["K"] = "Uninteresting All"
 -- }
 
 -- Additional bindings and overrides for Telescope
-require('telescope').load_extension('fzf')
+require("telescope").load_extension("fzf")
 local actions = require "telescope.actions"
 lvim.builtin.telescope.defaults.find_command = {
-    'ag',
-    '--filename',
-    '--noheading',
-    '--nogroup',
-    '--column',
-    '--color',
-    '--color-line-number',
-    '--smart-case',
+    "ag",
+    "--filename",
+    "--noheading",
+    "--nogroup",
+    "--column",
+    "--color",
+    "--color-line-number",
+    "--smart-case",
 }
 lvim.builtin.telescope.defaults.prompt_prefix = " " --  
 lvim.builtin.telescope.defaults.selection_caret = "契"
@@ -367,6 +370,7 @@ lvim.builtin.telescope.defaults.extensions = {
 
 -- Overrides for NvimTree
 lvim.builtin.nvimtree.side = "left"
+lvim.builtin.nvimtree.width = 40
 lvim.builtin.nvimtree.show_icons.git = 0
 -- lvim.builtin.nvimtree.quit_on_open = 1
 lvim.builtin.nvimtree.indent_markers = 0

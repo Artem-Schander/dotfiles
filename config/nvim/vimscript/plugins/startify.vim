@@ -11,17 +11,33 @@ endfunction
 function! Listprosessions()
     let sessions = []
 
+    if exists(":Rooter")
+        let s:root_dir = trim(FindRootDirectory(), "/") . '.vim'
+    else
+        let s:root_dir = 0
+    endif
+
     let local_session_dir = get(g:, 'prosession_dir')
     if local_session_dir != '0' && isdirectory(local_session_dir) && strlen(getcwd()) > strlen($HOME)
         let lead = "%" . join(split(getcwd(), "/"), "%")
         let files = map(split(globpath(local_session_dir, lead.'*'), '\n'), 'fnamemodify(v:val, ":t")')
 
+        let root_dir_listed = 0
         for session in reverse(files)
             let path = join(split(session, "%"), "/")
+
+            if (s:root_dir != '0' && root_dir_listed == 0 && s:root_dir == path)
+                let root_dir_listed = 1
+            endif
+
             if path[strlen(path)-3:] == 'vim' && isdirectory("/" . path[:-5]) == 1
                 let sessions = add(sessions, { "line": "~/" . path[strlen($HOME):][:-5], "cmd": ":Prosession /" . path[:-5] })
             endif
         endfor
+
+        if (s:root_dir != '0' && root_dir_listed == 0)
+            let sessions = insert(sessions, { "line": "~/" . s:root_dir[strlen($HOME):][:-5], "cmd": ":Prosession /" . s:root_dir[:-5] })
+        endif
     endif
     return sessions
 endfunction
@@ -62,7 +78,6 @@ function! Startsession()
     if local_session_dir != '0' && isdirectory(local_session_dir) && strlen(getcwd()) > strlen($HOME)
         let s:dir = local_session_dir[strlen(local_session_dir)-1:] != '/' ? expand(local_session_dir) . '/' : expand(local_session_dir)
         let s:name = "~" . getcwd()[strlen($HOME):]
-
         let s:filename = "%" . join(split(getcwd(), "/"), "%") . ".vim"
         if filereadable(s:dir . s:filename) == 0
             let s:filename = "\\%" . join(split(getcwd(), "/"), "\\%") . ".vim"
@@ -171,7 +186,7 @@ let g:startify_commands = [
     \ { 'gs': [ 'Git Status', ':Telescope git_status' ] },
     \ { 'gc': [ 'Checkout Commit', ':Telescope git_commits' ] },
     \ { 'gb': [ 'Checkout Branch', ':Telescope git_branches' ] },
-    \ { 'up': [ 'Update Plugins', 'call UpdatePlugins()' ] },
+    \ { 'up': [ 'Update Plugins', ':call UpdatePlugins()' ] },
 \ ]
 
 let g:startify_bookmarks = [
