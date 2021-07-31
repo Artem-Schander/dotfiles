@@ -380,6 +380,7 @@ lvim.lang = {
             },
         },
     },
+    -- yarn global add graphql-language-service-cli
     graphql = {
         formatter = {
             exe = "",

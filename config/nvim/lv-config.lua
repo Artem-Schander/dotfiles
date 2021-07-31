@@ -236,9 +236,11 @@ lvim.plugins = {
     -- use {"sheerun/vim-polyglot", ft = {'blade', 'graphql', 'pug', 'sass'}}
     {
         "sheerun/vim-polyglot",
+        event = "BufRead",
         config = function()
             vim.cmd('source ~/.config/nvim/vimscript/plugins/polyglot.vim')
         end,
+        ft = {'blade', 'graphql', 'pug', 'sass'},
         disable = true,
     },
     -- {
@@ -277,6 +279,7 @@ lvim.builtin.nvimtree.width = 40
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 lvim.autocommands.custom_groups = {
     -- { "FileType", "startify", "highlight BufferTabpageFill guibg=NONE" },
+    { "BufRead,BufNewFile", "*.graphql,*.graphqls,*.gql", "setfiletype graphql" },
 }
 
 -- Additional Leader bindings and overrides for WhichKey
