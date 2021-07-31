@@ -5,9 +5,13 @@ M.config = function()
     vim.g.indent_blankline_char = '│' -- '|', '¦', '┆', '┊', '│'
     vim.g.indent_blankline_filetype_exclude = {
         'help',
+        'packer',
+        'gitcommit',
+        'help',
+        'coc-explorer',
         'startify',
-        'dashboard',
-        'packer'
+        'NvimTree',
+        'TelescopePrompt'
     }
     vim.g.indent_blankline_buftype_exclude = {
         'terminal'

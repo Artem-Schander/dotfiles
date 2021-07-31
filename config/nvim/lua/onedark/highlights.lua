@@ -57,7 +57,7 @@ hl.common = {
     CursorColumn = {bg = c.bg1},
     CursorLine = {bg = c.bg0},
     ColorColumn = {bg = c.bg1},
-    CursorLineNr = {fg = c.fg},
+    CursorLineNr = {fg = c.fg}, -- bg = c.bg1
     LineNr = {fg = c.grey},
     Conceal = {fg = c.grey, bg = c.bg1},
     DiffAdd = {fg = c.none, bg = c.diff_add},
@@ -241,8 +241,8 @@ hl.plugins.gitgutter = {
 
 
 hl.plugins.indent_blankline = {
-    IndentBlanklineChar = {fg = c.bg0, bg = c.none},
-    IndentBlanklineContextChar = {fg = c.bg3, bg = c.none}
+    IndentBlanklineChar = {fg = c.bg1, bg = c.none},
+    IndentBlanklineContextChar = {fg = c.grey, bg = c.none}
 }
 
 hl.plugins.diffview = {
@@ -285,8 +285,8 @@ hl.plugins.gitsigns = {
 }
 
 hl.plugins.nvim_tree = {
-    NvimTreeNormal = { fg = c.fg, bg = c.bg },
-    NvimTreeEndOfBuffer = { fg = c.bg2, bg = c.bg },
+    NvimTreeNormal = { fg = c.fg, bg = c.bg0 },
+    NvimTreeEndOfBuffer = { fg = c.bg2, bg = c.bg0 },
     NvimTreeRootFolder = { fg = c.yellow, bold = true},
     NvimTreeGitDirty = colors.Yellow,
     NvimTreeFileDirty = colors.Yellow,
@@ -294,10 +294,17 @@ hl.plugins.nvim_tree = {
     NvimTreeFileNew = colors.Green,
     NvimTreeGitDeleted = colors.Red,
     NvimTreeSpecialFile = { fg = c.yellow, underline = true },
-    NvimTreeIndentMarker = {fg = c.bg0, bg = c.none},
+    NvimTreeIndentMarker = { fg = c.grey },
     NvimTreeImageFile = { fg = c.dark_purple },
     NvimTreeSymlink = colors.Purple,
-    NvimTreeFolderName= colors.Blue
+    NvimTreeFolderName= colors.Blue,
+    NvimTreeFolderIcon = { fg = c.blue },
+    NvimTreeVertSplit = { fg = c.bg0, bg = c.bg0 },
+    NvimTreeOpenedFolderName = { fg = c.cyan, style = "italic" },
+    NvimTreeGitStaged = { fg = c.diff_green },
+    NvimTreeGitMerge = { fg = c.diff_blue },
+    NvimTreeGitRenamed = { fg = c.diff_blue },
+    NvimTreeExecFile = { fg = c.green },
 }
 
 hl.plugins.telescope = {
@@ -310,7 +317,7 @@ hl.plugins.telescope = {
 
 hl.plugins.dashboard = {
     DashboardShortCut = colors.Yellow,
-    DashboardHeader = colors.Green,
+    DashboardHeader = colors.Grey,
     DashboardCenter = colors.Blue,
     DashboardFooter = { fg = c.cyan, italic = true}
 }
@@ -371,18 +378,20 @@ hl.langs.scala = {
 }
 
 hl.langs.barbar = {
-    BufferTabpageFill = { fg = c.bg0, bg = c.bg },
-    BufferOffset = { bg = c.bg },
-    BufferCurrent = { fg = c.blue, bg = c.bg },
+    BufferTabpageFill = { fg = c.bg0, bg = c.bg0 },
+    BufferOffset = { bg = c.bg0 },
+
+    BufferCurrent = { fg = c.white, bg = c.bg },
     BufferCurrentMod = { fg = c.yellow, bg = c.bg },
-
     BufferCurrentSign = { fg = c.blue, bg = c.bg },
-    BufferInactiveMod = { fg = c.orange, bg = c.bg },
+    BufferCurrentIndex = { fg = c.fg, bg = c.bg },
+    BufferCurrentTarget = { fg = c.red, bg = c.bg, style = "bold" },
 
-    -- BufferInactiveSign guifg=#282c3'
-
-    BufferInactive = { fg = c.grey, bg = c.bg },
-    BufferInactiveSign = { fg = c.bg0, bg = c.bg },
+    BufferInactive = { fg = c.grey, bg = c.bg0 },
+    BufferInactiveMod = { fg = c.orange, bg = c.bg0 },
+    BufferInactiveIndex = { fg = c.gray, bg = c.bg0 },
+    BufferInactiveSign = { fg = c.bg2, bg = c.bg0 },
+    BufferInactiveTarget = { fg = c.red, bg = c.bg0, style = "bold" },
 
     BufferVisible = { fg = c.fg, bg = c.bg },
     BufferVisibleIndex = { bg = c.bg },

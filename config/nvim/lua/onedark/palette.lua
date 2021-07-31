@@ -1,0 +1,35 @@
+local c = require('onedark.colors')
+
+local colors = {
+    fg = c.fg,
+    bg = c.bg,
+    alt_bg = c.bg0,
+    accent = c.bg1,
+    white = c.white,
+    gray = c.grey,
+    light_gray = c.light_grey,
+    blue = c.blue,
+    gray_blue = c.diff_blue,
+    cyan = c.cyan,
+    red = c.red,
+    green = c.green,
+    light_green = c.bg_green,
+    yellow = c.yellow,
+    orange = c.orange,
+    purple = c.purple,
+    pale_purple = c.pale_purple,
+    magenta = c.magenta,
+    cursor_fg = c.grey,
+    cursor_bg = c.fg,
+    sign_add = c.diff_green,
+    sign_change = c.diff_blue,
+    sign_delete = c.diff_red,
+    error_red = c.dark_red,
+    warning_orange = c.orange,
+    info_yellow = c.yellow,
+    hint_blue = c.bg_blue,
+    purple_test = "#ff00ff",
+    cyan_test = "#00ffff",
+}
+
+return colors

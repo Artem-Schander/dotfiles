@@ -2,6 +2,7 @@ nmap <C-space> :StripWhitespace<cr>
 let g:strip_whitespace_on_save = 0
 let g:better_whitespace_filetypes_blacklist = [
     \ 'help',
+    \ 'packer',
     \ 'pug',
     \ 'diff',
     \ 'gitcommit',
@@ -11,6 +12,7 @@ let g:better_whitespace_filetypes_blacklist = [
     \ 'markdown',
     \ 'coc-explorer',
     \ 'startify',
+    \ 'NvimTree',
     \ 'TelescopePrompt'
 \ ]
 let g:show_spaces_that_precede_tabs = 1
