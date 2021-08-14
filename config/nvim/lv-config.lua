@@ -10,7 +10,7 @@ an executable
 
 -- general
 
-lvim.format_on_save = true
+lvim.format_on_save = false
 lvim.lint_on_save = true
 lvim.colorscheme = "onedark"
 -- keymappings

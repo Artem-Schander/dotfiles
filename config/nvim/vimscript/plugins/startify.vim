@@ -11,33 +11,28 @@ endfunction
 function! Listprosessions()
     let sessions = []
 
-    if exists(":Rooter")
-        let s:root_dir = trim(FindRootDirectory(), "/") . '.vim'
-    else
-        let s:root_dir = 0
-    endif
-
     let local_session_dir = get(g:, 'prosession_dir')
     if local_session_dir != '0' && isdirectory(local_session_dir) && strlen(getcwd()) > strlen($HOME)
         let lead = "%" . join(split(getcwd(), "/"), "%")
+        if exists(":Rooter")
+            let root_lead = "%" . join(split(FindRootDirectory(), "/"), "%")
+            if (lead != root_lead)
+                let files = map(split(globpath(local_session_dir, root_lead.'.vim'), '\n'), 'fnamemodify(v:val, ":t")')
+                if len(files) >= 1
+                    let path = join(split(files[0], "%"), "/")
+                    let sessions = add(sessions, { "line": "~/" . path[strlen($HOME):][:-5], "cmd": ":Prosession /" . path[:-5] })
+                endif
+            endif
+        endif
         let files = map(split(globpath(local_session_dir, lead.'*'), '\n'), 'fnamemodify(v:val, ":t")')
 
-        let root_dir_listed = 0
         for session in reverse(files)
             let path = join(split(session, "%"), "/")
-
-            if (s:root_dir != '0' && root_dir_listed == 0 && s:root_dir == path)
-                let root_dir_listed = 1
-            endif
 
             if path[strlen(path)-3:] == 'vim' && isdirectory("/" . path[:-5]) == 1
                 let sessions = add(sessions, { "line": "~/" . path[strlen($HOME):][:-5], "cmd": ":Prosession /" . path[:-5] })
             endif
         endfor
-
-        if (s:root_dir != '0' && root_dir_listed == 0)
-            let sessions = insert(sessions, { "line": "~/" . s:root_dir[strlen($HOME):][:-5], "cmd": ":Prosession /" . s:root_dir[:-5] })
-        endif
     endif
     return sessions
 endfunction
