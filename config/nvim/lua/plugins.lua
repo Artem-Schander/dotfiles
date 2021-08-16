@@ -139,7 +139,7 @@ return {
             if not status_ok then
                 return
             end
-            nvim_comment.setup()
+            nvim_comment.setup({comment_empty = false})
             if lvim.builtin.comment.on_config_done then
                 lvim.builtin.comment.on_config_done(nvim_comment)
             end

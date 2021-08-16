@@ -204,6 +204,5 @@ require("core.autocmds").define_augroups {
 }
 EOF
 
-
 cabbrev SClose call Stopsession()
 cabbrev SDelete call Deletesession()

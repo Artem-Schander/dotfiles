@@ -241,8 +241,8 @@ hl.plugins.gitgutter = {
 
 
 hl.plugins.indent_blankline = {
-    IndentBlanklineChar = {fg = c.bg1, bg = c.none},
-    IndentBlanklineContextChar = {fg = c.grey, bg = c.none}
+    IndentBlanklineChar = {fg = c.bg0, bg = c.none},
+    IndentBlanklineContextChar = {fg = c.bg3, bg = c.none}
 }
 
 hl.plugins.diffview = {
@@ -292,6 +292,7 @@ hl.plugins.nvim_tree = {
     NvimTreeFileDirty = colors.Yellow,
     NvimTreeGitNew = colors.Green,
     NvimTreeFileNew = colors.Green,
+    NvimTreeGitStaged = colors.Cyan,
     NvimTreeGitDeleted = colors.Red,
     NvimTreeSpecialFile = { fg = c.yellow, underline = true },
     NvimTreeIndentMarker = { fg = c.grey },

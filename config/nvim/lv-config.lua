@@ -109,7 +109,7 @@ lvim.plugins = {
     },
     {
         "lukas-reineke/indent-blankline.nvim",
-        event = "BufRead",
+        event = "BufWinEnter",
         setup = function()
             require("plugins/indent-blankline").config()
         end
@@ -230,10 +230,14 @@ lvim.plugins = {
     },
 
     -- TODO remove when treesitter supports corresponding languages
-    -- use {"cakebaker/scss-syntax.vim", ft = {'sass', 'scss', 'html', 'phtml', 'vue'}}
-    -- use {"digitaltoad/vim-pug", ft = {'jade', 'pug', 'vue'}}
-    -- use {"jparise/vim-graphql", ft = {'gql', 'graphql', 'graphqls'}}
-    -- use {"sheerun/vim-polyglot", ft = {'blade', 'graphql', 'pug', 'sass'}}
+    -- {"cakebaker/scss-syntax.vim", ft = {'sass', 'scss', 'html', 'phtml', 'vue'}}
+    -- {"jparise/vim-graphql", ft = {'gql', 'graphql', 'graphqls'}}
+    -- {"sheerun/vim-polyglot", ft = {'blade', 'graphql', 'pug', 'sass'}}
+    {
+        "digitaltoad/vim-pug",
+        event = "BufRead",
+        ft = {'jade', 'pug', 'vue'}
+    },
     {
         "sheerun/vim-polyglot",
         event = "BufRead",
@@ -268,7 +272,7 @@ vim.cmd "set listchars=tab:> ,space:·,eol:¬,trail:-,extends:❯,precedes:❮"
 vim.cmd "set showbreak=↪" -- ↩︎  …
 vim.cmd "set number relativenumber"
 
-vim.opt.wrap = true
+vim.opt.wrap = false
 
 -- load netrw to be able to use scp
 vim.g.nvim_tree_disable_netrw = 0 -- "1 by default, disables netrw
@@ -355,7 +359,7 @@ lvim.builtin.telescope.defaults.mappings = {
         -- ["<C-i>"] = my_cool_custom_action,
     },
 }
-lvim.builtin.telescope.defaults.extensions = {
+lvim.builtin.telescope.extensions = {
     -- fzy_native = {
     --     override_generic_sorter = false,
     --     override_file_sorter = true,
@@ -367,6 +371,13 @@ lvim.builtin.telescope.defaults.extensions = {
         -- the default case_mode is "smart_case"
     }
 }
+lvim.builtin.telescope.pickers = {
+    buffers = {
+        ignore_current_buffer = true,
+        -- sort_lastused = true,
+        sort_mru = true,
+    },
+}
 
 -- Overrides for NvimTree
 lvim.builtin.nvimtree.side = "left"
@@ -374,3 +385,6 @@ lvim.builtin.nvimtree.width = 40
 lvim.builtin.nvimtree.show_icons.git = 0
 -- lvim.builtin.nvimtree.quit_on_open = 1
 lvim.builtin.nvimtree.indent_markers = 0
+
+-- Overrides for GitSigns
+lvim.builtin.gitsigns.current_line_blame = true
