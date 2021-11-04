@@ -203,6 +203,12 @@ compinit
 
 for config ($DOTFILES/zsh/settings/**/*completion.sh) source $config
 
+# set lunarvim env vars
+# export LUNARVIM_RUNTIME_DIR=$HOME/.local/bin
+# export LUNARVIM_CONFIG_DIR=$HOME/.config/lvim
+# export LUNARVIM_CACHE_DIR=$HOME/.cache/lvim
+export PATH=$HOME/.local/bin:$PATH
+
 export VISUAL='nvim'
 
 export EDITOR='vim'
