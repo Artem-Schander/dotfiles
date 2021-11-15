@@ -109,7 +109,7 @@ lvim.plugins = {
     },
     {
         "lukas-reineke/indent-blankline.nvim",
-        event = "BufWinEnter",
+        -- event = "BufWinEnter",
         setup = function()
             require("plugins/indent-blankline").config()
         end
@@ -268,15 +268,12 @@ vim.cmd "set incsearch" -- set incremental search, like modern browsers
 vim.cmd "set magic" -- Set magic on, for regex
 
 vim.cmd "set nolist" -- hide invisible chars
-vim.cmd "set listchars=tab:> ,space:·,eol:¬,trail:-,extends:❯,precedes:❮" -- ⚬ ● • ¤ » ø Θ 0 O ⟶  ⟼  ⏤ ⤚
+-- vim.cmd "set listchars=tab:> ,space:·,eol:¬,trail:-,extends:❯,precedes:❮" -- ⚬ ● • ¤ » ø Θ 0 O ⟶  ⟼  ⏤ ⤚
+vim.cmd "set listchars=tab:> ,eol:¬,trail:-,extends:❯,precedes:❮" -- ⚬ ● • ¤ » ø Θ 0 O ⟶  ⟼  ⏤ ⤚
 vim.cmd "set showbreak=↪" -- ↩︎  …
 vim.cmd "set number relativenumber"
 
 vim.opt.wrap = false
-
--- load netrw to be able to use scp
-vim.g.nvim_tree_disable_netrw = 0 -- "1 by default, disables netrw
-vim.g.nvim_tree_hijack_netrw = 0 --"1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
 
 vim.g.rooter_manual_only = 1
 
@@ -290,7 +287,8 @@ lvim.autocommands.custom_groups = {
 -- Additional Leader bindings and overrides for WhichKey
 lvim.builtin.which_key.mappings["."] = { "<c-^>", "Previous Buffer" }
 lvim.builtin.which_key.mappings[";"] = { ":ToggleRelativeLineNumbers<cr>", "Toggle Linenumbers" }
-lvim.builtin.which_key.mappings[">"] = { ":set list!<cr>:IndentBlanklineToggle<cr>", "Toggle Invisible Characters" }
+-- lvim.builtin.which_key.mappings[">"] = { ":set list!<cr>:IndentBlanklineToggle!<cr>", "Toggle Invisible Characters" }
+lvim.builtin.which_key.mappings[">"] = { ":IndentBlanklineToggle!<cr>", "Toggle Indent Lines" }
 
 lvim.builtin.which_key.mappings["r"] = { ":Telescope lsp_document_symbols<CR>", "Find Symbol (current file)" }
 lvim.builtin.which_key.mappings["t"] = { ":Telescope live_grep<CR>", "Find Text" }
@@ -383,8 +381,13 @@ lvim.builtin.telescope.pickers = {
 lvim.builtin.nvimtree.side = "left"
 lvim.builtin.nvimtree.width = 40
 lvim.builtin.nvimtree.show_icons.git = 0
--- lvim.builtin.nvimtree.quit_on_open = 1
+lvim.builtin.nvimtree.quit_on_open = 1
 lvim.builtin.nvimtree.indent_markers = 0
+
+-- load netrw to be able to use scp
+lvim.builtin.nvimtree.setup.disable_netrw = false -- "1 by default, disables netrw
+lvim.builtin.nvimtree.setup.hijack_netrw = false --"1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
+vim.g.netrw_banner = 0
 
 -- Overrides for GitSigns
 lvim.builtin.gitsigns.current_line_blame = true

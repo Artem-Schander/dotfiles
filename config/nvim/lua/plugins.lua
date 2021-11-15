@@ -181,7 +181,7 @@ return {
                 lvim.builtin.bufferline.on_config_done()
             end
         end,
-        event = "BufWinEnter",
+        -- event = "BufWinEnter",
     },
 
     -- Debugging

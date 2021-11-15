@@ -324,7 +324,7 @@ tmux_conf_theme_clock_style="24"
 #   - false (default)
 # on macOS, this requires installing reattach-to-user-namespace, see README.md
 # on Linux, this requires xsel or xclip
-tmux_conf_copy_to_os_clipboard=true
+tmux_conf_copy_to_os_clipboard=false
 
 
 # -- user customizations -------------------------------------------------------
@@ -338,8 +338,8 @@ tmux_conf_copy_to_os_clipboard=true
 
 # force Vi mode
 #   really you should export VISUAL or EDITOR environment variable, see manual
-#set -g status-keys vi
-#set -g mode-keys vi
+set -g status-keys vi
+set -g mode-keys vi
 
 # replace C-b by C-a instead of using both prefixes
 # set -gu prefix2
@@ -373,7 +373,9 @@ bind-key -n C-S-Left swap-window -t -1
 bind-key -n C-S-Right swap-window -t +1
 
 # shold windows be renamed by tmux like the last executed command ?
-set allow-rename off
+# set allow-rename off
+set-option -g allow-rename off
+set-window-option -g automatic-rename off
 
 # enable mouse support for switching panes/windows
 setw -g mouse on
@@ -426,8 +428,10 @@ tmux_conf_update_plugins_on_reload=true
 #set -g @continuum-restore 'on'
 
 set -g @plugin 'tmux-plugins/tmux-resurrect'
-set -g @plugin 'tmux-plugins/tmux-continuum'
-set -g @continuum-restore 'on'
+set -g @plugin 'tmux-plugins/tmux-yank'
+set -g @shell_mode 'vi'
+set -g @yank_selection 'clipboard'
+set -g @yank_selection_mouse 'clipboard'
 
 # -- custom variables ----------------------------------------------------------
 
