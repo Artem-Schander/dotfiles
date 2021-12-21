@@ -14,12 +14,20 @@ M.config = function()
             initial_mode = "insert",
             selection_strategy = "reset",
             sorting_strategy = "descending",
-            layout_strategy = "horizontal",
+            layout_strategy = "flex",
             layout_config = {
-                width = 0.75,
-                preview_cutoff = 120,
-                horizontal = { mirror = false },
-                vertical = { mirror = false },
+                width = 0.85,
+                -- preview_cutoff = 120,
+                horizontal = {
+                    mirror = false,
+                    height = 0.75,
+                },
+                vertical = {
+                    -- mirror = true
+                },
+                flex = {
+                    flip_columns = 180,
+                },
             },
             file_sorter = require("telescope.sorters").get_fzy_sorter,
             file_ignore_patterns = {},

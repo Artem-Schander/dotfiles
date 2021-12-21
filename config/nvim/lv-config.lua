@@ -67,7 +67,8 @@ lvim.builtin.dashboard.active = false
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = "maintained"
 lvim.builtin.treesitter.ignore_install = { "haskell" }
-lvim.builtin.treesitter.highlight.enabled = true
+lvim.builtin.treesitter.highlight.enable = true
+lvim.builtin.treesitter.playground.enable = true
 
 -- generic LSP settings
 -- you can set a custom on_attach function that will be used for all the language servers
@@ -121,6 +122,9 @@ lvim.plugins = {
             require("plugins/symbols-outline").config()
         end,
         disable = true
+    },
+    {
+        "nvim-treesitter/playground",
     },
     {
         -- Pretty list for showing diagnostics
@@ -342,7 +346,7 @@ lvim.builtin.telescope.defaults.mappings = {
         -- So, to not map "<C-n>", just put
         -- ["<c-t>"] = trouble.open_with_trouble,
         -- ["<c-x>"] = false,
-        ["<esc>"] = actions.close,
+        -- ["<esc>"] = actions.close,
         -- Otherwise, just set the mapping to the function that you want it to be.
         -- ["<C-i>"] = actions.select_horizontal,
         -- Add up multiple actions

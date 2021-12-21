@@ -4,16 +4,19 @@ return {
     { "neovim/nvim-lspconfig" },
     { "tamago324/nlsp-settings.nvim" },
     { "jose-elias-alvarez/null-ls.nvim" },
+    -- {
+    --     "kabouzeid/nvim-lspinstall",
+    --     event = "VimEnter",
+    --     config = function()
+    --         local lspinstall = require "lspinstall"
+    --         lspinstall.setup()
+    --         if lvim.builtin.lspinstall.on_config_done then
+    --             lvim.builtin.lspinstall.on_config_done(lspinstall)
+    --         end
+    --     end,
+    -- },
     {
-        "kabouzeid/nvim-lspinstall",
-        event = "VimEnter",
-        config = function()
-            local lspinstall = require "lspinstall"
-            lspinstall.setup()
-            if lvim.builtin.lspinstall.on_config_done then
-                lvim.builtin.lspinstall.on_config_done(lspinstall)
-            end
-        end,
+        "williamboman/nvim-lsp-installer"
     },
 
     { "nvim-lua/popup.nvim" },
@@ -82,7 +85,7 @@ return {
     -- Treesitter
     {
         "nvim-treesitter/nvim-treesitter",
-        branch = "0.5-compat",
+        -- branch = "0.5-compat",
         -- run = ":TSUpdate",
         config = function()
             require("core.treesitter").setup()

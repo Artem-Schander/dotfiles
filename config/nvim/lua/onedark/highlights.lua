@@ -211,6 +211,8 @@ hl.plugins.lsp = {
     LspCxxHlGroupNamespace = colors.Blue,
     LspCxxHlSkippedRegion = colors.Grey,
     LspCxxHlSkippedRegionBeginEnd = colors.Red,
+    -- Link old 'LspDiagnosticsDefault*' hl groups
+    -- for backward compatibility with neovim v0.5.x
     LspDiagnosticsDefaultError = {fg = c.dark_red},
     LspDiagnosticsDefaultHint = {fg = c.dark_purple}, -- comment_grey
     LspDiagnosticsDefaultInformation = {fg = c.dark_cyan}, -- fg
@@ -219,6 +221,15 @@ hl.plugins.lsp = {
     LspDiagnosticsUnderlineHint = {underline = true, sp = c.purple},
     LspDiagnosticsUnderlineInformation = {underline = true, sp = c.blue},
     LspDiagnosticsUnderlineWarning = {underline = true, sp = c.yellow},
+
+    DiagnosticError = {fg = c.dark_red},
+    DiagnosticHint = {fg = c.dark_purple}, -- comment_grey
+    DiagnosticInfo = {fg = c.dark_cyan},
+    DiagnosticWarn = {fg = c.dark_yellow},
+    DiagnosticUnderlineError = {underline = true, sp = c.red},
+    DiagnosticUnderlineHint = {underline = true, sp = c.purple},
+    DiagnosticUnderlineInfo = {underline = true, sp = c.blue},
+    DiagnosticUnderlineWarn = {underline = true, sp = c.yellow},
 
     LspReferenceText = {underline = true, bg = c.bg1},
     LspReferenceRead = {underline = true, bg = c.bg1},

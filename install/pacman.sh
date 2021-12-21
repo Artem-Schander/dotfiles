@@ -53,7 +53,8 @@ for P in \
     base-devel \
     cmake \
     ninja \
-    tree-sitter
+    tree-sitter \
+    xorg-server-xephyr
 
 do
     if ! (pacman -Q | grep ${P} > /dev/null)

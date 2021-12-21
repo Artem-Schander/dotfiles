@@ -236,10 +236,8 @@ set $ws9 9
 set $ws10 10
 
 # set the connected monitors
-# set $monitor1 HDMI2
-set $monitor1 LVDS-1
-# set $monitor2 DP2
-set $monitor2 DP-1-3
+set $monitor1 DP-1
+set $monitor2 HDMI-2
 
 # Bind the workspaces for monitor one
 workspace $ws1 output $monitor1
@@ -416,17 +414,17 @@ exec --no-startup-id numlockx off
 exec_always --no-startup-id setxkbmap -option 'ctrl:nocaps,shift:both_capslock_cancel'
 exec_always --no-startup-id setxkbmap -option compose:ralt
 
-# restore layouts
-# exec --no-startup-id i3-msg "workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec thunderbird"
-exec --no-startup-id i3-msg "workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec geary"
-exec --no-startup-id i3-msg "workspace 4; append_layout ~/.dotfiles/config/i3/layouts/workspace-4.json; exec slack"
-# exec --no-startup-id i3-msg "workspace 7; append_layout ~/.dotfiles/config/i3/layouts/workspace-7.json; exec $myTerm -e htop; exec $myTerm -e earlyoom"
-exec --no-startup-id i3-msg "workspace 8; append_layout ~/.dotfiles/config/i3/layouts/workspace-8.json; exec pcmanfm Code; exec $myTerm -e ranger"
-# exec --no-startup-id i3-msg "workspace 5; append_layout ~/.dotfiles/config/i3/layouts/workspace-5.json; exec minetime"
-# exec --no-startup-id i3-msg "workspace 2; append_layout ~/.dotfiles/config/i3/layouts/workspace-2.json; exec google-chrome-stable --restore-last-session"
-# exec --no-startup-id i3-msg "workspace 2; append_layout ~/.dotfiles/config/i3/layouts/workspace-2.json; exec firefox-developer-edition"
-exec --no-startup-id i3-msg "workspace 1; append_layout ~/.dotfiles/config/i3/layouts/workspace-1.json"
-exec --no-startup-id i3-msg "workspace 2; workspace 1; exec $myTerm"
+# # restore layouts
+# # exec --no-startup-id i3-msg "workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec thunderbird"
+# exec --no-startup-id i3-msg "workspace 3; append_layout ~/.dotfiles/config/i3/layouts/workspace-3.json; exec geary"
+# exec --no-startup-id i3-msg "workspace 4; append_layout ~/.dotfiles/config/i3/layouts/workspace-4.json; exec slack"
+# # exec --no-startup-id i3-msg "workspace 7; append_layout ~/.dotfiles/config/i3/layouts/workspace-7.json; exec $myTerm -e htop; exec $myTerm -e earlyoom"
+# exec --no-startup-id i3-msg "workspace 8; append_layout ~/.dotfiles/config/i3/layouts/workspace-8.json; exec pcmanfm Code; exec $myTerm -e ranger"
+# # exec --no-startup-id i3-msg "workspace 5; append_layout ~/.dotfiles/config/i3/layouts/workspace-5.json; exec minetime"
+# # exec --no-startup-id i3-msg "workspace 2; append_layout ~/.dotfiles/config/i3/layouts/workspace-2.json; exec google-chrome-stable --restore-last-session"
+# # exec --no-startup-id i3-msg "workspace 2; append_layout ~/.dotfiles/config/i3/layouts/workspace-2.json; exec firefox-developer-edition"
+# exec --no-startup-id i3-msg "workspace 1; append_layout ~/.dotfiles/config/i3/layouts/workspace-1.json"
+# exec --no-startup-id i3-msg "workspace 2; workspace 1; exec $myTerm"
 
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # exec_always --no-startup-id compton -b --config $HOME/.config/compton/compton.conf
@@ -476,14 +474,15 @@ mode "$switch_keyboard_layout" {
 exec_always --no-startup-id export DISPLAY=:0
 exec_always --no-startup-id $HOME/.dotfiles/resources/i3/initialize-multimonitor-setup.sh
 
-# polybar
-exec_always --no-startup-id sleep 0.5 && $HOME/.dotfiles/resources/i3/launch-polybar.sh
-
-exec_always --no-startup-id killall conky && sleep 0.1 && $HOME/.dotfiles/resources/i3/launch-conky-one-dark.sh
+# exec_always --no-startup-id killall conky && sleep 0.1 && $HOME/.dotfiles/resources/i3/launch-conky-one-dark.sh
+exec_always --no-startup-id $HOME/.dotfiles/resources/i3/launch-conky-one-dark.sh
 # exec --no-startup-id feh --randomize --bg-fill $HOME/.dotfiles/resources/wallpapers/*
-exec_always --no-startup-id sleep 0.5 && nitrogen --restore
+exec_always --no-startup-id nitrogen --restore
 
 exec --no-startup-id /usr/lib/gnome-settings-daemon/gnome-settings-daemon
+
+# polybar
+exec_always --no-startup-id $HOME/.dotfiles/resources/i3/launch-polybar.sh
 
 # redshift modes
 bindsym $mod+n mode "$mode_redshift"
