@@ -237,20 +237,20 @@ lvim.plugins = {
     -- {"cakebaker/scss-syntax.vim", ft = {'sass', 'scss', 'html', 'phtml', 'vue'}}
     -- {"jparise/vim-graphql", ft = {'gql', 'graphql', 'graphqls'}}
     -- {"sheerun/vim-polyglot", ft = {'blade', 'graphql', 'pug', 'sass'}}
-    {
-        "digitaltoad/vim-pug",
-        event = "BufRead",
-        ft = {'jade', 'pug', 'vue'}
-    },
-    {
-        "sheerun/vim-polyglot",
-        event = "BufRead",
-        config = function()
-            vim.cmd('source ~/.config/nvim/vimscript/plugins/polyglot.vim')
-        end,
-        ft = {'blade', 'graphql', 'pug', 'sass'},
-        disable = true,
-    },
+    -- {
+    --     "digitaltoad/vim-pug",
+    --     event = "BufRead",
+    --     ft = {'jade', 'pug', 'vue'}
+    -- },
+    -- {
+    --     "sheerun/vim-polyglot",
+    --     event = "BufRead",
+    --     config = function()
+    --         vim.cmd('source ~/.config/nvim/vimscript/plugins/polyglot.vim')
+    --     end,
+    --     ft = {'blade', 'graphql', 'pug', 'sass'},
+    --     disable = true,
+    -- },
     -- {
     --     "ray-x/lsp_signature.nvim",
     --     config = function() require"lsp_signature".on_attach() end,
