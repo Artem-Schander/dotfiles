@@ -16,7 +16,7 @@ local function r_inspect_settings(structure, limit, separator)
 
     if ts == "table" then
         for k, v in pairs(structure) do
-            -- replace non alpha keys wih ["key"]
+            -- replace non alpha keys with ["key"]
             if tostring(k):match "[^%a_]" then
                 k = '["' .. tostring(k) .. '"]'
             end
@@ -54,6 +54,22 @@ function utils.generate_settings()
 
     -- closes the open file
     io.close(file)
+end
+
+function utils.unrequire(m)
+    package.loaded[m] = nil
+    _G[m] = nil
+end
+
+function utils.gsub_args(args)
+    if args == nil or type(args) ~= "table" then
+        return args
+    end
+    local buffer_filepath = vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
+    for i = 1, #args do
+        args[i] = string.gsub(args[i], "${FILEPATH}", buffer_filepath)
+    end
+    return args
 end
 
 -- autoformat
@@ -144,22 +160,6 @@ end
 
 function utils.add_keymap_term_mode(opts, keymaps)
     utils.add_keymap("t", opts, keymaps)
-end
-
-function utils.unrequire(m)
-    package.loaded[m] = nil
-    _G[m] = nil
-end
-
-function utils.gsub_args(args)
-    if args == nil or type(args) ~= "table" then
-        return args
-    end
-    local buffer_filepath = vim.fn.fnameescape(vim.api.nvim_buf_get_name(0))
-    for i = 1, #args do
-        args[i] = string.gsub(args[i], "${FILEPATH}", buffer_filepath)
-    end
-    return args
 end
 
 return utils

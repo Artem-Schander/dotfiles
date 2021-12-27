@@ -25,6 +25,7 @@ lvim.leader = "space"
 --     {'<Tab>', ':bnext<CR>'},
 --     {'<S-Tab>', ':bprevious<CR>'},
 -- }
+
 -- if you just want to augment the existing ones then use the utility function
 require("utils").add_keymap_normal_mode({ silent = true }, {
     -- better indenting
@@ -49,7 +50,7 @@ require("utils").add_keymap_visual_block_mode({ silent = true }, {
 })
 
 -- you can also use the native vim way directly
--- vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", { noremap = true, silent = true, expr = true })
+-- vim.api.nvim_set_keymap("i", "<C-Space>", "cmp#complete()", { noremap = true, silent = true, expr = true })
 
 -- Scroll faster
 vim.api.nvim_set_keymap('n', '<C-e>', '3<C-e>', {noremap = true, silent = true})
@@ -333,6 +334,22 @@ lvim.builtin.telescope.defaults.find_command = {
 lvim.builtin.telescope.defaults.prompt_prefix = " " --  
 lvim.builtin.telescope.defaults.selection_caret = "契"
 lvim.builtin.telescope.defaults.file_sorter = require("telescope.sorters").get_fzf_sorter
+lvim.builtin.telescope.defaults.layout_strategy = "flex"
+lvim.builtin.telescope.defaults.layout_config = {
+    width = 0.85,
+    -- preview_cutoff = 120,
+    horizontal = {
+        mirror = false,
+        height = 0.75,
+    },
+    vertical = {
+        -- mirror = true
+    },
+    flex = {
+        flip_columns = 180,
+    },
+}
+
 lvim.builtin.telescope.defaults.mappings = {
     i = {
         ["<C-down>"] = actions.cycle_history_next,

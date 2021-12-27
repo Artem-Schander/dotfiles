@@ -50,7 +50,7 @@ local default_keys = {
         { "[q", ":cprev<CR>" },
         { "<C-q>", ":call QuickFixToggle()<CR>" },
 
-        -- {'<C-TAB>', 'compe#complete()', {noremap = true, silent = true, expr = true}},
+        -- {'<C-TAB>', 'cmp#complete()', {noremap = true, silent = true, expr = true}},
     },
 
     term_mode = {

@@ -2,7 +2,8 @@ local M = {}
 
 M.config = function()
     lvim.builtin.which_key = {
-        active = false,
+        active = true,
+        on_config_done = nil,
         setup = {
             plugins = {
                 marks = true, -- shows a list of your marks on ' and `

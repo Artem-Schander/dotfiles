@@ -8,8 +8,29 @@ M.config = function()
             auto_open = 0,
             auto_close = 1,
             tab_open = 0,
+            open_on_setup = false,
+            ignore_ft_on_setup = {
+                "startify",
+                "dashboard",
+                "alpha",
+            },
+            update_to_buf_dir = {
+                enable = true,
+                auto_open = true,
+            },
             update_focused_file = {
                 enable = 1,
+                update_cwd = true,
+                ignore_list = {},
+            },
+            system_open = {
+                cmd = nil,
+                args = {},
+            },
+            git = {
+                enable = true,
+                ignore = true,
+                timeout = 200,
             },
             diagnostics = {
                 enable = true,
@@ -20,15 +41,21 @@ M.config = function()
                     error = "",
                 }
             },
-            hide_dotfiles = false,
-            ignore = { ".git", "node_modules", ".cache" },
             view = {
                 width = 30,
+                height = 30,
                 side = "left",
-                auto_resize = false,
+                auto_resize = true,
+                number = false,
+                relativenumber = false,
                 mappings = {
                     custom_only = false,
+                    list = {},
                 },
+            },
+            filters = {
+                dotfiles = false,
+                custom = { ".git", "node_modules", ".cache" },
             },
         },
         show_icons = {
@@ -40,9 +67,9 @@ M.config = function()
         },
         quit_on_open = 0,
         git_hl = 1,
+        disable_window_picker = 0,
         root_folder_modifier = ":t",
         allow_resize = 1,
-        auto_ignore_ft = { "startify", "dashboard" },
         icons = {
             default = "",
             symlink = "",
@@ -89,7 +116,7 @@ M.setup = function()
 
     local tree_cb = nvim_tree_config.nvim_tree_callback
 
-    if not lvim.builtin.nvimtree.setup.view.mappings.list then
+    if #lvim.builtin.nvimtree.setup.view.mappings.list == 0 then
         lvim.builtin.nvimtree.setup.view.mappings.list = {
             { key = { "l", "<CR>", "o" }, cb = tree_cb "edit" },
             { key = "h", cb = tree_cb "close_node" },

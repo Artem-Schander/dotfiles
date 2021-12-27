@@ -18,7 +18,7 @@ lvim = {
     builtin = {
         lspinstall = {},
         telescope = {},
-        compe = {},
+        cmp = {},
         autopairs = {},
         treesitter = {},
         nvimtree = {},
@@ -26,11 +26,13 @@ lvim = {
         which_key = {},
         comment = {},
         rooter = {},
-        galaxyline = {},
+        -- galaxyline = {},
+        lualine = {},
         bufferline = {},
         dap = {},
         dashboard = {},
         terminal = {},
+        project = {},
     },
 
     lsp = {
@@ -1006,7 +1008,7 @@ lvim.lang = {
 require("core.which-key").config()
 require "core.status_colors"
 require("core.gitsigns").config()
-require("core.compe").config()
+require("core.cmp").config()
 require("core.dashboard").config()
 require("core.dap").config()
 require("core.terminal").config()
