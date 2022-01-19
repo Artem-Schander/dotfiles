@@ -1,53 +1,100 @@
 --[[
-lvim is the global options object
-
-Linters should be
 filled in as strings with either
+Linters should be
+
 a global executable or a path to
 an executable
 ]]
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
 -- general
+lvim.log.level = "warn"
+lvim.format_on_save = true
+lvim.colorscheme = "onedarker"
 
-lvim.format_on_save = false
-lvim.lint_on_save = true
-lvim.colorscheme = "onedark"
--- keymappings
+-- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
--- overwrite the key-mappings provided by LunarVim for any mode, or leave it empty to keep them
--- lvim.keys.normal_mode = {
---     -- Page down/up
---     {'[d', '<PageUp>'},
---     {']d', '<PageDown>'},
---
---     -- Navigate buffers
---     {'<Tab>', ':bnext<CR>'},
---     {'<S-Tab>', ':bprevious<CR>'},
+-- add your own keymapping
+lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+-- unmap a default keymapping
+-- lvim.keys.normal_mode["<C-Up>"] = false
+-- edit a default keymapping
+-- lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
+
+-- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
+-- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
+local _, actions = pcall(require, "telescope.actions")
+lvim.builtin.telescope.defaults.mappings = {
+    i = {
+        ["<C-down>"] = actions.cycle_history_next,
+        ["<C-up>"] = actions.cycle_history_prev,
+        ["<C-c>"] = actions.close,
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+        ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+        ["<CR>"] = actions.select_default + actions.center,
+        -- To disable a keymap, put [map] = false
+        -- So, to not map "<C-n>", just put
+        -- ["<c-t>"] = trouble.open_with_trouble,
+        -- ["<c-x>"] = false,
+        -- ["<esc>"] = actions.close,
+        -- Otherwise, just set the mapping to the function that you want it to be.
+        -- ["<C-i>"] = actions.select_horizontal,
+        -- Add up multiple actions
+        -- You can perform as many actions in a row as you like
+        -- ["<CR>"] = actions.select_default + actions.center + my_cool_custom_action,
+    },
+    n = {
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+        ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+        -- ["<c-t>"] = trouble.open_with_trouble,
+        -- ["<C-i>"] = my_cool_custom_action,
+    },
+}
+
+-- Use which-key to add extra bindings with the leader-key prefix
+-- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
+-- lvim.builtin.which_key.mappings["t"] = {
+--   name = "+Trouble",
+--   r = { "<cmd>Trouble lsp_references<cr>", "References" },
+--   f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
+--   d = { "<cmd>Trouble lsp_document_diagnostics<cr>", "Diagnostics" },
+--   q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
+--   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
+--   w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Diagnostics" },
 -- }
 
--- if you just want to augment the existing ones then use the utility function
-require("utils").add_keymap_normal_mode({ silent = true }, {
-    -- better indenting
-    { "<", "<<" },
-    { ">", ">>" },
+-- Additional Leader bindings and overrides for WhichKey
+lvim.builtin.which_key.mappings["."] = { "<c-^>", "Previous Buffer" }
+lvim.builtin.which_key.mappings[";"] = { ":ToggleRelativeLineNumbers<cr>", "Toggle Linenumbers" }
+-- lvim.builtin.which_key.mappings[">"] = { ":set list!<cr>:IndentBlanklineToggle!<cr>", "Toggle Invisible Characters" }
+lvim.builtin.which_key.mappings[">"] = { ":IndentBlanklineToggle!<cr>", "Toggle Indent Lines" }
 
-    -- Mac OS - Move current line / block with Alt-j/k ala vscode.
-    { "∆", ":m .+1<CR>==" },
-    { "˚", ":m .-2<CR>==" },
-})
+lvim.builtin.which_key.mappings["r"] = { ":Telescope lsp_document_symbols<CR>", "Find Symbol (current file)" }
+lvim.builtin.which_key.mappings["t"] = { ":Telescope live_grep<CR>", "Find Text" }
+lvim.builtin.which_key.mappings["a"] = { ":Telescope find_files find_command=rg,--smart-case,--files,--follow,--no-ignore,--hidden<cr>", "Find File (w. hidden)" }
+lvim.builtin.which_key.mappings["s"]["s"] = { ":Telescope grep_string<cr>", "Find String Under Cursor" }
 
-require("utils").add_keymap_insert_mode({ silent = true }, {
-    -- Mac OS - Move current line / block with Alt-j/k ala vscode.
-    { "∆", "<Esc>:m .+1<CR>==" },
-    { "˚", "<Esc>:m .-2<CR>==" },
-})
+lvim.builtin.which_key.mappings["q"] = { ":call Stopsession()<cr>", "Quit" }
+-- lvim.builtin.which_key.mappings["h"] = { ":set hlsearch! hlsearch?<cr>", "Toggle Search Highlight" }
 
-require("utils").add_keymap_visual_block_mode({ silent = true }, {
-    -- Mac OS - Move current line / block with Alt-j/k ala vscode.
-    { "∆", ":m '>+1<CR>gv-gv" },
-    { "˚", ":m '<-2<CR>gv-gv" },
-})
+
+-- lvim.builtin.which_key.mappings["h"] = { '<cmd>let @/=""<CR>', "Remove Search Highlight" }
+lvim.builtin.which_key.mappings["k"] = "Interesting Word"
+lvim.builtin.which_key.mappings["K"] = "Uninteresting All"
+
+-- better indenting
+lvim.keys.normal_mode["<"] = "<<"
+lvim.keys.normal_mode[">"] = ">>"
+
+-- Mac OS - Move current line / block with Alt-j/k ala vscode.
+lvim.keys.normal_mode["∆"] = ":m .+1<CR>=="
+lvim.keys.normal_mode["˚"] = ":m .-2<CR>=="
+lvim.keys.insert_mode["∆"] = "<Esc>:m .+1<CR>=="
+lvim.keys.insert_mode["˚"] = "<Esc>:m .-2<CR>=="
+lvim.keys.visual_block_mode["∆"] = ">+1<CR>gv-gv"
+lvim.keys.visual_block_mode["˚"] = "<-2<CR>gv-gv"
 
 -- you can also use the native vim way directly
 -- vim.api.nvim_set_keymap("i", "<C-Space>", "cmp#complete()", { noremap = true, silent = true, expr = true })
@@ -63,17 +110,45 @@ vim.api.nvim_set_keymap('n', '\\s', ':set ts=4 sts=4 sw=4 et<cr>', {noremap = tr
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.dashboard.active = false
--- lvim.builtin.terminal.active = true
+lvim.builtin.notify.active = true
+lvim.builtin.terminal.active = true
+lvim.builtin.nvimtree.setup.view.side = "left"
+lvim.builtin.nvimtree.show_icons.git = 0
 
 -- if you don't want all the parsers change this to a table of the ones you want
+-- lvim.builtin.treesitter.ensure_installed = {
+--   "bash",
+--   "c",
+--   "javascript",
+--   "json",
+--   "lua",
+--   "python",
+--   "typescript",
+--   "css",
+--   "rust",
+--   "java",
+--   "yaml",
+-- }
 lvim.builtin.treesitter.ensure_installed = "maintained"
+
 lvim.builtin.treesitter.ignore_install = { "haskell" }
-lvim.builtin.treesitter.highlight.enable = true
-lvim.builtin.treesitter.playground.enable = true
+lvim.builtin.treesitter.highlight.enabled = true
 
 -- generic LSP settings
--- you can set a custom on_attach function that will be used for all the language servers
--- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
+
+-- ---@usage disable automatic installation of servers
+-- lvim.lsp.automatic_servers_installation = false
+
+-- ---@usage Select which servers should be configured manually. Requires `:LvimCacheRest` to take effect.
+-- See the full default list `:lua print(vim.inspect(lvim.lsp.override))`
+-- vim.list_extend(lvim.lsp.override, { "pyright" })
+
+-- ---@usage setup a server -- see: https://www.lunarvim.org/languages/#overriding-the-default-configuration
+-- local opts = {} -- check the lspconfig documentation for a list of all possible options
+-- require("lvim.lsp.manager").setup("pylsp", opts)
+
+-- -- you can set a custom on_attach function that will be used for all the language servers
+-- -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
 -- lvim.lsp.on_attach_callback = function(client, bufnr)
 --   local function buf_set_option(...)
 --     vim.api.nvim_buf_set_option(bufnr, ...)
@@ -82,11 +157,44 @@ lvim.builtin.treesitter.playground.enable = true
 --   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 -- end
 
--- python
+-- -- set a formatter, this will override the language server formatting capabilities (if it exists)
+-- local formatters = require "lvim.lsp.null-ls.formatters"
+-- formatters.setup {
+--   { command = "black", filetypes = { "python" } },
+--   { command = "isort", filetypes = { "python" } },
+--   {
+--     -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+--     command = "prettier",
+--     ---@usage arguments to pass to the formatter
+--     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+--     extra_args = { "--print-with", "100" },
+--     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+--     filetypes = { "typescript", "typescriptreact" },
+--   },
+-- }
+
+-- -- set additional linters
+-- local linters = require "lvim.lsp.null-ls.linters"
+-- linters.setup {
+--   { command = "flake8", filetypes = { "python" } },
+--   {
+--     -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
+--     command = "shellcheck",
+--     ---@usage arguments to pass to the formatter
+--     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
+--     extra_args = { "--severity", "warning" },
+--   },
+--   {
+--     command = "codespell",
+--     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
+--     filetypes = { "javascript", "python" },
+--   },
+-- }
 
 -- Additional Plugins
 lvim.plugins = {
     {"folke/tokyonight.nvim"},
+    {"sainnhe/sonokai"},
     {
         "phaazon/hop.nvim",
         event = "BufRead",
@@ -97,7 +205,7 @@ lvim.plugins = {
     {
         "mhinz/vim-startify",
         config = function()
-            vim.cmd('source ~/.config/nvim/vimscript/plugins/startify.vim')
+            vim.cmd('source ~/.config/lvim/vimscript/plugins/startify.vim')
         end,
         disable = false
     },
@@ -202,34 +310,34 @@ lvim.plugins = {
     {
         "lfv89/vim-interestingwords",
         config = function()
-            vim.cmd('source ~/.config/nvim/vimscript/plugins/interestingwords.vim')
+            vim.cmd('source ~/.config/lvim/vimscript/plugins/interestingwords.vim')
         end
     },
     {"tpope/vim-abolish"},
     {
         "tpope/vim-obsession",
         config = function()
-            vim.cmd('source ~/.config/nvim/vimscript/plugins/obsession.vim')
+            vim.cmd('source ~/.config/lvim/vimscript/plugins/obsession.vim')
         end
     },
     {"dhruvasagar/vim-prosession"},
     {
         "janko-m/vim-test",
         config = function()
-            vim.cmd('source ~/.config/nvim/vimscript/plugins/test.vim')
+            vim.cmd('source ~/.config/lvim/vimscript/plugins/test.vim')
         end
     },
     {
         "embear/vim-localvimrc",
         config = function()
-            vim.cmd('source ~/.config/nvim/vimscript/plugins/localvimrc.vim')
+            vim.cmd('source ~/.config/lvim/vimscript/plugins/localvimrc.vim')
         end
     },
     {
         "ntpeters/vim-better-whitespace",
         event = "BufRead",
         config = function()
-            vim.cmd('source ~/.config/nvim/vimscript/plugins/better-whitespace.vim')
+            vim.cmd('source ~/.config/lvim/vimscript/plugins/better-whitespace.vim')
         end,
         disable = false,
     },
@@ -247,7 +355,7 @@ lvim.plugins = {
     --     "sheerun/vim-polyglot",
     --     event = "BufRead",
     --     config = function()
-    --         vim.cmd('source ~/.config/nvim/vimscript/plugins/polyglot.vim')
+    --         vim.cmd('source ~/.config/lvim/vimscript/plugins/polyglot.vim')
     --     end,
     --     ft = {'blade', 'graphql', 'pug', 'sass'},
     --     disable = true,
@@ -261,10 +369,10 @@ lvim.plugins = {
 
 -- Custom settings
 vim.g.onedark_style = "dark" --  dark, darker, cool, deep, warm, warmer
-vim.cmd('source ~/.config/nvim/vimscript/functions.vim')
+vim.cmd('source ~/.config/lvim/vimscript/functions.vim')
 
 vim.cmd "filetype plugin on"
-vim.cmd('let &titleold="' .. TERMINAL .. '"')
+-- vim.cmd('let &titleold="' .. TERMINAL .. '"')
 vim.cmd "set inccommand=split"
 -- vim.cmd "set iskeyword+=-"
 vim.cmd "set iskeyword+=$"
@@ -279,34 +387,10 @@ vim.cmd "set showbreak=↪" -- ↩︎  …
 vim.cmd "set number relativenumber"
 
 vim.opt.wrap = false
+vim.opt.cmdheight = 1
 
 vim.g.rooter_manual_only = 1
 
-
--- Autocommands (https://neovim.io/doc/user/autocmd.html)
-lvim.autocommands.custom_groups = {
-    -- { "FileType", "startify", "highlight BufferTabpageFill guibg=NONE" },
-    { "BufRead,BufNewFile", "*.graphql,*.graphqls,*.gql", "setfiletype graphql" },
-}
-
--- Additional Leader bindings and overrides for WhichKey
-lvim.builtin.which_key.mappings["."] = { "<c-^>", "Previous Buffer" }
-lvim.builtin.which_key.mappings[";"] = { ":ToggleRelativeLineNumbers<cr>", "Toggle Linenumbers" }
--- lvim.builtin.which_key.mappings[">"] = { ":set list!<cr>:IndentBlanklineToggle!<cr>", "Toggle Invisible Characters" }
-lvim.builtin.which_key.mappings[">"] = { ":IndentBlanklineToggle!<cr>", "Toggle Indent Lines" }
-
-lvim.builtin.which_key.mappings["r"] = { ":Telescope lsp_document_symbols<CR>", "Find Symbol (current file)" }
-lvim.builtin.which_key.mappings["t"] = { ":Telescope live_grep<CR>", "Find Text" }
-lvim.builtin.which_key.mappings["a"] = { ":Telescope find_files find_command=rg,--smart-case,--files,--follow,--no-ignore,--hidden<cr>", "Find File (w. hidden)" }
-lvim.builtin.which_key.mappings["s"]["s"] = { ":Telescope grep_string<cr>", "Find String Under Cursor" }
-
-lvim.builtin.which_key.mappings["q"] = { ":call Stopsession()<cr>", "Quit" }
--- lvim.builtin.which_key.mappings["h"] = { ":set hlsearch! hlsearch?<cr>", "Toggle Search Highlight" }
-
-
--- lvim.builtin.which_key.mappings["h"] = { '<cmd>let @/=""<CR>', "Remove Search Highlight" }
-lvim.builtin.which_key.mappings["k"] = "Interesting Word"
-lvim.builtin.which_key.mappings["K"] = "Uninteresting All"
 
 -- lvim.builtin.which_key.mappings["t"] = {
 --     name = "+Trouble",
@@ -320,7 +404,6 @@ lvim.builtin.which_key.mappings["K"] = "Uninteresting All"
 
 -- Additional bindings and overrides for Telescope
 require("telescope").load_extension("fzf")
-local actions = require "telescope.actions"
 lvim.builtin.telescope.defaults.find_command = {
     "ag",
     "--filename",
@@ -350,34 +433,6 @@ lvim.builtin.telescope.defaults.layout_config = {
     },
 }
 
-lvim.builtin.telescope.defaults.mappings = {
-    i = {
-        ["<C-down>"] = actions.cycle_history_next,
-        ["<C-up>"] = actions.cycle_history_prev,
-        ["<C-c>"] = actions.close,
-        ["<C-j>"] = actions.move_selection_next,
-        ["<C-k>"] = actions.move_selection_previous,
-        ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-        ["<CR>"] = actions.select_default + actions.center,
-        -- To disable a keymap, put [map] = false
-        -- So, to not map "<C-n>", just put
-        -- ["<c-t>"] = trouble.open_with_trouble,
-        -- ["<c-x>"] = false,
-        -- ["<esc>"] = actions.close,
-        -- Otherwise, just set the mapping to the function that you want it to be.
-        -- ["<C-i>"] = actions.select_horizontal,
-        -- Add up multiple actions
-        -- You can perform as many actions in a row as you like
-        -- ["<CR>"] = actions.select_default + actions.center + my_cool_custom_action,
-    },
-    n = {
-        ["<C-j>"] = actions.move_selection_next,
-        ["<C-k>"] = actions.move_selection_previous,
-        ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-        -- ["<c-t>"] = trouble.open_with_trouble,
-        -- ["<C-i>"] = my_cool_custom_action,
-    },
-}
 lvim.builtin.telescope.extensions = {
     -- fzy_native = {
     --     override_generic_sorter = false,
@@ -412,3 +467,24 @@ vim.g.netrw_banner = 0
 
 -- Overrides for GitSigns
 lvim.builtin.gitsigns.current_line_blame = true
+
+-- Overrides for lualine
+local components = require "lvim.core.lualine.components"
+lvim.builtin.lualine.options.disabled_filetypes = { "startify", "dashboard", "NvimTree", "Outline" }
+lvim.builtin.lualine.sections.lualine_x = {
+    components.diagnostics,
+    components.treesitter,
+    components.lsp,
+    -- components.spaces,
+    components.filetype,
+}
+lvim.builtin.lualine.sections.lualine_z = {
+    "progress",
+}
+
+-- Autocommands (https://neovim.io/doc/user/autocmd.html)
+lvim.autocommands.custom_groups = {
+    -- { "FileType", "startify", "highlight BufferTabpageFill guibg=NONE" },
+    { "FileType", "startify", "set showtabline=0 | autocmd BufLeave <buffer> set showtabline=" .. vim.opt.showtabline._value },
+    { "BufRead,BufNewFile", "*.graphql,*.graphqls,*.gql", "setfiletype graphql" },
+}

@@ -192,17 +192,5 @@ let g:startify_bookmarks = [
 
 autocmd User Startified setlocal cursorline
 
-lua << EOF
-require("core.autocmds").define_augroups {
-    _startify = {
-        {
-            "FileType",
-            "startify",
-            "set showtabline=0 | autocmd BufLeave <buffer> set showtabline=" .. vim.opt.showtabline._value,
-        },
-    },
-}
-EOF
-
 cabbrev SClose call Stopsession()
 cabbrev SDelete call Deletesession()
