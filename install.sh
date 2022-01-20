@@ -41,6 +41,9 @@ source install/nvim.sh
 # install tmux
 # source install/tmux.sh
 
+# install development stuff
+source install/dev.sh
+
 # install node version manager
 # source install/nvm.sh
 

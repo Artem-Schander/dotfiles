@@ -144,8 +144,25 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- vim.list_extend(lvim.lsp.override, { "pyright" })
 
 -- ---@usage setup a server -- see: https://www.lunarvim.org/languages/#overriding-the-default-configuration
--- local opts = {} -- check the lspconfig documentation for a list of all possible options
--- require("lvim.lsp.manager").setup("pylsp", opts)
+-- local util = require 'lspconfig/util'
+-- local bin_name = "phpactor"
+--
+-- local opts = {
+--     cmd = {bin_name, "language-server"},
+--     filetypes = {"php"},
+--     root_dir = function (pattern)
+--         local cwd  = vim.loop.cwd();
+--         local root = util.root_pattern("composer.json", ".git")(pattern);
+--
+--         -- prefer cwd if root is a descendant
+--         return util.path.is_descendant(cwd, root) and cwd or root;
+--     end,
+--     autostart = false,
+--     -- on_attach = function ()
+--     --     print 'FOOOOOOOOOOO'
+--     -- end
+-- } -- check the lspconfig documentation for a list of all possible options
+-- require("lvim.lsp.manager").setup(bin_name, opts)
 
 -- -- you can set a custom on_attach function that will be used for all the language servers
 -- -- See <https://github.com/neovim/nvim-lspconfig#keybindings-and-completion>
@@ -341,6 +358,12 @@ lvim.plugins = {
         end,
         disable = false,
     },
+    {
+        "junegunn/fzf",
+        dir = '~/.fzf',
+        run = './install --bin'
+        -- cmd = {"LushRunQuickstart", "LushRunTutorial", "Lushify"},
+    },
 
     -- TODO remove when treesitter supports corresponding languages
     -- {"cakebaker/scss-syntax.vim", ft = {'sass', 'scss', 'html', 'phtml', 'vue'}}
@@ -470,7 +493,51 @@ lvim.builtin.gitsigns.current_line_blame = true
 
 -- Overrides for lualine
 local components = require "lvim.core.lualine.components"
+local conditions = require "lvim.core.lualine.conditions"
+local colors = require "lvim.core.lualine.colors"
 lvim.builtin.lualine.options.disabled_filetypes = { "startify", "dashboard", "NvimTree", "Outline" }
+lvim.builtin.lualine.sections.lualine_b = {
+    components.branch,
+    {
+      'filename',
+      file_status = true, -- displays file status (readonly status, modified status)
+      path = 1 -- 0 = just filename, 1 = relative path, 2 = absolute path
+    }
+    -- {
+    --     function()
+    --         -- local file = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.")
+    --         -- -- local file = vim.fn.fnamemodify(vim.fn.expand "%:t", ":~:.")
+    --         -- if vim.fn.empty(file) == 1 then return "" end
+    --         -- -- if vim.bo.filetype == "startify" then return "" end
+
+    --         -- local modified_icon = ""
+    --         -- local readonly_icon = ""
+
+    --         -- local readonly = vim.bo.readonly
+    --         -- if vim.bo.filetype == "help" then
+    --         --     readonly = false
+    --         -- end
+
+    --         -- if readonly then
+    --         --     file = readonly_icon .. " " .. file
+    --         -- end
+
+    --         -- -- local is_modified = vim.api.nvim_buf_get_option(vim.fn.bufnr, "modified")
+    --         -- if vim.bo.modifiable and vim.bo.modified then
+    --         --     file = file .. " " .. modified_icon
+    --         --     vim.api.nvim_command("hi GalaxyFileName guifg=" .. colors.yellow)
+    --         -- else
+    --         --     vim.api.nvim_command("hi GalaxyFileName guifg=" .. colors.white)
+    --         -- end
+
+    --         -- return file .. " "
+    --         return 'test'
+    --     end,
+    --     color = { fg = colors.green },
+    --     cond = conditions.hide_in_width,
+    -- },
+}
+
 lvim.builtin.lualine.sections.lualine_x = {
     components.diagnostics,
     components.treesitter,

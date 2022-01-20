@@ -10,7 +10,7 @@ else # OS X `ls`
     colorflag="-G"
 fi
 
-alias vim="nvim"
+alias vim="lvim"
 alias top="htop"
 
 # Filesystem aliases
