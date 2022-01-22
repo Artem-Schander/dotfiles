@@ -11,6 +11,8 @@ else # OS X `ls`
 fi
 
 alias vim="lvim"
+alias nvim="lvim"
+
 alias top="htop"
 
 # Filesystem aliases
