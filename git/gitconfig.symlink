@@ -146,7 +146,7 @@
     editor = vim
     whitespace = cr-at-eol
 [rerere]
-    enabled = true
+	enabled = true
 [gitsh]
     defaultCommand = s
 [grep]
