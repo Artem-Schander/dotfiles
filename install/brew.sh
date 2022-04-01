@@ -97,6 +97,11 @@ echo "==============================${NORMAL}"
 brew tap caskroom/fonts
 brew cask install font-fira-code
 
+echo -e "\n\n${GREEN}Install JetBrains Mono Font"
+echo "==============================${NORMAL}"
+brew tap homebrew/cask-fonts
+brew install --cask font-jetbrains-mono
+
 echo -e "\n\n${GREEN}Install Glances"
 echo "==============================${NORMAL}"
 pip install --upgrade glances

@@ -3,7 +3,7 @@ conky.config = {
 	background = true,
 	cpu_avg_samples = 2,
 	double_buffer = true,
-	font = 'Fira Code:size=8',
+	font = 'JetBrains Mono:size=8',
     draw_shades = false,
     default_color = 'ABB2BF',
     color2 = 'D19A66',

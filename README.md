@@ -99,7 +99,7 @@ vim and neovim should just work once the correct plugins are installed. To insta
 
 ## Fonts
 
-I am currently using [Fira Code](https://github.com/tonsky/FiraCode) as my default font which does not include Powerline support but has pretty nice ligatures (at the time being only supported by iTerm2 nightly build but will be supported from v3.1).
+I am currently using [JatBRains Mono](https://www.jetbrains.com/de-de/lp/mono/) as my default font which does not include Powerline support but has pretty nice ligatures (at the time being only supported by iTerm2 nightly build but will be supported from v3.1).
 
 ![](https://cloud.githubusercontent.com/assets/1243826/23823422/8c35c5fe-0662-11e7-9c1f-6998f101901a.png)
 

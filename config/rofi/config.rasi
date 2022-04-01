@@ -1,5 +1,5 @@
 * {
-    font: "Fira Code 9";
+    font: "JetBrains Mono 9";
     black:                       rgba( 40, 44, 52, 100% );
     white:                       rgba( 171, 178, 191, 100% );
     red:                         rgba( 190, 80, 70, 100% );

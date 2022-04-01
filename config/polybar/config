@@ -123,11 +123,11 @@ module-margin-left = 1
 module-margin-right = 1
 
 ;https://github.com/jaagr/polybar/wiki/Fonts
-font-0 = "Fira Code:size=8.6;2"
-font-1 = "FuraCode Nerd Font Mono:size=14;3"
-; font-2 = "FuraCode Nerd Font Mono:style=Regular:pixelsize=8;1"
-; font-3 = "FuraCode Nerd Font Mono:style=Solid:pixelsize=8;1"
-; font-4 = "FuraCode Nerd Font Mono:pixelsize=8;1"
+font-0 = "JetBrains Mono:size=8.6;2"
+font-1 = "FiraCode Nerd Font Mono:size=14;3"
+; font-2 = "FiraCode Nerd Font Mono:style=Regular:pixelsize=8;1"
+; font-3 = "FiraCode Nerd Font Mono:style=Solid:pixelsize=8;1"
+; font-4 = "FiraCode Nerd Font Mono:pixelsize=8;1"
 
 modules-left = i3 xwindow
 modules-center =
