@@ -109,7 +109,34 @@ vim.api.nvim_set_keymap('n', '\\s', ':set ts=4 sts=4 sw=4 et<cr>', {noremap = tr
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
-lvim.builtin.dashboard.active = false
+-- lvim.builtin.dashboard.active = false
+
+lvim.builtin.alpha.active = false
+lvim.builtin.alpha.mode = "startify"
+lvim.builtin.alpha.startify.section.header = {
+    type = "text",
+    val = {
+        [[   ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗]],
+        [[   ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║]],
+        [[   ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║]],
+        [[   ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║]],
+        [[   ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║]],
+        [[   ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝]],
+    },
+    opts = {
+        hl = "Type",
+        shrink_margin = false,
+        -- wrap = "overflow";
+    },
+}
+
+lvim.builtin.alpha.startify.section.top_buttons = {
+    entries = {
+        { "e", "  New File", "<CMD>ene!<CR>" },
+    },
+    val = {},
+}
+
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
@@ -480,7 +507,7 @@ lvim.builtin.telescope.pickers = {
 lvim.builtin.nvimtree.side = "left"
 lvim.builtin.nvimtree.width = 40
 lvim.builtin.nvimtree.show_icons.git = 0
-lvim.builtin.nvimtree.quit_on_open = 1
+lvim.builtin.nvimtree.setup.actions.open_file.quit_on_open = 1
 lvim.builtin.nvimtree.indent_markers = 0
 
 -- load netrw to be able to use scp
