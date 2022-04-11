@@ -15,132 +15,23 @@ lvim.colorscheme = "onedarker"
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
 -- add your own keymapping
-lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+lvim.keys.normal_mode["<C-s>"] = ":w<CR>"
 -- unmap a default keymapping
 -- lvim.keys.normal_mode["<C-Up>"] = false
 -- edit a default keymapping
--- lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
-
--- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
--- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
-local _, actions = pcall(require, "telescope.actions")
-lvim.builtin.telescope.defaults.mappings = {
-    i = {
-        ["<C-down>"] = actions.cycle_history_next,
-        ["<C-up>"] = actions.cycle_history_prev,
-        ["<C-c>"] = actions.close,
-        ["<C-j>"] = actions.move_selection_next,
-        ["<C-k>"] = actions.move_selection_previous,
-        ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-        ["<CR>"] = actions.select_default + actions.center,
-        -- To disable a keymap, put [map] = false
-        -- So, to not map "<C-n>", just put
-        -- ["<c-t>"] = trouble.open_with_trouble,
-        -- ["<c-x>"] = false,
-        -- ["<esc>"] = actions.close,
-        -- Otherwise, just set the mapping to the function that you want it to be.
-        -- ["<C-i>"] = actions.select_horizontal,
-        -- Add up multiple actions
-        -- You can perform as many actions in a row as you like
-        -- ["<CR>"] = actions.select_default + actions.center + my_cool_custom_action,
-    },
-    n = {
-        ["<C-j>"] = actions.move_selection_next,
-        ["<C-k>"] = actions.move_selection_previous,
-        ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
-        -- ["<c-t>"] = trouble.open_with_trouble,
-        -- ["<C-i>"] = my_cool_custom_action,
-    },
-}
-
--- Use which-key to add extra bindings with the leader-key prefix
--- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
--- lvim.builtin.which_key.mappings["t"] = {
---   name = "+Trouble",
---   r = { "<cmd>Trouble lsp_references<cr>", "References" },
---   f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
---   d = { "<cmd>Trouble lsp_document_diagnostics<cr>", "Diagnostics" },
---   q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
---   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
---   w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Diagnostics" },
--- }
-
--- Additional Leader bindings and overrides for WhichKey
-lvim.builtin.which_key.mappings["."] = { "<c-^>", "Previous Buffer" }
-lvim.builtin.which_key.mappings[";"] = { ":ToggleRelativeLineNumbers<cr>", "Toggle Linenumbers" }
--- lvim.builtin.which_key.mappings[">"] = { ":set list!<cr>:IndentBlanklineToggle!<cr>", "Toggle Invisible Characters" }
-lvim.builtin.which_key.mappings[">"] = { ":IndentBlanklineToggle!<cr>", "Toggle Indent Lines" }
-
-lvim.builtin.which_key.mappings["r"] = { ":Telescope lsp_document_symbols<CR>", "Find Symbol (current file)" }
-lvim.builtin.which_key.mappings["t"] = { ":Telescope live_grep<CR>", "Find Text" }
-lvim.builtin.which_key.mappings["a"] = { ":Telescope find_files find_command=rg,--smart-case,--files,--follow,--no-ignore,--hidden<cr>", "Find File (w. hidden)" }
-lvim.builtin.which_key.mappings["s"]["s"] = { ":Telescope grep_string<cr>", "Find String Under Cursor" }
-
-lvim.builtin.which_key.mappings["q"] = { ":call Stopsession()<cr>", "Quit" }
--- lvim.builtin.which_key.mappings["h"] = { ":set hlsearch! hlsearch?<cr>", "Toggle Search Highlight" }
-
-
--- lvim.builtin.which_key.mappings["h"] = { '<cmd>let @/=""<CR>', "Remove Search Highlight" }
-lvim.builtin.which_key.mappings["k"] = "Interesting Word"
-lvim.builtin.which_key.mappings["K"] = "Uninteresting All"
-
--- better indenting
-lvim.keys.normal_mode["<"] = "<<"
-lvim.keys.normal_mode[">"] = ">>"
-
--- Mac OS - Move current line / block with Alt-j/k ala vscode.
-lvim.keys.normal_mode["∆"] = ":m .+1<CR>=="
-lvim.keys.normal_mode["˚"] = ":m .-2<CR>=="
-lvim.keys.insert_mode["∆"] = "<Esc>:m .+1<CR>=="
-lvim.keys.insert_mode["˚"] = "<Esc>:m .-2<CR>=="
-lvim.keys.visual_block_mode["∆"] = ">+1<CR>gv-gv"
-lvim.keys.visual_block_mode["˚"] = "<-2<CR>gv-gv"
-
--- you can also use the native vim way directly
--- vim.api.nvim_set_keymap("i", "<C-Space>", "cmp#complete()", { noremap = true, silent = true, expr = true })
-
--- Scroll faster
-vim.api.nvim_set_keymap('n', '<C-e>', '3<C-e>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-y>', '3<C-y>', {noremap = true, silent = true})
-
--- Deal with other peoples code
-vim.api.nvim_set_keymap('n', '\\t', ':set ts=4 sts=4 sw=4 noet<cr>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '\\s', ':set ts=4 sts=4 sw=4 et<cr>', {noremap = true, silent = true})
+-- lvim.keys.normal_mode["<C-q>"] = ":q<CR>"
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 -- lvim.builtin.dashboard.active = false
 
 lvim.builtin.alpha.active = false
-lvim.builtin.alpha.mode = "startify"
-lvim.builtin.alpha.startify.section.header = {
-    type = "text",
-    val = {
-        [[   ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗]],
-        [[   ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║]],
-        [[   ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║]],
-        [[   ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║]],
-        [[   ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║]],
-        [[   ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝]],
-    },
-    opts = {
-        hl = "Type",
-        shrink_margin = false,
-        -- wrap = "overflow";
-    },
-}
-
-lvim.builtin.alpha.startify.section.top_buttons = {
-    entries = {
-        { "e", "  New File", "<CMD>ene!<CR>" },
-    },
-    val = {},
-}
-
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.show_icons.git = 0
+lvim.builtin.bufferline.active = false
+vim.opt.showtabline = 0
 
 -- if you don't want all the parsers change this to a table of the ones you want
 -- lvim.builtin.treesitter.ensure_installed = {
@@ -234,6 +125,106 @@ lvim.builtin.treesitter.highlight.enabled = true
 --     filetypes = { "javascript", "python" },
 --   },
 -- }
+
+-- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
+-- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
+local _, actions = pcall(require, "telescope.actions")
+lvim.builtin.telescope.defaults.mappings = {
+    i = {
+        ["<C-down>"] = actions.cycle_history_next,
+        ["<C-up>"] = actions.cycle_history_prev,
+        ["<C-c>"] = actions.close,
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+        ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+        ["<CR>"] = actions.select_default + actions.center,
+        -- To disable a keymap, put [map] = false
+        -- So, to not map "<C-n>", just put
+        -- ["<c-t>"] = trouble.open_with_trouble,
+        -- ["<c-x>"] = false,
+        -- ["<esc>"] = actions.close,
+        -- Otherwise, just set the mapping to the function that you want it to be.
+        -- ["<C-i>"] = actions.select_horizontal,
+        -- Add up multiple actions
+        -- You can perform as many actions in a row as you like
+        -- ["<CR>"] = actions.select_default + actions.center + my_cool_custom_action,
+    },
+    n = {
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+        ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+        -- ["<c-t>"] = trouble.open_with_trouble,
+        -- ["<C-i>"] = my_cool_custom_action,
+    },
+}
+
+-- Use which-key to add extra bindings with the leader-key prefix
+-- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
+-- lvim.builtin.which_key.mappings["t"] = {
+--   name = "+Trouble",
+--   r = { "<cmd>Trouble lsp_references<CR>", "References" },
+--   f = { "<cmd>Trouble lsp_definitions<CR>", "Definitions" },
+--   d = { "<cmd>Trouble lsp_document_diagnostics<CR>", "Diagnostics" },
+--   q = { "<cmd>Trouble quickfix<CR>", "QuickFix" },
+--   l = { "<cmd>Trouble loclist<CR>", "LocationList" },
+--   w = { "<cmd>Trouble lsp_workspace_diagnostics<CR>", "Diagnostics" },
+-- }
+
+-- Additional Leader bindings and overrides for WhichKey
+lvim.builtin.which_key.mappings["."] = { "<c-^>", "Previous Buffer" }
+lvim.builtin.which_key.mappings[";"] = { ":ToggleRelativeLineNumbers<CR>", "Toggle Linenumbers" }
+-- lvim.builtin.which_key.mappings[">"] = { ":set list!<CR>:IndentBlanklineToggle!<CR>", "Toggle Invisible Characters" }
+lvim.builtin.which_key.mappings[">"] = { ":IndentBlanklineToggle!<CR>", "Toggle Indent Lines" }
+
+lvim.builtin.which_key.mappings["r"] = { ":Telescope lsp_document_symbols<CR>", "Find Symbol (current file)" }
+lvim.builtin.which_key.mappings["t"] = { ":Telescope live_grep<CR>", "Find Text" }
+lvim.builtin.which_key.mappings["a"] = { ":Telescope find_files find_command=rg,--smart-case,--files,--follow,--no-ignore,--hidden<CR>", "Find File (w. hidden)" }
+lvim.builtin.which_key.mappings["s"]["s"] = { ":Telescope grep_string<CR>", "Find String Under Cursor" }
+
+lvim.builtin.which_key.mappings["q"] = { ":call Stopsession()<CR>", "Quit" }
+-- lvim.builtin.which_key.mappings["h"] = { ":set hlsearch! hlsearch?<CR>", "Toggle Search Highlight" }
+
+if lvim.builtin.bufferline.active == false then
+    -- remove bufferline stuff
+    lvim.builtin.which_key.mappings["b"] = { "<cmd>Telescope buffers<CR>", "Find Buffer" }
+    lvim.builtin.which_key.mappings["c"] = { "<cmd>BufferKill<CR>", "Close Current Buffer" }
+    lvim.builtin.which_key.mappings["C"] = { "<cmd>BWipeout other<CR>", "Close Other Buffers" }
+else
+    lvim.builtin.which_key.mappings["b"]["w"] = { "<cmd>BWipeout other<CR>", "Wipeout" }
+end
+
+-- lvim.builtin.which_key.mappings["h"] = { '<cmd>let @/=""<CR>', "Remove Search Highlight" }
+lvim.builtin.which_key.mappings["k"] = "Interesting Word"
+lvim.builtin.which_key.mappings["K"] = "Uninteresting All"
+
+-- better indenting
+lvim.keys.normal_mode["<"] = "<<"
+lvim.keys.normal_mode[">"] = ">>"
+
+-- Mac OS - Move current line / block with Alt-j/k ala vscode.
+lvim.keys.normal_mode["∆"] = ":m .+1<CR>=="
+lvim.keys.normal_mode["˚"] = ":m .-2<CR>=="
+lvim.keys.insert_mode["∆"] = "<Esc>:m .+1<CR>=="
+lvim.keys.insert_mode["˚"] = "<Esc>:m .-2<CR>=="
+lvim.keys.visual_block_mode["∆"] = ">+1<CR>gv-gv"
+lvim.keys.visual_block_mode["˚"] = "<-2<CR>gv-gv"
+
+-- you can also use the native vim way directly
+-- vim.api.nvim_set_keymap("i", "<C-Space>", "cmp#complete()", { noremap = true, silent = true, expr = true })
+
+-- Scroll faster
+vim.api.nvim_set_keymap('n', '<C-e>', '3<C-e>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-y>', '3<C-y>', { noremap = true, silent = true })
+
+-- Deal with other peoples code
+vim.api.nvim_set_keymap('n', '\\t', ':set ts=4 sts=4 sw=4 noet<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '\\s', ':set ts=4 sts=4 sw=4 et<CR>', { noremap = true, silent = true })
+
+if lvim.builtin.bufferline.active == false then
+    -- unset Bufferline mappings
+    vim.api.nvim_del_keymap('n', '<S-l>')
+    vim.api.nvim_del_keymap('n', '<S-h>')
+end
 
 -- Additional Plugins
 lvim.plugins = {
@@ -358,6 +349,7 @@ lvim.plugins = {
     {"tpope/vim-repeat"},
     {"chrisbra/csv.vim"},
     {"editorconfig/editorconfig-vim"},
+    {"kazhala/close-buffers.nvim"},
     {
         "lfv89/vim-interestingwords",
         config = function()
@@ -451,12 +443,12 @@ vim.g.rooter_manual_only = 1
 
 -- lvim.builtin.which_key.mappings["t"] = {
 --     name = "+Trouble",
---     r = { "<cmd>Trouble lsp_references<cr>", "References" },
---     f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
---     d = { "<cmd>Trouble lsp_document_diagnostics<cr>", "Diagnosticss" },
---     q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
---     l = { "<cmd>Trouble loclist<cr>", "LocationList" },
---     w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Diagnosticss" },
+--     r = { "<cmd>Trouble lsp_references<CR>", "References" },
+--     f = { "<cmd>Trouble lsp_definitions<CR>", "Definitions" },
+--     d = { "<cmd>Trouble lsp_document_diagnostics<CR>", "Diagnosticss" },
+--     q = { "<cmd>Trouble quickfix<CR>", "QuickFix" },
+--     l = { "<cmd>Trouble loclist<CR>", "LocationList" },
+--     w = { "<cmd>Trouble lsp_workspace_diagnostics<CR>", "Diagnosticss" },
 -- }
 
 -- Additional bindings and overrides for Telescope
