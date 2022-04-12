@@ -20,7 +20,7 @@ function! Listprosessions()
                 let files = map(split(globpath(local_session_dir, root_lead.'.vim'), '\n'), 'fnamemodify(v:val, ":t")')
                 if len(files) >= 1
                     let path = join(split(files[0], "%"), "/")
-                    let sessions = add(sessions, { "line": "~/" . path[strlen($HOME):][:-5], "cmd": ":Prosession /" . path[:-5] })
+                    let sessions = add(sessions, { "line": "~/" . path[strlen($HOME):][:-5], "cmd": ":Prosession /" . path[:-5] . " | :LspStart" })
                 endif
             endif
         endif
@@ -30,7 +30,7 @@ function! Listprosessions()
             let path = join(split(session, "%"), "/")
 
             if path[strlen(path)-3:] == 'vim' && isdirectory("/" . path[:-5]) == 1
-                let sessions = add(sessions, { "line": "~/" . path[strlen($HOME):][:-5], "cmd": ":Prosession /" . path[:-5] })
+                let sessions = add(sessions, { "line": "~/" . path[strlen($HOME):][:-5], "cmd": ":Prosession /" . path[:-5] . " | :LspStart" })
             endif
         endfor
     endif
@@ -46,7 +46,7 @@ function! Listsessions()
             let path_list = split(session, "%")
             if session != 'last_session.vim' && session[strlen(session)-3:] == 'vim' && isdirectory("/" . split(session, "%")[0]) == 0
                 " let sessions = add(sessions, { "line": join(split(session, "%"), "/")[strlen($HOME):][:-5], "cmd": ":SLoad " . session })
-                let sessions = add(sessions, { "line": join(split(session, "%"), "/")[:-5], "cmd": ":SLoad " . session })
+                let sessions = add(sessions, { "line": join(split(session, "%"), "/")[:-5], "cmd": ":SLoad " . session . " | :LspStart" })
             endif
         endfor
     endif
@@ -76,7 +76,7 @@ function! Startsession()
         let s:filename = "%" . join(split(getcwd(), "/"), "%") . ".vim"
         if filereadable(s:dir . s:filename) == 0
             let s:filename = "\\%" . join(split(getcwd(), "/"), "\\%") . ".vim"
-            let sessions = add(sessions, { "line": "\uf07b " . s:name, "cmd": ":silent Obsession " . s:dir . s:filename . " | :enew" })
+            let sessions = add(sessions, { "line": "\uf07b " . s:name, "cmd": ":silent Obsession " . s:dir . s:filename . " | :enew | :LspStart" })
         endif
     endif
 
@@ -86,7 +86,7 @@ function! Startsession()
         let s:name = split(getcwd(), "/")[-1]
         let s:filename = s:name . ".vim"
         if filereadable(s:dir . s:filename) == 0
-            let sessions = add(sessions, { "line": "\uf484 " . s:name, "cmd": ":silent SSave " . s:filename . " | :enew" })
+            let sessions = add(sessions, { "line": "\uf484 " . s:name, "cmd": ":silent SSave " . s:filename . " | :enew | :LspStart" })
         endif
     endif
 
@@ -98,7 +98,7 @@ function! Stopsession()
     if prosession != '0'
         unlet g:this_obsession
     endif
-    execute 'SClose'
+    execute 'SClose | LspStop'
 endfunction
 
 function! Deletesession()
