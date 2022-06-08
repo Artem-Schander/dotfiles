@@ -63,7 +63,7 @@ do
     fi
 done
 
-if (pacman -Q | grep yay > /dev/null)
+if (yay -Q | grep yay > /dev/null)
 then
     for P in \
         git-ftp \

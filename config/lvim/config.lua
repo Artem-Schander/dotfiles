@@ -28,26 +28,24 @@ lvim.keys.normal_mode["<C-s>"] = ":w<CR>"
 lvim.builtin.alpha.active = false
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
-lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.show_icons.git = 0
 lvim.builtin.bufferline.active = false
 vim.opt.showtabline = 0
 
 -- if you don't want all the parsers change this to a table of the ones you want
--- lvim.builtin.treesitter.ensure_installed = {
---   "bash",
---   "c",
---   "javascript",
---   "json",
---   "lua",
---   "python",
---   "typescript",
---   "css",
---   "rust",
---   "java",
---   "yaml",
--- }
-lvim.builtin.treesitter.ensure_installed = "maintained"
+lvim.builtin.treesitter.ensure_installed = {
+  "bash",
+  "c",
+  "javascript",
+  "json",
+  "lua",
+  "php",
+  "python",
+  "typescript",
+  "css",
+  "rust",
+  "java",
+  "yaml",
+}
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
@@ -267,9 +265,9 @@ lvim.plugins = {
         end,
         disable = true
     },
-    {
-        "nvim-treesitter/playground",
-    },
+    -- {
+    --     "nvim-treesitter/playground",
+    -- },
     {
         -- Pretty list for showing diagnostics
         "folke/trouble.nvim",
@@ -503,11 +501,10 @@ lvim.builtin.telescope.pickers = {
 }
 
 -- Overrides for NvimTree
-lvim.builtin.nvimtree.side = "left"
-lvim.builtin.nvimtree.width = 40
-lvim.builtin.nvimtree.show_icons.git = 0
-lvim.builtin.nvimtree.setup.actions.open_file.quit_on_open = 1
-lvim.builtin.nvimtree.indent_markers = 0
+-- lvim.builtin.nvimtree.show_icons.git = 0
+lvim.builtin.nvimtree.setup.view.side = "left"
+lvim.builtin.nvimtree.setup.view.width = 60
+lvim.builtin.nvimtree.setup.actions.open_file.quit_on_open = true
 
 -- load netrw to be able to use scp
 lvim.builtin.nvimtree.setup.disable_netrw = false -- "1 by default, disables netrw
@@ -576,8 +573,18 @@ lvim.builtin.lualine.sections.lualine_z = {
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
-lvim.autocommands.custom_groups = {
-    -- { "FileType", "startify", "highlight BufferTabpageFill guibg=NONE" },
-    { "FileType", "startify", "set showtabline=0 | autocmd BufLeave <buffer> set showtabline=" .. vim.opt.showtabline._value },
-    { "BufRead,BufNewFile", "*.graphql,*.graphqls,*.gql", "setfiletype graphql" },
-}
+-- lvim.autocommands.custom_groups = {
+--     -- { "FileType", "startify", "highlight BufferTabpageFill guibg=NONE" },
+--     { "FileType", "startify", "set showtabline=0 | autocmd BufLeave <buffer> set showtabline=" .. vim.opt.showtabline._value },
+--     { "BufRead,BufNewFile", "*.graphql,*.graphqls,*.gql", "setfiletype graphql" },
+-- }
+
+-- vim.api.nvim_create_autocmd("FileType", {
+-- 	  pattern = { "startify" },
+-- 	  command = "set showtabline=0 | autocmd BufLeave <buffer> set showtabline=",
+-- })
+
+vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
+	  pattern = { "*.graphql,*.graphqls,*.gql" },
+	  command = "setfiletype graphql",
+})

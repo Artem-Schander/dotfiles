@@ -140,7 +140,7 @@ modules-right = networkspeedup networkspeeddown filesystem memory3 cpu1 battery 
 
 tray-position = right
 tray-detached = false
-tray-maxsize = 12
+tray-maxsize = 28
 tray-background = ${colors.background}
 tray-offset-x = 0
 tray-offset-y = 0
