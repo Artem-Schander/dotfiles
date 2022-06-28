@@ -228,6 +228,9 @@ end
 lvim.plugins = {
     {"folke/tokyonight.nvim"},
     {"sainnhe/sonokai"},
+    {"matsuuu/pinkmare"},
+    {"shaunsingh/solarized.nvim"},
+    {"folke/lsp-colors.nvim"},
     {
         "phaazon/hop.nvim",
         event = "BufRead",
@@ -254,6 +257,14 @@ lvim.plugins = {
         "lukas-reineke/indent-blankline.nvim",
         -- event = "BufWinEnter",
         setup = function()
+            if lvim and lvim.colorscheme == "onedarker" then
+                local C = require "onedarker.palette"
+                local fg = C.gray
+                vim.api.nvim_create_autocmd("ColorScheme", {
+                      pattern = { "*" },
+                      command = "highlight IndentBlanklineSpaceChar guifg=" .. fg .. " gui=nocombine",
+                })
+            end
             require("plugins/indent-blankline").config()
         end
     },
@@ -429,7 +440,7 @@ vim.cmd "set magic" -- Set magic on, for regex
 
 vim.cmd "set nolist" -- hide invisible chars
 -- vim.cmd "set listchars=tab:> ,space:·,eol:¬,trail:-,extends:❯,precedes:❮" -- ⚬ ● • ¤ » ø Θ 0 O ⟶  ⟼  ⏤ ⤚
-vim.cmd "set listchars=tab:> ,eol:¬,trail:-,extends:❯,precedes:❮" -- ⚬ ● • ¤ » ø Θ 0 O ⟶  ⟼  ⏤ ⤚
+vim.cmd "set listchars=tab:-->,space:⋅,eol:↴,trail:-,extends:❯,precedes:❮" -- ⚬ ● • ¤ » ø Θ 0 O ⟶  ⟼  ⏤ ⤚
 vim.cmd "set showbreak=↪" -- ↩︎  …
 vim.cmd "set number relativenumber"
 
