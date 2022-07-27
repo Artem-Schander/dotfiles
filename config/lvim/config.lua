@@ -210,6 +210,26 @@ lvim.keys.visual_block_mode["˚"] = "<-2<CR>gv-gv"
 -- you can also use the native vim way directly
 -- vim.api.nvim_set_keymap("i", "<C-Space>", "cmp#complete()", { noremap = true, silent = true, expr = true })
 
+vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#6CC644" })
+lvim.builtin.cmp.formatting.format = function(entry, vim_item)
+    local max_width = lvim.builtin.cmp.formatting.max_width
+    if max_width ~= 0 and #vim_item.abbr > max_width then
+        vim_item.abbr = string.sub(vim_item.abbr, 1, max_width - 1) .. "…"
+    end
+    if lvim.use_icons then
+        vim_item.kind = lvim.builtin.cmp.formatting.kind_icons[vim_item.kind]
+    end
+    if entry.source.name == "copilot" then
+        vim_item.kind = " "
+        vim_item.kind_hl_group = "CmpItemKindCopilot"
+    end
+    vim_item.menu = lvim.builtin.cmp.formatting.source_names[entry.source.name]
+    vim_item.dup = lvim.builtin.cmp.formatting.duplicates[entry.source.name]
+    or lvim.builtin.cmp.formatting.duplicates_default
+    return vim_item
+end
+table.insert(lvim.builtin.cmp.sources, { name = "copilot", group_index = 2 })
+
 -- Scroll faster
 vim.api.nvim_set_keymap('n', '<C-e>', '3<C-e>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-y>', '3<C-y>', { noremap = true, silent = true })
@@ -223,6 +243,8 @@ if lvim.builtin.bufferline.active == false then
     vim.api.nvim_del_keymap('n', '<S-l>')
     vim.api.nvim_del_keymap('n', '<S-h>')
 end
+
+lvim.builtin.sell_soul_to_devel = true
 
 -- Additional Plugins
 lvim.plugins = {
@@ -400,6 +422,68 @@ lvim.plugins = {
         -- cmd = {"LushRunQuickstart", "LushRunTutorial", "Lushify"},
     },
 
+    -- { "mfussenegger/nvim-dap" },
+
+    -- {
+    --     "github/copilot.vim",
+    --     config = function ()
+    --         vim.g.copilot_no_tab_map = true
+    --     end
+    -- },
+    {
+        "zbirenbaum/copilot.lua",
+        event = {"VimEnter"},
+        config = function ()
+            vim.schedule(function ()
+                require("copilot").setup {
+                    cmp = {
+                        enabled = true,
+                        method = "getCompletionsCycling",
+                    },
+                    panel = { -- no config options yet
+                        enabled = true,
+                    },
+                    ft_disable = { "markdown" },
+                    plugin_manager_path = vim.fn.expand "$HOME" .. "/.local/share/lunarvim/site/pack/packer",
+                }
+            end)
+        end
+    },
+    {
+        "zbirenbaum/copilot-cmp",
+        module = "copilot_cmp",
+        -- config = function ()
+        --     lvim.builtin.cmp.formatting.source_names["copilot"] = "(Cop)"
+        --     table.insert(lvim.builtin.cmp.sources, { name = "copilot", group_index = 2 })
+        --     lvim.builtin.cmp.formatting.format = function(entry, vim_item)
+        --         local max_width = lvim.builtin.cmp.formatting.max_width
+        --         if max_width ~= 0 and #vim_item.abbr > max_width then
+        --             vim_item.abbr = string.sub(vim_item.abbr, 1, max_width - 1) .. "…"
+        --         end
+        --         if lvim.use_icons then
+        --             vim_item.kind = lvim.builtin.cmp.formatting.kind_icons[vim_item.kind]
+        --         end
+        --         if entry.source.name == "copilot" then
+        --             vim_item.kind = "[] Copilot"
+        --             vim_item.kind_hl_group = "CmpItemKindCopilot"
+        --             return vim_item
+        --         end
+        --         vim_item.menu = lvim.builtin.cmp.formatting.source_names[entry.source.name]
+        --         vim_item.dup = lvim.builtin.cmp.formatting.duplicates[entry.source.name]
+        --         or lvim.builtin.cmp.formatting.duplicates_default
+        --         return vim_item
+        --     end
+        --     lvim.builtin.cmp.sorting = {
+        --         priority_weight = 2,
+        --         comparators = {
+        --             require("copilot_cmp.comparators").prioritize,
+        --             require("copilot_cmp.comparators").score,
+        --         },
+        --     }
+        --     vim.api.nvim_set_hl(0, "CmpItemKindCopilot", {fg ="#6CC644"})
+        -- end
+    },
+
     -- TODO remove when treesitter supports corresponding languages
     -- {"cakebaker/scss-syntax.vim", ft = {'sass', 'scss', 'html', 'phtml', 'vue'}}
     -- {"jparise/vim-graphql", ft = {'gql', 'graphql', 'graphqls'}}
@@ -536,7 +620,7 @@ lvim.builtin.lualine.sections.lualine_b = {
       'filename',
       file_status = true, -- displays file status (readonly status, modified status)
       path = 1 -- 0 = just filename, 1 = relative path, 2 = absolute path
-    }
+    },
     -- {
     --     function()
     --         -- local file = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.")
@@ -571,6 +655,38 @@ lvim.builtin.lualine.sections.lualine_b = {
     --     cond = conditions.hide_in_width,
     -- },
 }
+lvim.builtin.lualine.sections.lualine_y = {
+    {
+        function()
+            local space_pat = [[\v^ +]]
+            local tab_pat = [[\v^\t+]]
+            local space_indent = vim.fn.search(space_pat, 'nwc')
+            local tab_indent = vim.fn.search(tab_pat, 'nwc')
+            local mixed = (space_indent > 0 and tab_indent > 0)
+            local mixed_same_line
+            if not mixed then
+                mixed_same_line = vim.fn.search([[\v^(\t+ | +\t)]], 'nwc')
+                mixed = mixed_same_line > 0
+            end
+            if not mixed then return '' end
+            if mixed_same_line ~= nil and mixed_same_line > 0 then
+                return 'MI:'..mixed_same_line
+            end
+            local space_indent_cnt = vim.fn.searchcount({pattern=space_pat, max_count=1e3}).total
+            local tab_indent_cnt =  vim.fn.searchcount({pattern=tab_pat, max_count=1e3}).total
+            if space_indent_cnt > tab_indent_cnt then
+                return 'MI:'..tab_indent
+            else
+                return 'MI:'..space_indent
+            end
+        end,
+        color = {
+            bg = colors.orange,
+            fg = colors.bg
+        },
+        cond = conditions.hide_in_width,
+    },
+}
 
 lvim.builtin.lualine.sections.lualine_x = {
     components.diagnostics,
@@ -591,11 +707,11 @@ lvim.builtin.lualine.sections.lualine_z = {
 -- }
 
 -- vim.api.nvim_create_autocmd("FileType", {
--- 	  pattern = { "startify" },
--- 	  command = "set showtabline=0 | autocmd BufLeave <buffer> set showtabline=",
+--    pattern = { "startify" },
+--    command = "set showtabline=0 | autocmd BufLeave <buffer> set showtabline=",
 -- })
 
 vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
-	  pattern = { "*.graphql,*.graphqls,*.gql" },
-	  command = "setfiletype graphql",
+      pattern = { "*.graphql,*.graphqls,*.gql" },
+      command = "setfiletype graphql",
 })
