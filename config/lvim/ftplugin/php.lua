@@ -20,3 +20,8 @@
 -- end
 --
 -- require("lvim.lsp.manager").setup("phpactor", opts)
+
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile", "BufEnter"}, {
+      pattern = { "*.blade.php" },
+      command = "setfiletype phtml",
+})

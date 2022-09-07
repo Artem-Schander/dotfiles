@@ -238,11 +238,11 @@ vim.api.nvim_set_keymap('n', '<C-y>', '3<C-y>', { noremap = true, silent = true 
 vim.api.nvim_set_keymap('n', '\\t', ':set ts=4 sts=4 sw=4 noet<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '\\s', ':set ts=4 sts=4 sw=4 et<CR>', { noremap = true, silent = true })
 
-if lvim.builtin.bufferline.active == false then
-    -- unset Bufferline mappings
-    vim.api.nvim_del_keymap('n', '<S-l>')
-    vim.api.nvim_del_keymap('n', '<S-h>')
-end
+-- if lvim.builtin.bufferline.active == false then
+--     -- unset Bufferline mappings
+--     vim.api.nvim_del_keymap('n', '<S-l>')
+--     vim.api.nvim_del_keymap('n', '<S-h>')
+-- end
 
 lvim.builtin.sell_soul_to_devel = true
 
@@ -252,7 +252,6 @@ lvim.plugins = {
     {"sainnhe/sonokai"},
     {"matsuuu/pinkmare"},
     {"shaunsingh/solarized.nvim"},
-    {"folke/lsp-colors.nvim"},
     {
         "phaazon/hop.nvim",
         event = "BufRead",
@@ -301,6 +300,13 @@ lvim.plugins = {
     -- {
     --     "nvim-treesitter/playground",
     -- },
+    {
+        -- Sticky Context Header
+        "nvim-treesitter/nvim-treesitter-context",
+        setup = function()
+            require("plugins/nvim-treesitter-context").config()
+        end,
+    },
     {
         -- Pretty list for showing diagnostics
         "folke/trouble.nvim",
@@ -396,7 +402,7 @@ lvim.plugins = {
     },
     {"dhruvasagar/vim-prosession"},
     {
-        "janko-m/vim-test",
+        "vim-test/vim-test",
         config = function()
             vim.cmd('source ~/.config/lvim/vimscript/plugins/test.vim')
         end
@@ -556,8 +562,8 @@ lvim.builtin.telescope.defaults.find_command = {
     "--color-line-number",
     "--smart-case",
 }
-lvim.builtin.telescope.defaults.prompt_prefix = " " --  
-lvim.builtin.telescope.defaults.selection_caret = "契"
+lvim.builtin.telescope.defaults.prompt_prefix = " " --  
+lvim.builtin.telescope.defaults.selection_caret = " "
 lvim.builtin.telescope.defaults.file_sorter = require("telescope.sorters").get_fzf_sorter
 lvim.builtin.telescope.defaults.layout_strategy = "flex"
 lvim.builtin.telescope.defaults.layout_config = {
@@ -593,6 +599,9 @@ lvim.builtin.telescope.pickers = {
         -- sort_lastused = true,
         sort_mru = true,
     },
+    git_files = {
+        show_untracked = true,
+    }
 }
 
 -- Overrides for NvimTree
@@ -711,7 +720,7 @@ lvim.builtin.lualine.sections.lualine_z = {
 --    command = "set showtabline=0 | autocmd BufLeave <buffer> set showtabline=",
 -- })
 
-vim.api.nvim_create_autocmd("BufRead,BufNewFile", {
-      pattern = { "*.graphql,*.graphqls,*.gql" },
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile", "BufEnter"}, {
+      pattern = { "*.graphql", "*.graphqls", "*.gql" },
       command = "setfiletype graphql",
 })
