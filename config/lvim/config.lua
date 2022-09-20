@@ -335,9 +335,26 @@ lvim.plugins = {
         -- event = "BufRead",
         config = function()
             require("todo-comments").setup {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
+                highlight = {
+                    before = "", -- "fg" or "bg" or empty
+                    keyword = "fg", -- "fg", "bg", "wide", "wide_bg", "wide_fg" or empty. (wide and wide_bg is the same as bg, but will also highlight surrounding characters, wide_fg acts accordingly but with fg)
+                    after = "", -- "fg" or "bg" or empty
+                    pattern = [[.*<(KEYWORDS)\s*:?]], -- pattern or table of patterns, used for highlightng (vim regex)
+                },
+                search = {
+                    command = "rg",
+                    args = {
+                        "--color=never",
+                        "--no-heading",
+                        "--with-filename",
+                        "--line-number",
+                        "--column",
+                    },
+                    -- regex that will be used to match keywords.
+                    -- don't replace the (KEYWORDS) placeholder
+                    -- pattern = [[\b(KEYWORDS):]], -- ripgrep regex
+                    pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
+                },
             }
         end,
         disable = false
