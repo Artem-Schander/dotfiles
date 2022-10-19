@@ -368,6 +368,8 @@ bind -n M-Right select-pane -R
 bind -n M-Up select-pane -U
 bind -n M-Down select-pane -D
 
+# toggle status line
+# bind -n i set-option -g staus
 
 # Shift arrow to switch windows
 bind -n S-Left  previous-window
