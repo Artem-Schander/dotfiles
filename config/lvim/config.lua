@@ -10,7 +10,8 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = false
-lvim.colorscheme = "onedarker"
+-- lvim.colorscheme = "onedark"
+lvim.colorscheme = "tokyonight-moon"
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
@@ -178,6 +179,9 @@ lvim.builtin.which_key.mappings["r"] = { ":Telescope lsp_document_symbols<CR>", 
 lvim.builtin.which_key.mappings["t"] = { ":Telescope live_grep<CR>", "Find Text" }
 lvim.builtin.which_key.mappings["a"] = { ":Telescope find_files find_command=rg,--smart-case,--files,--follow,--no-ignore,--hidden<CR>", "Find File (w. hidden)" }
 lvim.builtin.which_key.mappings["s"]["s"] = { ":Telescope grep_string<CR>", "Find String Under Cursor" }
+
+vim.api.nvim_set_keymap("n", "gp", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
+lvim.builtin.which_key.mappings["l"]["p"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Peek Definition" }
 
 lvim.builtin.which_key.mappings["q"] = { ":call Stopsession()<CR>", "Quit" }
 -- lvim.builtin.which_key.mappings["h"] = { ":set hlsearch! hlsearch?<CR>", "Toggle Search Highlight" }
@@ -514,31 +518,20 @@ vim.opt.cmdheight = 1
 vim.g.rooter_manual_only = 1
 
 
--- lvim.builtin.which_key.mappings["t"] = {
---     name = "+Trouble",
---     r = { "<cmd>Trouble lsp_references<CR>", "References" },
---     f = { "<cmd>Trouble lsp_definitions<CR>", "Definitions" },
---     d = { "<cmd>Trouble lsp_document_diagnostics<CR>", "Diagnosticss" },
---     q = { "<cmd>Trouble quickfix<CR>", "QuickFix" },
---     l = { "<cmd>Trouble loclist<CR>", "LocationList" },
---     w = { "<cmd>Trouble lsp_workspace_diagnostics<CR>", "Diagnosticss" },
--- }
-
 -- Additional bindings and overrides for Telescope
-require("telescope").load_extension("fzf")
-lvim.builtin.telescope.defaults.find_command = {
-    "ag",
-    "--filename",
-    "--noheading",
-    "--nogroup",
-    "--column",
-    "--color",
-    "--color-line-number",
-    "--smart-case",
-}
+-- lvim.builtin.telescope.defaults.vimgrep_arguments = {
+--     "ag",
+--     "--filename",
+--     "--noheading",
+--     "--nogroup",
+--     "--column",
+--     "--color",
+--     "--color-line-number",
+--     "--smart-case",
+-- }
 lvim.builtin.telescope.defaults.prompt_prefix = " " --  
 lvim.builtin.telescope.defaults.selection_caret = " "
-lvim.builtin.telescope.defaults.file_sorter = require("telescope.sorters").get_fzf_sorter
+-- lvim.builtin.telescope.defaults.file_sorter = require("telescope.sorters").get_fzf_sorter
 lvim.builtin.telescope.defaults.layout_strategy = "flex"
 lvim.builtin.telescope.defaults.layout_config = {
     width = 0.85,
@@ -555,27 +548,27 @@ lvim.builtin.telescope.defaults.layout_config = {
     },
 }
 
-lvim.builtin.telescope.extensions = {
-    -- fzy_native = {
-    --     override_generic_sorter = false,
-    --     override_file_sorter = true,
-    -- },
-    fzf = {
-        override_generic_sorter = true, -- override the generic sorter
-        override_file_sorter = true,     -- override the file sorter
-        case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
-        -- the default case_mode is "smart_case"
-    }
-}
+-- lvim.builtin.telescope.extensions = {
+--     -- fzy_native = {
+--     --     override_generic_sorter = false,
+--     --     override_file_sorter = true,
+--     -- },
+--     fzf = {
+--         override_generic_sorter = true, -- override the generic sorter
+--         override_file_sorter = true,     -- override the file sorter
+--         case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+--         -- the default case_mode is "smart_case"
+--     }
+-- }
 lvim.builtin.telescope.pickers = {
     buffers = {
         ignore_current_buffer = true,
         -- sort_lastused = true,
         sort_mru = true,
     },
-    git_files = {
-        show_untracked = true,
-    }
+    -- git_files = {
+    --     show_untracked = true,
+    -- }
 }
 
 -- Overrides for NvimTree
@@ -593,93 +586,107 @@ vim.g.netrw_banner = 0
 lvim.builtin.gitsigns.current_line_blame = true
 
 -- Overrides for lualine
--- local components = require "lvim.core.lualine.components"
--- local colors = require "lvim.core.lualine.colors"
--- lvim.builtin.lualine.options.disabled_filetypes = { "startify", "dashboard", "NvimTree", "Outline" }
--- lvim.builtin.lualine.sections.lualine_b = {
---     components.branch,
---     {
---       'filename',
---       file_status = true, -- displays file status (readonly status, modified status)
---       path = 1 -- 0 = just filename, 1 = relative path, 2 = absolute path
---     },
---     -- {
---     --     function()
---     --         -- local file = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.")
---     --         -- -- local file = vim.fn.fnamemodify(vim.fn.expand "%:t", ":~:.")
---     --         -- if vim.fn.empty(file) == 1 then return "" end
---     --         -- -- if vim.bo.filetype == "startify" then return "" end
+local components = require "lvim.core.lualine.components"
+local conditions = require "lvim.core.lualine.conditions"
+local colors = require "lvim.core.lualine.colors"
+lvim.builtin.lualine.options.disabled_filetypes = { "startify", "dashboard", "NvimTree", "Outline" }
+-- lvim.builtin.lualine.options.component_separators = { left = lvim.icons.ui.DividerRight, right = lvim.icons.ui.DividerLeft }
+-- lvim.builtin.lualine.options.section_separators = { left = lvim.icons.ui.BoldDividerRight, right = lvim.icons.ui.BoldDividerLeft }
 
---     --         -- local modified_icon = ""
---     --         -- local readonly_icon = ""
+local statusline_hl = vim.api.nvim_get_hl_by_name("StatusLine", true)
+local cursorline_hl = vim.api.nvim_get_hl_by_name("CursorLine", true)
+local normal_hl = vim.api.nvim_get_hl_by_name("Normal", true)
+vim.schedule(function ()
+    vim.api.nvim_set_hl(0, "SLCopilot", { fg = "#6CC644" })
+end)
 
---     --         -- local readonly = vim.bo.readonly
---     --         -- if vim.bo.filetype == "help" then
---     --         --     readonly = false
---     --         -- end
+lvim.builtin.lualine.options.component_separators = { left = '', right = '' }
+lvim.builtin.lualine.options.section_separators = { left = '', right = '' }
 
---     --         -- if readonly then
---     --         --     file = readonly_icon .. " " .. file
---     --         -- end
+lvim.builtin.lualine.sections.lualine_b = {
+    -- components.branch,
+    'branch',
+    {
+        'filename',
+        file_status = true, -- displays file status (readonly status, modified status)
+        path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
+        separator = nil,
+        color = { bg = statusline_hl.background },
+        cond = conditions.hide_in_width,
+    },
+    -- {
+    --     function()
+    --         -- local file = vim.fn.fnamemodify(vim.fn.expand "%", ":~:.")
+    --         -- -- local file = vim.fn.fnamemodify(vim.fn.expand "%:t", ":~:.")
+    --         -- if vim.fn.empty(file) == 1 then return "" end
+    --         -- -- if vim.bo.filetype == "startify" then return "" end
 
---     --         -- -- local is_modified = vim.api.nvim_buf_get_option(vim.fn.bufnr, "modified")
---     --         -- if vim.bo.modifiable and vim.bo.modified then
---     --         --     file = file .. " " .. modified_icon
---     --         --     vim.api.nvim_command("hi GalaxyFileName guifg=" .. colors.yellow)
---     --         -- else
---     --         --     vim.api.nvim_command("hi GalaxyFileName guifg=" .. colors.white)
---     --         -- end
+    --         -- local modified_icon = ""
+    --         -- local readonly_icon = ""
 
---     --         -- return file .. " "
---     --         return 'test'
---     --     end,
---     --     color = { fg = colors.green },
---     --     cond = conditions.hide_in_width,
---     -- },
--- }
--- lvim.builtin.lualine.sections.lualine_y = {
---     {
---         function()
---             local space_pat = [[\v^ +]]
---             local tab_pat = [[\v^\t+]]
---             local space_indent = vim.fn.search(space_pat, 'nwc')
---             local tab_indent = vim.fn.search(tab_pat, 'nwc')
---             local mixed = (space_indent > 0 and tab_indent > 0)
---             local mixed_same_line
---             if not mixed then
---                 mixed_same_line = vim.fn.search([[\v^(\t+ | +\t)]], 'nwc')
---                 mixed = mixed_same_line > 0
---             end
---             if not mixed then return '' end
---             if mixed_same_line ~= nil and mixed_same_line > 0 then
---                 return 'MI:'..mixed_same_line
---             end
---             local space_indent_cnt = vim.fn.searchcount({pattern=space_pat, max_count=1e3}).total
---             local tab_indent_cnt =  vim.fn.searchcount({pattern=tab_pat, max_count=1e3}).total
---             if space_indent_cnt > tab_indent_cnt then
---                 return 'MI:'..tab_indent
---             else
---                 return 'MI:'..space_indent
---             end
---         end,
---         color = {
---             bg = colors.orange,
---             fg = colors.bg
---         },
---         cond = conditions.hide_in_width,
---     },
--- }
+    --         -- local readonly = vim.bo.readonly
+    --         -- if vim.bo.filetype == "help" then
+    --         --     readonly = false
+    --         -- end
 
--- lvim.builtin.lualine.sections.lualine_x = {
---     components.diagnostics,
---     components.treesitter,
---     components.lsp,
---     -- components.spaces,
---     components.filetype,
--- }
--- lvim.builtin.lualine.sections.lualine_z = {
---     "progress",
--- }
+    --         -- if readonly then
+    --         --     file = readonly_icon .. " " .. file
+    --         -- end
+
+    --         -- -- local is_modified = vim.api.nvim_buf_get_option(vim.fn.bufnr, "modified")
+    --         -- if vim.bo.modifiable and vim.bo.modified then
+    --         --     file = file .. " " .. modified_icon
+    --         --     vim.api.nvim_command("hi GalaxyFileName guifg=" .. colors.yellow)
+    --         -- else
+    --         --     vim.api.nvim_command("hi GalaxyFileName guifg=" .. colors.white)
+    --         -- end
+
+    --         -- return file .. " "
+    --         return 'test'
+    --     end,
+    --     color = { fg = colors.green },
+    --     cond = conditions.hide_in_width,
+    -- },
+}
+
+local lsp = components.lsp
+lsp.separator = ''
+lsp.padding = { left = 1, right = 2 }
+
+local spaces = components.spaces
+spaces.separator = ''
+
+lvim.builtin.lualine.sections.lualine_x = {
+    -- components.diagnostics,
+    'diagnostics',
+    lsp,
+    spaces,
+    -- components.filetype,
+    'filetype',
+}
+
+-- lvim.builtin.lualine.sections.lualine_x[2].separator = nil
+-- lvim.builtin.lualine.sections.lualine_x[2].separator = ''
+
+-- for i = 1, #lvim.builtin.lualine.sections.lualine_x do
+--     if lvim.builtin.lualine.sections.lualine_x[i].separator then
+--          lvim.builtin.lualine.sections.lualine_x[i].separator = nil
+--     end
+-- end
+
+function _G.put_text(...)
+    local objects = {}
+    for i = 1, select('#', ...) do
+        local v = select(i, ...)
+        table.insert(objects, vim.inspect(v))
+    end
+
+    local lines = vim.split(table.concat(objects, '\n'), '\n')
+    local lnum = vim.api.nvim_win_get_cursor(0)[1]
+    vim.fn.append(lnum, lines)
+    return ...
+end
+
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- lvim.autocommands.custom_groups = {
