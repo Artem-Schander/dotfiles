@@ -64,7 +64,6 @@ lvim.keys.normal_mode["<C-s>"] = ":w<CR>"
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = false
 lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
@@ -516,6 +515,14 @@ lvim.plugins = {
                 method = "getCompletionsCycling",
             })
         end
+    },
+
+    {
+        "rcarriga/nvim-notify",
+        config = function()
+            require("plugins/notify").setup()
+        end,
+        requires = { "nvim-telescope/telescope.nvim" },
     },
 
     -- TODO remove when treesitter supports corresponding languages
