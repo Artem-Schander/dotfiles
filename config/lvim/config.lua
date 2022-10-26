@@ -125,6 +125,8 @@ lvim.builtin.treesitter.highlight.enabled = true
 --   },
 -- }
 
+require("lsp")
+
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
 local _, actions = pcall(require, "telescope.actions")
@@ -409,6 +411,15 @@ lvim.plugins = {
         end
     },
     {
+        "nvim-neotest/neotest",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-treesitter/nvim-treesitter",
+            -- "antoinemadec/FixCursorHold.nvim",
+            "olimorris/neotest-phpunit",
+        }
+    },
+    {
         "embear/vim-localvimrc",
         config = function()
             vim.cmd('source ~/.config/lvim/vimscript/plugins/localvimrc.vim')
@@ -566,9 +577,9 @@ lvim.builtin.telescope.pickers = {
         -- sort_lastused = true,
         sort_mru = true,
     },
-    -- git_files = {
-    --     show_untracked = true,
-    -- }
+    git_files = {
+        show_untracked = true,
+    }
 }
 
 -- Overrides for NvimTree
