@@ -11,7 +11,7 @@ an executable
 lvim.log.level = "warn"
 lvim.format_on_save = false
 -- lvim.colorscheme = "onedark"
-lvim.colorscheme = "tokyonight-moon"
+lvim.colorscheme = "tokyonight"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -276,6 +276,7 @@ lvim.plugins = {
     {"sainnhe/sonokai"},
     {"matsuuu/pinkmare"},
     {"shaunsingh/solarized.nvim"},
+    {"lunarvim/onedarker.nvim"},
     {
         "phaazon/hop.nvim",
         event = "BufRead",
@@ -645,10 +646,20 @@ lvim.builtin.gitsigns.current_line_blame = true
 -- Overrides for lualine
 local components = require "lvim.core.lualine.components"
 local conditions = require "lvim.core.lualine.conditions"
-local colors = require "lvim.core.lualine.colors"
+-- local colors = require "lvim.core.lualine.colors"
 lvim.builtin.lualine.options.disabled_filetypes = { "startify", "dashboard", "NvimTree", "Outline" }
 -- lvim.builtin.lualine.options.component_separators = { left = lvim.icons.ui.DividerRight, right = lvim.icons.ui.DividerLeft }
 -- lvim.builtin.lualine.options.section_separators = { left = lvim.icons.ui.BoldDividerRight, right = lvim.icons.ui.BoldDividerLeft }
+
+lvim.builtin.lualine.style = 'default'
+-- local colors = require("tokyonight.colors").setup({ transform = true })
+-- -- local tokyonight = require("tokyonight.lualine.themes.tokyonight")
+-- local tokyonight = require("lualine.themes.tokyonight")
+-- tokyonight.inactive.a.bg = colors.blue
+-- tokyonight.inactive.b.bg = colors.blue
+-- tokyonight.inactive.c.bg = colors.blue
+
+lvim.builtin.lualine.options.theme = tokyonight
 
 local statusline_hl = vim.api.nvim_get_hl_by_name("StatusLine", true)
 local cursorline_hl = vim.api.nvim_get_hl_by_name("CursorLine", true)
@@ -659,6 +670,10 @@ end)
 
 lvim.builtin.lualine.options.component_separators = { left = '', right = '' }
 lvim.builtin.lualine.options.section_separators = { left = '', right = '' }
+
+lvim.builtin.lualine.sections.lualine_a = {
+    components.mode,
+}
 
 lvim.builtin.lualine.sections.lualine_b = {
     -- components.branch,
@@ -704,6 +719,11 @@ lvim.builtin.lualine.sections.lualine_b = {
     --     color = { fg = colors.green },
     --     cond = conditions.hide_in_width,
     -- },
+}
+
+lvim.builtin.lualine.sections.lualine_c = {
+    components.diff,
+    components.python_env,
 }
 
 local lsp = components.lsp
