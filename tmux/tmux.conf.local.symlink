@@ -45,43 +45,63 @@ tmux_conf_new_session_prompt=false
 #  - false (default)
 tmux_conf_24b_colour=false
 
-# default theme
-tmux_conf_theme_colour_1="#1e2127"    # bg
-tmux_conf_theme_colour_2="#3b3f4c"    # gray
-tmux_conf_theme_colour_3="#5c6370"    # light gray
-tmux_conf_theme_colour_4="#61afef"    # light blue
-tmux_conf_theme_colour_5="#d19a66"    # orange
-tmux_conf_theme_colour_6="#282c34"    # dark gray
-tmux_conf_theme_colour_7="#98c379"    # green
-tmux_conf_theme_colour_8="#c3ccdc"    # white
-tmux_conf_theme_colour_9="#98c379"    # green
-tmux_conf_theme_colour_10="#3b3f4c"   # gray
-tmux_conf_theme_colour_11="#61afef"   # blue
-tmux_conf_theme_colour_12="#5c6370"   # light gray
-tmux_conf_theme_colour_13="#c3ccdc"   # white
-tmux_conf_theme_colour_14="#282c34"   # dark gray
-tmux_conf_theme_colour_15="#1e2127"   # bg
-tmux_conf_theme_colour_16="#282c34"   # dark gray
-tmux_conf_theme_colour_17="#abb2bf"   # fg
+#  one dark theme
+# tmux_conf_theme_colour_1="#1e2127"    # bg
+# tmux_conf_theme_colour_2="#3b3f4c"    # gray
+# tmux_conf_theme_colour_3="#5c6370"    # light gray
+# tmux_conf_theme_colour_4="#61afef"    # light blue
+# tmux_conf_theme_colour_5="#d19a66"    # orange
+# tmux_conf_theme_colour_6="#282c34"    # dark gray
+# tmux_conf_theme_colour_7="#98c379"    # green
+# tmux_conf_theme_colour_8="#c3ccdc"    # white
+# tmux_conf_theme_colour_9="#98c379"    # green
+# tmux_conf_theme_colour_10="#3b3f4c"   # gray
+# tmux_conf_theme_colour_11="#61afef"   # blue
+# tmux_conf_theme_colour_12="#5c6370"   # light gray
+# tmux_conf_theme_colour_13="#c3ccdc"   # white
+# tmux_conf_theme_colour_14="#282c34"   # dark gray
+# tmux_conf_theme_colour_15="#1e2127"   # bg
+# tmux_conf_theme_colour_16="#282c34"   # dark gray
+# tmux_conf_theme_colour_17="#abb2bf"   # fg
+
+#  tokyinight theme
+tmux_conf_theme_colour_1="#1a1b26"    # bg
+tmux_conf_theme_colour_2="#414868"    # gray
+tmux_conf_theme_colour_3="#545c7e"    # light gray
+tmux_conf_theme_colour_4="#7aa2f7"    # light blue
+tmux_conf_theme_colour_5="#ff9e64"    # orange
+tmux_conf_theme_colour_6="#414868"    # dark gray
+tmux_conf_theme_colour_7="#9ece6a"    # green
+tmux_conf_theme_colour_8="#c0caf5"    # white
+tmux_conf_theme_colour_9="#9ece6a"    # green
+tmux_conf_theme_colour_10="#414868"   # gray
+tmux_conf_theme_colour_11="#7aa2f7"   # blue
+tmux_conf_theme_colour_12="#545c7e"   # light gray
+tmux_conf_theme_colour_13="#c0caf5"   # white
+tmux_conf_theme_colour_14="#414868"   # dark gray
+tmux_conf_theme_colour_15="#1a1b26"   # bg
+# tmux_conf_theme_colour_16="#414868"   # dark gray
+tmux_conf_theme_colour_16="#1a1b26"   # bg
+tmux_conf_theme_colour_17="#a9b1d6"   # fg
 
 # default theme (ansi)
-#tmux_conf_theme_colour_1="colour0"
-#tmux_conf_theme_colour_2="colour8"
-#tmux_conf_theme_colour_3="colour8"
-#tmux_conf_theme_colour_4="colour14"
-#tmux_conf_theme_colour_5="colour11"
-#tmux_conf_theme_colour_6="colour0"
-#tmux_conf_theme_colour_7="colour15"
-#tmux_conf_theme_colour_8="colour0"
-#tmux_conf_theme_colour_9="colour11"
-#tmux_conf_theme_colour_10="colour13"
-#tmux_conf_theme_colour_11="colour10"
-#tmux_conf_theme_colour_12="colour8"
-#tmux_conf_theme_colour_13="colour15"
-#tmux_conf_theme_colour_14="colour0"
-#tmux_conf_theme_colour_15="colour0"
-#tmux_conf_theme_colour_16="colour1"
-#tmux_conf_theme_colour_17="colour15"
+# tmux_conf_theme_colour_1="colour0"
+# tmux_conf_theme_colour_2="colour8"
+# tmux_conf_theme_colour_3="colour8"
+# tmux_conf_theme_colour_4="colour14"
+# tmux_conf_theme_colour_5="colour11"
+# tmux_conf_theme_colour_6="colour0"
+# tmux_conf_theme_colour_7="colour15"
+# tmux_conf_theme_colour_8="colour0"
+# tmux_conf_theme_colour_9="colour11"
+# tmux_conf_theme_colour_10="colour13"
+# tmux_conf_theme_colour_11="colour10"
+# tmux_conf_theme_colour_12="colour8"
+# tmux_conf_theme_colour_13="colour15"
+# tmux_conf_theme_colour_14="colour0"
+# tmux_conf_theme_colour_15="colour0"
+# tmux_conf_theme_colour_16="colour1"
+# tmux_conf_theme_colour_17="colour15"
 
 # window style
 tmux_conf_theme_window_fg="default"
@@ -345,6 +365,11 @@ tmux_conf_copy_to_os_clipboard=false
 #   really you should export VISUAL or EDITOR environment variable, see manual
 set -g status-keys vi
 set -g mode-keys vi
+
+# Undercurl
+set -g default-terminal "${TERM}"
+set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
+set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours - needs tmux-3.0
 
 # replace C-b by C-a instead of using both prefixes
 # set -gu prefix2

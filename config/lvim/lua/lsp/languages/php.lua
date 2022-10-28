@@ -13,9 +13,9 @@ formatters.setup {
     { command = "phpcsfixer", filetypes = { "php" } },
 }
 
-lvim.format_on_save = {
-    pattern = { "*.php" },
-}
+-- lvim.format_on_save = {
+--     pattern = { "*.php" },
+-- }
 
 ------------------------
 -- Linting

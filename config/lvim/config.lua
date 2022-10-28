@@ -220,8 +220,11 @@ lvim.builtin.which_key.mappings["t"] = { ":Telescope live_grep<CR>", "Find Text"
 lvim.builtin.which_key.mappings["a"] = { ":Telescope find_files find_command=rg,--smart-case,--files,--follow,--no-ignore,--hidden<CR>", "Find File (w. hidden)" }
 lvim.builtin.which_key.mappings["s"]["s"] = { ":Telescope grep_string<CR>", "Find String Under Cursor" }
 
-vim.api.nvim_set_keymap("n", "gp", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
-lvim.builtin.which_key.mappings["l"]["p"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Peek Definition" }
+vim.api.nvim_set_keymap("n", "gh", "<cmd>lua vim.lsp.buf.hover()<CR>", { noremap = true, silent = true })
+lvim.builtin.which_key.mappings["l"]["h"] = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover Symbol Information" }
+
+vim.api.nvim_set_keymap("n", "gp", ":lua require('peek').Peek('definition')<CR>", { noremap = true, silent = true })
+lvim.builtin.which_key.mappings["l"]["p"] = { ":lua require('peek').Peek('definition')<CR>", "Peek Definition" }
 
 lvim.builtin.which_key.mappings["q"] = { ":call Stopsession()<CR>", "Quit" }
 -- lvim.builtin.which_key.mappings["h"] = { ":set hlsearch! hlsearch?<CR>", "Toggle Search Highlight" }
@@ -276,7 +279,54 @@ lvim.plugins = {
     {"sainnhe/sonokai"},
     {"matsuuu/pinkmare"},
     {"shaunsingh/solarized.nvim"},
-    {"lunarvim/onedarker.nvim"},
+
+    {"lunarvim/synthwave84.nvim"},
+    {"lunarvim/horizon.nvim"},
+    {"lunarvim/darkplus.nvim"},
+    -- {"lunarvim/onedarker.nvim"},
+    -- {"lunarvim/tokyonight.nvim"},
+
+ --    {
+	-- 	"projekt0n/github-nvim-theme",
+	-- 	config = function()
+	-- 		require("github-theme").setup({
+	-- 			theme_style = "dimmed",
+	-- 			comment_style = "NONE",
+	-- 			keyword_style = "NONE",
+	-- 			function_style = "NONE",
+	-- 			variable_style = "NONE",
+	-- 			sidebars = { "qf", "vista_kind", "terminal", "packer" },
+	-- 		})
+	-- 		-- vim.cmd([[ colorscheme "github-theme" ]])
+	-- 	end,
+	-- },
+
+    {"LunarVim/peek.lua"},
+
+    {
+		"folke/twilight.nvim",
+		event = "BufRead",
+		config = function()
+			require("twilight").setup({
+				dimming = {
+					alpha = 0.25, -- amount of dimming
+					-- we try to get the foreground from the highlight groups or fallback color
+					color = { "Normal", "#ffffff" },
+				},
+				context = 20, -- amount of lines we will try to show around the current line
+				-- treesitter is used to automatically expand the visible text,
+				-- but you can further control the types of nodes that should always be fully expanded
+				expand = { -- for treesitter, we we always try to expand to the top-most ancestor with these types
+					"function",
+					"method",
+					"table",
+					"if_statement",
+				},
+				exclude = {}, -- exclude these filetypes
+			})
+		end,
+	},
+
     {
         "phaazon/hop.nvim",
         event = "BufRead",
@@ -387,7 +437,7 @@ lvim.plugins = {
     {
         "folke/lsp-colors.nvim",
         event = "BufRead",
-        disable = true
+        -- disable = true
     },
     {
         "sindrets/diffview.nvim",
