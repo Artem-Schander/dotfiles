@@ -528,6 +528,86 @@ lvim.plugins = {
         run = './install --bin'
         -- cmd = {"LushRunQuickstart", "LushRunTutorial", "Lushify"},
     },
+    {
+        "junegunn/fzf.vim",
+        requires = { "junegunn/fzf" },
+        config = function()
+            vim.cmd('source ~/.config/lvim/vimscript/plugins/fzf.vim')
+            lvim.builtin.which_key.mappings["b"] = { "<cmd>Buffers<CR>", "Find Buffer" }
+
+            lvim.builtin.which_key.mappings["t"] = { ":RG<CR>", "Find Text" }
+            lvim.builtin.which_key.mappings["a"] = { ":Files<CR>", "Find File (w. hidden)" }
+            lvim.builtin.which_key.mappings["s"]["s"] = { ":Rg <c-r><c-w><CR>", "Find String Under Cursor" }
+
+            if vim.fn.isdirectory('.git') ~= 0 then
+                lvim.builtin.which_key.mappings["f"] = { "<cmd>GitFiles --cached --others --exclude-standard<CR>", "Find File" }
+            else
+                lvim.builtin.which_key.mappings["f"] = { "<cmd>FZF<CR>", "Find File" }
+            end
+        end,
+        disable = true,
+    },
+    {
+        "ibhagwan/fzf-lua",
+        requires = {
+            "junegunn/fzf",
+            "kyazdani42/nvim-web-devicons",
+        },
+        config = function()
+            require("plugins/fzf").setup()
+            lvim.builtin.which_key.mappings["b"] = { "<cmd>FzfLua buffers<CR>", "Find Buffer" }
+            lvim.builtin.which_key.mappings["r"] = { ":FzfLua lsp_document_symbols<CR>", "Find Symbol (current file)" }
+            lvim.builtin.which_key.mappings["a"] = { ":lua require('fzf-lua').files({ fd_opts = '--color=never --type f --hidden --follow --no-ignore', rg_opts = '--color=never --files --hidden --follow --no-ignore' })<CR>", "Find File (w. hidden)" }
+            lvim.builtin.which_key.mappings["f"] = { ":FzfLua files<CR>", "Find File" }
+
+            lvim.builtin.which_key.mappings["s"]["b"] = nil
+            lvim.builtin.which_key.mappings["s"]["c"] = { ":FzfLua colorschemes<CR>", "Colorscheme" }
+            lvim.builtin.which_key.mappings["s"]["f"] = { ":FzfLua files<CR>", "Find File" }
+            lvim.builtin.which_key.mappings["s"]["h"] = { ":FzfLua help_tags<CR>", "Find Help" }
+            lvim.builtin.which_key.mappings["s"]["H"] = { ":FzfLua highlights<CR>", "Find Highlight Groups" }
+            lvim.builtin.which_key.mappings["s"]["M"] = { ":FzfLua man_pages<CR>", "Man Pages" }
+            lvim.builtin.which_key.mappings["s"]["r"] = { ":FzfLua oldfiles<CR>", "Open Recent File" }
+            lvim.builtin.which_key.mappings["s"]["R"] = { ":FzfLua registers<CR>", "Registers" }
+            lvim.builtin.which_key.mappings["s"]["k"] = { ":FzfLua keymaps<CR>", "Keymaps" }
+            lvim.builtin.which_key.mappings["s"]["p"] = nil
+
+            lvim.builtin.which_key.mappings["s"]["d"] = { ":FzfLua diagnostics_document<CR>", "Document Diagnostics" }
+            lvim.builtin.which_key.mappings["s"]["D"] = { ":FzfLua diagnostics_workspace<CR>", "Workspace Diagnostics" }
+            lvim.builtin.which_key.mappings["s"]["S"] = { ":FzfLua lsp_live_workspace_symbols<CR>", "Workspace Symbols" }
+            lvim.builtin.which_key.mappings["s"]["i"] = { ":FzfLua lsp_definitions<CR>", "Definition Informations Under Cursor" }
+
+            lvim.builtin.which_key.mappings["s"]["s"] = { ":FzfLua grep_cword<CR>", "Find String Under Cursor" }
+            lvim.builtin.which_key.mappings["s"]["C"] = { ":FzfLua commands<CR>", "Commands" }
+
+            if vim.fn.isdirectory('.git') ~= 0 then
+                lvim.builtin.which_key.mappings["s"]["g"] = {
+                    name = "Git",
+                    ["b"] = { ":FzfLua git_branches<CR>", "Checkout Branch" },
+                    ["c"] = { ":FzfLua git_commits<CR>", "Checkout Commit" },
+                    ["C"] = { ":FzfLua git_bcommits<CR>", "Checkout Commit (current file)" },
+                    ["s"] = { ":FzfLua git_status<CR>", "Git Status" },
+                    ["S"] = { ":FzfLua git_stash<CR>", "Git Stash" },
+                }
+
+                lvim.builtin.which_key.mappings["t"] = { ":FzfLua grep_project<CR>", "Find Text" }
+            else
+                lvim.builtin.which_key.mappings["t"] = { ":FzfLua live_grep<CR>", "Find Text" }
+            end
+
+            lvim.builtin.which_key.mappings["g"]["o"] = { ":FzfLua git_status<CR>", "Open changed file" }
+            lvim.builtin.which_key.mappings["g"]["b"] = { ":FzfLua git_branches<CR>", "Checkout Branch" }
+            lvim.builtin.which_key.mappings["g"]["c"] = { ":FzfLua git_commits<CR>", "Checkout Commit" }
+            lvim.builtin.which_key.mappings["g"]["C"] = { ":FzfLua git_bcommits<CR>", "Checkout Commit (current file)" }
+
+            lvim.builtin.which_key.mappings["l"]["d"] = { ":FzfLua diagnostics_document<CR>", "Buffer Diagnostics" }
+            lvim.builtin.which_key.mappings["l"]["w"] = { ":FzfLua diagnostics_workspace<CR>", "Diagnostics" }
+
+            lvim.builtin.which_key.mappings["l"]["s"] = { ":FzfLua lsp_document_symbols<CR>", "Document Symbols" }
+            lvim.builtin.which_key.mappings["l"]["S"] = { ":FzfLua lsp_live_workspace_symbols<CR>", "Workspace Symbols" }
+            lvim.builtin.which_key.mappings["l"]["e"] = { ":FzfLua quickfix<CR>", "Telescope Quickfix" }
+        end,
+        disable = false,
+    },
 
     -- { "mfussenegger/nvim-dap" },
 
@@ -567,7 +647,9 @@ lvim.plugins = {
             })
         end
     },
-
+    -- {
+    --     "kdheepak/lazygit.nvim"
+    -- },
     {
         "rcarriga/nvim-notify",
         config = function()
@@ -709,7 +791,7 @@ lvim.builtin.lualine.style = 'default'
 -- tokyonight.inactive.b.bg = colors.blue
 -- tokyonight.inactive.c.bg = colors.blue
 
-lvim.builtin.lualine.options.theme = tokyonight
+-- lvim.builtin.lualine.options.theme = tokyonight
 
 local statusline_hl = vim.api.nvim_get_hl_by_name("StatusLine", true)
 local cursorline_hl = vim.api.nvim_get_hl_by_name("CursorLine", true)
@@ -727,7 +809,14 @@ lvim.builtin.lualine.sections.lualine_a = {
 
 lvim.builtin.lualine.sections.lualine_b = {
     -- components.branch,
-    'branch',
+    {
+        'branch',
+        icon = {
+            lvim.icons.git.Branch,
+            -- align = 'right'
+        },
+        color = { gui = "bold" },
+    },
     {
         'filename',
         file_status = true, -- displays file status (readonly status, modified status)

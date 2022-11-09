@@ -174,13 +174,23 @@ let g:startify_lists = [
     \ { 'type': 'commands', 'header': [ 'Commands' ] },
 \ ]
 
+" let g:startify_commands = [
+"     \ { 'f': [ 'Find File In Project', ':Telescope find_files hidden=true' ] },
+"     \ { 'a': [ 'Find File In Directory', ':Telescope find_files find_command=rg,--smart-case,--files,--follow,--no-ignore,--hidden' ] },
+"     \ { 't': [ 'Find Text', ':Telescope live_grep' ] },
+"     \ { 'gs': [ 'Git Status', ':Telescope git_status' ] },
+"     \ { 'gc': [ 'Checkout Commit', ':Telescope git_commits' ] },
+"     \ { 'gb': [ 'Checkout Branch', ':Telescope git_branches' ] },
+"     \ { 'up': [ 'Update Plugins', ':call UpdatePlugins()' ] },
+" \ ]
+
 let g:startify_commands = [
-    \ { 'f': [ 'Find File In Project', ':Telescope find_files hidden=true' ] },
-    \ { 'a': [ 'Find File In Directory', ':Telescope find_files find_command=rg,--smart-case,--files,--follow,--no-ignore,--hidden' ] },
-    \ { 't': [ 'Find Text', ':Telescope live_grep' ] },
-    \ { 'gs': [ 'Git Status', ':Telescope git_status' ] },
-    \ { 'gc': [ 'Checkout Commit', ':Telescope git_commits' ] },
-    \ { 'gb': [ 'Checkout Branch', ':Telescope git_branches' ] },
+    \ { 'f': [ 'Find File In Project', ':FzfLua files' ] },
+    \ { 'a': [ 'Find File In Directory', ":lua require('fzf-lua').files({ fd_opts = '--color=never --type f --hidden --follow --no-ignore', rg_opts = '--color=never --files --hidden --follow --no-ignore' })" ] },
+    \ { 't': [ 'Find Text', ':FzfLua grep_project' ] },
+    \ { 'gs': [ 'Git Status', ':FzfLua git_status' ] },
+    \ { 'gc': [ 'Checkout Commit', ':FzfLua git_commits' ] },
+    \ { 'gb': [ 'Checkout Branch', ':FzfLua git_branches' ] },
     \ { 'up': [ 'Update Plugins', ':call UpdatePlugins()' ] },
 \ ]
 
