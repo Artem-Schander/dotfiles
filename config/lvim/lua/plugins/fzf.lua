@@ -56,7 +56,7 @@ local settings = {
             vertical = 'up:60%', -- up|down:size
             horizontal = 'right:60%', -- right|left:size
             layout = 'flex', -- horizontal|vertical|flex
-            flip_columns = 160, -- #cols to switch to horizontal on flex
+            flip_columns = 180, -- #cols to switch to horizontal on flex
             -- Only used with the builtin previewer:
             title = true, -- preview border title (file/buf)?
             title_align  = "left", -- left|center|right, title alignment
