@@ -21,5 +21,22 @@ local postfix = require("luasnip.extras.postfix").postfix
 -- https://github.com/L3MON4D3/LuaSnip/blob/master/DOC.md#lua
 
 return {
-  s("vdd", { t 'var_dump(', i(1), t '); die;' }),
+    s("vdd", { t("var_dump("), i(1), t("); die;") }),
+    s({ trig = "pfunc", name = "Public Function" }, {
+        t({"/**"}),
+        t({"", " * "}), i(1, "describe what your function does"),
+        t({"", " *"}),
+        t({"", " * @return "}), i(2, "void"),
+        t({"", " */"}),
+        t({"", "public function "}), i(3, "doSomething"), t({"("}), i(4), t({")"}),
+        t({"", "{"}),
+        t({"", "    "}), i(0, "//"),
+        t({"", "}"}),
+    }),
+    s({ trig = "printr", name = "Print Inside Pre Tags" }, {
+        t({"echo '<pre>';"}),
+        t({"", "print_r("}), i(1), t({");"}),
+        t({"", "echo '</pre>';", ""}),
+        i(0, "die;"),
+    }),
 }
