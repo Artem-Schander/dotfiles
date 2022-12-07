@@ -11,7 +11,8 @@ an executable
 lvim.log.level = "warn"
 lvim.format_on_save = false
 -- lvim.colorscheme = "onedark"
-lvim.colorscheme = "tokyonight"
+-- lvim.colorscheme = "tokyonight-night"
+lvim.colorscheme = "lunar"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -372,9 +373,9 @@ lvim.plugins = {
         end,
         disable = true
     },
-    -- {
-    --     "nvim-treesitter/playground",
-    -- },
+    {
+        "nvim-treesitter/playground",
+    },
     -- {
     --     -- Sticky Context Header
     --     "nvim-treesitter/nvim-treesitter-context",
@@ -656,6 +657,64 @@ lvim.plugins = {
             require("plugins/notify").setup()
         end,
         requires = { "nvim-telescope/telescope.nvim" },
+    },
+    {
+        "Wansmer/treesj",
+        requires = { 'nvim-treesitter' },
+        config = function()
+            local langs = require('treesj.langs')
+            local u = require('treesj.langs.utils')
+            -- langs["php"] = {
+            --     array_creation_expression = u.set_preset_for_dict {
+            --         join = {
+            --             space_in_brackets = false,
+            --         },
+            --     },
+            --     arguments = u.set_preset_for_args {
+            --         join = {
+            --             space_in_brackets = false,
+            --         },
+            --     },
+            --     formal_parameters = u.set_preset_for_args(),
+            --     compound_statement = u.set_preset_for_statement(),
+            --     expression_statement = {
+            --         target_nodes = { 'array_creation_expression' },
+            --     },
+            -- }
+            langs["pug"] = {
+                attributes = u.set_default_preset({
+                    both = {
+                        space_separator = 1,
+                        separator = ' ',
+                    },
+                }),
+            }
+            require('treesj').setup({
+                -- Use default keymaps
+                -- (<space>m - toggle, <space>j - join, <space>s - split)
+                use_default_keymaps = false,
+
+                -- Node with syntax error will not be formatted
+                check_syntax_error = true,
+
+                -- If line after join will be longer than max value,
+                -- node will not be formatted
+                max_join_length = 120,
+
+                -- hold|start|end:
+                -- hold - cursor follows the node/place on which it was called
+                -- start - cursor jumps to the first symbol of the node being formatted
+                -- end - cursor jumps to the last symbol of the node being formatted
+                cursor_behavior = 'hold',
+
+                -- Notify about possible problems or not
+                notify = true,
+
+                langs = langs,
+            })
+
+            lvim.builtin.which_key.mappings["m"] = { ":TSJToggle<CR>", "Split/Join Block" }
+        end,
     },
 
     -- TODO remove when treesitter supports corresponding languages
