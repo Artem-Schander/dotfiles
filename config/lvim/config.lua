@@ -272,6 +272,10 @@ vim.api.nvim_set_keymap('n', '\\s', ':set ts=4 sts=4 sw=4 et<CR>', { noremap = t
 --     vim.api.nvim_del_keymap('n', '<S-h>')
 -- end
 
+-- indent blankline
+lvim.builtin.indentlines.options.enabled = false
+
+-- misc
 lvim.builtin.sell_soul_to_devel = true
 
 -- Additional Plugins
@@ -521,6 +525,74 @@ lvim.plugins = {
         config = function()
             vim.cmd('source ~/.config/lvim/vimscript/plugins/better-whitespace.vim')
         end,
+        disable = true,
+    },
+    {
+        "echasnovski/mini.indentscope",
+        config = function()
+            require("mini.indentscope").setup {
+                draw = {
+                    -- Delay (in ms) between event and start of drawing scope indicator
+                    delay = 100,
+
+                    -- Animation rule for scope's first drawing. A function which, given
+                    -- next and total step numbers, returns wait time (in ms). See
+                    -- |MiniIndentscope.gen_animation| for builtin options. To disable
+                    -- animation, use `require('mini.indentscope').gen_animation.none()`.
+                    animation = function(s, n) return 2 end,
+                },
+
+                -- -- Module mappings. Use `''` (empty string) to disable one.
+                -- mappings = {
+                --     -- Textobjects
+                --     object_scope = 'ii',
+                --     object_scope_with_border = 'ai',
+
+                --     -- Motions (jump to respective border line; if not present - body line)
+                --     goto_top = '[i',
+                --     goto_bottom = ']i',
+                -- },
+
+                -- -- Options which control scope computation
+                -- options = {
+                --     -- Type of scope's border: which line(s) with smaller indent to
+                --     -- categorize as border. Can be one of: 'both', 'top', 'bottom', 'none'.
+                --     border = 'both',
+
+                --     -- Whether to use cursor column when computing reference indent.
+                --     -- Useful to see incremental scopes with horizontal cursor movements.
+                --     indent_at_cursor = true,
+
+                --     -- Whether to first check input line to be a border of adjacent scope.
+                --     -- Use it if you want to place cursor on function header to get scope of
+                --     -- its body.
+                --     try_as_border = false,
+                -- },
+
+                -- Which character to use for drawing scope indicator
+                symbol = '▏', -- ╹ ▞ ░ ╿ ║ ┃ │ ╎ ┆ ┊   ▏
+
+                -- vim.api.nvim_command("hi MiniIndentscopeSymbol guifg=#ff0000")
+            }
+
+            -- local statusline_hl = vim.api.nvim_get_hl_by_name("StatusLine", true)
+            -- local cursorline_hl = vim.api.nvim_get_hl_by_name("CursorLine", true)
+            -- local normal_hl = vim.api.nvim_get_hl_by_name("Normal", true)
+            -- local colors = require("tokyonight.colors").setup({ transform = true })
+
+            local color = vim.api.nvim_get_hl_by_name('SpecialKey', true) -- LineNr
+            vim.schedule(function ()
+                vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", color)
+            end)
+
+            -- vim.api.nvim_create_autocmd("FileType", {
+            --     pattern = { "startify" },
+            --     -- command = "let b:miniindentscope_disable=1",
+            --     command = "echo 'test'"
+            -- })
+
+            vim.cmd('au FileType startify,packerNvimTree,TelescopePrompt lua vim.b.miniindentscope_disable = true')
+        end,
         disable = false,
     },
     {
@@ -662,8 +734,8 @@ lvim.plugins = {
         "Wansmer/treesj",
         requires = { 'nvim-treesitter' },
         config = function()
-            local langs = require('treesj.langs')
-            local u = require('treesj.langs.utils')
+            -- local langs = require('treesj.langs')
+            -- local u = require('treesj.langs.utils')
             -- langs["php"] = {
             --     array_creation_expression = u.set_preset_for_dict {
             --         join = {
@@ -681,14 +753,14 @@ lvim.plugins = {
             --         target_nodes = { 'array_creation_expression' },
             --     },
             -- }
-            langs["pug"] = {
-                attributes = u.set_default_preset({
-                    both = {
-                        space_separator = 1,
-                        separator = ' ',
-                    },
-                }),
-            }
+            -- langs["pug"] = {
+            --     attributes = u.set_default_preset({
+            --         both = {
+            --             space_separator = 1,
+            --             separator = ' ',
+            --         },
+            --     }),
+            -- }
             require('treesj').setup({
                 -- Use default keymaps
                 -- (<space>m - toggle, <space>j - join, <space>s - split)
@@ -710,7 +782,7 @@ lvim.plugins = {
                 -- Notify about possible problems or not
                 notify = true,
 
-                langs = langs,
+                -- langs = langs,
             })
 
             lvim.builtin.which_key.mappings["m"] = { ":TSJToggle<CR>", "Split/Join Block" }
