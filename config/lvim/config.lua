@@ -214,7 +214,8 @@ lvim.builtin.telescope.defaults.mappings = {
 lvim.builtin.which_key.mappings["."] = { "<c-^>", "Previous Buffer" }
 lvim.builtin.which_key.mappings[";"] = { ":ToggleRelativeLineNumbers<CR>", "Toggle Linenumbers" }
 -- lvim.builtin.which_key.mappings[">"] = { ":set list!<CR>:IndentBlanklineToggle!<CR>", "Toggle Invisible Characters" }
-lvim.builtin.which_key.mappings[">"] = { ":IndentBlanklineToggle!<CR>", "Toggle Indent Lines" }
+lvim.builtin.which_key.mappings["<"] = { ":IndentBlanklineToggle!<CR>", "Toggle Indent Lines" }
+lvim.builtin.which_key.mappings[">"] = { ":set list!<CR>", "Toggle Invisible Characters" }
 
 lvim.builtin.which_key.mappings["r"] = { ":Telescope lsp_document_symbols<CR>", "Find Symbol (current file)" }
 lvim.builtin.which_key.mappings["t"] = { ":Telescope live_grep<CR>", "Find Text" }
@@ -291,7 +292,8 @@ lvim.plugins = {
     -- {"lunarvim/onedarker.nvim"},
     -- {"lunarvim/tokyonight.nvim"},
 
- --    {
+
+    -- {
 	-- 	"projekt0n/github-nvim-theme",
 	-- 	config = function()
 	-- 		require("github-theme").setup({
@@ -591,7 +593,7 @@ lvim.plugins = {
             --     command = "echo 'test'"
             -- })
 
-            vim.cmd('au FileType startify,packerNvimTree,TelescopePrompt lua vim.b.miniindentscope_disable = true')
+            vim.cmd('au FileType startify,packer,NvimTree,TelescopePrompt lua vim.b.miniindentscope_disable = true')
         end,
         disable = false,
     },
@@ -724,6 +726,13 @@ lvim.plugins = {
     --     "kdheepak/lazygit.nvim"
     -- },
     {
+        "akinsho/git-conflict.nvim",
+        tag = "*",
+        config = function()
+            require('git-conflict').setup()
+        end
+    },
+    {
         "rcarriga/nvim-notify",
         config = function()
             require("plugins/notify").setup()
@@ -788,6 +797,162 @@ lvim.plugins = {
             lvim.builtin.which_key.mappings["m"] = { ":TSJToggle<CR>", "Split/Join Block" }
         end,
     },
+    -- {
+    --     "kevinhwang91/nvim-hlslens",
+    --     config = function()
+    --         require('hlslens').setup()
+    --     end,
+    -- },
+    -- {
+    --     "petertriho/nvim-scrollbar",
+    --     requires = { 'lewis6991/gitsigns.nvim', 'kevinhwang91/nvim-hlslens' },
+    --     config = function()
+    --         require("scrollbar").setup({
+    --             show = true,
+    --             show_in_active_only = false,
+    --             set_highlights = true,
+    --             folds = 1000, -- handle folds, set to number to disable folds if no. of lines in buffer exceeds this
+    --             max_lines = false, -- disables if no. of lines in buffer exceeds this
+    --             hide_if_all_visible = false, -- Hides everything if all lines are visible
+    --             throttle_ms = 100,
+    --             handle = {
+    --                 text = " ",
+    --                 color = nil,
+    --                 color_nr = nil, -- cterm
+    --                 highlight = "CursorColumn",
+    --                 hide_if_all_visible = true, -- Hides handle if all lines are visible
+    --             },
+    --             marks = {
+    --                 Cursor = {
+    --                     text = "•",
+    --                     priority = 0,
+    --                     gui=nil,
+    --                     color = nil,
+    --                     cterm=nil,
+    --                     color_nr = nil, -- cterm
+    --                     highlight = "Normal",
+    --                 },
+    --                 Search = {
+    --                     text = { "-", "=" },
+    --                     priority = 1,
+    --                     gui=nil,
+    --                     color = nil,
+    --                     cterm=nil,
+    --                     color_nr = nil, -- cterm
+    --                     highlight = "Search",
+    --                 },
+    --                 Error = {
+    --                     text = { "-", "=" },
+    --                     priority = 2,
+    --                     gui=nil,
+    --                     color = nil,
+    --                     cterm=nil,
+    --                     color_nr = nil, -- cterm
+    --                     highlight = "DiagnosticVirtualTextError",
+    --                 },
+    --                 Warn = {
+    --                     text = { "-", "=" },
+    --                     priority = 3,
+    --                     gui=nil,
+    --                     color = nil,
+    --                     cterm=nil,
+    --                     color_nr = nil, -- cterm
+    --                     highlight = "DiagnosticVirtualTextWarn",
+    --                 },
+    --                 Info = {
+    --                     text = { "-", "=" },
+    --                     priority = 4,
+    --                     gui=nil,
+    --                     color = nil,
+    --                     cterm=nil,
+    --                     color_nr = nil, -- cterm
+    --                     highlight = "DiagnosticVirtualTextInfo",
+    --                 },
+    --                 Hint = {
+    --                     text = { "-", "=" },
+    --                     priority = 5,
+    --                     gui=nil,
+    --                     color = nil,
+    --                     cterm=nil,
+    --                     color_nr = nil, -- cterm
+    --                     highlight = "DiagnosticVirtualTextHint",
+    --                 },
+    --                 Misc = {
+    --                     text = { "-", "=" },
+    --                     priority = 6,
+    --                     gui=nil,
+    --                     color = nil,
+    --                     cterm=nil,
+    --                     color_nr = nil, -- cterm
+    --                     highlight = "Normal",
+    --                 },
+    --                 GitAdd = {
+    --                     text = "┆",
+    --                     priority = 7,
+    --                     gui=nil,
+    --                     color = nil,
+    --                     cterm=nil,
+    --                     color_nr = nil, -- cterm
+    --                     highlight = "GitSignsAdd",
+    --                 },
+    --                 GitChange = {
+    --                     text = "┆",
+    --                     priority = 7,
+    --                     gui=nil,
+    --                     color = nil,
+    --                     cterm=nil,
+    --                     color_nr = nil, -- cterm
+    --                     highlight = "GitSignsChange",
+    --                 },
+    --                 GitDelete = {
+    --                     text = "▁",
+    --                     priority = 7,
+    --                     gui=nil,
+    --                     color = nil,
+    --                     cterm=nil,
+    --                     color_nr = nil, -- cterm
+    --                     highlight = "GitSignsDelete",
+    --                 },
+    --             },
+    --             excluded_buftypes = {
+    --                 "terminal",
+    --             },
+    --             excluded_filetypes = {
+    --                 "prompt",
+    --                 "TelescopePrompt",
+    --                 "noice",
+    --             },
+    --             autocmd = {
+    --                 render = {
+    --                     "BufWinEnter",
+    --                     "TabEnter",
+    --                     "TermEnter",
+    --                     "WinEnter",
+    --                     "CmdwinLeave",
+    --                     "TextChanged",
+    --                     "VimResized",
+    --                     "WinScrolled",
+    --                 },
+    --                 clear = {
+    --                     "BufWinLeave",
+    --                     "TabLeave",
+    --                     "TermLeave",
+    --                     "WinLeave",
+    --                 },
+    --             },
+    --             handlers = {
+    --                 cursor = true,
+    --                 diagnostic = true,
+    --                 gitsigns = true, -- Requires gitsigns
+    --                 handle = true,
+    --                 search = true, -- Requires hlslens
+    --                 ale = false, -- Requires ALE
+    --             },
+    --         })
+    --         require("scrollbar.handlers.gitsigns").setup()
+    --         require("scrollbar.handlers.search").setup()
+    --     end
+    -- },
 
     -- TODO remove when treesitter supports corresponding languages
     -- {"cakebaker/scss-syntax.vim", ft = {'sass', 'scss', 'html', 'phtml', 'vue'}}
