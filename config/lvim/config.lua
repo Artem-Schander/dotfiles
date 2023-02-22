@@ -49,18 +49,6 @@ lvim.keys.normal_mode["<C-s>"] = ":w<CR>"
 -- lvim.builtin.theme.options.dim_inactive = true
 -- lvim.builtin.theme.options.style = "storm"
 
--- Use which-key to add extra bindings with the leader-key prefix
--- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
--- lvim.builtin.which_key.mappings["t"] = {
---   name = "+Trouble",
---   r = { "<cmd>Trouble lsp_references<cr>", "References" },
---   f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
---   d = { "<cmd>Trouble document_diagnostics<cr>", "Diagnostics" },
---   q = { "<cmd>Trouble quickfix<cr>", "QuickFix" },
---   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
---   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
--- }
-
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = false
@@ -214,7 +202,10 @@ lvim.builtin.telescope.defaults.mappings = {
 lvim.builtin.which_key.mappings["."] = { "<c-^>", "Previous Buffer" }
 lvim.builtin.which_key.mappings[";"] = { ":ToggleRelativeLineNumbers<CR>", "Toggle Linenumbers" }
 -- lvim.builtin.which_key.mappings[">"] = { ":set list!<CR>:IndentBlanklineToggle!<CR>", "Toggle Invisible Characters" }
-lvim.builtin.which_key.mappings["<"] = { ":IndentBlanklineToggle!<CR>", "Toggle Indent Lines" }
+
+-- NOTE: the following line breaks WhichKey
+-- see: https://github.com/LunarVim/LunarVim/issues/3821
+-- lvim.builtin.which_key.mappings["<"] = { ":IndentBlanklineToggle!<CR>", "Toggle Indent Lines" }
 lvim.builtin.which_key.mappings[">"] = { ":set list!<CR>", "Toggle Invisible Characters" }
 
 lvim.builtin.which_key.mappings["r"] = { ":Telescope lsp_document_symbols<CR>", "Find Symbol (current file)" }
@@ -392,8 +383,13 @@ lvim.plugins = {
     {
         -- Pretty list for showing diagnostics
         "folke/trouble.nvim",
-        cmd = "TroubleToggle",
-        disable = true
+        -- cmd = "TroubleToggle",
+        setup = function()
+            require("trouble").setup({
+                --
+            })
+        end,
+        disable = false
     },
     {
         -- Better quickfix

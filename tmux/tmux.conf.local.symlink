@@ -395,6 +395,7 @@ bind -n M-Down select-pane -D
 
 # toggle status line
 # bind -n i set-option -g staus
+# bind Space set-option status #Ctrl+F3 Combo
 
 # Shift arrow to switch windows
 bind -n S-Left  previous-window
