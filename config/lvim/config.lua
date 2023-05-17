@@ -205,7 +205,7 @@ lvim.builtin.which_key.mappings[";"] = { ":ToggleRelativeLineNumbers<CR>", "Togg
 
 -- NOTE: the following line breaks WhichKey
 -- see: https://github.com/LunarVim/LunarVim/issues/3821
--- lvim.builtin.which_key.mappings["<"] = { ":IndentBlanklineToggle!<CR>", "Toggle Indent Lines" }
+lvim.builtin.which_key.mappings["<"] = { ":IndentBlanklineToggle!<CR>", "Toggle Indent Lines" }
 lvim.builtin.which_key.mappings[">"] = { ":set list!<CR>", "Toggle Invisible Characters" }
 
 lvim.builtin.which_key.mappings["r"] = { ":Telescope lsp_document_symbols<CR>", "Find Symbol (current file)" }
@@ -282,6 +282,7 @@ lvim.plugins = {
     {"lunarvim/darkplus.nvim"},
     -- {"lunarvim/onedarker.nvim"},
     -- {"lunarvim/tokyonight.nvim"},
+    { "catppuccin/nvim", name = "catppuccin" },
 
 
     -- {
@@ -337,7 +338,7 @@ lvim.plugins = {
         config = function()
             vim.cmd('source ~/.config/lvim/vimscript/plugins/startify.vim')
         end,
-        disable = false
+        enabled = true
     },
     {
         "norcalli/nvim-colorizer.lua",
@@ -350,7 +351,7 @@ lvim.plugins = {
     -- {
     --     "lukas-reineke/indent-blankline.nvim",
     --     -- event = "BufWinEnter",
-    --     setup = function()
+    --     init = function()
     --         if lvim and lvim.colorscheme == "onedarker" then
     --             local C = require "onedarker.palette"
     --             local fg = C.gray
@@ -365,10 +366,10 @@ lvim.plugins = {
     {
         "simrat39/symbols-outline.nvim",
         cmd = "SymbolsOutline",
-        setup = function()
+        init = function()
             require("plugins/symbols-outline").config()
         end,
-        disable = true
+        enabled = false
     },
     {
         "nvim-treesitter/playground",
@@ -376,7 +377,7 @@ lvim.plugins = {
     -- {
     --     -- Sticky Context Header
     --     "nvim-treesitter/nvim-treesitter-context",
-    --     setup = function()
+    --     init = function()
     --         require("plugins/nvim-treesitter-context").config()
     --     end,
     -- },
@@ -384,12 +385,12 @@ lvim.plugins = {
         -- Pretty list for showing diagnostics
         "folke/trouble.nvim",
         -- cmd = "TroubleToggle",
-        setup = function()
+        init = function()
             require("trouble").setup({
                 --
             })
         end,
-        disable = false
+        enabled = true
     },
     {
         -- Better quickfix
@@ -398,15 +399,15 @@ lvim.plugins = {
     },
     {
         "iamcco/markdown-preview.nvim",
-        run = "cd app && npm install",
+        build = "cd app && npm install",
         ft = "markdown",
-        disable = true
+        enabled = false
     },
     {
         -- Sane gx for netrw_gx bug
         "felipec/vim-sanegx",
         event = "BufRead",
-        disable = true
+        enabled = false
     },
     {
         "folke/todo-comments.nvim",
@@ -435,23 +436,23 @@ lvim.plugins = {
                 },
             }
         end,
-        disable = false
+        enabled = true
     },
     {
         "folke/lsp-colors.nvim",
         event = "BufRead",
-        -- disable = true
+        -- enabled = false
     },
     {
         "sindrets/diffview.nvim",
         event = "BufRead",
-        disable = true
+        enabled = false
     },
     {
         -- Lush Create Color Schemes
         "rktjmp/lush.nvim",
         -- cmd = {"LushRunQuickstart", "LushRunTutorial", "Lushify"},
-        disable = true
+        enabled = false
     },
     {
         -- Utilities to improve the TypeScript development experience for Neovim's built-in LSP client
@@ -464,18 +465,18 @@ lvim.plugins = {
             "typescriptreact",
             "typescript.tsx",
         },
-        disable = true
+        enabled = false
     },
     {
         -- Pretty parentheses
         "p00f/nvim-ts-rainbow",
-        disable = true
+        enabled = false
     },
     {
         -- Autotags <div>|</div>
         "windwp/nvim-ts-autotag",
         event = "InsertEnter",
-        disable = true
+        enabled = false
     },
     {"tpope/vim-surround"},
     {"tpope/vim-repeat"},
@@ -495,7 +496,12 @@ lvim.plugins = {
             vim.cmd('source ~/.config/lvim/vimscript/plugins/obsession.vim')
         end
     },
-    {"dhruvasagar/vim-prosession"},
+    {
+        "dhruvasagar/vim-prosession",
+        dependencies = {
+            "tpope/vim-obsession",
+        }
+    },
     {
         "vim-test/vim-test",
         config = function()
@@ -504,7 +510,7 @@ lvim.plugins = {
     },
     {
         "nvim-neotest/neotest",
-        requires = {
+        dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-treesitter/nvim-treesitter",
             -- "antoinemadec/FixCursorHold.nvim",
@@ -523,7 +529,7 @@ lvim.plugins = {
         config = function()
             vim.cmd('source ~/.config/lvim/vimscript/plugins/better-whitespace.vim')
         end,
-        disable = true,
+        enabled = false
     },
     {
         "echasnovski/mini.indentscope",
@@ -579,8 +585,12 @@ lvim.plugins = {
             -- local colors = require("tokyonight.colors").setup({ transform = true })
 
             local color = vim.api.nvim_get_hl_by_name('SpecialKey', true) -- LineNr
+            print(vim.inspect(color.foreground))
+            -- vim.pretty_print(color.foreground)
             vim.schedule(function ()
-                vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", color)
+                -- { foreground = 65535 }
+                -- vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", color)
+                vim.api.nvim_set_hl(0, "MiniIndentscopeSymbol", { foreground = '#545c7e' })
             end)
 
             -- vim.api.nvim_create_autocmd("FileType", {
@@ -591,17 +601,17 @@ lvim.plugins = {
 
             vim.cmd('au FileType startify,packer,NvimTree,TelescopePrompt lua vim.b.miniindentscope_disable = true')
         end,
-        disable = false,
+        enabled = true
     },
     {
         "junegunn/fzf",
         dir = '~/.fzf',
-        run = './install --bin'
+        build = './install --bin'
         -- cmd = {"LushRunQuickstart", "LushRunTutorial", "Lushify"},
     },
     {
         "junegunn/fzf.vim",
-        requires = { "junegunn/fzf" },
+        dependencies = { "junegunn/fzf" },
         config = function()
             vim.cmd('source ~/.config/lvim/vimscript/plugins/fzf.vim')
             lvim.builtin.which_key.mappings["b"] = { "<cmd>Buffers<CR>", "Find Buffer" }
@@ -616,13 +626,13 @@ lvim.plugins = {
                 lvim.builtin.which_key.mappings["f"] = { "<cmd>FZF<CR>", "Find File" }
             end
         end,
-        disable = true,
+        enabled = false
     },
     {
         "ibhagwan/fzf-lua",
-        requires = {
+        dependencies = {
             "junegunn/fzf",
-            "kyazdani42/nvim-web-devicons",
+            "nvim-tree/nvim-web-devicons",
         },
         config = function()
             require("plugins/fzf").setup()
@@ -675,9 +685,9 @@ lvim.plugins = {
 
             lvim.builtin.which_key.mappings["l"]["s"] = { ":FzfLua lsp_document_symbols<CR>", "Document Symbols" }
             lvim.builtin.which_key.mappings["l"]["S"] = { ":FzfLua lsp_live_workspace_symbols<CR>", "Workspace Symbols" }
-            lvim.builtin.which_key.mappings["l"]["e"] = { ":FzfLua quickfix<CR>", "Telescope Quickfix" }
+            lvim.builtin.which_key.mappings["l"]["e"] = { ":FzfLua quickfix<CR>", "Quickfix" }
         end,
-        disable = false,
+        enabled = true
     },
 
     -- { "mfussenegger/nvim-dap" },
@@ -723,7 +733,7 @@ lvim.plugins = {
     -- },
     {
         "akinsho/git-conflict.nvim",
-        tag = "*",
+        version = "*",
         config = function()
             require('git-conflict').setup()
         end
@@ -733,14 +743,15 @@ lvim.plugins = {
         config = function()
             require("plugins/notify").setup()
         end,
-        requires = { "nvim-telescope/telescope.nvim" },
+        dependencies = { "nvim-telescope/telescope.nvim" },
     },
     {
         "Wansmer/treesj",
-        requires = { 'nvim-treesitter' },
+        dependencies = { 'nvim-treesitter' },
         config = function()
-            -- local langs = require('treesj.langs')
-            -- local u = require('treesj.langs.utils')
+            local u = require('treesj.langs.utils')
+            local langs = require('treesj.langs')
+            langs = u._prepare_presets(langs.presets)
             -- langs["php"] = {
             --     array_creation_expression = u.set_preset_for_dict {
             --         join = {
@@ -766,6 +777,17 @@ lvim.plugins = {
             --         },
             --     }),
             -- }
+
+            langs["graphql"] = {
+                selection_set = u.set_default_preset({
+                    split = {
+                        recursive = true
+                    },
+                }),
+                tag = {
+                    target_nodes = { 'selection_set' },
+                },
+            }
             require('treesj').setup({
                 -- Use default keymaps
                 -- (<space>m - toggle, <space>j - join, <space>s - split)
@@ -776,7 +798,7 @@ lvim.plugins = {
 
                 -- If line after join will be longer than max value,
                 -- node will not be formatted
-                max_join_length = 120,
+                max_join_length = 120000,
 
                 -- hold|start|end:
                 -- hold - cursor follows the node/place on which it was called
@@ -786,8 +808,10 @@ lvim.plugins = {
 
                 -- Notify about possible problems or not
                 notify = true,
+                langs = langs,
 
-                -- langs = langs,
+                -- Use `dot` for repeat action
+                dot_repeat = true,
             })
 
             lvim.builtin.which_key.mappings["m"] = { ":TSJToggle<CR>", "Split/Join Block" }
@@ -801,7 +825,7 @@ lvim.plugins = {
     -- },
     -- {
     --     "petertriho/nvim-scrollbar",
-    --     requires = { 'lewis6991/gitsigns.nvim', 'kevinhwang91/nvim-hlslens' },
+    --     dependencies = { 'lewis6991/gitsigns.nvim', 'kevinhwang91/nvim-hlslens' },
     --     config = function()
     --         require("scrollbar").setup({
     --             show = true,
@@ -966,7 +990,7 @@ lvim.plugins = {
     --         vim.cmd('source ~/.config/lvim/vimscript/plugins/polyglot.vim')
     --     end,
     --     ft = {'blade', 'graphql', 'pug', 'sass'},
-    --     disable = true,
+    --     enabled = false,
     -- },
     -- {
     --     "ray-x/lsp_signature.nvim",
