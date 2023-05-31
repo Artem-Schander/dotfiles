@@ -373,6 +373,10 @@ lvim.plugins = {
     },
     {
         "nvim-treesitter/playground",
+        config = function()
+            lvim.builtin.which_key.mappings["T"]["p"] = { ":TSPlaygroundToggle<cr>", "Toggle Playground" }
+        end,
+        enabled = false
     },
     -- {
     --     -- Sticky Context Header
@@ -518,9 +522,28 @@ lvim.plugins = {
         }
     },
     {
-        "embear/vim-localvimrc",
+        "klen/nvim-config-local",
         config = function()
-            vim.cmd('source ~/.config/lvim/vimscript/plugins/localvimrc.vim')
+            require('config-local').setup {
+                -- Default options (optional)
+
+                -- Config file patterns to load (lua supported)
+                config_files = { ".nvim.lua", ".nvimrc", ".exrc", ".vimrc.lua", ".vimrc" },
+
+                -- Where the plugin keeps files data
+                hashfile = vim.fn.stdpath("data") .. "/config-local",
+
+                autocommands_create = true, -- Create autocommands (VimEnter, DirectoryChanged)
+                commands_create = true,     -- Create commands (ConfigLocalSource, ConfigLocalEdit, ConfigLocalTrust, ConfigLocalIgnore)
+                silent = false,             -- Disable plugin messages (Config loaded/ignored)
+                lookup_parents = false,     -- Lookup config files in parent directories
+            }
+
+            lvim.builtin.which_key.mappings["dm"] = { "<cmd>lua require('neotest').run.run()<cr>", "Test Method" }
+            lvim.builtin.which_key.mappings["dM"] = { "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", "Test Method DAP" }
+            lvim.builtin.which_key.mappings["df"] = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", "Test Class" }
+            lvim.builtin.which_key.mappings["dF"] = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>", "Test Class DAP" }
+            lvim.builtin.which_key.mappings["dS"] = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Test Summary" }
         end
     },
     {
@@ -999,6 +1022,20 @@ lvim.plugins = {
     -- }
 }
 
+-- add comment config
+-- INFO: not working
+-- require('nvim-treesitter.configs').setup {
+--     context_commentstring = {
+--         enable = true,
+--         config = {
+--             pug = {
+--                 __default = '//- %s',
+--                 comment = '//- %s',
+--             },
+--         },
+--     },
+-- }
+
 -- Custom settings
 vim.g.onedark_style = "dark" --  dark, darker, cool, deep, warm, warmer
 vim.cmd('source ~/.config/lvim/vimscript/functions.vim')
@@ -1020,6 +1057,7 @@ vim.cmd "set number relativenumber"
 
 vim.opt.wrap = false
 vim.opt.cmdheight = 1
+-- vim.o.exrc = true -- enable project local .vimrc
 
 vim.g.rooter_manual_only = 1
 
