@@ -241,10 +241,14 @@ fi
 if [[ -d ~/.composer/vendor/bin ]]; then
     export PATH=~/.composer/vendor/bin:$PATH
 fi
-export PATH=./vendor/bin:$PATH
+# export PATH=./vendor/bin:$PATH
 
 # add local composer bin to PATH
 export PATH="./vendor/bin:$PATH"
+
+if [[ -d $HOME/.local/share/bob/nvim-bin ]]; then
+    export PATH=$HOME/.local/share/bob/nvim-bin/:$PATH
+fi
 
 # check for custom bin directory and add to path
 if [[ -d /usr/local/Cellar/python@2 ]]; then

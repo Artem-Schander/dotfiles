@@ -325,13 +325,59 @@ lvim.plugins = {
 			})
 		end,
 	},
-
     {
         "phaazon/hop.nvim",
         event = "BufRead",
         config = function()
             require("plugins/hop").config()
-        end
+        end,
+        enabled = false
+    },
+    {
+        "folke/flash.nvim",
+        -- event = "VeryLazy",
+        -- opts = {},
+        config = function()
+            -- lvim.builtin.which_key.mappings["j"] = { name = "Jump" }
+            -- lvim.builtin.which_key.mappings["j"]["k"] = {
+            --     function()
+            --         require("flash").jump()
+            --     end,
+            --     "Jump to any number of characters"
+            -- }
+            -- lvim.builtin.which_key.mappings["j"]["t"] = {
+            --     function()
+            --         require("flash").treesitter()
+            --     end,
+            --     "Jump to treesitter node"
+            -- }
+
+            lvim.builtin.which_key.mappings["j"] = {
+                -- "<cmd>lua require('flash').jump()<cr>",
+                function()
+                    require("flash").jump()
+                end,
+                "Jump"
+            }
+        end,
+        -- keys = {
+        --     -- {
+        --     --     "*",
+        --     --     mode = { "n", "x", "o" },
+        --     --     function()
+        --     --         -- default options: exact mode, multi window, all directions, with a backdrop
+        --     --         require("flash").jump({ pattern = vim.fn.expand("<cword>") })
+        --     --     end,
+        --     -- },
+        --     -- {
+        --     --     "S",
+        --     --     mode = { "o", "x" },
+        --     --     function()
+        --     --         require("flash").treesitter()
+        --     --     end,
+        --     -- },
+        -- },
+        enabled = true
     },
     {
         "mhinz/vim-startify",
