@@ -95,6 +95,7 @@ fi
 
 # alias homestead=~/.composer/vendor/bin/homestead
 alias artisan='php artisan'
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
 # git status
 alias gs='git status'
