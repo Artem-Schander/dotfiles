@@ -26,7 +26,7 @@ for P in \
     ripgrep \
     ack \
     tree \
-    fasd \
+    zoxide \
     htop \
     zsh \
     nvm \

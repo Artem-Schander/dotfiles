@@ -45,7 +45,7 @@ sudo apt install -y \
     ripgrep \
     ack \
     tree \
-    fasd \
+    zoxide \
     toilet \
     universal-ctags \
     htop \

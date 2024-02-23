@@ -15,9 +15,9 @@ SPACESHIP_PHP_SUFFIX=" "
 SPACESHIP_PHP_SYMBOL=" " # "\ue608"
 
 # PYTHON
-SPACESHIP_PYENV_PREFIX=""
-SPACESHIP_PYENV_SUFFIX=" "
-SPACESHIP_PYENV_SYMBOL=" " # "\ue606"
+SPACESHIP_PYTHON_PREFIX=""
+SPACESHIP_PYTHON_SUFFIX=" "
+SPACESHIP_PYTHON_SYMBOL=" " # "\ue606"
 
 # NODE
 SPACESHIP_NODE_PREFIX=""
@@ -84,14 +84,13 @@ SPACESHIP_PROMPT_ORDER=(
   # aws           # Amazon Web Services section
   venv          # virtualenv section
   # conda         # conda virtualenv section
-  pyenv         # Pyenv section
+  python        # Python section
   # dotnet        # .NET section
   # ember         # Ember.js section
   # kubecontext   # Kubectl context section
   exec_time     # Execution time
   line_sep      # Line break
   battery       # Battery level and status
-  vi_mode       # Vi-mode indicator
   jobs          # Background jobs indicator
   exit_code     # Exit code section
   char          # Prompt character
@@ -159,7 +158,7 @@ DISABLE_AUTO_TITLE=true
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-flow osx common-aliases fasd httpie history tmux fzf)
+plugins=(git git-flow macos common-aliases zoxide httpie history tmux fzf)
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -296,6 +295,11 @@ fi
 # alias git to hub
 if command_exists hub; then
     eval "$(hub alias -s)"
+fi
+
+# zoxide
+if command_exists zoxide; then
+    eval "$(zoxide init zsh)"
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -30,7 +30,8 @@ formulas=(
     ack
     fzf
     tree
-    fasd
+    # fasd
+    zoxide
     toilet
     wget
     '--HEAD universal-ctags/universal-ctags/universal-ctags'

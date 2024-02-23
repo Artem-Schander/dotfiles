@@ -335,8 +335,9 @@ lvim.plugins = {
     },
     {
         "folke/flash.nvim",
-        -- event = "VeryLazy",
-        -- opts = {},
+        event = "VeryLazy",
+        ---@type Flash.Config
+        opts = {},
         config = function()
             -- lvim.builtin.which_key.mappings["j"] = { name = "Jump" }
             -- lvim.builtin.which_key.mappings["j"]["k"] = {
@@ -361,21 +362,46 @@ lvim.plugins = {
             }
         end,
         -- keys = {
-        --     -- {
-        --     --     "*",
-        --     --     mode = { "n", "x", "o" },
-        --     --     function()
-        --     --         -- default options: exact mode, multi window, all directions, with a backdrop
-        --     --         require("flash").jump({ pattern = vim.fn.expand("<cword>") })
-        --     --     end,
-        --     -- },
-        --     -- {
-        --     --     "S",
-        --     --     mode = { "o", "x" },
-        --     --     function()
-        --     --         require("flash").treesitter()
-        --     --     end,
-        --     -- },
+        --     {
+        --         "s",
+        --         mode = { "n", "x", "o" },
+        --         function()
+        --             require("flash").jump()
+        --         end,
+        --         desc = "Flash",
+        --     },
+        --     {
+        --         "S",
+        --         mode = { "n", "o", "x" },
+        --         function()
+        --             require("flash").treesitter()
+        --         end,
+        --         desc = "Flash Treesitter",
+        --     },
+        --     {
+        --         "r",
+        --         mode = "o",
+        --         function()
+        --             require("flash").remote()
+        --         end,
+        --         desc = "Remote Flash",
+        --     },
+        --     {
+        --         "R",
+        --         mode = { "o", "x" },
+        --         function()
+        --             require("flash").treesitter_search()
+        --         end,
+        --         desc = "Flash Treesitter Search",
+        --     },
+        --     {
+        --         "<c-s>",
+        --         mode = { "c" },
+        --         function()
+        --             require("flash").toggle()
+        --         end,
+        --         desc = "Toggle Flash Search",
+        --     },
         -- },
         enabled = true
     },
@@ -877,13 +903,21 @@ lvim.plugins = {
 
                 -- Notify about possible problems or not
                 notify = true,
-                langs = langs,
+                -- langs = langs,
 
                 -- Use `dot` for repeat action
                 dot_repeat = true,
             })
 
             lvim.builtin.which_key.mappings["m"] = { ":TSJToggle<CR>", "Split/Join Block" }
+        end,
+    },
+    {
+        "edluffy/hologram.nvim",
+        config = function()
+            require('hologram').setup{
+                auto_display = true -- WIP automatic markdown image display, may be prone to breaking
+            }
         end,
     },
     -- {
