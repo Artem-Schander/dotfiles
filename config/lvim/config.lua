@@ -61,22 +61,41 @@ vim.opt.showtabline = 0
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
-  "bash",
-  "c",
-  "javascript",
-  "json",
-  "lua",
-  "php",
-  "python",
-  "typescript",
-  "css",
-  "rust",
-  "java",
-  "yaml",
+    "bash",
+    "c",
+    "javascript",
+    "json",
+    "lua",
+    "php",
+    "html",
+    "bash",
+    "python",
+    "typescript",
+    "css",
+    "rust",
+    "java",
+    "yaml",
+    "blade",
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
+
+local parser_config = require("nvim-treesitter.parsers").get_parser_configs()
+parser_config.blade = {
+    install_info = {
+        url = "https://github.com/EmranMR/tree-sitter-blade.git",
+        files = {"src/parser.c"},
+        branch = "main",
+    },
+    filetype = "blade",
+}
+
+vim.filetype.add({
+    pattern = {
+        ['.*%.blade%.php'] = 'blade',
+    },
+})
 
 -- generic LSP settings
 
@@ -335,32 +354,37 @@ lvim.plugins = {
     },
     {
         "folke/flash.nvim",
-        event = "VeryLazy",
-        ---@type Flash.Config
-        opts = {},
-        config = function()
-            -- lvim.builtin.which_key.mappings["j"] = { name = "Jump" }
-            -- lvim.builtin.which_key.mappings["j"]["k"] = {
-            --     function()
-            --         require("flash").jump()
-            --     end,
-            --     "Jump to any number of characters"
-            -- }
-            -- lvim.builtin.which_key.mappings["j"]["t"] = {
-            --     function()
-            --         require("flash").treesitter()
-            --     end,
-            --     "Jump to treesitter node"
-            -- }
+        -- event = "VeryLazy",
+        opts = {
+            modes = {
+                search = {
+                    enabled = true,
+                },
+            },
+        },
+        -- config = function()
+        --     -- lvim.builtin.which_key.mappings["j"] = { name = "Jump" }
+        --     -- lvim.builtin.which_key.mappings["j"]["k"] = {
+        --     --     function()
+        --     --         require("flash").jump()
+        --     --     end,
+        --     --     "Jump to any number of characters"
+        --     -- }
+        --     -- lvim.builtin.which_key.mappings["j"]["t"] = {
+        --     --     function()
+        --     --         require("flash").treesitter()
+        --     --     end,
+        --     --     "Jump to treesitter node"
+        --     -- }
 
-            lvim.builtin.which_key.mappings["j"] = {
-                -- "<cmd>lua require('flash').jump()<cr>",
-                function()
-                    require("flash").jump()
-                end,
-                "Jump"
-            }
-        end,
+        --     lvim.builtin.which_key.mappings["j"] = {
+        --         -- "<cmd>lua require('flash').jump()<cr>",
+        --         function()
+        --             require("flash").jump()
+        --         end,
+        --         "Jump"
+        --     }
+        -- end,
         -- keys = {
         --     {
         --         "s",
@@ -587,9 +611,10 @@ lvim.plugins = {
     {
         "nvim-neotest/neotest",
         dependencies = {
+            "nvim-neotest/nvim-nio",
             "nvim-lua/plenary.nvim",
+            "antoinemadec/FixCursorHold.nvim",
             "nvim-treesitter/nvim-treesitter",
-            -- "antoinemadec/FixCursorHold.nvim",
             "olimorris/neotest-phpunit",
         }
     },
@@ -813,6 +838,51 @@ lvim.plugins = {
         end
     },
     {
+        "CopilotC-Nvim/CopilotChat.nvim",
+        branch = "canary",
+        dependencies = {
+            { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
+            { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper
+        },
+        opts = {
+            debug = true, -- Enable debugging
+            -- See Configuration section for rest
+            window = {
+                layout = 'float',
+                relative = 'cursor',
+                width = 1,
+                height = 0.4,
+                row = 1
+            }
+        },
+        -- See Commands section for default commands if you want to lazy load on them
+        -- config = function ()
+        --     lvim.builtin.which_key.mappings["j"] = { name = "Copilot" }
+        --     lvim.builtin.which_key.mappings["jb"] = {
+        --         function()
+        --             local input = vim.fn.input("Quick Chat: ")
+        --             if input ~= "" then
+        --                 require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
+        --             end
+        --         end,
+        --         "CopilotChat - Buffer related chat"
+        --     }
+        -- end
+        -- keys = {
+        --     {
+        --         "jb",
+        --         -- mode = { "n" },
+        --         function()
+        --             local input = vim.fn.input("Quick Chat: ")
+        --             if input ~= "" then
+        --                 require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
+        --             end
+        --         end,
+        --         desc = "CopilotChat - Buffer related chat",
+        --     },
+        -- },
+    },
+    {
         "zbirenbaum/copilot-cmp",
         -- module = "copilot_cmp",
         after = { "copilot.lua", "nvim-cmp" },
@@ -913,6 +983,7 @@ lvim.plugins = {
         end,
     },
     {
+        -- view images in neovim
         "edluffy/hologram.nvim",
         config = function()
             require('hologram').setup{

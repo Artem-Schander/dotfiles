@@ -10,8 +10,11 @@ else # OS X `ls`
     colorflag="-G"
 fi
 
-alias vim="lvim"
-alias nvim="lvim"
+# alias vim="lvim"
+# alias nvim="lvim"
+
+unalias nvim >/dev/null 2>&1
+alias vim="nvim"
 
 alias top="htop"
 
