@@ -36,6 +36,8 @@ return {
           filetype = false,
           file_read_only = false,
           -- hl = status.hl.get_attributes("winbarnc", true),
+          hl = status.hl.get_attributes("winbar", true),
+          padding = { right = 2 },
           surround = false,
           update = "BufEnter",
         },
