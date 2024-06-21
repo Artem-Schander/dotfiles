@@ -141,7 +141,7 @@ return {
         function()
           local input = vim.fn.input "Translate from language: "
           if input ~= "" then
-            local prompt = "Find " .. input .. " strings. Use the result to make a JSON with translations in german and english where the first level keys are ISO 639 codes of the corresponding language. In the second level should be short but descriptive unique keys in english containing only lower case characters and dashes. All translations need to have the same keys for the same content"
+            local prompt = "Find " .. input .. " strings. Use the result to make a JSON with translations in " .. input .. " and english (en) where the first level keys are ISO 639 codes of the corresponding language. In the second level should be short but descriptive unique keys in english containing only lower case characters and dashes. All translations need to have the same keys for the same content. If there are no " .. input .. " strings just say that there are none."
             require("CopilotChat").ask(prompt, { selection = require("CopilotChat.select").buffer })
           end
         end,

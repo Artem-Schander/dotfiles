@@ -75,6 +75,7 @@ lvim.builtin.treesitter.ensure_installed = {
     "rust",
     "java",
     "yaml",
+    "graphql",
     "blade",
 }
 
