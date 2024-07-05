@@ -51,4 +51,5 @@ docker exec -it $container $execPath -c "SYMFONY_DEPRECATIONS_HELPER=weak $phpun
 docker cp -a "$container:$localPhpUnitResultPath" "$outputPath"|- &> /dev/null
 
 # replace docker path to locals
-sed -i '_' "s#$dockerPath#$projectPath#g" $outputPath
+# sed -i '_' "s#$dockerPath#$projectPath#g" $outputPath
+sed -i "s#$dockerPath#$projectPath#g" $outputPath
