@@ -120,12 +120,12 @@ return {
       end
 
       if vim.fn.executable "git" == 1 then
-        maps.n["<Leader>t"] = {
+        maps.n["<Leader>j"] = {
           function() require("fzf-lua").grep_project() end,
           desc = "Find Text",
         }
       else
-        maps.n["<Leader>t"] = {
+        maps.n["<Leader>j"] = {
           function() require("fzf-lua").live_grep() end,
           desc = "Find Text",
         }
@@ -219,6 +219,7 @@ return {
   },
 
   { "tpope/vim-surround" },
+  { "tpope/vim-abolish" },
   { "tpope/vim-repeat" },
   { "chrisbra/csv.vim" },
   { "editorconfig/editorconfig-vim" },
