@@ -1,3 +1,6 @@
 [submodule "resources/fonts/NerdFonts/cheatsheet"]
 	path = resources/fonts/NerdFonts/cheatsheet
 	url = git@github.com:just3ws/nerd-font-cheatsheets.git
+[submodule "bin/vscode-php-debug"]
+	path = bin/vscode-php-debug
+	url = git@github.com:xdebug/vscode-php-debug.git
