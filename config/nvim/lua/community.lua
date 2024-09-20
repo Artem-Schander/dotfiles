@@ -13,5 +13,13 @@ return {
   { import = "astrocommunity.colorscheme.catppuccin" },
   { import = "astrocommunity.colorscheme.tokyonight-nvim" },
   { import = "astrocommunity.colorscheme.tokyodark-nvim" },
+  { import = "astrocommunity.colorscheme.kanagawa-nvim" },
+  { import = "astrocommunity.colorscheme.kanagawa-paper-nvim" },
+  { import = "astrocommunity.colorscheme.rose-pine" },
+  { import = "astrocommunity.colorscheme.oldworld-nvim" },
+  { import = "astrocommunity.colorscheme.onedarkpro-nvim" },
+
+  { import = "astrocommunity.colorscheme.github-nvim-theme" },
+
   { import = "astrocommunity.completion.copilot-cmp" },
 }

@@ -218,6 +218,8 @@ return {
     end,
   },
 
+  { "EmranMR/tree-sitter-blade" },
+
   { "tpope/vim-surround" },
   { "tpope/vim-abolish" },
   { "tpope/vim-repeat" },

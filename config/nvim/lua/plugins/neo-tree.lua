@@ -20,7 +20,7 @@ return {
           end,
           desc = "Toggle Explorer",
         }
-        maps.n["<Leader>o"] = {}
+        maps.n["<Leader>o"] = nil
       end,
     },
   },

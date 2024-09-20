@@ -43,6 +43,8 @@ return {
       },
     })
 
+    -- opts.highlight.disable = { "php" } -- list of language that will be disabled
+
     require("nvim-treesitter.configs").setup(opts)
   end
 }
