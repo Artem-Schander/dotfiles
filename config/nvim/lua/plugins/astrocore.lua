@@ -75,19 +75,24 @@ return {
     },
     mappings = {
       n = {
-        ["<Leader>k"] = {
-          function() require("interestingwords").InterestingWord("n", false) end,
-          desc = "Interesting Word",
-        },
-        ["<Leader>K"] = {
-          function() require("interestingwords").UncolorAllWords(false) end,
-          desc = "Uninteresting All",
-        },
+        -- ["<Leader>k"] = {
+        --   function() require("interestingwords").InterestingWord("n", false) end,
+        --   desc = "Interesting Word",
+        -- },
+        ["<Leader>k"] = { ":call InterestingWords('n')<CR>", desc = "Interesting Word" },
+        -- ["<Leader>K"] = {
+        --   function() require("interestingwords").UncolorAllWords(false) end,
+        --   desc = "Uninteresting All",
+        -- },
+        ["<Leader>K"] = { ":call UncolorAllWords()<CR>", desc = "Uninteresting All" },
         -- lvim.builtin.which_key.mappings["m"] = { ":TSJToggle<CR>", "Split/Join Block" }
         ["<Leader>m"] = { ":TSJToggle<CR>", desc = "Split/Join Block" },
         -- ["<Leader>."] = { ":b#<CR>", desc = "Previous buffer" },
         ["<Leader>."] = { "<c-^>", desc = "Previous buffer" },
         ["<Leader>bp"] = { ":e#<CR>", desc = "Previous buffer" },
+      },
+      v = {
+        ["<Leader>k"] = { ":call InterestingWords('v')<CR>", desc = "Interesting Word" },
       },
     },
     autocmds = {

@@ -298,39 +298,40 @@ return {
     "kevinhwang91/nvim-bqf",
     event = "BufRead",
   },
-  -- {
-  --   "lfv89/vim-interestingwords",
-  --   config = function() vim.cmd "source ~/.config/nvim/vimscript/interestingwords.vim" end,
-  -- },
   {
-    "Mr-LLLLL/interestingwords.nvim",
-    config = function()
-      require("interestingwords").setup {
-        colors = {
-          "#A4E57E",
-          "#FFDB72",
-          "#E06C75",
-          "#FFB3FF",
-          "#D19A66",
-          "#DBDFE6",
-          "#A38CFF",
-          "#C6F8DD",
-          "#B8AFA9",
-          "#8CCBEA",
-        },
-        search_count = true,
-        navigation = true,
-        scroll_center = true,
-        search_key = false,
-        cancel_search_key = false,
-        color_key = false,
-        cancel_color_key = false,
-      }
-      -- wk.register {
-      --   ["<leader>m"] = false,
-      -- }
-    end,
+    "lfv89/vim-interestingwords",
+    config = function() vim.cmd "source ~/.config/nvim/vimscript/interestingwords.vim" end,
   },
+  -- NOTE: cannot highlight selection
+  -- {
+  --   "Mr-LLLLL/interestingwords.nvim",
+  --   config = function()
+  --     require("interestingwords").setup {
+  --       colors = {
+  --         "#A4E57E",
+  --         "#FFDB72",
+  --         "#E06C75",
+  --         "#FFB3FF",
+  --         "#D19A66",
+  --         "#DBDFE6",
+  --         "#A38CFF",
+  --         "#C6F8DD",
+  --         "#B8AFA9",
+  --         "#8CCBEA",
+  --       },
+  --       search_count = true,
+  --       navigation = true,
+  --       scroll_center = true,
+  --       search_key = false,
+  --       cancel_search_key = false,
+  --       color_key = false,
+  --       cancel_color_key = false,
+  --     }
+  --     -- wk.register {
+  --     --   ["<leader>m"] = false,
+  --     -- }
+  --   end,
+  -- },
   {
     "Wansmer/treesj",
     dependencies = { "nvim-treesitter" },

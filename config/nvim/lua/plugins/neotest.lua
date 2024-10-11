@@ -100,6 +100,10 @@ return {
           end,
         },
       }, vim.api.nvim_create_namespace "neotest")
+      opts.quickfix = {
+        enable = false,
+        open = false,
+      }
       require("neotest").setup(opts)
     end,
   },
