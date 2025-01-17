@@ -158,7 +158,7 @@ DISABLE_AUTO_TITLE=true
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-flow macos common-aliases zoxide httpie history tmux fzf)
+plugins=(git git-flow macos common-aliases zoxide httpie history tmux fzf zsh-fzf-history-search)
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -334,8 +334,6 @@ export PATH="$HOME/.yarn/bin:$PATH"
 # elif [[ -d $(brew --prefix homebrew/php/php70)/bin ]]; then
 #     export PATH="$(brew --prefix homebrew/php/php70)/bin:$PATH"
 # fi
-
-export FZF_DEFAULT_COMMAND='if [ -f cscope.files ]; then cat cscope.files; else find ./ -type f ; fi'
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 

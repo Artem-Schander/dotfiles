@@ -1,3 +1,5 @@
+-- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
+
 ---@type LazySpec
 return {
   {
@@ -11,6 +13,7 @@ return {
         lazy = true,
         build = "./install --bin",
       },
+
       -- {
       --   "junegunn/fzf.vim",
       --   dependencies = { "junegunn/fzf" },
@@ -93,7 +96,7 @@ return {
                 flip_columns = 180, -- #cols to switch to horizontal on flex
                 -- Only used with the builtin previewer:
                 title = true, -- preview border title (file/buf)?
-                title_align = "left", -- left|center|right, title alignment
+                title_pos = "left", -- left|center|right, title alignment
                 scrollbar = "float", -- `false` or string:'float|border'
                 -- float:  in-window floating border
                 -- border: in-border chars (see below)
@@ -183,7 +186,7 @@ return {
           }
           maps.n["<Leader>fh"] = { function() require("fzf-lua").helptags() end, desc = "Find help" }
           maps.n["<Leader>fk"] = { function() require("fzf-lua").keymaps() end, desc = "Find keymaps" }
-          maps.n["<Leader>fm"] = {}
+          -- maps.n["<Leader>fm"] = {}
           maps.n["<Leader>fo"] = { function() require("fzf-lua").oldfiles() end, desc = "Find history" }
           maps.n["<Leader>fr"] = { function() require("fzf-lua").registers() end, desc = "Find registers" }
           maps.n["<Leader>ft"] = {

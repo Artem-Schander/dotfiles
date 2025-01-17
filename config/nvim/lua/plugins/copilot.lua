@@ -23,7 +23,7 @@ return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     event = "VeryLazy",
-    branch = "canary",
+    branch = "main",
     dependencies = {
       { "zbirenbaum/copilot.lua" }, -- or github/copilot.vim
       { "nvim-lua/plenary.nvim" }, -- for curl, log wrapper

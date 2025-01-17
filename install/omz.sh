@@ -64,11 +64,22 @@ main() {
     curl -o $DOTFILES/zsh/.oh-my-zsh/custom/themes/honukai.zsh-theme https://raw.githubusercontent.com/oskarkrawczyk/honukai-iterm-zsh/master/honukai.zsh-theme
   }
 
+  add_plugins()
+  {
+    if [ ! -d "$DOTFILES/zsh/.oh-my-zsh/custom/plugins/zsh-fzf-history-search" ]; then
+        printf "${BLUE}Cloning FZF history search plugin...${NORMAL}\n"
+        env git clone https://github.com/joshskidmore/zsh-fzf-history-search "$DOTFILES/zsh/.oh-my-zsh/custom/plugins/zsh-fzf-history-search" || {
+            printf "Error: git clone of FZF history search plugin theme repo failed\n"
+        }
+    fi
+  }
+
   if [ -d "$ZSH" ]; then
     printf "${YELLOW}You already have Oh My Zsh installed.${NORMAL}\n"
     printf "You'll need to remove $ZSH if you want to re-install.\n"
 
     add_themes
+    add_plugins
 
     return 0
   fi
@@ -87,6 +98,7 @@ main() {
   }
 
   add_themes
+  add_plugins
 
   # The Windows (MSYS) Git is not compatible with normal use on cygwin
   if [ "$OSTYPE" = cygwin ]; then
