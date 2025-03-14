@@ -29,6 +29,10 @@ done
 args=("${argsInput/$subPath\//}")
 args=("${args//(*}")
 
+# remove --log-junit if exists
+# tests/Unit/ProductExportServiceTest.php --log-junit=/var/folders/k7/mpvywsws2y55tqb4x4mtym5h0000gn/T/nvim.artemschander/foma6f/115
+args=("${args[@]/--log-junit=*/}")
+
 # Detect path
 container=$(docker ps -n=-1 --filter name=$containerName --format="{{.ID}}")
 phpunitPath=$(docker exec -it $container /bin/bash -c "if [ -f vendor/bin/phpunit ]; then echo vendor/bin/phpunit; else echo bin/phpunit; fi" | tr -d '\r')

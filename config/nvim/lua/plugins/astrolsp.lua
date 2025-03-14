@@ -5,6 +5,20 @@
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
 --       as this provides autocomplete and documentation while editing
 
+local function get_php_version()
+  local cwd = vim.fn.getcwd()
+  local version_file = cwd .. "/.phpversion"
+  local version = "8.0" -- Standardwert, falls keine Datei gefunden wird
+  if vim.fn.filereadable(version_file) == 1 then
+    local f = io.open(version_file, "r")
+    if f then
+      version = f:read("*l") or version
+      f:close()
+    end
+  end
+  return version
+end
+
 ---@type LazySpec
 return {
   "AstroNvim/astrolsp",
@@ -46,6 +60,15 @@ return {
     ---@diagnostic disable: missing-fields
     config = {
       -- clangd = { capabilities = { offsetEncoding = "utf-8" } },
+      intelephense = {
+        settings = {
+          intelephense = {
+            environment = {
+              phpVersion = get_php_version(),  -- Projektbezogene PHP-Version
+            },
+          },
+        },
+      },
     },
     -- customize how language servers are attached
     handlers = {

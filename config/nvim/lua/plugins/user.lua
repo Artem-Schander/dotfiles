@@ -341,41 +341,22 @@ return {
       local u = require "treesj.langs.utils"
       local langs = require "treesj.langs"
       langs = u._prepare_presets(langs.presets)
-      -- langs["php"] = {
-      --     array_creation_expression = u.set_preset_for_dict {
-      --         join = {
-      --             space_in_brackets = false,
-      --         },
-      --     },
-      --     arguments = u.set_preset_for_args {
-      --         join = {
-      --             space_in_brackets = false,
-      --         },
-      --     },
-      --     formal_parameters = u.set_preset_for_args(),
-      --     compound_statement = u.set_preset_for_statement(),
-      --     expression_statement = {
-      --         target_nodes = { 'array_creation_expression' },
-      --     },
-      -- }
-      -- langs["pug"] = {
-      --     attributes = u.set_default_preset({
-      --         both = {
-      --             space_separator = 1,
-      --             separator = ' ',
-      --         },
-      --     }),
-      -- }
+
+      local gql_options = {
+        split = {
+          separator = "\n",  -- split into multiple lines
+          recursive = true,
+          indent = true,
+        },
+        join = {
+          separator = ", ",   -- join into one line
+        },
+      }
 
       langs["graphql"] = {
-        selection_set = u.set_default_preset {
-          split = {
-            recursive = true,
-          },
-        },
-        tag = {
-          target_nodes = { "selection_set" },
-        },
+        variable_definitions = u.set_preset_for_args(gql_options),
+        arguments = u.set_preset_for_args(gql_options),
+        selection_set = u.set_preset_for_args(gql_options),
       }
       require("treesj").setup {
         -- Use default keymaps
@@ -397,7 +378,7 @@ return {
 
         -- Notify about possible problems or not
         notify = true,
-        -- langs = langs,
+        langs = langs,
 
         -- Use `dot` for repeat action
         dot_repeat = true,
