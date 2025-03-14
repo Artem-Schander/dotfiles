@@ -9,7 +9,7 @@ return {
     dependencies = {
       {
         "junegunn/fzf",
-        dir = "~/.fzf",
+        -- dir = "~/.fzf",
         lazy = true,
         build = "./install --bin",
       },
