@@ -30,8 +30,9 @@ args=("${argsInput/$subPath\//}")
 args=("${args//(*}")
 
 # remove --log-junit if exists
-# tests/Unit/ProductExportServiceTest.php --log-junit=/var/folders/k7/mpvywsws2y55tqb4x4mtym5h0000gn/T/nvim.artemschander/foma6f/115
-args=("${args[@]/--log-junit=*/}")
+# tests/CityOffer/API/ProductMutationsTest.php --log-junit=/tmp/nvim.va-artem/xLMRGq/23 --filter ::deleting_article_related_property_values
+foo=("${args[@]/--log-junit=*/}")
+echo "foo: ${foo[@]}"
 
 # Detect path
 container=$(docker ps -n=-1 --filter name=$containerName --format="{{.ID}}")
