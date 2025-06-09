@@ -321,10 +321,11 @@ load-nvmrc() {
 load-nvmrc
 
 if hash brew 2>/dev/null; then
-    source $(brew --prefix nvm)/nvm.sh
-    source `brew --prefix`/etc/profile.d/z.sh
     # when sourcing, check and ensure that the correct Node version is set
-    load-nvmrc
+    # source $(brew --prefix nvm)/nvm.sh
+    # load-nvmrc
+
+    source `brew --prefix`/etc/profile.d/z.sh
 fi
 
 export PATH="$HOME/.yarn/bin:$PATH"

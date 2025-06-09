@@ -144,7 +144,8 @@ function homestead() {
 # source ~/.zshrc by running .
 function _accept-line() {
     if [[ $BUFFER == "." ]]; then
-        BUFFER="source ~/.zshrc"
+        # BUFFER="source ~/.zshrc"
+        BUFFER="exec zsh"
     fi
     zle .accept-line
 }

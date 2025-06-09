@@ -1,60 +1,59 @@
+#!/bin/bash
 # Customize the following:
 containerName=$CONTAINER
 phpunitPath=$REMOTE_PHPUNIT_BIN
 
-# detect local path and remove from args
+# Detect local path and remove it from args
 localPhpUnitResultPath='/tmp/phpunit-result.xml'
-argsInput=${@}
-runFile=$(echo $argsInput| awk '{print $1}')
+# Store all input arguments in an array
+argsInput=("$@")
+runFile="${argsInput[0]}"
 phpTestPath=$(dirname "$runFile")
-pushd $phpTestPath > /dev/null
+pushd "$phpTestPath" > /dev/null
 projectPath="$(git rev-parse --show-toplevel)"
-pushd > /dev/null
+popd > /dev/null
 
-subPath=$(awk -F '/vendor/' '{print $1}' <<< $projectPath)
-# containerName=$(sed 's#.*/##' <<< $subPath | sed s/-/_/g)
+subPath=$(awk -F '/vendor/' '{print $1}' <<< "$projectPath")
+# containerName=$(sed 's#.*/##' <<< "$subPath" | sed 's/-/_/g')
 
-## detect test result output
-for i in $argsInput; do
-    case $i in
-        --log-junit=*)
-            outputPath="${i#*=}"
-            ;;
-        *)
-            ;;
-    esac
+# Process arguments individually: replace local paths and remove the --log-junit parameter
+filtered_args=()
+for arg in "$@"; do
+    # Replace local path prefix if needed
+    arg="${arg/$subPath\//}"
+    # The original script versucht, etwas mit "(*" zu ersetzen – ich behalte dies bei,
+    # obwohl der genaue Zweck unklar ist:
+    arg="${arg//(*}"
+    # If the argument starts with --log-junit=, extract outputPath and skip adding it to filtered_args
+    if [[ "$arg" == --log-junit=* ]]; then
+        outputPath="${arg#*=}"
+        continue
+    fi
+    filtered_args+=("$arg")
 done
 
-# replace with local
-args=("${argsInput/$subPath\//}")
-args=("${args//(*}")
+# Set args to the filtered arguments
+args=("${filtered_args[@]}")
 
+<<<<<<< Updated upstream
 # remove --log-junit if exists
 # tests/CityOffer/API/ProductMutationsTest.php --log-junit=/tmp/nvim.va-artem/xLMRGq/23 --filter ::deleting_article_related_property_values
 foo=("${args[@]/--log-junit=*/}")
 echo "foo: ${foo[@]}"
+=======
+# Detect container and paths
+container=$(docker ps -n=-1 --filter name="$containerName" --format="{{.ID}}")
+phpunitPath=$(docker exec -it "$container" /bin/bash -c "if [ -f vendor/bin/phpunit ]; then echo vendor/bin/phpunit; else echo bin/phpunit; fi" | tr -d '\r')
+execPath=$(docker exec -it "$container" /bin/bash -c "if [ -f /bin/sh ]; then echo /bin/sh; else echo /bin/bash; fi" | tr -d '\r')
+dockerPath=$(docker inspect --format {{.Config.WorkingDir}} "$container")
+>>>>>>> Stashed changes
 
-# Detect path
-container=$(docker ps -n=-1 --filter name=$containerName --format="{{.ID}}")
-phpunitPath=$(docker exec -it $container /bin/bash -c "if [ -f vendor/bin/phpunit ]; then echo vendor/bin/phpunit; else echo bin/phpunit; fi" | tr -d '\r')
-execPath=$(docker exec -it $container /bin/bash -c "if [ -f /bin/sh ]; then echo /bin/sh; else echo /bin/bash; fi" | tr -d '\r')
-dockerPath=$(docker inspect --format {{.Config.WorkingDir}} $container)
+# Run the tests – now wird das --log-junit Argument mit dem lokalen Ergebnis-Pfad angehängt
+docker exec -it "$container" "$execPath" -c "SYMFONY_DEPRECATIONS_HELPER=weak $phpunitPath -d memory_limit=-1 -d xdebug.idekey=deliver-be ${args[@]} --log-junit=${localPhpUnitResultPath}"
 
-## debug
-# echo "Raw ARGS: "${@}
-# echo "Params:   "${args[@]}
-# echo "Docker:   "$dockerPath
-# echo "Local:    "$projectPath
-# echo "Result:   "$outputPath
-# echo "docker exec -i "$container" php -d memory_limit=-1 "$phpunitPath" "${args[@]}
+# Copy results from container
+docker cp -a "$container:$localPhpUnitResultPath" "$outputPath" 2>/dev/null
 
-# Run the tests
-docker exec -it $container $execPath -c "SYMFONY_DEPRECATIONS_HELPER=weak $phpunitPath -d memory_limit=-1 -d xdebug.idekey=deliver-be ${args} --log-junit=${localPhpUnitResultPath}"
-# docker exec -it $container $phpunitPath -d memory_limit=-1 ${args[@]}
-
-# copy results
-docker cp -a "$container:$localPhpUnitResultPath" "$outputPath"|- &> /dev/null
-
-# replace docker path to locals
-sed -i "s#$dockerPath#$projectPath#g" $outputPath
-# sed -i '_' "s#$dockerPath#$projectPath#g" $outputPath
+# Replace docker path with local project path in the result file
+# sed -i "s#$dockerPath#$projectPath#g" $outputPath
+sed -i '_' "s#$dockerPath#$projectPath#g" "$outputPath"
