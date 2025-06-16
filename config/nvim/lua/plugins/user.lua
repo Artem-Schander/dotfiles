@@ -1,14 +1,14 @@
 -- if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
 
 -- You can also add or configure plugins by creating files in this `plugins/` folder
+-- PLEASE REMOVE THE EXAMPLES YOU HAVE NO INTEREST IN BEFORE ENABLING THIS FILE
 -- Here are some examples:
-
-local wk = require "which-key"
 
 ---@type LazySpec
 return {
 
   -- == Examples of Adding Plugins ==
+
   "LunarVim/lunar.nvim",
 
   "andweeb/presence.nvim",
@@ -19,6 +19,7 @@ return {
   },
 
   -- == Examples of Overriding Plugins ==
+
   {
     "kevinhwang91/nvim-ufo",
     enabled = false,
@@ -26,10 +27,9 @@ return {
 
   {
     "AstroNvim/astrolsp",
-    opts = function(_, opts)
-      opts.formatting.format_on_save.enabled = false
-    end,
+    opts = function(_, opts) opts.formatting.format_on_save.enabled = false end,
   },
+
   {
     "AstroNvim/astrocore",
     opts = function(_, opts)
@@ -68,11 +68,11 @@ return {
       -- Gitsigns
       if is_available "gitsigns.nvim" then
         maps.n["<Leader>gj"] = {
-          function() require("gitsigns").next_hunk() end,
+          function() require("gitsigns").nav_hunk "next" end,
           desc = "Next Git Hunk",
         }
         maps.n["<Leader>gk"] = {
-          function() require("gitsigns").prev_hunk() end,
+          function() require("gitsigns").nav_hunk "prev" end,
           desc = "Previous Git Hunk",
         }
       end
@@ -94,7 +94,26 @@ return {
       end
 
       maps.n["<Leader><"] = {
-        ":IBLToggle<CR>",
+        function()
+          local ok, indent = pcall(require, "snacks.indent")
+          if not ok then
+            vim.notify("snacks.indent not available", vim.log.levels.WARN)
+            return
+          end
+
+          if vim.g.indent_enabled == nil then
+            -- initialer Zustand: wir gehen davon aus, dass sie aktiviert sind
+            vim.g.indent_enabled = true
+          end
+
+          if vim.g.indent_enabled then
+            indent.disable()
+          else
+            indent.enable()
+          end
+
+          vim.g.indent_enabled = not vim.g.indent_enabled
+        end,
         desc = "Toggle Indent Lines",
       }
       maps.n["<Leader>>"] = {
@@ -139,38 +158,19 @@ return {
     end,
   },
 
+  -- customize dashboard options
   {
-    "goolord/alpha-nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    opts = function(_, opts)
-      local path = vim.fn.getcwd()
-      local home = vim.fn.expand "$HOME"
-
-      -- customize the dashboard header
-      opts.section.header.val = {
-        "~" .. path:gsub(home, ""),
-      }
-
-      opts.config.layout = {
-        {
-          type = "padding",
-          val = vim.fn.max { 1, vim.fn.floor(vim.fn.winheight(0) * 0.15) },
+    "folke/snacks.nvim",
+    opts = {
+      dashboard = {
+        preset = {
+          header = table.concat({
+            "NVIM",
+            vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
+          }, "\n"),
         },
-        opts.section.header,
-        {
-          type = "padding",
-          val = 2,
-        },
-        opts.section.buttons,
-        {
-          type = "padding",
-          val = 1,
-        },
-        opts.section.footer,
-      }
-
-      return opts
-    end,
+      },
+    },
   },
 
   -- You can disable default plugins as follows:
@@ -184,13 +184,6 @@ return {
       -- add more custom luasnip configuration such as filetype extend or custom snippets
       local luasnip = require "luasnip"
       luasnip.filetype_extend("javascript", { "javascriptreact" })
-
-      vim.tbl_map(
-        function(type)
-          require("luasnip.loaders.from_" .. type).lazy_load { paths = { vim.fn.stdpath "config" .. "/snippets" } }
-        end,
-        { "vscode", "snipmate", "lua" }
-      )
     end,
   },
 
@@ -213,7 +206,7 @@ return {
             )
             -- don't move right when repeat character
             :with_move(cond.none())
-            -- don't' delete if the next character is xx
+            -- don't delete if the next character is xx
             :with_del(cond.not_after_regex "xx")
             -- disable adding a newline when you press <cr>
             :with_cr(cond.none()),
@@ -229,36 +222,37 @@ return {
   { "tpope/vim-surround" },
   { "tpope/vim-abolish" },
   { "tpope/vim-repeat" },
+
   { "chrisbra/csv.vim" },
   { "editorconfig/editorconfig-vim" },
-  {
-    "Shatur/neovim-session-manager",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    event = "VeryLazy",
-    config = function()
-      local Path = require "plenary.path"
-      local config = require "session_manager.config"
-      require("session_manager").setup {
-        sessions_dir = Path:new(vim.fn.stdpath "data", "sessions"), -- The directory where the session files will be saved.
-        -- session_filename_to_dir = session_filename_to_dir, -- Function that replaces symbols into separators and colons to transform filename into a session directory.
-        -- dir_to_session_filename = dir_to_session_filename, -- Function that replaces separators and colons into special symbols to transform session directory into a filename. Should use `vim.uv.cwd()` if the passed `dir` is `nil`.
-        -- autoload_mode = config.AutoloadMode.LastSession, -- Define what to do when Neovim is started without arguments. See "Autoload mode" section below.
-        -- autoload_mode = config.AutoloadMode.Disabled,
-        autoload_mode = config.AutoloadMode.Disabled,
-        autosave_last_session = true, -- Automatically save last session on exit and on session switch.
-        autosave_ignore_not_normal = true, -- Plugin will not save a session when no buffers are opened, or all of them aren't writable or listed.
-        autosave_ignore_dirs = {}, -- A list of directories where the session will not be autosaved.
-        autosave_ignore_filetypes = { -- All buffers of these file types will be closed before the session is saved.
-          "alpha",
-          "gitcommit",
-          "gitrebase",
-        },
-        autosave_ignore_buftypes = {}, -- All buffers of these bufer types will be closed before the session is saved.
-        autosave_only_in_session = false, -- Always autosaves session. If true, only autosaves after a session is active.
-        max_path_length = 80, -- Shorten the display path if length exceeds this threshold. Use 0 if don't want to shorten the path at all.
-      }
-    end,
-  },
+  -- {
+  --   "Shatur/neovim-session-manager",
+  --   dependencies = { "nvim-lua/plenary.nvim" },
+  --   event = "VeryLazy",
+  --   config = function()
+  --     local Path = require "plenary.path"
+  --     local config = require "session_manager.config"
+  --     require("session_manager").setup {
+  --       sessions_dir = Path:new(vim.fn.stdpath "data", "sessions"), -- The directory where the session files will be saved.
+  --       -- session_filename_to_dir = session_filename_to_dir, -- Function that replaces symbols into separators and colons to transform filename into a session directory.
+  --       -- dir_to_session_filename = dir_to_session_filename, -- Function that replaces separators and colons into special symbols to transform session directory into a filename. Should use `vim.uv.cwd()` if the passed `dir` is `nil`.
+  --       -- autoload_mode = config.AutoloadMode.LastSession, -- Define what to do when Neovim is started without arguments. See "Autoload mode" section below.
+  --       -- autoload_mode = config.AutoloadMode.Disabled,
+  --       autoload_mode = config.AutoloadMode.Disabled,
+  --       autosave_last_session = true, -- Automatically save last session on exit and on session switch.
+  --       autosave_ignore_not_normal = true, -- Plugin will not save a session when no buffers are opened, or all of them aren't writable or listed.
+  --       autosave_ignore_dirs = {}, -- A list of directories where the session will not be autosaved.
+  --       autosave_ignore_filetypes = { -- All buffers of these file types will be closed before the session is saved.
+  --         "alpha",
+  --         "gitcommit",
+  --         "gitrebase",
+  --       },
+  --       autosave_ignore_buftypes = {}, -- All buffers of these bufer types will be closed before the session is saved.
+  --       autosave_only_in_session = false, -- Always autosaves session. If true, only autosaves after a session is active.
+  --       max_path_length = 80, -- Shorten the display path if length exceeds this threshold. Use 0 if don't want to shorten the path at all.
+  --     }
+  --   end,
+  -- },
   {
     "folke/flash.nvim",
     -- event = "VeryLazy",
@@ -348,12 +342,12 @@ return {
 
       local gql_options = {
         split = {
-          separator = "\n",  -- split into multiple lines
+          separator = "\n", -- split into multiple lines
           recursive = true,
           indent = true,
         },
         join = {
-          separator = ", ",   -- join into one line
+          separator = ", ", -- join into one line
         },
       }
 
@@ -394,21 +388,21 @@ return {
   {
     "klen/nvim-config-local",
     config = function()
-      require('config-local').setup {
+      require("config-local").setup {
         -- Default options (optional)
 
         -- Config file patterns to load (lua supported)
         config_files = { ".nvim.lua", ".nvimrc", ".exrc", ".vimrc.lua", ".vimrc" },
 
         -- Where the plugin keeps files data
-        hashfile = vim.fn.stdpath("data") .. "/config-local",
+        hashfile = vim.fn.stdpath "data" .. "/config-local",
 
         autocommands_create = true, -- Create autocommands (VimEnter, DirectoryChanged)
-        commands_create = true,     -- Create commands (ConfigLocalSource, ConfigLocalEdit, ConfigLocalTrust, ConfigLocalIgnore)
-        silent = false,             -- Disable plugin messages (Config loaded/ignored)
-        lookup_parents = false,     -- Lookup config files in parent directories
+        commands_create = true, -- Create commands (ConfigLocalSource, ConfigLocalEdit, ConfigLocalTrust, ConfigLocalIgnore)
+        silent = false, -- Disable plugin messages (Config loaded/ignored)
+        lookup_parents = false, -- Lookup config files in parent directories
       }
-    end
+    end,
   },
   -- {
   --   "vhyrro/luarocks.nvim",

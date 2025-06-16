@@ -1,6 +1,3 @@
--- if true then return end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
--- This will run last in the setup process and is a good place to configure
 -- things like custom filetypes. This just pure lua so anything that doesn't
 -- fit in the normal config locations above can go here
 
@@ -33,6 +30,15 @@
 --     end
 --   end,
 -- })
+
+vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = "#565f89", nocombine = true })
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "php",
+    callback = function()
+        vim.bo.commentstring = "// %s"
+    end,
+})
 
 vim.api.nvim_create_autocmd('BufNewFile', {
   group = vim.api.nvim_create_augroup('RemoteFile', {clear = true}),

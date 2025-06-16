@@ -35,19 +35,6 @@ done
 # Set args to the filtered arguments
 args=("${filtered_args[@]}")
 
-<<<<<<< Updated upstream
-# remove --log-junit if exists
-# tests/CityOffer/API/ProductMutationsTest.php --log-junit=/tmp/nvim.va-artem/xLMRGq/23 --filter ::deleting_article_related_property_values
-foo=("${args[@]/--log-junit=*/}")
-echo "foo: ${foo[@]}"
-=======
-# Detect container and paths
-container=$(docker ps -n=-1 --filter name="$containerName" --format="{{.ID}}")
-phpunitPath=$(docker exec -it "$container" /bin/bash -c "if [ -f vendor/bin/phpunit ]; then echo vendor/bin/phpunit; else echo bin/phpunit; fi" | tr -d '\r')
-execPath=$(docker exec -it "$container" /bin/bash -c "if [ -f /bin/sh ]; then echo /bin/sh; else echo /bin/bash; fi" | tr -d '\r')
-dockerPath=$(docker inspect --format {{.Config.WorkingDir}} "$container")
->>>>>>> Stashed changes
-
 # Run the tests – now wird das --log-junit Argument mit dem lokalen Ergebnis-Pfad angehängt
 docker exec -it "$container" "$execPath" -c "SYMFONY_DEPRECATIONS_HELPER=weak $phpunitPath -d memory_limit=-1 -d xdebug.idekey=deliver-be ${args[@]} --log-junit=${localPhpUnitResultPath}"
 
