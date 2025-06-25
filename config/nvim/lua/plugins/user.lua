@@ -4,6 +4,11 @@
 -- PLEASE REMOVE THE EXAMPLES YOU HAVE NO INTEREST IN BEFORE ENABLING THIS FILE
 -- Here are some examples:
 
+-- local function session_name_to_filename(name)
+--   -- This matches resession's internal logic for session filenames
+--   return (name:gsub("/", "%%%%"))
+-- end
+
 ---@type LazySpec
 return {
 
@@ -161,16 +166,54 @@ return {
   -- customize dashboard options
   {
     "folke/snacks.nvim",
-    opts = {
-      dashboard = {
-        preset = {
-          header = table.concat({
-            "NVIM",
-            vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
-          }, "\n"),
-        },
-      },
-    },
+    opts = function(_, opts)
+      local get_icon = require("astroui").get_icon
+
+      opts.dashboard.preset.header = table.concat({
+        "NVIM",
+        vim.fn.fnamemodify(vim.fn.getcwd(), ":~")
+      }, "\n")
+
+      local utils = require("user.utils")
+
+      local function dirsession_exists()
+        local resession = require("resession")
+        local session_name = utils.escape_session_name(utils.get_session_name())
+        local sessions = resession.list({ dir = "dirsession" })
+        for _, name in ipairs(sessions) do
+          if name == session_name then
+            return true
+          end
+        end
+        return false
+      end
+
+      if opts.dashboard and opts.dashboard.preset and opts.dashboard.preset.keys then
+        for i, item in ipairs(opts.dashboard.preset.keys) do
+          if item.key == "s" then
+            opts.dashboard.preset.keys[i] = vim.tbl_extend("force", item, {
+              icon = get_icon("Refresh", 0, true),
+              desc = "Load Directory Session",
+              action = function()
+                require("resession").load(
+                  utils.get_session_name(),
+                  { dir = "dirsession", silence_errors = true }
+                )
+              end,
+              enabled = dirsession_exists,
+            })
+            break
+          end
+        end
+      end
+
+      table.insert(opts.dashboard.preset.keys, {
+        icon = " ",
+        key = "q",
+        desc = "Quit",
+        action = ":qa",
+      })
+    end,
   },
 
   -- {

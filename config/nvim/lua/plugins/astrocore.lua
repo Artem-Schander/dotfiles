@@ -88,6 +88,20 @@ return {
         showtabline = 0,
       },
     },
+    dashboard = {
+      buttons = function(default_buttons)
+        local snacks = require("snacks.session")
+        local session_file = snacks.session_file()
+        if vim.loop.fs_stat(session_file) then
+          table.insert(default_buttons, 1, {
+            "Last Session",
+            function() snacks.load() end,
+            "Restore session for this project",
+          })
+        end
+        return default_buttons
+      end,
+    },
     mappings = {
       n = {
         -- ["<Leader>k"] = {

@@ -47,7 +47,14 @@ return {
 
           maps.n["<leader>z"] = { name = "󰚩 CodeCompanion" }
 
-          maps.n["<Leader>zz"] = {
+          maps.n["<Leader>zn"] = {
+            function()
+              require("codecompanion").chat()
+            end,
+            desc = "New Chat"
+          }
+
+          maps.n["<Leader>zc"] = {
             function()
               local input = vim.fn.input("Quick Chat: ")
               if input ~= "" then
@@ -67,25 +74,18 @@ return {
             desc = "Chat with prompt over buffer"
           }
 
-          maps.n["<Leader>zp"] = {
-            function()
-              require("codecompanion").actions({})
-            end,
-            desc = "Open Action Palette"
-          }
-
-          maps.n["<Leader>zt"] = {
+          maps.n["<Leader>zz"] = {
             function()
               require("codecompanion").toggle()
             end,
             desc = "Toggle Chat"
           }
 
-          maps.n["<Leader>zr"] = {
+          maps.n["<Leader>zp"] = {
             function()
-              require("codecompanion").inline({})
+              require("codecompanion").actions({})
             end,
-            desc = "Refactor (Inline Assistant)"
+            desc = "Open Action Palette"
           }
 
           maps.n["<Leader>ze"] = {
@@ -102,11 +102,37 @@ return {
             desc = "Close Chat Window"
           }
 
+      -- {
+      --   "<Leader>It",
+      --   function()
+      --     local input = vim.fn.input "Translate from language: "
+      --     if input ~= "" then
+      --       local prompt = "Find " .. input .. " strings. Use the result to make a JSON with translations in " .. input .. " and english (en) where the first level keys are ISO 639 codes of the corresponding language. In the second level should be short but descriptive unique keys in english containing only lower case characters and dashes. All translations need to have the same keys for the same content. If there are no " .. input .. " strings just say that there are none."
+      --       require("CopilotChat").ask(prompt, { selection = require("CopilotChat.select").buffer })
+      --     end
+      --   end,
+      --   desc = "CopilotChat - Translate buffer",
+      -- },
+
+          maps.n["<Leader>ze"] = {
+            function()
+              require("codecompanion").prompt("Translate", {})
+            end,
+            desc = "Explain Code"
+          }
+
           -- visual mode
 
           maps.v["<leader>z"] = { name = "󰚩 CodeCompanion" }
 
           maps.v["<Leader>zz"] = {
+            function()
+              require("codecompanion").toggle()
+            end,
+            desc = "Toggle Chat"
+          }
+
+          maps.v["<Leader>zc"] = {
             function()
               local input = vim.fn.input("Quick Chat: ")
               if input ~= "" then
@@ -114,6 +140,13 @@ return {
               end
             end,
             desc = "Quick Inline Chat for Selection"
+          }
+
+          maps.v["<Leader>zp"] = {
+            function()
+              require("codecompanion").actions({})
+            end,
+            desc = "Open Action Palette"
           }
 
           maps.v["<Leader>zr"] = {
@@ -233,98 +266,103 @@ return {
             }
           }
         },
-        -- prompt_library = {
-        --   ["Quick Chat"] = {
-        --     strategy = "chat",
-        --     description = "Quick chat prompt",
-        --     opts = {
-        --       mapping = "<Leader>zz",
-        --       modes = { "n" },
-        --       auto_submit = true,
-        --       user_prompt = true,
-        --       short_name = "quick",
-        --     },
-        --     prompts = {
-        --       {
-        --         role = "user",
-        --         content = "<user_prompt>{input}</user_prompt>",
-        --       },
-        --     },
-        --   },
-        --   ["Buffer Chat"] = {
-        --     strategy = "chat",
-        --     description = "Chat with buffer context",
-        --     opts = {
-        --       mapping = "<Leader>zb",
-        --       modes = { "n" },
-        --       auto_submit = true,
-        --       user_prompt = true,
-        --       short_name = "buffer",
-        --     },
-        --     prompts = {
-        --       {
-        --         role = "user",
-        --         content = "<user_prompt>{input}</user_prompt>\n\nHere is the buffer context:\n```{filetype}\n{buffer}\n```",
-        --       },
-        --     },
-        --   },
-        --   ["Explain"] = {
-        --     strategy = "chat",
-        --     description = "Explain code under cursor",
-        --     opts = {
-        --       mapping = "<Leader>ze",
-        --       modes = { "n" },
-        --       auto_submit = true,
-        --       user_prompt = true,
-        --       short_name = "explain",
-        --     },
-        --     prompts = {
-        --       {
-        --         role = "user",
-        --         content = "<user_prompt>{input}</user_prompt>\n\nPlease explain the code at the cursor.",
-        --       },
-        --     },
-        --   },
-        --   ["Explain Selection"] = {
-        --     strategy = "chat",
-        --     description = "Explain visually selected code",
-        --     opts = {
-        --       mapping = "<Leader>ze",
-        --       modes = { "v" },
-        --       auto_submit = true,
-        --       user_prompt = true,
-        --       short_name = "explain_sel",
-        --       stop_context_insertion = true,
-        --     },
-        --     prompts = {
-        --       {
-        --         role = "user",
-        --         content = function(context)
-        --           local text = require("codecompanion.helpers.actions").get_code(context.start_line, context.end_line)
-        --           return "Please explain the following code:\n\n```" .. context.filetype .. "\n" .. text .. "\n```"
-        --         end,
-        --         opts = { contains_code = true },
-        --       },
-        --     },
-        --   },
-        --   ["Inline Refactor"] = {
-        --     strategy = "inline",
-        --     description = "Refactor visually selected code",
-        --     opts = {
-        --       mapping = "<Leader>zr",
-        --       modes = { "v" },
-        --       auto_submit = true,
-        --       user_prompt = true,
-        --       short_name = "refactor",
-        --     },
-        --     prompts = {
-        --       {
-        --         role = "user",
-        --         content = "<user_prompt>{input}</user_prompt>\n\nPlease refactor the selected code.",
-        --       },
-        --     },
-        --   },
-        -- },
+        prompt_library = {
+          ["Code Expert"] = {
+            strategy = "chat",
+            description = "Get some special advice from an LLM",
+            opts = {
+              mapping = "<LocalLeader>ce",
+              modes = { "v" },
+              short_name = "expert",
+              auto_submit = true,
+              stop_context_insertion = true,
+              user_prompt = true,
+            },
+            prompts = {
+              {
+                role = "system",
+                content = function(context)
+                  return "I want you to act as a senior "
+                    .. context.filetype
+                    .. " developer. I will ask you specific questions and I want you to return concise explanations and codeblock examples."
+                end,
+              },
+              {
+                role = "user",
+                content = function(context)
+                  local text = require("codecompanion.helpers.actions").get_code(context.start_line, context.end_line)
+
+                  return "I have the following code:\n\n```" .. context.filetype .. "\n" .. text .. "\n```\n\n"
+                end,
+                opts = {
+                  contains_code = true,
+                }
+              },
+            },
+          },
+          -- ["Explain This Shit"] = {
+          --   strategy = "chat",
+          --   description = "Erkläre den aktuellen Buffer",
+          --   opts = {
+          --     auto_submit = true,
+          --     stop_context_insertion = true,
+          --   },
+          --   prompts = {
+          --     {
+          --       role = "user",
+          --       content = function(context)
+          --         return "Erkläre den folgenden Code aus der Datei: #buffer"
+          --       end,
+          --     },
+          --   },
+          -- }
+
+
+          -- {
+          --   "<Leader>It",
+          --   function()
+          --     local input = vim.fn.input "Translate from language: "
+          --     if input ~= "" then
+          --       local prompt = "Find " .. input .. " strings. Use the result to make a JSON with translations in " .. input .. " and english (en) where the first level keys are ISO 639 codes of the corresponding language. In the second level should be short but descriptive unique keys in english containing only lower case characters and dashes. All translations need to have the same keys for the same content. If there are no " .. input .. " strings just say that there are none."
+          --       require("CopilotChat").ask(prompt, { selection = require("CopilotChat.select").buffer })
+          --     end
+          --   end,
+          --   desc = "CopilotChat - Translate buffer",
+          -- },
+          ["Translate"] = {
+            strategy = "chat",
+            description = "Translate the current buffer",
+            opts = {
+              auto_submit = true,
+              stop_context_insertion = true,
+            },
+            prompts = {
+              {
+                role = "user",
+                content = function(context)
+                  return "I want you to act as a translator and translate the current #buffer"
+                end,
+              },
+              {
+                role = "user",
+                content = function(context)
+                  local from_lang = vim.fn.input("Translate from language: ")
+                  if from_lang == "" then return end
+                  local to_langs = vim.fn.input("Translate to languages: ")
+                  if to_langs == "" then return end
+                  return "Find " .. from_lang .. " strings. \n"
+                    .. "Use the result to make a JSON with translations in "
+                    .. from_lang .. " and " .. to_langs .. " where the first level keys are ISO 639 codes of the "
+                    .. "corresponding language. In the second level should be short but descriptive "
+                    .. "unique keys in english containing only lower case characters and dashes (dash case).\n"
+                    .. "All translations need to have the same keys for the same content. \n"
+                    .. "If there are no " .. from_lang .. " strings just say that there are none. \n"
+                    -- .. "Otherwise, return a JSON code block with translations only, skip the additional info."
+                end,
+              },
+            },
+          },
+        },
       }
     end,
   },

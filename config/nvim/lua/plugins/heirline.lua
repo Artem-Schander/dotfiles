@@ -147,7 +147,7 @@ return {
         condition = function(self)
           return self.processing
         end,
-        provider = " ",
+        provider = "  ",
         hl = { fg = "yellow" },
       },
     }
