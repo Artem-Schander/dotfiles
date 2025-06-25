@@ -21,12 +21,18 @@ return {
       "python",
       "typescript",
       "css",
+      "scss",
       "rust",
       "java",
       "yaml",
       "graphql",
       "blade",
-    }
+      "pug",
+    },
+    context_commentstring = {
+      enable = true,
+      enable_autocmd = false,
+    },
   },
   config = function(plugin, opts)
     local parser_config = require("nvim-treesitter.parsers").get_parser_configs()

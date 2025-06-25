@@ -40,6 +40,20 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "vue",
+    callback = function()
+        local bufnr = vim.api.nvim_get_current_buf()
+        local lines = vim.api.nvim_buf_get_lines(bufnr, 0, math.min(20, vim.api.nvim_buf_line_count(bufnr)), false)
+        for _, line in ipairs(lines) do
+            if line:match('<template%s+lang="pug"') then
+                vim.bo.commentstring = "//- %s"
+                return
+            end
+        end
+    end,
+})
+
 vim.api.nvim_create_autocmd('BufNewFile', {
   group = vim.api.nvim_create_augroup('RemoteFile', {clear = true}),
   callback = function()

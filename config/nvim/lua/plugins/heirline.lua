@@ -127,12 +127,39 @@ return {
       { provider = "%<" }
     )
 
+    local CodeCompanion = {
+      static = {
+        processing = false,
+      },
+      update = {
+        "User",
+        pattern = "CodeCompanionRequest*",
+        callback = function(self, args)
+          if args.match == "CodeCompanionRequestStarted" then
+            self.processing = true
+          elseif args.match == "CodeCompanionRequestFinished" then
+            self.processing = false
+          end
+          vim.cmd("redrawstatus")
+        end,
+      },
+      {
+        condition = function(self)
+          return self.processing
+        end,
+        provider = " ",
+        hl = { fg = "yellow" },
+      },
+    }
+
+
     opts.statusline = { -- statusline
       hl = { fg = "fg", bg = "bg" },
       status.component.mode(),
       status.component.git_branch(),
       -- status.component.file_info(),
       FileNameBlock,
+      CodeCompanion,
       status.component.git_diff(),
       status.component.diagnostics(),
       status.component.fill(),
