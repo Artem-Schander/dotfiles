@@ -167,6 +167,19 @@ return {
       },
     },
     config = function()
+      local utils = require("user.utils")
+
+      local function get_layout()
+        local orientation = utils.get_viewport_orientation()
+        if orientation == "landscape" then
+          return "vertical"
+        elseif orientation == "portrait" then
+          return "horizontal"
+        else
+          return "float"
+        end
+      end
+
       require("codecompanion").setup {
         opts = { log_level = "DEBUG" },
         adapters = {
@@ -177,11 +190,11 @@ return {
         strategies = {
           chat = {
             adapter = "copilot",
-            model = "claude-sonnet-4-20250514",
+            -- model = "claude-sonnet-4-20250514",
           },
           inline = {
             adapter = "copilot",
-            model = "claude-sonnet-4-20250514",
+            -- model = "claude-sonnet-4-20250514",
           },
         },
         display = {
@@ -212,11 +225,11 @@ return {
 
             -- Options to customize the UI of the chat buffer
             window = {
-              layout = "horizontal", -- float|vertical|horizontal|buffer
+              layout = get_layout(), -- float|vertical|horizontal|buffer
               -- position = nil, -- left|right|top|bottom (nil will default depending on vim.opt.splitright|vim.opt.splitbelow)
               -- border = "single",
               height = 0.5,
-              -- width = 0.45,
+              width = 0.45,
               -- relative = "editor",
               -- full_height = true, -- when set to false, vsplit will be used to open the chat buffer vs. botright/topleft vsplit
               opts = {
@@ -283,8 +296,9 @@ return {
                 role = "system",
                 content = function(context)
                   return "I want you to act as a senior "
-                    .. context.filetype
-                    .. " developer. I will ask you specific questions and I want you to return concise explanations and codeblock examples."
+                    .. context.filetype .. " developer."
+                    .. " I will ask you specific questions and I want you to return concise"
+                    .. " explanations and codeblock examples."
                 end,
               },
               {
@@ -293,6 +307,38 @@ return {
                   local text = require("codecompanion.helpers.actions").get_code(context.start_line, context.end_line)
 
                   return "I have the following code:\n\n```" .. context.filetype .. "\n" .. text .. "\n```\n\n"
+                end,
+                opts = {
+                  contains_code = true,
+                }
+              },
+            },
+          },
+          ["Code Expert for the current buffer"] = {
+            strategy = "chat",
+            description = "Get some special advice for the current buffer from an LLM",
+            opts = {
+              mapping = "<LocalLeader>ce",
+              modes = { "n" },
+              short_name = "expert",
+              auto_submit = true,
+              stop_context_insertion = true,
+              user_prompt = true,
+            },
+            prompts = {
+              {
+                role = "system",
+                content = function(context)
+                  return "I want you to act as a senior "
+                    .. context.filetype .. " developer."
+                    .. " I will ask you specific questions and I want you to return concise"
+                    .. " explanations and codeblock examples."
+                end,
+              },
+              {
+                role = "user",
+                content = function(context)
+                  return "I have the following code: #buffer"
                 end,
                 opts = {
                   contains_code = true,
