@@ -6,47 +6,82 @@ phpunitPath=$REMOTE_PHPUNIT_BIN
 # Detect local path and remove it from args
 localPhpUnitResultPath='/tmp/phpunit-result.xml'
 # Store all input arguments in an array
-argsInput=("$@")
-runFile="${argsInput[0]}"
+argsInput=${@}
+runFile=$(echo $argsInput| awk '{print $1}')
 phpTestPath=$(dirname "$runFile")
-pushd "$phpTestPath" > /dev/null
+pushd $phpTestPath > /dev/null
 projectPath="$(git rev-parse --show-toplevel)"
-popd > /dev/null
+pushd > /dev/null
 
-subPath=$(awk -F '/vendor/' '{print $1}' <<< "$projectPath")
-# containerName=$(sed 's#.*/##' <<< "$subPath" | sed 's/-/_/g')
+subPath=$(awk -F '/vendor/' '{print $1}' <<< $projectPath)
+# containerName=$(sed 's#.*/##' <<< $subPath | sed s/-/_/g)
 
-# Process arguments individually: replace local paths and remove the --log-junit parameter
-filtered_args=()
-for arg in "$@"; do
-    # Replace local path prefix if needed
-    arg="${arg/$subPath\//}"
-    # The original script versucht, etwas mit "(*" zu ersetzen – ich behalte dies bei,
-    # obwohl der genaue Zweck unklar ist:
-    arg="${arg//(*}"
-    # If the argument starts with --log-junit=, extract outputPath and skip adding it to filtered_args
-    if [[ "$arg" == --log-junit=* ]]; then
-        outputPath="${arg#*=}"
-        continue
-    fi
-    filtered_args+=("$arg")
+## detect test result output
+for i in $argsInput; do
+    case $i in
+        --log-junit=*)
+            outputPath="${i#*=}"
+            ;;
+        *)
+            ;;
+    esac
 done
 
-# Set args to the filtered arguments
-args=("${filtered_args[@]}")
+# # replace with local
+# args=("${argsInput/$subPath\//}")
+# args=("${args//(*}")
 
-# Detect container and paths
-container=$(docker ps -n=-1 --filter name="$containerName" --format="{{.ID}}")
-phpunitPath=$(docker exec -it "$container" /bin/bash -c "if [ -f vendor/bin/phpunit ]; then echo vendor/bin/phpunit; else echo bin/phpunit; fi" | tr -d '\r')
-execPath=$(docker exec -it "$container" /bin/bash -c "if [ -f /bin/sh ]; then echo /bin/sh; else echo /bin/bash; fi" | tr -d '\r')
-dockerPath=$(docker inspect --format {{.Config.WorkingDir}} "$container")
+argsArray=("$@")
+filteredArgs=()
+log_junit_removed=0
+for arg in "${argsArray[@]}"; do
+    if [[ $log_junit_removed -eq 0 && $arg =~ ^--log-junit= ]]; then
+        log_junit_removed=1
+        continue
+    fi
+    filteredArgs+=("$arg")
+done
 
-# Run the tests – now wird das --log-junit Argument mit dem lokalen Ergebnis-Pfad angehängt
-docker exec -it "$container" "$execPath" -c "SYMFONY_DEPRECATIONS_HELPER=weak $phpunitPath -d memory_limit=-1 -d xdebug.idekey=deliver-be ${args[@]} --log-junit=${localPhpUnitResultPath}"
+# Replace with local path in filteredArgs
+for i in "${!filteredArgs[@]}"; do
+    filteredArgs[$i]="${filteredArgs[$i]/$subPath\//}"
+done
 
-# Copy results from container
-docker cp -a "$container:$localPhpUnitResultPath" "$outputPath" 2>/dev/null
+# Remove any '(*' patterns (if needed)
+for i in "${!filteredArgs[@]}"; do
+    filteredArgs[$i]="${filteredArgs[$i]//(*}"
+done
 
-# Replace docker path with local project path in the result file
+args=("${filteredArgs[@]}")
+
+# Detect path
+container=$(docker ps -n=-1 --filter name=$containerName --format="{{.ID}}")
+phpunitPath=$(docker exec -it $container /bin/bash -c "if [ -f vendor/bin/phpunit ]; then echo vendor/bin/phpunit; else echo bin/phpunit; fi" | tr -d '\r')
+execPath=$(docker exec -it $container /bin/bash -c "if [ -f /bin/sh ]; then echo /bin/sh; else echo /bin/bash; fi" | tr -d '\r')
+dockerPath=$(docker inspect --format {{.Config.WorkingDir}} $container)
+
+## debug
+# echo "Raw ARGS: "${@}
+# echo "Params:   "${args[@]}
+# echo "Docker:   "$dockerPath
+# echo "Local:    "$projectPath
+# echo "Result:   "$outputPath
+# echo docker exec -it "$container" "$execPath" -c "$(printf '%q ' SYMFONY_DEPRECATIONS_HELPER=weak "$phpunitPath" -d memory_limit=-1 -d xdebug.idekey=deliver-be "${args[@]}" --log-junit="${localPhpUnitResultPath}")"
+# echo "docker exec -it $container $execPath -c \"SYMFONY_DEPRECATIONS_HELPER=weak $phpunitPath -d memory_limit=-1 -d xdebug.idekey=deliver-be ${args[@]} --log-junit=${localPhpUnitResultPath}\""
+
+# Run the tests
+docker exec -it "$container" "$execPath" -c "$(printf '%q ' SYMFONY_DEPRECATIONS_HELPER=weak "$phpunitPath" -d memory_limit=-1 -d xdebug.idekey=deliver-be "${args[@]}" --log-junit="${localPhpUnitResultPath}")"
+# docker exec -it $container $execPath -c "SYMFONY_DEPRECATIONS_HELPER=weak $phpunitPath -d memory_limit=-1 -d xdebug.idekey=deliver-be ${args[@]} --log-junit=${localPhpUnitResultPath}"
+# docker exec -it $container $phpunitPath -d memory_limit=-1 ${args[@]}
+
+# copy results
+docker cp -a "$container:$localPhpUnitResultPath" "$outputPath"|- &> /dev/null
+
+# replace docker path to locals
 # sed -i "s#$dockerPath#$projectPath#g" $outputPath
-sed -i '_' "s#$dockerPath#$projectPath#g" "$outputPath"
+# sed -i '_' "s#$dockerPath#$projectPath#g" $outputPath
+if [[ "$(uname)" == "Darwin" ]]; then
+    sed -i '' "s#$dockerPath#$projectPath#g" "$outputPath"
+else
+    sed -i "s#$dockerPath#$projectPath#g" "$outputPath"
+fi
