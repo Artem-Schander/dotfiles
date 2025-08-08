@@ -190,11 +190,11 @@ return {
         strategies = {
           chat = {
             adapter = "copilot",
-            -- model = "claude-sonnet-4-20250514",
+            model = "claude-sonnet-4-20250514",
           },
           inline = {
             adapter = "copilot",
-            -- model = "claude-sonnet-4-20250514",
+            model = "claude-sonnet-4-20250514",
           },
         },
         display = {
@@ -404,6 +404,33 @@ return {
                     .. "All translations need to have the same keys for the same content. \n"
                     .. "If there are no " .. from_lang .. " strings just say that there are none. \n"
                     -- .. "Otherwise, return a JSON code block with translations only, skip the additional info."
+                end,
+              },
+            },
+          },
+          ["Convert SASS to SCSS"] = {
+            strategy = "chat",
+            description = "Refactor the current buffer from SASS to SCSS syntax",
+            opts = {
+              auto_submit = true,
+              stop_context_insertion = true,
+            },
+            prompts = {
+              {
+                role = "user",
+                content = function(context)
+                  return table.concat({
+                    "Convert the contents of the current #{buffer} from SASS syntax to SCSS syntax.",
+                    "",
+                    "Requirements:",
+                    "- Use the @{insert_edit_into_file} agent to apply the changes directly.",
+                    "- Preserve the original structure and all comments.",
+                    "- Use 4 spaces for indentation.",
+                    "- Do not change any variable names or values.",
+                    "- Only rewrite syntax where required (e.g., braces and semicolons).",
+                    "- Ensure the output is valid SCSS.",
+                    "",
+                  }, "\n")
                 end,
               },
             },

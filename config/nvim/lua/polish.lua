@@ -73,3 +73,12 @@ vim.api.nvim_create_autocmd('BufNewFile', {
     end
   end
 })
+
+-- -- Manual mapping zum Anzeigen der Signatur im Insert (oder Normal) Mode
+-- vim.keymap.set("i", "<C-k>", function()
+--   vim.lsp.buf.signature_help()
+-- end, { desc = "Show LSP signature help manually" })
+
+vim.keymap.set({ "i", "n" }, "<C-h>", function()
+  require("lsp_signature").toggle_float_win()
+end, { desc = "Toggle LSP signature window" })

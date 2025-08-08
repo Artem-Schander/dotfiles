@@ -250,11 +250,16 @@ if [[ -d $HOME/.local/share/bob/nvim-bin ]]; then
 fi
 
 # check for custom bin directory and add to path
-if [[ -d /usr/local/Cellar/python@2 ]]; then
-    python2_dir=$(find /usr/local/Cellar/python@2 -maxdepth 1 -type d -name '2.*' -print | head -n1)
-    if [[ -d $python2_dir/bin ]]; then
-        export PATH=$python2_dir/bin:$PATH
-    fi
+# if [[ -d /usr/local/Cellar/python@2 ]]; then
+#     python2_dir=$(find /usr/local/Cellar/python@2 -maxdepth 1 -type d -name '2.*' -print | head -n1)
+#     if [[ -d $python2_dir/bin ]]; then
+#         export PATH=$python2_dir/bin:$PATH
+#     fi
+# fi
+
+# /usr/local/opt/python@3.13/libexec/bin
+if [[ -d /usr/local/opt/python@3.13/libexec/bin ]]; then
+    export PATH=/usr/local/opt/python@3.13/libexec/bin:$PATH
 fi
 
 # add .nvm to path if folder exists

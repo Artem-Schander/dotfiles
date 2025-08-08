@@ -245,6 +245,13 @@ return {
       -- add more custom luasnip configuration such as filetype extend or custom snippets
       local luasnip = require "luasnip"
       luasnip.filetype_extend("javascript", { "javascriptreact" })
+
+      vim.tbl_map(
+        function(type)
+          require("luasnip.loaders.from_" .. type).lazy_load { paths = { vim.fn.stdpath "config" .. "/snippets" } }
+        end,
+        { "vscode", "snipmate", "lua" }
+      )
     end,
   },
 
@@ -470,4 +477,8 @@ return {
   --   priority = 1000, -- Very high priority is required, luarocks.nvim should run as the first plugin in your config.
   --   config = true,
   -- },
+  {
+    "varnishcache-friends/vim-varnish",
+    ft = "vcl",
+  },
 }

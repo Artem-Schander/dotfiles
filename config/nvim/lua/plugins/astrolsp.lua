@@ -68,6 +68,20 @@ return {
           },
         },
       },
+      cssls = {
+        filetypes = { "css" }, -- kein scss mehr
+      },
+      tailwindcss = {
+        filetypes = { "html", "vue", "scss", "css", "javascript", "typescript" },
+      },
+      volar = {
+        settings = {
+          volar = {
+            css = { validate = false },
+            html = { validate = false },
+          },
+        },
+      },
     },
     -- customize how language servers are attached
     handlers = {
