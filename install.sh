@@ -36,7 +36,7 @@ git submodule update --init --recursive
 # source install/link.sh
 
 # install neovim
-source install/nvim.sh
+# source install/nvim.sh
 
 # install tmux
 # source install/tmux.sh
