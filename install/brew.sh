@@ -12,7 +12,7 @@ fi
 
 echo -e "\n\n${GREEN}Tap additional homebrew repositories of formulae"
 echo "==============================${NORMAL}"
-brew tap phinze/homebrew-cask
+# brew tap phinze/homebrew-cask
 
 echo -e "\n\n${GREEN}Installing homebrew packages"
 echo "==============================${NORMAL}"
