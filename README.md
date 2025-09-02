@@ -1,13 +1,5 @@
 # Dotfiles
 
-> Welcome to my world. This is a collection of vim, tmux, and zsh configurations. Interested in a video walkthrough of the dotfiles? Check out my talk, [vim + tmux](https://www.youtube.com/watch?v=5r6yzFEXajQ).
->
-> Obviously this setup work for me, a JavaScript developer on macOS, but this particular setup may not work for you. If this particular setup doesn't work for you, please steal ideas from this and if you like, contribute back tips, tricks, PRs, and other tidbits if you like!
->
-> -- <cite>[nicknisi](https://github.com/nicknisi)</cite>
-
-The original [repo](https://github.com/nicknisi/dotfiles) is really cool and I like most of the config. So I changed just a few things.
-
 ## Key Changes and Improvements
 
 1. **Multi-Platform Support**: Added comprehensive support for macOS, Ubuntu, and Arch Linux (Manjaro)
