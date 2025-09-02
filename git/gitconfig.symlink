@@ -153,7 +153,7 @@
     extendRegexp = true
     lineNumber = true
 [credential]
-	helper = cache --timeout 3600
+	helper = osxkeychain
 [difftool "Kaleidoscope"]
 	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
 [mergetool "Kaleidoscope"]

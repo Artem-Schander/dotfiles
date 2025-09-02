@@ -64,6 +64,7 @@ dev_formulas=(
     lazygit
     hub
     diff-so-fancy
+    sublime-merge
     
     # Language tools
     node
