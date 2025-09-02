@@ -235,13 +235,19 @@ The dotfiles use two approaches for configuration management:
 | 🐍 **Python** | Programming language | Auto-installed |
 
 ### 🎨 Fonts & Theming
-| Font | Features | Use Case |
-|------|----------|----------|
-| ⚡ **JetBrains Mono** | Ligatures, readability | Primary coding font |
-| 🔥 **Fira Code** | Extensive ligatures | Alternative coding font |
-| λ **Hasklig** | Functional programming | Haskell/FP development |
-| ✍️ **Victor Mono** | Cursive italics | Distinctive coding style |
-| 🚀 **Monaspace** | GitHub Next font family | Modern coding with texture healing |
+| Font | Features | Installation Method |
+|------|----------|---------------------|
+| ⚡ **JetBrains Mono** | Ligatures, readability | Nerd Fonts release |
+| 🔥 **Fira Code** | Extensive ligatures | Nerd Fonts release |
+| λ **Hasklig** | Functional programming | Nerd Fonts release |
+| ✍️ **Victor Mono** | Cursive italics | Direct download |
+| 🚀 **Monaspace** | GitHub Next font family | Smart multi-method installation |
+
+> **Note**: Monaspace fonts use an intelligent installation approach:
+> 1. **Package managers first** (Homebrew, pacman, apt) - most elegant
+> 2. **GitHub API** for latest releases - always up-to-date  
+> 3. **Repository clone** - most reliable fallback
+> 4. **Manual instructions** - comprehensive guidance if all else fails
 
 ## 📖 Usage
 

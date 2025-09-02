@@ -122,6 +122,14 @@ cask_formulas=(
     docker
 )
 
+# Try to install Monaspace font (may not be available yet in official repos)
+echo "Attempting to install Monaspace font via Homebrew..."
+if brew install --cask font-monaspace 2>/dev/null; then
+    echo "✓ Monaspace font installed via Homebrew"
+else
+    echo "Monaspace font not available in Homebrew (will be installed via fonts.sh)"
+fi
+
 for cask in "${cask_formulas[@]}"; do
     if brew list --cask "$cask" >/dev/null 2>&1; then
         echo "$cask already installed, skipping..."

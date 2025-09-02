@@ -71,77 +71,150 @@ install_font "VictorMono" "https://rubjo.github.io/victor-mono/VictorMonoAll.zip
 # Install Monaspace fonts
 echo "Installing Monaspace fonts..."
 
-# Function to install Monaspace with multiple fallback URLs
+# Function to install Monaspace fonts using the most elegant approaches
 install_monaspace() {
     local font_name="Monaspace"
-    local temp_dir="/tmp/font_install_$$"
     local success=false
     
-    # Try multiple potential URLs
-    local urls=(
-        "https://github.com/githubnext/monaspace/releases/download/v1.000/monaspace-v1.000.zip"
-        "https://github.com/githubnext/monaspace/releases/download/v1.001/monaspace-v1.001.zip"
-        "https://github.com/githubnext/monaspace/releases/download/v1.101/monaspace-v1.101.zip"
-    )
-    
     echo "Attempting to install $font_name..."
+    
+    # Method 1: Try package managers first (most elegant)
+    if [ "$OS" == "Darwin" ] && command_exists brew; then
+        echo "Checking Homebrew for Monaspace fonts..."
+        if brew install --cask font-monaspace 2>/dev/null; then
+            echo "✓ $font_name installed via Homebrew"
+            return 0
+        else
+            echo "Monaspace not available in Homebrew, trying alternative methods..."
+        fi
+    elif [ "$OS" == "Linux" ]; then
+        # Check for package managers on Linux
+        if command_exists pacman; then
+            echo "Checking pacman for Monaspace fonts..."
+            if sudo pacman -S --noconfirm ttf-monaspace 2>/dev/null || sudo pacman -S --noconfirm monaspace-font 2>/dev/null; then
+                echo "✓ $font_name installed via pacman"
+                return 0
+            fi
+        fi
+        
+        if command_exists apt-get; then
+            echo "Checking apt for Monaspace fonts..."
+            if sudo apt-get update >/dev/null 2>&1 && sudo apt-get install -y fonts-monaspace 2>/dev/null; then
+                echo "✓ $font_name installed via apt"
+                return 0
+            fi
+        fi
+        
+        echo "Monaspace not available in system package managers, trying alternative methods..."
+    fi
+    
+    # Method 2: Use GitHub API to get latest release (elegant GitHub integration)
+    echo "Fetching latest Monaspace release from GitHub API..."
+    local api_url="https://api.github.com/repos/githubnext/monaspace/releases/latest"
+    local temp_dir="/tmp/font_install_$$"
     
     mkdir -p "$temp_dir"
     cd "$temp_dir"
     
-    for url in "${urls[@]}"; do
-        echo "Trying: $url"
+    if command_exists curl; then
+        local release_info=$(curl -s "$api_url" 2>/dev/null)
+        local download_url=$(echo "$release_info" | grep -o '"browser_download_url":[[:space:]]*"[^"]*\.zip"' | head -1 | cut -d '"' -f 4)
         
-        if command_exists curl; then
-            curl -L -o "$font_name.zip" "$url" 2>/dev/null
-        elif command_exists wget; then
-            wget -O "$font_name.zip" "$url" 2>/dev/null
-        else
-            echo "Error: Neither curl nor wget found. Cannot download fonts."
-            rm -rf "$temp_dir"
-            return 1
+        if [ -n "$download_url" ]; then
+            echo "Found latest release: $download_url"
+            echo "Downloading Monaspace fonts..."
+            
+            if curl -L -o "$font_name.zip" "$download_url" 2>/dev/null; then
+                if [ -f "$font_name.zip" ] && [ $(stat -c%s "$font_name.zip" 2>/dev/null || stat -f%z "$font_name.zip" 2>/dev/null || echo "0") -gt 1000 ]; then
+                    if unzip -t "$font_name.zip" >/dev/null 2>&1; then
+                        echo "✓ Successfully downloaded $font_name"
+                        
+                        # Extract fonts
+                        mkdir -p monaspace_temp
+                        unzip -o "$font_name.zip" -d monaspace_temp/ >/dev/null 2>&1
+                        
+                        # Find and copy font files
+                        find monaspace_temp/ -type f \( -name "*.ttf" -o -name "*.otf" \) -exec cp {} "$FONT_DIR/" \; 2>/dev/null
+                        
+                        # Count installed fonts
+                        local font_count=$(find monaspace_temp/ -type f \( -name "*.ttf" -o -name "*.otf" \) | wc -l)
+                        if [ "$font_count" -gt 0 ]; then
+                            echo "✓ $font_name installed successfully ($font_count fonts)"
+                            success=true
+                        fi
+                    fi
+                fi
+            fi
         fi
+    fi
+    
+    # Method 3: Clone repository approach (most reliable fallback)
+    if [ "$success" = false ]; then
+        echo "GitHub API method failed, trying repository clone approach..."
         
-        # Check if we got a valid zip file (more than 1000 bytes)
-        if [ -f "$font_name.zip" ] && [ $(stat -c%s "$font_name.zip" 2>/dev/null || stat -f%z "$font_name.zip" 2>/dev/null || echo "0") -gt 1000 ]; then
-            if unzip -t "$font_name.zip" >/dev/null 2>&1; then
-                echo "✓ Successfully downloaded $font_name from $url"
+        if command_exists git; then
+            local repo_dir="monaspace_repo"
+            
+            if git clone --depth 1 https://github.com/githubnext/monaspace.git "$repo_dir" 2>/dev/null; then
+                echo "✓ Successfully cloned Monaspace repository"
                 
-                # Extract fonts to subdirectory first
-                mkdir -p monaspace_temp
-                unzip -o "$font_name.zip" -d monaspace_temp/ >/dev/null 2>&1
+                # Find font files in the cloned repository
+                local font_files=$(find "$repo_dir" -type f \( -name "*.ttf" -o -name "*.otf" \) 2>/dev/null)
                 
-                # Find and copy font files
-                find monaspace_temp/ -type f \( -name "*.ttf" -o -name "*.otf" \) -exec cp {} "$FONT_DIR/" \; 2>/dev/null
-                
-                # Count installed fonts
-                local font_count=$(find monaspace_temp/ -type f \( -name "*.ttf" -o -name "*.otf" \) | wc -l)
-                if [ "$font_count" -gt 0 ]; then
-                    echo "✓ $font_name installed successfully ($font_count fonts)"
+                if [ -n "$font_files" ]; then
+                    echo "$font_files" | while read -r font_file; do
+                        cp "$font_file" "$FONT_DIR/" 2>/dev/null
+                    done
+                    
+                    local font_count=$(echo "$font_files" | wc -l)
+                    echo "✓ $font_name installed successfully from repository ($font_count fonts)"
                     success=true
-                    break
                 else
-                    echo "Warning: No font files found in downloaded archive"
+                    # Look for pre-built fonts in releases or other directories
+                    local font_dirs=$(find "$repo_dir" -type d -name "*font*" -o -name "*ttf*" -o -name "*otf*" 2>/dev/null)
+                    if [ -n "$font_dirs" ]; then
+                        echo "$font_dirs" | while read -r font_dir; do
+                            find "$font_dir" -type f \( -name "*.ttf" -o -name "*.otf" \) -exec cp {} "$FONT_DIR/" \; 2>/dev/null
+                        done
+                        
+                        local copied_fonts=$(find "$FONT_DIR" -name "*monaspace*" -o -name "*Monaspace*" 2>/dev/null | wc -l)
+                        if [ "$copied_fonts" -gt 0 ]; then
+                            echo "✓ $font_name fonts copied from repository ($copied_fonts fonts)"
+                            success=true
+                        fi
+                    fi
                 fi
             else
-                echo "Warning: Downloaded file is not a valid zip archive"
+                echo "Failed to clone Monaspace repository"
             fi
-        else
-            echo "Warning: Download failed or file too small"
         fi
-        
-        # Clean up for next attempt
-        rm -f "$font_name.zip"
-    done
+    fi
     
     cd - > /dev/null
     rm -rf "$temp_dir"
     
     if [ "$success" = false ]; then
-        echo "Warning: Failed to install $font_name from all attempted URLs"
-        echo "You can manually download Monaspace fonts from: https://github.com/githubnext/monaspace/releases"
+        echo ""
+        echo "⚠️  All automatic installation methods failed for Monaspace fonts"
+        echo ""
+        echo "Manual installation options:"
+        echo "1. Download from: https://github.com/githubnext/monaspace/releases/latest"
+        echo "2. Extract the zip file and copy .ttf/.otf files to:"
+        echo "   • macOS: ~/Library/Fonts/"
+        echo "   • Linux: ~/.local/share/fonts/"
+        echo ""
+        echo "3. For package managers:"
+        if [ "$OS" == "Darwin" ]; then
+            echo "   • Try: brew tap homebrew/cask-fonts && brew install --cask font-monaspace"
+        elif [ "$OS" == "Linux" ]; then
+            echo "   • Arch Linux: Try AUR package 'ttf-monaspace'"
+            echo "   • Ubuntu/Debian: Check for PPA or snap package"
+        fi
+        echo ""
         return 1
     fi
+    
+    return 0
 }
 
 install_monaspace
