@@ -1,118 +1,67 @@
-# Dotfiles
+# ⚡ Modern Dotfiles
 
-## Key Changes and Improvements
+> A comprehensive, cross-platform dotfiles configuration featuring AstroNvim, Zsh with Oh My Zsh, and a complete development environment setup.
 
-1. **Multi-Platform Support**: Added comprehensive support for macOS, Ubuntu, and Arch Linux (Manjaro)
-2. **AstroNvim Integration**: Switched from LunarVim to [AstroNvim](https://github.com/AstroNvim/AstroNvim) for a modern Neovim experience
-3. **Oh My Zsh**: Integrated [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) for enhanced shell experience
-4. **Improved Tmux**: Adapted configuration from [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
-5. **Robust Installation**: Added comprehensive error handling and platform detection
+[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Ubuntu%20%7C%20Arch-blue.svg)](https://github.com/Artem-Schander/dotfiles)
+[![Shell](https://img.shields.io/badge/shell-zsh-green.svg)](https://www.zsh.org/)
+[![Editor](https://img.shields.io/badge/editor-neovim-brightgreen.svg)](https://neovim.io/)
+[![Maintenance](https://img.shields.io/badge/maintained-yes-green.svg)](https://github.com/Artem-Schander/dotfiles/graphs/commit-activity)
 
-## Supported Platforms
+## 📋 Table of Contents
 
-- **macOS** (Intel and Apple Silicon)
-- **Ubuntu/Debian** Linux distributions  
-- **Arch Linux/Manjaro**
+- [🎯 Overview](#-overview)
+- [📱 Screenshots](#-screenshots)
+- [🚀 Quick Installation](#-quick-installation)
+- [💻 Supported Platforms](#-supported-platforms)
+- [✨ Features](#-features)
+- [🔧 Configuration Details](#-configuration-details)
+- [🛠️ Tools and Applications](#️-tools-and-applications)
+- [📖 Usage](#-usage)
+- [🐛 Troubleshooting](#-troubleshooting)
+- [🤝 Contributing](#-contributing)
 
-## Contents
 
-+ [Quick Installation](#quick-installation)
-+ [Features](#features)
-+ [AstroNvim Setup](#astronvim-setup)
-+ [ZSH Setup](#zsh-setup)
-+ [Fonts](#fonts)
-+ [Tmux Configuration](#tmux-configuration)
-+ [Detailed Installation Guide](INSTALL.md)
+## 🎯 Overview
 
-## Quick Installation
+This dotfiles repository provides a modern, feature-rich development environment that works seamlessly across macOS, Ubuntu, and Arch Linux. Built with automation and ease of use in mind, it delivers a consistent and powerful workflow for developers.
 
-```bash
-git clone https://github.com/Artem-Schander/dotfiles.git ~/.dotfiles
-cd ~/.dotfiles
-./install.sh
-```
+### 🎨 Philosophy
 
-The installer will:
-- Automatically detect your operating system
-- Install platform-specific packages and dependencies
-- Set up AstroNvim with proper configuration
-- Configure zsh with Oh My Zsh
-- Install essential development tools and fonts
-- Create necessary symlinks with backup of existing files
+- **Cross-platform compatibility** - Works on macOS, Ubuntu, and Arch Linux
+- **Modern tooling** - Latest versions of development tools and applications
+- **Intelligent automation** - Smart installation with error handling and backups
+- **Minimal configuration** - Sensible defaults with easy customization
+- **Performance focused** - Optimized configurations for speed and efficiency
 
-## Features
+### 🎯 Target Audience
 
-### Intelligent Multi-Platform Installation
-- Automatic OS detection (macOS, Ubuntu, Arch/Manjaro)
-- Platform-specific package managers (Homebrew, APT, Pacman/Yay)
-- Smart dependency resolution and error handling
-- Backup creation for existing configurations
+Perfect for developers who want:
+- A consistent development environment across different machines
+- Modern terminal and editor experience
+- Automated setup and configuration management
+- Professional-grade development tools
 
-### Modern Development Environment
-- **AstroNvim**: Modern Neovim distribution with LSP, Treesitter, and more
-- **Enhanced Terminal**: tmux with custom configuration and powerline
-- **Shell**: Zsh with Oh My Zsh and useful plugins
-- **Fonts**: Nerd Fonts with ligature support (JetBrains Mono, Fira Code, etc.)
+## 📱 Screenshots
 
-### Development Tools
-- Git with enhanced configuration and flow
-- Node.js with npm/yarn support
-- Python development environment
-- Essential CLI tools (ripgrep, fd, fzf, bat, tree, htop)
-- Docker and containerization tools
+<!-- TODO: Add screenshot of overall desktop/terminal setup here -->
+*Main terminal environment with AstroNvim, tmux, and zsh with Spaceship prompt*
 
-## AstroNvim Setup
+<!-- TODO: Add screenshot of AstroNvim editor interface here -->
+*AstroNvim with LSP integration, file explorer, and modern interface*
 
-This dotfiles setup includes [AstroNvim](https://github.com/AstroNvim/AstroNvim), a modern Neovim distribution that provides:
+<!-- TODO: Add screenshot of tmux session with multiple panes here -->
+*tmux configuration with multiple panes and custom status bar*
 
-- **LSP Integration**: Built-in Language Server Protocol support
-- **Treesitter**: Advanced syntax highlighting and code analysis  
-- **Plugin Management**: Using Lazy.nvim for fast plugin loading
-- **Modern UI**: Beautiful interface with telescope, which-key, and more
-- **Zero Configuration**: Works out of the box with sensible defaults
+<!-- TODO: Add screenshot of i3 window manager setup (Linux) here -->
+*i3 window manager with polybar, rofi, and custom theming*
 
-### Installation and Usage
+<!-- TODO: Add screenshot of terminal with development workflow here -->
+*Development workflow showing git integration and CLI tools*
 
-AstroNvim is automatically installed and configured when you run the installer. The configuration is symlinked from `config/nvim/` to `~/.config/nvim/`.
+<!-- TODO: Add screenshot of font ligatures and terminal aesthetics here -->
+*Font ligatures and terminal aesthetics with Nerd Fonts*
 
-To start using AstroNvim:
-
-```bash
-nvim
-```
-
-On first launch, AstroNvim will automatically install all plugins. This may take a few minutes.
-
-### Key Features
-
-- **Smart Autocompletion**: nvim-cmp with multiple sources
-- **File Explorer**: Neo-tree for project navigation
-- **Fuzzy Finding**: Telescope for files, buffers, and more
-- **Git Integration**: Built-in git commands and diff viewing
-- **Terminal Integration**: Toggleable terminal within Neovim
-- **Language Support**: Pre-configured for popular languages
-
-### Customization
-
-AstroNvim configurations can be customized in:
-- `config/nvim/lua/user/` - User-specific configurations
-- `config/nvim/lua/plugins/` - Plugin configurations and overrides
-
-For more information, visit the [AstroNvim documentation](https://github.com/AstroNvim/AstroNvim).
-
-## Initial Setup and Installation
-
-### Backup
-
-First, you may want to backup any existing files that exist so this doesn't overwrite your work.
-
-Run `install/backup.sh` to backup all symlinked files to a `~/dotfiles-backup` directory.
-
-This will not delete any of these files, and the install scripts will not overwrite any existing. After the backup is complete, you can delete the files from your home directory to continue installation.
-
-### Installation
-
-The installer now supports multiple platforms and will automatically detect your system:
+## 🚀 Quick Installation
 
 ```bash
 git clone https://github.com/Artem-Schander/dotfiles.git ~/.dotfiles
@@ -120,163 +69,361 @@ cd ~/.dotfiles
 ./install.sh
 ```
 
-The installation process:
+The installer will automatically:
+- 🔍 Detect your operating system
+- 📦 Install platform-specific packages and dependencies
+- ⚙️ Set up AstroNvim with proper configuration
+- 🐚 Configure zsh with Oh My Zsh and Spaceship prompt
+- 🔧 Install essential development tools and fonts
+- 🔗 Create necessary symlinks with backup of existing files
 
-1. **OS Detection**: Automatically identifies macOS, Ubuntu, or Arch Linux
-2. **Package Installation**: Installs platform-specific packages and dependencies
-3. **Submodules**: Initializes any git submodules
-4. **Symlinks**: Creates symbolic links for all configurations
-5. **AstroNvim Setup**: Configures Neovim with AstroNvim
-6. **Shell Setup**: Configures Zsh with Oh My Zsh
-7. **Development Tools**: Installs essential development packages
-8. **Fonts**: Downloads and installs Nerd Fonts
+<!-- TODO: Add screenshot of installation process here -->
 
-### Platform-Specific Notes
+## 💻 Supported Platforms
 
-#### macOS
-- Installs Xcode Command Line Tools if needed
-- Uses Homebrew for package management
-- Includes Docker Desktop and GUI applications
+| Platform | Package Manager | Status | Notes |
+|----------|----------------|--------|-------|
+| 🍎 **macOS** | Homebrew | ✅ Full Support | Intel & Apple Silicon |
+| 🐧 **Ubuntu/Debian** | APT | ✅ Full Support | 18.04+ and derivatives |
+| 🏔️ **Arch Linux/Manjaro** | Pacman/Yay | ✅ Full Support | Including AUR packages |
 
-#### Ubuntu/Debian
-- Updates APT repositories and adds necessary PPAs
-- Installs Docker and development tools
-- Configures Flatpak for additional software
+## ✨ Features
 
-#### Arch Linux/Manjaro  
-- Uses Pacman for system packages
-- Installs Yay for AUR package access
-- Configures system services (Docker, NTP)
+### 🚀 Intelligent Multi-Platform Installation
+- **Automatic OS detection** with platform-specific optimizations
+- **Smart package management** using native package managers
+- **Comprehensive error handling** with detailed feedback
+- **Backup creation** for existing configurations
+- **Dependency resolution** with duplicate checking
 
-For detailed installation information, see [INSTALL.md](INSTALL.md).
+### 🖥️ Modern Development Environment
 
-## ZSH Setup
+#### 📝 **AstroNvim** - Next-generation Neovim
+- 🧠 **LSP Integration** - Built-in Language Server Protocol support
+- 🌳 **Treesitter** - Advanced syntax highlighting and code analysis  
+- ⚡ **Lazy Loading** - Fast startup with Lazy.nvim plugin manager
+- 🎨 **Modern UI** - Beautiful interface with telescope, which-key, and more
+- 🔧 **Zero Configuration** - Works out of the box with sensible defaults
 
-ZSH is configured in the `zshrc.symlink` file, which will be symlinked to the home directory. The following occurs in this file:
+#### 🐚 **Enhanced Shell Experience**
+- **Zsh** with Oh My Zsh framework
+- **Spaceship Prompt** with git integration and status indicators
+- **Smart autocompletion** and syntax highlighting
+- **Custom aliases** and functions for productivity
 
-* set the `EDITOR` to nvim
-* Load any `~/.terminfo` setup
-* Set the `CODE_DIR` variable, pointing to the location where the code projects exist for exclusive autocompletion with the `c` command
-* Recursively search the `$DOTFILES/zsh` directory for files ending in .zsh and source them
-* Setup zplug plugin manager for zsh plugins and installed them.
-* source a `~/.localrc` if it exists so that additional configurations can be made that won't be kept track of in this dotfiles repo. This is good for things like API keys, etc.
-* Add the `~/bin` and `$DOTFILES/bin` directories to the path
-* And more...
+#### 🖼️ **Terminal Multiplexing**
+- **tmux** with custom configuration adapted from [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
+- **Powerline status bar** with time, date, and session info
+- **Mouse support** and intuitive key bindings
+- **Session management** for project organization
 
-### Prompt
+#### 🎨 **Window Management** (Linux)
+- **i3** tiling window manager configuration
+- **Polybar** status bar with custom modules
+- **Rofi** application launcher and dmenu replacement
+- **Custom key bindings** and workspace management
 
-The prompt is meant to be simple while still providing information to the user, particularly about the status of the git project, if the PWD is a git project.
+### 🛠️ Development Tools
+- **Git** with enhanced configuration and aliases
+- **Node.js** with npm/yarn support and version management
+- **Python** development environment with pip
+- **Essential CLI tools** (ripgrep, fd, fzf, bat, tree, htop)
+- **Docker** and containerization tools
+- **Platform-specific databases** (PostgreSQL, MySQL, Redis)
 
-The `precmd` shows the current working directory in it and the `PROMPT` shows the git.
+### 🔤 **Premium Fonts**
+- **Nerd Fonts** with icon and powerline support
+- **JetBrains Mono** - Modern font with excellent ligatures
+- **Fira Code** - Popular programming font with extensive ligature support  
+- **Hasklig** - Fira Code variant optimized for functional languages
+- **Victor Mono** - Cursive italic programming font
 
-#### Prompt Git Info
+## 🔧 Configuration Details
 
-The git info shown on the `PROMPT` displays the current branch name, and whether it is dirty or clean.
+### 📂 Repository Structure
 
-![](https://cloud.githubusercontent.com/assets/1243826/23823231/63a51468-065e-11e7-9423-5461394ca484.png)
-
-## Vim and Neovim Setup
-
-This setup uses [AstroNvim](https://github.com/AstroNvim/AstroNvim), a modern Neovim distribution that provides an IDE-like experience out of the box.
-
-### Why AstroNvim?
-
-AstroNvim offers several advantages over traditional Vim configurations:
-
-- **Modern Architecture**: Built on Neovim's latest features
-- **LSP Integration**: Language Server Protocol support for intelligent code completion
-- **Treesitter**: Advanced syntax highlighting and code understanding
-- **Plugin Ecosystem**: Curated selection of the best Neovim plugins
-- **Performance**: Optimized for speed with lazy loading
-- **Maintainability**: Regular updates and community support
-
-### Configuration Structure
-
-|                         | Traditional Vim | AstroNvim Setup          |
-|-------------------------|-----------------|--------------------------|
-| Main Configuration      | `~/.vimrc`     | `~/.config/nvim/init.lua`|
-| Configuration Directory | `~/.vim`       | `~/.config/nvim`         |
-| Plugin Manager         | Various        | Lazy.nvim                |
-| Language Support       | Manual         | Built-in LSP             |
-
-### Installation
-
-AstroNvim is automatically installed when you run the main installer. The process:
-
-1. Installs Neovim for your platform
-2. Creates symlinks from `config/nvim/` to `~/.config/nvim/`
-3. Installs essential dependencies (ripgrep, fd, tree-sitter)
-4. Backs up any existing Neovim configuration
-
-### First Launch
-
-When you first open Neovim after installation:
-
-```bash
-nvim
+```
+~/.dotfiles/
+├── 🗂️ config/              # Application configurations
+│   ├── nvim/               # AstroNvim configuration
+│   ├── alacritty/          # Alacritty terminal config
+│   ├── i3/                 # i3 window manager config
+│   ├── polybar/            # Polybar status bar config
+│   └── ...
+├── 🔧 install/             # Installation scripts
+├── 🐚 zsh/                 # Zsh configuration and themes
+├── 🖥️ tmux/               # tmux configuration
+├── 📦 bin/                 # Custom scripts and utilities
+├── ⚙️ git/                 # Git configuration
+└── 📄 *.symlink            # Files to be symlinked to $HOME
 ```
 
-AstroNvim will automatically:
-- Install all configured plugins
-- Set up Language Server Protocols
-- Download Treesitter parsers
-- Configure all integrations
+### 🔗 Symlink Management
 
-This initial setup may take a few minutes but only happens once.
+The dotfiles use two approaches for configuration management:
 
-### Key Bindings and Features
+1. **`.symlink` files** - Automatically symlinked to `$HOME`
+   ```
+   gitconfig.symlink → ~/.gitconfig
+   zshrc.symlink → ~/.zshrc
+   ```
 
-AstroNvim comes with sensible defaults and many powerful features:
+2. **`config/` directory** - Symlinked to `~/.config/`
+   ```
+   config/nvim/ → ~/.config/nvim/
+   config/alacritty/ → ~/.config/alacritty/
+   ```
 
-- **Leader Key**: Space (` `)
-- **File Explorer**: `<Leader>e` to toggle Neo-tree
-- **Fuzzy Finding**: `<Leader>ff` to find files, `<Leader>fg` to search in files
-- **Git Integration**: `<Leader>g` for git commands and status
-- **LSP Actions**: `<Leader>l` for language server actions
-- **Terminal**: `<Leader>t` for terminal management
+### ⚙️ AstroNvim Configuration
 
-For a complete guide, see `:help astronvim` within Neovim.
+| Component | Location | Description |
+|-----------|----------|-------------|
+| 🏠 Main Config | `config/nvim/init.lua` | Entry point and core settings |
+| 👤 User Settings | `config/nvim/lua/user/` | Personal customizations |
+| 🔌 Plugin Configs | `config/nvim/lua/plugins/` | Plugin configurations and overrides |
+| 📝 Snippets | `config/nvim/snippets/` | Custom code snippets |
 
-## Fonts
+## 🛠️ Tools and Applications
 
-The setup includes automatic installation of multiple programming fonts with ligature support and Nerd Font icons.
+### 🖥️ Terminal & Shell
+| Tool | Purpose | Configuration |
+|------|---------|---------------|
+| 🐚 **Zsh** | Modern shell with powerful features | `zsh/zshrc.symlink` |
+| 🎨 **Oh My Zsh** | Zsh framework with themes and plugins | Auto-installed |
+| 🚀 **Spaceship** | Minimalist, powerful prompt | Custom configuration |
+| 🖼️ **tmux** | Terminal multiplexer | `tmux/tmux.conf.symlink` |
 
-### Included Fonts
+### 📝 Editor & Development
+| Tool | Purpose | Configuration |
+|------|---------|---------------|
+| ⚡ **AstroNvim** | Modern Neovim distribution | `config/nvim/` |
+| 🧠 **LSP** | Language server integration | Built into AstroNvim |
+| 🌳 **Treesitter** | Syntax highlighting | Built into AstroNvim |
+| 🔍 **Telescope** | Fuzzy finder | Built into AstroNvim |
 
-- **JetBrains Mono**: Modern font with excellent ligatures
-- **Fira Code**: Popular programming font with extensive ligature support  
-- **Hasklig**: Fira Code variant optimized for Haskell
-- **Victor Mono**: Cursive italic programming font
-- **Nerd Font Variants**: All fonts include powerline and icon support
+### 🖼️ Terminal Applications
+| Tool | Purpose | Configuration |
+|------|---------|---------------|
+| 🖥️ **Alacritty** | GPU-accelerated terminal | `config/alacritty/` |
+| 🐱 **Kitty** | Feature-rich terminal | `config/kitty/` |
 
-### Installation
+### 🏠 Window Management (Linux)
+| Tool | Purpose | Configuration |
+|------|---------|---------------|
+| 🖼️ **i3** | Tiling window manager | `config/i3/` |
+| 📊 **Polybar** | Status bar | `config/polybar/` |
+| 🚀 **Rofi** | Application launcher | `config/rofi/` |
 
-Fonts are automatically installed during the main installation process:
+### 🛠️ CLI Tools
+| Tool | Purpose | Installation |
+|------|---------|-------------|
+| 🔍 **ripgrep** | Fast text search | Auto-installed |
+| 📁 **fd** | Fast file finder | Auto-installed |
+| 🔍 **fzf** | Fuzzy finder | Auto-installed |
+| 🦇 **bat** | Cat with syntax highlighting | Auto-installed |
+| 🌳 **tree** | Directory tree display | Auto-installed |
+| 📊 **htop** | Process monitor | Auto-installed |
 
-- **macOS**: Fonts install to `~/Library/Fonts`
-- **Linux**: Fonts install to `~/.local/share/fonts` with automatic cache refresh
+### 🎨 Fonts & Theming
+| Font | Features | Use Case |
+|------|----------|----------|
+| ⚡ **JetBrains Mono** | Ligatures, readability | Primary coding font |
+| 🔥 **Fira Code** | Extensive ligatures | Alternative coding font |
+| λ **Hasklig** | Functional programming | Haskell/FP development |
+| ✍️ **Victor Mono** | Cursive italics | Distinctive coding style |
 
-### Terminal Configuration
+## 📖 Usage
 
-For the best experience, configure your terminal to use:
+### 🚀 Getting Started
 
-- **Primary Font**: JetBrains Mono (or your preference)
-- **Non-ASCII Font**: Any Nerd Font variant for icons and powerline
-- **Ligatures**: Enable if supported by your terminal
+After installation, restart your terminal or run:
+```bash
+source ~/.zshrc
+```
 
-### Supported Terminals
+### 🎯 Key Workflows
 
-The font setup works well with:
-- **iTerm2** (macOS) - Full ligature support
-- **Alacritty** - Cross-platform with ligature support
-- **Kitty** - GPU-accelerated with ligature support  
-- **GNOME Terminal** - Good Linux default
-- **Windows Terminal** - Modern Windows terminal
+#### 📝 **AstroNvim Usage**
+```bash
+# Launch Neovim
+nvim
 
-![Font Preview](https://cloud.githubusercontent.com/assets/1243826/23823422/8c35c5fe-0662-11e7-9c1f-6998f101901a.png)
+# Key bindings (Leader key: Space)
+<Leader>e          # Toggle file explorer
+<Leader>ff         # Find files
+<Leader>fg         # Search in files  
+<Leader>gg         # Lazygit
+<Leader>t          # Terminal management
+```
 
-## Tmux Configuration
+<!-- TODO: Add screenshot of AstroNvim key bindings help here -->
 
-Tmux is a terminal multiplexor which lets you create windows and splits in the terminal that you can attach and detach from. I use it to keep multiple projects open in separate windows and to create an IDE-like environment to work in where I can have my code open in vim/neovim and a shell open to run tests/scripts. Tmux is configured in [~/.tmux.conf.local](tmux/tmux.conf.local.symlink). This file defines the key bindings, the colors used, the layout of the tmux bar, and what what will be displayed, including the time and date, open windows, tmux session name, computer name, etc.
+#### 🖼️ **tmux Usage**
+```bash
+# Start new session
+tmux new-session -s project-name
 
-When tmux starts up, [login-shell](bin/login-shell) will be run and if it determines you are running this on macOS, it will call reattach-to-user-namespace, to fix the system clipboard for use inside of tmux.
+# Key bindings (Prefix: Ctrl+a)
+prefix + |         # Split horizontally
+prefix + -         # Split vertically
+prefix + h/j/k/l   # Navigate panes
+prefix + I         # Install plugins
+```
+
+#### 🐚 **Zsh Features**
+```bash
+# Quick navigation
+c <project>        # Jump to code directory
+..                 # Go up one directory
+...                # Go up two directories
+
+# Git aliases
+gst                # git status
+gco                # git checkout
+glog               # git log --oneline --graph
+```
+
+### 🎨 **Customization**
+
+#### ✏️ **Personal Configurations**
+Create a `~/.localrc` file for personal settings:
+```bash
+# API keys, personal aliases, etc.
+export GITHUB_TOKEN="your-token-here"
+alias mycommand="echo 'Hello World'"
+```
+
+#### 🔧 **AstroNvim Customization**
+Edit user configurations:
+```bash
+nvim ~/.config/nvim/lua/user/init.lua
+```
+
+#### 🐚 **Zsh Customization**
+Add custom configurations to `zsh/settings/` directory.
+
+## 🐛 Troubleshooting
+
+### ❗ Common Issues
+
+#### 🔐 **Permission Errors**
+```bash
+# Ensure you have sudo access
+sudo -v
+
+# Fix zsh permissions
+sudo chown -R $(whoami) ~/.oh-my-zsh
+```
+
+#### 🌐 **Network Issues**
+- Ensure internet connectivity for package downloads
+- Check firewall settings if downloads fail
+- Use VPN if behind corporate firewall
+
+#### 🖥️ **Platform Detection Issues**
+```bash
+# Manually check OS detection
+cat /etc/os-release  # Linux
+uname -a            # macOS
+```
+
+#### 🔤 **Font Issues**
+```bash
+# Linux - Refresh font cache
+fc-cache -fv
+
+# Verify fonts are installed
+fc-list | grep -i "jetbrains\|fira\|hasklig"
+```
+
+#### 🐚 **Shell Issues**
+```bash
+# Manually change default shell
+chsh -s $(which zsh)
+
+# Verify zsh installation
+which zsh
+zsh --version
+```
+
+### 🔧 **Manual Recovery**
+
+#### 📂 **Restore Backups**
+```bash
+# Backups are stored in ~/dotfiles-backup
+ls ~/dotfiles-backup
+cp ~/dotfiles-backup/.zshrc ~/.zshrc
+```
+
+#### 🔗 **Fix Symlinks**
+```bash
+# Re-run symlink creation
+cd ~/.dotfiles
+./install/link.sh
+```
+
+#### ⚡ **Reset AstroNvim**
+```bash
+# Remove AstroNvim data and cache
+rm -rf ~/.local/share/nvim
+rm -rf ~/.cache/nvim
+nvim  # Will reinstall plugins
+```
+
+### 🆘 **Getting Help**
+
+1. **Check installation logs** - Look for error messages during installation
+2. **Verify dependencies** - Ensure all required packages are installed
+3. **Test individual components** - Test each tool separately
+4. **Create an issue** - If problems persist, create a GitHub issue with:
+   - Operating system and version
+   - Error messages
+   - Steps to reproduce
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how you can help:
+
+### 🐛 **Bug Reports**
+- Use the issue tracker to report bugs
+- Include system information and error messages
+- Provide steps to reproduce the issue
+
+### ✨ **Feature Requests**
+- Suggest new tools or configurations
+- Explain the use case and benefits
+- Consider cross-platform compatibility
+
+### 🔧 **Pull Requests**
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Make your changes
+4. Test across platforms if possible
+5. Submit a pull request with a clear description
+
+### 📝 **Coding Standards**
+- **Shell scripts**: Follow bash best practices, use `shellcheck`
+- **Configuration files**: Maintain consistent formatting
+- **Documentation**: Update README for new features
+- **Testing**: Test on multiple platforms when possible
+
+### 📁 **Adding New Configurations**
+1. **For new symlinks**: Add `*.symlink` files to appropriate directories
+2. **For XDG configs**: Add to `config/` directory
+3. **For installation**: Add platform-specific install scripts
+4. **For documentation**: Update this README with new tools
+
+## 🙏 **Acknowledgments**
+
+- [AstroNvim](https://github.com/AstroNvim/AstroNvim) - Modern Neovim distribution
+- [Oh My Zsh](https://github.com/robbyrussell/oh-my-zsh) - Zsh framework
+- [gpakosz/.tmux](https://github.com/gpakosz/.tmux) - tmux configuration inspiration
+- [Spaceship Prompt](https://github.com/spaceship-prompt/spaceship-prompt) - Zsh prompt theme
+
+---
+
+<div align="center">
+
+**⭐ If you found this helpful, please consider giving it a star! ⭐**
+
+</div>
