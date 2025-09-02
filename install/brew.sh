@@ -1,113 +1,145 @@
 #!/bin/bash
 
-if test ! $(which brew); then
-    echo -e "\n\n${GREEN}Installing homebrew"
-    echo "==============================${NORMAL}"
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+echo -e "\n\n${GREEN}Installing packages via Homebrew (macOS)${NORMAL}"
+echo "==============================${NORMAL}"
+
+# Function to check if formula is installed
+formula_installed() {
+    brew list "$1" >/dev/null 2>&1
+}
+
+# Install or update Homebrew
+if ! command -v brew >/dev/null 2>&1; then
+    echo -e "\n${GREEN}Installing Homebrew${NORMAL}"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    
+    # Add Homebrew to PATH for Apple Silicon Macs
+    if [[ $(uname -m) == "arm64" ]]; then
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
 else
-    echo -e "\n\n${GREEN}Updating homebrew"
-    echo "==============================${NORMAL}"
+    echo -e "\n${GREEN}Updating Homebrew${NORMAL}"
     brew update
 fi
 
-echo -e "\n\n${GREEN}Tap additional homebrew repositories of formulae"
-echo "==============================${NORMAL}"
-# brew tap phinze/homebrew-cask
+echo -e "\n${GREEN}Installing Homebrew packages${NORMAL}"
 
-echo -e "\n\n${GREEN}Installing homebrew packages"
-echo "==============================${NORMAL}"
-
-formulas=(
-    # flags should pass through the the `brew list check`
-    bash
-    docker-machine-nfs
-    lazydocker
-    # brew-cask
-    unison
-    eugenmayer/dockersync/unox
-    # cli tools
-    the_silver_searcher
-    ack
-    fzf
-    tree
-    # fasd
-    zoxide
-    toilet
-    wget
-    '--HEAD universal-ctags/universal-ctags/universal-ctags'
-    htop
-    brotli
-    python2
-    python3
-    # development server setup
-    nginx
-    mariadb
-    dnsmasq
-    # development tools
+# Essential CLI tools
+essential_formulas=(
     git
-    git-ftp
-    git-flow-avh
-    lazygit
-    hub
-    macvim
-    # 'brew install php71-mcrypt php71-imagick php71-intl php71-redis'
-    reattach-to-user-namespace
-    # tmux # is getting installed through own script
     zsh
-    highlight
-    yarn
-    nvm
-    z
-    markdown
-    diff-so-fancy
-    ccls
-    cmake
-    clang
-    llvm
-    # docker
-    # docker-compose
-    # docker-machine
-    # xhyve
-    # docker-machine-driver-xhyve
-
-    # 'grep --with-default-names'
-    # neovim # is getting installed through own script
-    # node
-    # ripgrep
-    # git-standup
-    # entr
-    # bat
+    tmux
+    neovim
+    curl
+    wget
+    tree
+    htop
+    jq
 )
 
-for formula in "${formulas[@]}"; do
-    if brew list $formula > /dev/null 2>&1; then
-        echo "$formula already installed... skipping."
+echo "Installing essential packages..."
+for formula in "${essential_formulas[@]}"; do
+    if formula_installed "$formula"; then
+        echo "$formula already installed, skipping..."
     else
-        brew install $formula
+        echo "Installing $formula..."
+        brew install "$formula"
     fi
 done
 
-echo -e "\n\n${GREEN}Install Docker"
-echo "==============================${NORMAL}"
-sudo gem install docker-sync
-# brew cask install docker
-open /Applications/Docker.app
+# Development tools
+dev_formulas=(
+    # Search and text processing
+    the_silver_searcher
+    ripgrep
+    ack
+    fzf
+    fd
+    bat
+    
+    # Development tools
+    universal-ctags
+    git-flow-avh
+    lazygit
+    hub
+    diff-so-fancy
+    
+    # Language tools
+    node
+    python3
+    cmake
+    ninja
+    
+    # System tools
+    zoxide
+    highlight
+    markdown
+    
+    # Compression and utilities
+    unzip
+    brotli
+)
 
-echo -e "\n\n${GREEN}Install Fira Code Font"
-echo "==============================${NORMAL}"
-# brew tap caskroom/fonts
-# brew cask install font-fira-code
+echo "Installing development tools..."
+for formula in "${dev_formulas[@]}"; do
+    if formula_installed "$formula"; then
+        echo "$formula already installed, skipping..."
+    else
+        echo "Installing $formula..."
+        brew install "$formula" || echo "Warning: Failed to install $formula"
+    fi
+done
 
-echo -e "\n\n${GREEN}Install JetBrains Mono Font"
-echo "==============================${NORMAL}"
-# brew tap homebrew/cask-fonts
-brew install --cask font-jetbrains-mono
+# Optional tools
+optional_formulas=(
+    yarn
+    nvm
+    lazydocker
+    toilet
+    reattach-to-user-namespace
+)
 
-echo -e "\n\n${GREEN}Install Glances"
-echo "==============================${NORMAL}"
-pip install --upgrade glances
-pip install --upgrade psutil
+echo "Installing optional tools..."
+for formula in "${optional_formulas[@]}"; do
+    if formula_installed "$formula"; then
+        echo "$formula already installed, skipping..."
+    else
+        echo "Installing $formula..."
+        brew install "$formula" || echo "Warning: Failed to install $formula"
+    fi
+done
 
-echo -e "\n\n${GREEN}Running fzf install script"
-echo "==============================${NORMAL}"
-/usr/local/opt/fzf/install --all --no-bash --no-fish
+# Install cask applications
+echo -e "\n${GREEN}Installing GUI applications via Homebrew Cask${NORMAL}"
+
+cask_formulas=(
+    font-jetbrains-mono
+    font-fira-code
+    docker
+)
+
+for cask in "${cask_formulas[@]}"; do
+    if brew list --cask "$cask" >/dev/null 2>&1; then
+        echo "$cask already installed, skipping..."
+    else
+        echo "Installing $cask..."
+        brew install --cask "$cask" || echo "Warning: Failed to install $cask"
+    fi
+done
+
+# Install Python packages
+echo -e "\n${GREEN}Installing Python packages${NORMAL}"
+python3 -m pip install --upgrade pip
+python3 -m pip install --user glances psutil pillow
+
+# Run fzf install script
+echo -e "\n${GREEN}Setting up fzf${NORMAL}"
+if command -v fzf >/dev/null 2>&1; then
+    fzf_install_path=$(brew --prefix)/opt/fzf/install
+    if [ -f "$fzf_install_path" ]; then
+        "$fzf_install_path" --all --no-bash --no-fish
+    fi
+fi
+
+echo -e "\n${GREEN}Homebrew package installation completed!${NORMAL}"
