@@ -66,6 +66,7 @@ dev_packages=(
     nodejs
     npm
     yarn
+    php
     
     # System tools
     xclip
@@ -112,6 +113,7 @@ if command -v yay >/dev/null 2>&1; then
         lazydocker
         visual-studio-code-bin
         google-chrome
+        ttf-monaspace
     )
     
     for package in "${aur_packages[@]}"; do

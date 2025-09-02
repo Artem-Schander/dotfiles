@@ -1,5 +1,7 @@
 #!/bin/bash
 
+QUIET=true source $HOME/.dotfiles/install/recognize-os.sh
+
 echo -e "\n\n${GREEN}Setting up Git"
 echo -e "==============================${NORMAL}"
 
