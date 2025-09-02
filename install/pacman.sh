@@ -66,6 +66,7 @@ dev_packages=(
     nodejs
     npm
     yarn
+    php
     
     # System tools
     xclip

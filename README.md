@@ -225,6 +225,15 @@ The dotfiles use two approaches for configuration management:
 | 🌳 **tree** | Directory tree display | Auto-installed |
 | 📊 **htop** | Process monitor | Auto-installed |
 
+### 💻 Development Tools
+| Tool | Purpose | Installation |
+|------|---------|-------------|
+| 🐘 **PHP** | Server-side scripting language | Auto-installed |
+| 🎼 **Composer** | PHP dependency manager | Auto-installed |
+| 📦 **Node.js** | JavaScript runtime | Auto-installed |
+| 🧶 **npm/yarn** | Node.js package managers | Auto-installed |
+| 🐍 **Python** | Programming language | Auto-installed |
+
 ### 🎨 Fonts & Theming
 | Font | Features | Use Case |
 |------|----------|----------|
