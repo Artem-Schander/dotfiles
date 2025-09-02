@@ -68,6 +68,10 @@ install_font "JetBrainsMono" "https://github.com/ryanoasis/nerd-fonts/releases/l
 echo "Installing additional fonts..."
 install_font "VictorMono" "https://rubjo.github.io/victor-mono/VictorMonoAll.zip"
 
+# Install Monaspace fonts
+echo "Installing Monaspace fonts..."
+install_font "Monaspace" "https://github.com/githubnext/monaspace/releases/latest/download/monaspace-v1.101.zip"
+
 # Platform-specific font handling
 if [ "$OS" == "Darwin" ]; then
     echo "macOS font installation completed"

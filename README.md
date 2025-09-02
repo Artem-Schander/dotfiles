@@ -137,6 +137,7 @@ The installer will automatically:
 - **Fira Code** - Popular programming font with extensive ligature support  
 - **Hasklig** - Fira Code variant optimized for functional languages
 - **Victor Mono** - Cursive italic programming font
+- **Monaspace** - GitHub Next's font family for code (Neon, Argon, Xenon, Radon, Krypton)
 
 ## 🔧 Configuration Details
 
@@ -231,6 +232,7 @@ The dotfiles use two approaches for configuration management:
 | 🔥 **Fira Code** | Extensive ligatures | Alternative coding font |
 | λ **Hasklig** | Functional programming | Haskell/FP development |
 | ✍️ **Victor Mono** | Cursive italics | Distinctive coding style |
+| 🚀 **Monaspace** | GitHub Next font family | Modern coding with texture healing |
 
 ## 📖 Usage
 
@@ -333,7 +335,7 @@ uname -a            # macOS
 fc-cache -fv
 
 # Verify fonts are installed
-fc-list | grep -i "jetbrains\|fira\|hasklig"
+fc-list | grep -i "jetbrains\|fira\|hasklig\|monaspace"
 ```
 
 #### 🐚 **Shell Issues**
