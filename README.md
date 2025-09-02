@@ -7,17 +7,106 @@
 > -- <cite>[nicknisi](https://github.com/nicknisi)</cite>
 
 The original [repo](https://github.com/nicknisi/dotfiles) is really cool and I like most of the config. So I changed just a few things.
-1. I like the [oh-my-zh](https://github.com/robbyrussell/oh-my-zsh), so I go with that.
-2. I changed the Tmux config to an adapted version of [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
-3. I added support for Debian based Linux distros
+
+## Key Changes and Improvements
+
+1. **Multi-Platform Support**: Added comprehensive support for macOS, Ubuntu, and Arch Linux (Manjaro)
+2. **AstroNvim Integration**: Switched from LunarVim to [AstroNvim](https://github.com/AstroNvim/AstroNvim) for a modern Neovim experience
+3. **Oh My Zsh**: Integrated [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) for enhanced shell experience
+4. **Improved Tmux**: Adapted configuration from [gpakosz/.tmux](https://github.com/gpakosz/.tmux)
+5. **Robust Installation**: Added comprehensive error handling and platform detection
+
+## Supported Platforms
+
+- **macOS** (Intel and Apple Silicon)
+- **Ubuntu/Debian** Linux distributions  
+- **Arch Linux/Manjaro**
 
 ## Contents
 
-+ [Initial Setup and Installation](#initial-setup-and-installation)
++ [Quick Installation](#quick-installation)
++ [Features](#features)
++ [AstroNvim Setup](#astronvim-setup)
 + [ZSH Setup](#zsh-setup)
-+ [Vim and Neovim Setup](#vim-and-neovim-setup)
 + [Fonts](#fonts)
-+ [Tmux](#tmux-configuration)
++ [Tmux Configuration](#tmux-configuration)
++ [Detailed Installation Guide](INSTALL.md)
+
+## Quick Installation
+
+```bash
+git clone https://github.com/Artem-Schander/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+./install.sh
+```
+
+The installer will:
+- Automatically detect your operating system
+- Install platform-specific packages and dependencies
+- Set up AstroNvim with proper configuration
+- Configure zsh with Oh My Zsh
+- Install essential development tools and fonts
+- Create necessary symlinks with backup of existing files
+
+## Features
+
+### Intelligent Multi-Platform Installation
+- Automatic OS detection (macOS, Ubuntu, Arch/Manjaro)
+- Platform-specific package managers (Homebrew, APT, Pacman/Yay)
+- Smart dependency resolution and error handling
+- Backup creation for existing configurations
+
+### Modern Development Environment
+- **AstroNvim**: Modern Neovim distribution with LSP, Treesitter, and more
+- **Enhanced Terminal**: tmux with custom configuration and powerline
+- **Shell**: Zsh with Oh My Zsh and useful plugins
+- **Fonts**: Nerd Fonts with ligature support (JetBrains Mono, Fira Code, etc.)
+
+### Development Tools
+- Git with enhanced configuration and flow
+- Node.js with npm/yarn support
+- Python development environment
+- Essential CLI tools (ripgrep, fd, fzf, bat, tree, htop)
+- Docker and containerization tools
+
+## AstroNvim Setup
+
+This dotfiles setup includes [AstroNvim](https://github.com/AstroNvim/AstroNvim), a modern Neovim distribution that provides:
+
+- **LSP Integration**: Built-in Language Server Protocol support
+- **Treesitter**: Advanced syntax highlighting and code analysis  
+- **Plugin Management**: Using Lazy.nvim for fast plugin loading
+- **Modern UI**: Beautiful interface with telescope, which-key, and more
+- **Zero Configuration**: Works out of the box with sensible defaults
+
+### Installation and Usage
+
+AstroNvim is automatically installed and configured when you run the installer. The configuration is symlinked from `config/nvim/` to `~/.config/nvim/`.
+
+To start using AstroNvim:
+
+```bash
+nvim
+```
+
+On first launch, AstroNvim will automatically install all plugins. This may take a few minutes.
+
+### Key Features
+
+- **Smart Autocompletion**: nvim-cmp with multiple sources
+- **File Explorer**: Neo-tree for project navigation
+- **Fuzzy Finding**: Telescope for files, buffers, and more
+- **Git Integration**: Built-in git commands and diff viewing
+- **Terminal Integration**: Toggleable terminal within Neovim
+- **Language Support**: Pre-configured for popular languages
+
+### Customization
+
+AstroNvim configurations can be customized in:
+- `config/nvim/lua/user/` - User-specific configurations
+- `config/nvim/lua/plugins/` - Plugin configurations and overrides
+
+For more information, visit the [AstroNvim documentation](https://github.com/AstroNvim/AstroNvim).
 
 ## Initial Setup and Installation
 
@@ -31,23 +120,43 @@ This will not delete any of these files, and the install scripts will not overwr
 
 ### Installation
 
-If on OSX, you will need to install the XCode CLI tools before continuing. To do so, open a terminal and type
+The installer now supports multiple platforms and will automatically detect your system:
 
 ```bash
-➜ xcode-select --install
+git clone https://github.com/Artem-Schander/dotfiles.git ~/.dotfiles
+cd ~/.dotfiles
+./install.sh
 ```
 
-Then, clone the dotfiles repository to your computer. This can be placed anywhere, and symbolic links will be created to reference it from your home directory.
+The installation process:
 
-```bash
-➜ git clone https://github.com/Artem-Schander/dotfiles.git ~/.dotfiles
-➜ cd ~/.dotfiles
-➜ ./install.sh
-```
+1. **OS Detection**: Automatically identifies macOS, Ubuntu, or Arch Linux
+2. **Package Installation**: Installs platform-specific packages and dependencies
+3. **Submodules**: Initializes any git submodules
+4. **Symlinks**: Creates symbolic links for all configurations
+5. **AstroNvim Setup**: Configures Neovim with AstroNvim
+6. **Shell Setup**: Configures Zsh with Oh My Zsh
+7. **Development Tools**: Installs essential development packages
+8. **Fonts**: Downloads and installs Nerd Fonts
 
-`install.sh` will start by initializing the submodules used by this repository (if any). **Read through this file and comment out anything you don't want installed.** Then, it will install all symbolic links into your home directory. Every file with a `.symlink` extension will be symlinked to the home directory with a `.` in front of it. As an example, `vimrc.symlink` will be symlinked in the home directory as `~/.vimrc`. Then, this script will create a `~/.vim-tmp` directory in your home directory, as this is where vim is configured to place its temporary files. Additionally, all files in the `$DOTFILES/config` directory will be symlinked to the `~/.config/` directory for applications that follow the [XDG base directory specification](http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html), such as neovim.
+### Platform-Specific Notes
 
-Next, the install script will perform a check to see if it is running on an OSX machine. If so, it will install Homebrew if it is not currently installed and will install the homebrew packages listed in [`brew.sh`](install/brew.sh). Then, it will run [`osx.sh`](install/osx.sh) and change some OSX configurations. This file is pretty well documented and so it is advised that you __read through and comment out any changes you do not want__. Next, nginx (installed from Homebrew) will be configured with the provided configuration file. If a `nginx.conf` file already exists in `/usr/local/etc`, a backup will be made at `/usr/local/etc/nginx/nginx.conf.original`.
+#### macOS
+- Installs Xcode Command Line Tools if needed
+- Uses Homebrew for package management
+- Includes Docker Desktop and GUI applications
+
+#### Ubuntu/Debian
+- Updates APT repositories and adds necessary PPAs
+- Installs Docker and development tools
+- Configures Flatpak for additional software
+
+#### Arch Linux/Manjaro  
+- Uses Pacman for system packages
+- Installs Yay for AUR package access
+- Configures system services (Docker, NTP)
+
+For detailed installation information, see [INSTALL.md](INSTALL.md).
 
 ## ZSH Setup
 
@@ -76,36 +185,103 @@ The git info shown on the `PROMPT` displays the current branch name, and whether
 
 ## Vim and Neovim Setup
 
-[Neovim](https://neovim.io/) is a fork and drop-in replacement for vim. in most cases, you would not notice a difference between the two, other than Neovim allows plugins to run asynchronously so that they do not freeze the editor, which is the main reason I have switched over to it. Vim and Neovim both use Vimscript and most plugins will work in both (all of the plugins I use do work in both Vim and Neovim). For this reason, they share the same configuration files in this setup. Neovim uses the [XDG base directory specification](http://standards.freedesktop.org/basedir-spec/basedir-spec-latest.html) which means it won't look for a `.vimrc` in your home directory. Instead, its configuration looks like the following:
+This setup uses [AstroNvim](https://github.com/AstroNvim/AstroNvim), a modern Neovim distribution that provides an IDE-like experience out of the box.
 
-|                         | Vim        | Neovim                    |
-|-------------------------|------------|---------------------------|
-| Main Configuratin File  | `~/.vimrc` | `~/.config/nvim/init.vim` |
-| Configuration directory | `~/.vim`   | `~/.config/nvim`          |
+### Why AstroNvim?
+
+AstroNvim offers several advantages over traditional Vim configurations:
+
+- **Modern Architecture**: Built on Neovim's latest features
+- **LSP Integration**: Language Server Protocol support for intelligent code completion
+- **Treesitter**: Advanced syntax highlighting and code understanding
+- **Plugin Ecosystem**: Curated selection of the best Neovim plugins
+- **Performance**: Optimized for speed with lazy loading
+- **Maintainability**: Regular updates and community support
+
+### Configuration Structure
+
+|                         | Traditional Vim | AstroNvim Setup          |
+|-------------------------|-----------------|--------------------------|
+| Main Configuration      | `~/.vimrc`     | `~/.config/nvim/init.lua`|
+| Configuration Directory | `~/.vim`       | `~/.config/nvim`         |
+| Plugin Manager         | Various        | Lazy.nvim                |
+| Language Support       | Manual         | Built-in LSP             |
 
 ### Installation
 
-Vim is likely already installed on your system. If using a Mac, MacVim will be installed from Homebrew. Neovim will also be installed from Homebrew by default on a Mac. For other systems, you may need to install Neovim manually. See their [web site](https://neovim.io) for more information.
+AstroNvim is automatically installed when you run the main installer. The process:
 
-[`link.sh`](install/link.sh) will symlink the XDG configuration directory into your home directory and will then create symlinks for `.vimrc` and `.vim` over to the Neovim configuration so that Vim and Neovim will both be configured in the same way from the same files. The benefit of this configuration is that you only have to maintain a single vim configuration for both, so that if Neovim (which is still alpha software) has issues, you can very seamlessly transition back to vim with no big impact to your productivity.
+1. Installs Neovim for your platform
+2. Creates symlinks from `config/nvim/` to `~/.config/nvim/`
+3. Installs essential dependencies (ripgrep, fd, tree-sitter)
+4. Backs up any existing Neovim configuration
 
-Inside of [`.zshrc`](zsh/zshrc.symlink), the `EDITOR` shell variable is set to `nvim`, defaulting to Neovim for editor tasks, such as git commit messages. Additionally, I have aliased `vim` to `nvim` in [`aliases.zsh`](zsh/aliases.zsh) You can remove this if you would rather not alias the `vim` command to `nvim`.
+### First Launch
 
-vim and neovim should just work once the correct plugins are installed. To install the plugins, you will need to open Neovim in the following way:
+When you first open Neovim after installation:
 
 ```bash
-➜ nvim +PlugInstall
+nvim
 ```
+
+AstroNvim will automatically:
+- Install all configured plugins
+- Set up Language Server Protocols
+- Download Treesitter parsers
+- Configure all integrations
+
+This initial setup may take a few minutes but only happens once.
+
+### Key Bindings and Features
+
+AstroNvim comes with sensible defaults and many powerful features:
+
+- **Leader Key**: Space (` `)
+- **File Explorer**: `<Leader>e` to toggle Neo-tree
+- **Fuzzy Finding**: `<Leader>ff` to find files, `<Leader>fg` to search in files
+- **Git Integration**: `<Leader>g` for git commands and status
+- **LSP Actions**: `<Leader>l` for language server actions
+- **Terminal**: `<Leader>t` for terminal management
+
+For a complete guide, see `:help astronvim` within Neovim.
 
 ## Fonts
 
-I am currently using [JatBRains Mono](https://www.jetbrains.com/de-de/lp/mono/) as my default font which does not include Powerline support but has pretty nice ligatures (at the time being only supported by iTerm2 nightly build but will be supported from v3.1).
+The setup includes automatic installation of multiple programming fonts with ligature support and Nerd Font icons.
 
-![](https://cloud.githubusercontent.com/assets/1243826/23823422/8c35c5fe-0662-11e7-9c1f-6998f101901a.png)
+### Included Fonts
 
-In addition to this, I do have [nerd-fonts](https://github.com/ryanoasis/nerd-fonts) installed and configured to be used for non-ascii characters. If you would prefer not to do this, then simply remove the `Plug 'ryanoasis/vim-devicons'` plugin from vim/nvim. Then, I configure the fonts in this way in iTerm2:
+- **JetBrains Mono**: Modern font with excellent ligatures
+- **Fira Code**: Popular programming font with extensive ligature support  
+- **Hasklig**: Fira Code variant optimized for Haskell
+- **Victor Mono**: Cursive italic programming font
+- **Nerd Font Variants**: All fonts include powerline and icon support
 
-![](https://cloud.githubusercontent.com/assets/1243826/23823425/a435ba4c-0662-11e7-89e4-9567be59b721.png)
+### Installation
+
+Fonts are automatically installed during the main installation process:
+
+- **macOS**: Fonts install to `~/Library/Fonts`
+- **Linux**: Fonts install to `~/.local/share/fonts` with automatic cache refresh
+
+### Terminal Configuration
+
+For the best experience, configure your terminal to use:
+
+- **Primary Font**: JetBrains Mono (or your preference)
+- **Non-ASCII Font**: Any Nerd Font variant for icons and powerline
+- **Ligatures**: Enable if supported by your terminal
+
+### Supported Terminals
+
+The font setup works well with:
+- **iTerm2** (macOS) - Full ligature support
+- **Alacritty** - Cross-platform with ligature support
+- **Kitty** - GPU-accelerated with ligature support  
+- **GNOME Terminal** - Good Linux default
+- **Windows Terminal** - Modern Windows terminal
+
+![Font Preview](https://cloud.githubusercontent.com/assets/1243826/23823422/8c35c5fe-0662-11e7-9c1f-6998f101901a.png)
 
 ## Tmux Configuration
 
