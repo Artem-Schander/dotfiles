@@ -67,6 +67,7 @@ dev_formulas=(
     sublime-merge
     
     # Language tools
+    php
     node
     python3
     cmake
@@ -115,6 +116,7 @@ done
 echo -e "\n${GREEN}Installing GUI applications via Homebrew Cask${NORMAL}"
 
 cask_formulas=(
+    font-symbols-only-nerd-font
     font-jetbrains-mono
     font-fira-code
     docker
