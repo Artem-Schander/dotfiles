@@ -22,7 +22,7 @@ formulas=(
     bash
     docker-machine-nfs
     lazydocker
-    brew-cask
+    # brew-cask
     unison
     eugenmayer/dockersync/unox
     # cli tools
@@ -90,17 +90,17 @@ done
 echo -e "\n\n${GREEN}Install Docker"
 echo "==============================${NORMAL}"
 sudo gem install docker-sync
-brew cask install docker
+# brew cask install docker
 open /Applications/Docker.app
 
 echo -e "\n\n${GREEN}Install Fira Code Font"
 echo "==============================${NORMAL}"
-brew tap caskroom/fonts
-brew cask install font-fira-code
+# brew tap caskroom/fonts
+# brew cask install font-fira-code
 
 echo -e "\n\n${GREEN}Install JetBrains Mono Font"
 echo "==============================${NORMAL}"
-brew tap homebrew/cask-fonts
+# brew tap homebrew/cask-fonts
 brew install --cask font-jetbrains-mono
 
 echo -e "\n\n${GREEN}Install Glances"
