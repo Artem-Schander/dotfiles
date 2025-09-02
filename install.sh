@@ -32,8 +32,11 @@ source install/git.sh
 echo "Initializing submodule(s)"
 git submodule update --init --recursive
 
+# install oh my zhell
+source install/omz.sh
+
 # create symlinks
-# source install/link.sh
+source install/link.sh
 
 # install neovim
 # source install/nvim.sh
