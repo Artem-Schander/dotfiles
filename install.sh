@@ -6,247 +6,125 @@ export YELLOW="$(tput setaf 3)"
 export CYAN="$(tput setaf 6)"
 export NORMAL="$(tput sgr0)"
 
+# Function to check if command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Function for error handling
+handle_error() {
+    echo -e "\n${RED}Error: $1${NORMAL}"
+    echo "Installation failed. Please check the error above and try again."
+    exit 1
+}
+
+# Function for success messages
+success_message() {
+    echo -e "\n${GREEN}✓ $1${NORMAL}"
+}
+
 echo -e "\n\n${GREEN}Installing dotfiles"
 echo -e "==============================${NORMAL}"
+echo -e "Supporting: macOS, Ubuntu, Arch Linux (Manjaro)"
 
+# Detect OS
 source install/recognize-os.sh
 
-if [ "$OS" == "Darwin" ]; then
-    echo -e "\n\nRunning on OSX"
-
-    source install/brew.sh
-    source install/osx.sh
-elif [ "$OS" == "Ubuntu" ]; then
-    echo -e "\n\nRunning on Linux (Debian)"
-
-    source install/apt.sh
-elif [ "$OS" == "Arch" ]; then
-    echo -e "\n\nRunning on Linux (Manjaro)"
-
-    source install/pacman.sh
+if [ -z "$OS" ]; then
+    handle_error "Unable to detect operating system. Supported: macOS, Ubuntu, Arch Linux"
 fi
 
-# setup git
-source install/git.sh
+echo -e "\n${GREEN}Detected OS: $OS${NORMAL}"
 
-echo "Initializing submodule(s)"
-git submodule update --init --recursive
+# Install platform-specific packages
+if [ "$OS" == "Darwin" ]; then
+    echo -e "\n\nRunning on macOS"
+    source install/brew.sh || handle_error "Homebrew installation failed"
+    source install/osx.sh || handle_error "macOS setup failed"
+elif [ "$OS" == "Ubuntu" ]; then
+    echo -e "\n\nRunning on Linux (Ubuntu)"
+    source install/apt.sh || handle_error "APT package installation failed"
+elif [ "$OS" == "Arch" ]; then
+    echo -e "\n\nRunning on Linux (Arch/Manjaro)"
+    source install/pacman.sh || handle_error "Pacman package installation failed"
+else
+    handle_error "Unsupported operating system: $OS"
+fi
 
-# install oh my zhell
-source install/omz.sh
+success_message "Platform-specific packages installed"
 
-# create symlinks
-source install/link.sh
+# Setup git
+echo -e "\n${GREEN}Setting up git configuration${NORMAL}"
+source install/git.sh || handle_error "Git setup failed"
+success_message "Git configured"
 
-# install neovim
-# source install/nvim.sh
+# Initialize submodules
+echo -e "\n${GREEN}Initializing submodule(s)${NORMAL}"
+git submodule update --init --recursive || handle_error "Failed to initialize submodules"
+success_message "Submodules initialized"
 
-# install tmux
-source install/tmux.sh
+# Install oh-my-zsh
+echo -e "\n${GREEN}Installing Oh My Zsh${NORMAL}"
+source install/omz.sh || handle_error "Oh My Zsh installation failed"
+success_message "Oh My Zsh installed"
 
-# install development stuff
-source install/dev.sh
+# Create symlinks
+echo -e "\n${GREEN}Creating symlinks${NORMAL}"
+source install/link.sh || handle_error "Symlink creation failed"
+success_message "Symlinks created"
 
-# install node version manager
-source install/nvm.sh
+# Install neovim and AstroNvim
+echo -e "\n${GREEN}Installing Neovim and AstroNvim${NORMAL}"
+source install/nvim.sh || handle_error "Neovim installation failed"
+success_message "Neovim and AstroNvim installed"
+
+# Install tmux
+echo -e "\n${GREEN}Installing tmux${NORMAL}"
+source install/tmux.sh || handle_error "Tmux installation failed"
+success_message "Tmux installed"
+
+# Install development tools
+echo -e "\n${GREEN}Installing development tools${NORMAL}"
+source install/dev.sh || handle_error "Development tools installation failed"
+success_message "Development tools installed"
+
+# Install node version manager
+echo -e "\n${GREEN}Installing Node Version Manager${NORMAL}"
+source install/nvm.sh || handle_error "NVM installation failed"
+success_message "Node Version Manager installed"
+
+# Install fonts
+echo -e "\n${GREEN}Installing fonts${NORMAL}"
+source install/fonts.sh || handle_error "Font installation failed"
+success_message "Fonts installed"
+
+# Final setup
+echo -e "\n${GREEN}Performing final setup${NORMAL}"
+
+# Create vim directories
+mkdir -p ~/.vim-tmp
+
+# Check if zsh is installed and set as default shell
+if ! command_exists zsh; then
+    handle_error "zsh not found. Please install zsh and re-run installation"
+elif ! [[ $SHELL =~ .*zsh.* ]]; then
+    echo -e "\n${YELLOW}Configuring zsh as default shell${NORMAL}"
+    chsh -s $(which zsh) || echo -e "${YELLOW}Warning: Could not change default shell to zsh. You may need to do this manually.${NORMAL}"
+fi
+
+echo -e "\n\n${GREEN}================================================================="
+echo -e "✓ Dotfiles installation completed successfully!"
+echo -e "=================================================================${NORMAL}"
+
+echo -e "\n${CYAN}Next steps:${NORMAL}"
+echo -e "  ${GREEN}1.${NORMAL} Restart your terminal or run: ${CYAN}source ~/.zshrc${NORMAL}"
+echo -e "  ${GREEN}2.${NORMAL} Launch neovim: ${CYAN}nvim${NORMAL} (plugins will install automatically)"
+echo -e "  ${GREEN}3.${NORMAL} Launch tmux and install plugins: ${CYAN}tmux${NORMAL} then press ${CYAN}prefix + I${NORMAL}"
+
+echo -e "\n${YELLOW}Remember to install the plugins:${NORMAL}"
+echo -e "  ${GREEN}→ vim:${NORMAL} Launch nvim and plugins will install automatically"
+echo -e "  ${GREEN}→ tmux:${NORMAL} Run ${CYAN}prefix + I${NORMAL} inside a tmux session"
+
+echo -e "\n"
 
 
-
-############################## OLD
-
-# command_exists() {
-#     type "$1" > /dev/null 2>&1
-# }
-# 
-# echo "Recognize OS"
-# if [ -f /etc/os-release ]; then
-#     # freedesktop.org and systemd
-#     . /etc/os-release
-#     OS=$NAME
-#     VER=$VERSION_ID
-# elif type lsb_release >/dev/null 2>&1; then
-#     # linuxbase.org
-#     OS=$(lsb_release -si)
-#     VER=$(lsb_release -sr)
-# elif [ -f /etc/lsb-release ]; then
-#     # For some versions of Debian/Ubuntu without lsb_release command
-#     . /etc/lsb-release
-#     OS=$DISTRIB_ID
-#     VER=$DISTRIB_RELEASE
-# elif [ -f /etc/debian_version ]; then
-#     # Older Debian/Ubuntu/etc.
-#     OS=Debian
-#     VER=$(cat /etc/debian_version)
-# elif [ -f /etc/SuSe-release ]; then
-#     # Older SuSE/etc.
-#     ...
-# elif [ -f /etc/redhat-release ]; then
-#     # Older Red Hat, CentOS, etc.
-#     ...
-# else
-#     # Fall back to uname, e.g. "Linux <version>", also works for BSD, etc.
-#     OS=$(uname -s)
-#     VER=$(uname -r)
-# fi
-# echo $OS
-# 
-# echo "Installing dotfiles"
-# 
-# echo "Initializing submodule(s)"
-# if [ "$OS" == "Ubuntu Linux" ]; then
-#     sudo apt update && apt install -y git
-# fi
-# git submodule update --init --recursive
-# 
-# source install/link.sh
-# 
-# # only perform macOS-specific install
-# if [ "$OS" == "Darwin" ]; then
-#     echo -e "\n\nRunning on OSX"
-# 
-#     source install/git.sh
-# 
-#     source install/brew.sh
-# 
-#     source install/osx.sh
-# 
-#     # create a backup of the original nginx.conf
-#     if [ -f /usr/local/etc/nginx/nginx.conf ]; then
-#         mv /usr/local/etc/nginx/nginx.conf /usr/local/etc/nginx/nginx.conf.original
-#     fi
-# 
-#     ln -s ~/.dotfiles/nginx/nginx.conf /usr/local/etc/nginx/nginx.conf
-# 
-#     # symlink the code.dev from dotfiles
-#     ln -s ~/.dotfiles/nginx/code.dev /usr/local/etc/nginx/sites-enabled/code.dev
-# 
-#     # install neovim
-#     source install/nvim.sh
-# 
-#     # install tmux
-#     source install/tmux.sh
-# 
-#     # install node version manager
-#     source install/nvm.sh
-# 
-# elif [ "$OS" == "Manjaro Linux" ]; then
-#     echo -e "\n\nRunning on Linux (Arch)"
-# 
-#     source install/pacman.sh
-# 
-#     # turn on network time protocol
-#     sudo timedatectl set-ntp true
-# 
-#     source install/git.sh
-# 
-#     if [ -d ~/.tmux/plugins/tpm ]; then
-#         # printf "${YELLOW}You already have Tmux Plugin Manager installed.${NORMAL}\n"
-#         cd ~/.tmux/plugins/tpm
-#         git fetch
-#         git pull
-#         cd -
-#     else
-#         git clone git://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-#     fi
-# 
-#     mkdir -p ~/.local/share/fonts/
-#     cp ~/.dotfiles/resources/fonts/Hasklig/* ~/.local/share/fonts/
-#     cp ~/.dotfiles/resources/fonts/FiraCode/otf/* ~/.local/share/fonts/
-# 
-#     # install fonts
-#     source install/fonts.sh
-# 
-#     # cp ~/.dotfiles/resources/fonts/NerdFonts/FiraCode/OTF/* ~/.local/share/fonts/
-#     # cp ~/.dotfiles/resources/fonts/NerdFonts/Hasklig/* ~/.local/share/fonts/
-# 
-#     # pillow is needed to render images in kitty terminal
-#     sudo pip install -U pillow
-# 
-#     # symlink i3 config file
-#     if [ ! -d ~/.i3 ]; then
-#         mkdir ~/.i3
-#     fi
-#     if [ ! -f ~/.i3/config.bak && -f ~/.i3/config ]; then
-#         mv ~/.i3/config ~/.i3/config.bak
-#         if [ ! -f ~/.i3/config ]; then
-#             ln -s ~/.dotfiles/config/i3/config ~/.i3/config
-#         fi
-#     fi
-# 
-# elif [ "$OS" == "Ubuntu Linux" ]; then
-#     echo -e "\n\nRunning on Linux (Debian)"
-# 
-#     source install/apt.sh
-# 
-#     source install/git.sh
-# 
-#     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-#     ~/.fzf/install
-#     rm -rf ~/.fzf
-# 
-#     cp ~/.dotfiles/resources/fonts/Hasklig/* ~/.local/share/fonts/
-#     cp ~/.dotfiles/resources/fonts/FiraCode/otf/* ~/.local/share/fonts/
-#     cp ~/.dotfiles/resources/fonts/NerdFonts/FiraCode/OTF/* ~/.local/share/fonts/
-#     # cp ~/.dotfiles/resources/fonts/NerdFonts/Hasklig/* ~/.local/share/fonts/
-# 
-#     # make the left alt key behave like the right one
-#     setxkbmap -option lv3:lalt_switch
-# 
-#     # set keyboard delay and repeat rate
-#     gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 30
-#     gsettings set org.gnome.desktop.peripherals.keyboard delay 250
-# 
-#     # install kitty
-#     source install/kitty.sh
-# 
-#     # add pillow to system so the kitty image preview works
-#     pip install pillow
-# 
-#     # install i3-gaps
-#     source install/i3-gaps.sh
-# 
-#     # install polybar
-#     source install/polybar.sh
-# 
-#     # install rofi
-#     source install/rofi.sh
-# 
-#     # install neovim
-#     source install/nvim.sh
-# 
-#     # install tmux
-#     source install/tmux.sh
-# 
-#     # install node version manager
-#     source install/nvm.sh
-# 
-# fi
-# 
-# source install/composer.sh
-# 
-# echo -e "\n\n${GREEN}Creating vim directories."
-# echo "==============================${NORMAL}"
-# mkdir -p ~/.vim-tmp
-# 
-# if ! command_exists zsh; then
-#     echo "zsh not found. Please install and then re-run installation scripts"
-#     exit 1
-# elif ! [[ $SHELL =~ .*zsh.* ]]; then
-#     echo "Configuring zsh as default shell"
-#     chsh -s $(which zsh)
-# fi
-# 
-# source install/omz.sh
-# 
-# echo -e "\n\n${GREEN}Done. Restart your Terminal."
-# echo "==============================${NORMAL}"
-# 
-# # if [ "$(uname)" == "Darwin" ]; then
-# #     toilet -f future -F border ' Remember to install the vim pligins ! ' -t && toilet -f smmono9 '   ~/$ vim +PlugInstall' -t
-# # else
-#     printf "${RED}Remember to install the plugins!${NORMAL}\n"
-#     printf "${GREEN}  --> vim: ${NORMAL} ${CYAN}vim +PlugInstall!${NORMAL}\n"
-#     printf "${GREEN}  --> tmux: ${NORMAL} run ${CYAN}prefix + I${NORMAL} inside a tmux session\n"
-# # fi
-# 
-# echo -e "\n"
