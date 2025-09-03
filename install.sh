@@ -88,6 +88,11 @@ echo -e "\n${GREEN}Installing development tools${NORMAL}"
 source install/dev.sh || handle_error "Development tools installation failed"
 success_message "Development tools installed"
 
+# Install composer
+echo -e "\n${GREEN}Installing Composer${NORMAL}"
+source install/composer.sh || handle_error "Composer installation failed"
+success_message "Composer installed"
+
 # Install node version manager
 echo -e "\n${GREEN}Installing Node Version Manager${NORMAL}"
 source install/nvm.sh || handle_error "NVM installation failed"

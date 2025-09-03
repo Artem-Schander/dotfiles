@@ -8,6 +8,8 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
+QUIET=true source $HOME/.dotfiles/install/recognize-os.sh
+
 # Install neovim based on OS
 if [ "$OS" == "Darwin" ]; then
     if ! command_exists nvim; then

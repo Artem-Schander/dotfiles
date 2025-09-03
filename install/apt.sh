@@ -65,6 +65,11 @@ dev_packages=(
     python3-pip
     nodejs
     npm
+    php
+    php-cli
+    php-mbstring
+    php-curl
+    php-xml
     neovim
     tmux
     zsh
