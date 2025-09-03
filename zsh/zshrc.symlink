@@ -361,6 +361,8 @@ source $ZSH/oh-my-zsh.sh
   PROMPT='${${${$(spaceship_prompt)//\%\%/'$z'}//\%B}//'$z'/%%}'
 }
 
+ulimit -S -n 20480
+
 # allow kitty to be controlled remotely
 export KITTY_LISTEN_ON=unix:/tmp/mykitty
 

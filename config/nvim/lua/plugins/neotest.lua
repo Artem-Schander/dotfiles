@@ -6,6 +6,7 @@ local prefix = "<Leader>T"
 return {
   {
     "nvim-neotest/neotest",
+    version = "v5.9.1",
     lazy = true,
     dependencies = {
       { "nvim-neotest/nvim-nio" },
