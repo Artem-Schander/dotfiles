@@ -15,6 +15,7 @@ return {
   -- == Examples of Adding Plugins ==
 
   "LunarVim/lunar.nvim",
+  "xiyaowong/transparent.nvim",
 
   "andweeb/presence.nvim",
   {

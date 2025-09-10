@@ -31,7 +31,39 @@
 --   end,
 -- })
 
+-- Undo-History Einstellungen
+vim.opt.undofile = true                    -- Persistente Undo-History aktivieren
+vim.opt.undodir = vim.fn.stdpath('data') .. '/undo'  -- Undo-Verzeichnis setzen
+vim.opt.undolevels = 10000                 -- Maximale Anzahl der Undo-Level (Standard: 1000)
+vim.opt.undoreload = 10000                 -- Anzahl der Zeilen, die beim Neuladen gespeichert werden
+
+-- Das Undo-Verzeichnis erstellen, falls es nicht existiert
+local undo_dir = vim.fn.stdpath('data') .. '/undo'
+if vim.fn.isdirectory(undo_dir) == 0 then
+    vim.fn.mkdir(undo_dir, 'p')
+end
+
 vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = "#565f89", nocombine = true })
+
+-- vim.api.nvim_set_hl(0, "CodeCompanionNormal", { bg = "#1e222a" }) -- Use your preferred color
+vim.g.transparent_groups = vim.list_extend(
+    vim.g.transparent_groups or {},
+    {
+        "StatusLine",
+        "StatusLineNC",
+        "WinBar",
+        "WinBarNC",
+        "TabLine",
+        "TabLineFill",
+        "TabLineSel",
+        "FoldColumn",
+        "DiagnosticVirtualTextOk",
+        "DiagnosticVirtualTextHint",
+        "DiagnosticVirtualTextInfo",
+        "DiagnosticVirtualTextWarn",
+        "DiagnosticVirtualTextError",
+    }
+)
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "php",

@@ -189,12 +189,22 @@ return {
         },
         strategies = {
           chat = {
-            adapter = "copilot",
-            model = "claude-sonnet-4-20250514",
+            adapter = {
+              name = "copilot",
+              model = "claude-sonnet-4",
+            },
           },
           inline = {
-            adapter = "copilot",
-            model = "claude-sonnet-4-20250514",
+            adapter = {
+              name = "copilot",
+              model = "claude-sonnet-4",
+            },
+          },
+          cmd = {
+            adapter = {
+              name = "copilot",
+              model = "claude-sonnet-4",
+            },
           },
         },
         display = {
