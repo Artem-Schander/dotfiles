@@ -182,11 +182,11 @@ return {
 
       require("codecompanion").setup {
         opts = { log_level = "DEBUG" },
-        adapters = {
-          copilot = function()
-            return require("codecompanion.adapters").extend("copilot", {})
-          end,
-        },
+        -- adapters = {
+        --   copilot = function()
+        --     return require("codecompanion.adapters").extend("copilot", {})
+        --   end,
+        -- },
         strategies = {
           chat = {
             adapter = {

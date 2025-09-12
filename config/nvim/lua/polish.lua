@@ -43,6 +43,20 @@ if vim.fn.isdirectory(undo_dir) == 0 then
     vim.fn.mkdir(undo_dir, 'p')
 end
 
+vim.api.nvim_create_user_command('UndoStatus', function()
+    local undotree = vim.fn.undotree()
+    print("Undo entries:", undotree.entries and #undotree.entries or 0)
+    print("Current undo number:", undotree.seq_cur or "none")
+    print("Saved undo number:", undotree.seq_last or "none")
+    if undotree.entries then
+        print("First 5 undo entries:")
+        for i = 1, math.min(5, #undotree.entries) do
+            local entry = undotree.entries[i]
+            print(string.format("  %d: seq=%d, time=%s", i, entry.seq, os.date("%H:%M:%S", entry.time)))
+        end
+    end
+end, {})
+
 vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = "#565f89", nocombine = true })
 
 -- vim.api.nvim_set_hl(0, "CodeCompanionNormal", { bg = "#1e222a" }) -- Use your preferred color

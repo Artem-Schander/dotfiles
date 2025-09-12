@@ -22,4 +22,6 @@ return {
   { import = "astrocommunity.colorscheme.github-nvim-theme" },
 
   { import = "astrocommunity.completion.copilot-cmp" },
+  -- { import = "astrocommunity.pack.laravel" },
+  { import = "astrocommunity.pack.vue" },
 }
